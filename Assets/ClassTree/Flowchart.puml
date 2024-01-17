@@ -1,0 +1,20 @@
+@startuml
+
+title ゲームフローチャート
+
+state "Title" as Title
+state "Stage Select" as StageSelect
+state "Soul Enhancement" as SoulEnhance
+state "Soul Selection" as SoulSelect
+state "In-Game" as InGame
+state "Result" as Result
+
+[*] --> Title
+Title --> StageSelect : ステージセレクト
+Title --> SoulEnhance : ソウル強化
+StageSelect --> SoulSelect : ソウル選択
+SoulSelect --> InGame : インゲーム
+InGame --> Result : リザルト
+Result --> Title : タイトルに戻る
+
+@enduml

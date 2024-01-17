@@ -1,0 +1,130 @@
+@startuml
+
+class Player {
+    +run()
+    +jump()
+    +useSkill()
+    +collectItem()
+}
+
+class GameController {
+    +startGame()
+    +endGame()
+}
+
+class StatusManager {
+    +score
+    +health
+    +experience
+    +updateHealth()
+    +updateScore()
+    +updateExperience()
+}
+
+class Obstacle {
+    +type
+    +inflictDamage()
+}
+
+class Environment {
+    +backgroundImage
+    +weather
+}
+
+class UI {
+    +displayScore()
+    +displayMenu()
+    +displayGameOver()
+}
+
+class Skill {
+    +name
+    +effect()
+}
+
+class Stage {
+    +difficulty
+    +obstacles
+    +environment
+}
+
+class SoulCardManager {
+    +addExperienceToCard()
+    +levelUpCard()
+}
+
+class SoulMixManager {
+    +mixSoulCards()
+}
+
+class SoulCard {
+    +name
+    +level
+    +experience
+    +traits[5]
+    +enhance()
+}
+
+class Enemy {
+    +type
+    +inflictDamage()
+}
+
+class Item {
+    +name
+    +effect()
+}
+
+class Coin extends Item {
+}
+
+class Experience extends Item {
+}
+
+class Soul extends Item {
+}
+GameController --> Player : controls
+GameController --> UI : updates
+Player -down-|> Obstacle : avoids and receives damage from
+GameController --> Environment : controls
+Player --> Skill : uses
+GameController --> Stage : manages
+
+
+Player -down-|> Enemy : encounters and receives damage from
+Player --> Item : collects
+Player --> StatusManager : reports to
+StatusManager --> UI : updates
+
+
+SoulCardManager --> SoulCard : manages
+SoulMixManager --> SoulCard : creates and resets
+
+@enduml
+
+
+
+
+
+/*
+
+Player（プレイヤー）: プレイヤーの動作（走る、ジャンプするなど）を管理。
+また、ダメージを受ける機能（receiveDamage()）も持っています。
+GameController（ゲームコントローラー）: ゲームの開始、終了、スコア管理などを行います。
+Obstacle（障害物）: プレイヤーが避けるべき障害物。プレイヤーにダメージを与える能力（inflictDamage()）を持ちます。
+
+Environment（環境）: ゲームの背景や天候などの環境を管理。
+StatusManager（ステータス管理）: プレイヤーのステータス（スコア、HP、経験値、レベル）やSoulカードの(経験値、レベル)を管理。
+
+
+UI（ユーザーインターフェイス）: スコア表示、メニュー画面、ゲームオーバー画面などを管理。
+Skill（スキル）: プレイヤーが使用できる特別な能力や効果を持つ。
+Stage（ステージ）: ゲームの各レベルやステージを表し、難易度や特定の障害物、環境設定を含みます。
+SoulCard（ソウルカード）: プレイヤーが収集し、強化できるカード。特定の能力やボーナスを提供します。
+Enemy（敵）: プレイヤーが遭遇する敵。タイプに応じて異なる行動をし、ダメージを与える能力（inflictDamage()）を持ちます。
+
+Item - すべての収集可能アイテムの基底クラス。共通の特性やメソッドを持つ。
+Coin - ゲーム内通貨。プレイヤーが収集でき、ゲーム内で様々なアップグレードやアイテムを購入するのに使用される。
+Experience - 経験値。プレイヤーがレベルアップするために必要。
+Soul - 特別な能力やボーナスを提供するアイテム。プレイヤーがゲーム内で収集し使用する。
+*/
