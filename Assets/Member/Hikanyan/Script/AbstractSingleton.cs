@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 namespace SoulRun.Core
 {
     /// <summary>
@@ -16,11 +16,14 @@ namespace SoulRun.Core
             {
                 if (_instance == null)
                 {
+                    _instance = FindObjectOfType<T>();
                     if (_instance == null)
                     {
-                        Debug.LogError("Instance of " + typeof(T).ToString() + " is not set. Make sure it's attached to a GameObject and initialized.");
+                        GameObject singletonObject = new GameObject();
+                        _instance = singletonObject.AddComponent<T>();
+                        singletonObject.name = typeof(T).ToString();
+                        DontDestroyOnLoad(singletonObject);
                     }
-                    return _instance;
                 }
                 return _instance;
             }
@@ -31,17 +34,14 @@ namespace SoulRun.Core
             if (_instance == null)
             {
                 _instance = this as T;
-                GameObject singletonObject = gameObject;
-                singletonObject.name = typeof(T).ToString() + " (Singleton)";
-                DontDestroyOnLoad(singletonObject);
+                DontDestroyOnLoad(gameObject);
             }
-            else if (_instance != this)
+            else
             {
                 Destroy(gameObject);
             }
             OnAwake();
         }
-
         /// <summary>
         /// 継承先でAwakeが必要な場合
         /// </summary>
