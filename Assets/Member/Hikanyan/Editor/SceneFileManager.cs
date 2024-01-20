@@ -94,7 +94,7 @@ public class SceneFileManager : EditorWindow
         foreach (var sceneFile in sceneFiles)
         {
             string sceneName = Path.GetFileNameWithoutExtension(sceneFile);
-            ProjectFileStructureGenerator.CreateSceneFolders(sceneName);
+            ProjectFileStructureGenerator.CreateSceneFolders(generatedFolderPath, sceneName);
         }
     }
 
