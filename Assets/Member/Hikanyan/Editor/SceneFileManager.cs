@@ -42,8 +42,8 @@ public class SceneFileManager : EditorWindow
             string path = AssetDatabase.GUIDToAssetPath(guid);
             if (!path.EndsWith("/Basic.unity") && !path.EndsWith("/Standard.unity"))
             {
-                string name = Path.GetFileNameWithoutExtension(path);
-                sceneInfos.Add(new SceneInfo(path, name));
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+                sceneInfos.Add(new SceneInfo(path, fileNameWithoutExtension));
             }
         }
     }
@@ -58,15 +58,13 @@ public class SceneFileManager : EditorWindow
             GUILayout.BeginHorizontal();
             sceneInfo.GenerateFolder = EditorGUILayout.Toggle(sceneInfo.GenerateFolder, GUILayout.Width(20));
 
-            GUI.SetNextControlName(sceneInfo.Path);
+            EditorGUI.BeginChangeCheck(); // テキストフィールドの変更をチェック開始
             string newName = EditorGUILayout.TextField(sceneInfo.Name, GUILayout.Width(200));
+            bool nameChanged = EditorGUI.EndChangeCheck(); // テキストフィールドの変更をチェック終了
 
-            if (newName != sceneInfo.Name)
+            if (nameChanged)
             {
-                if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return)
-                {
-                    RenameScene(sceneInfo, newName);
-                }
+                RenameScene(sceneInfo, newName);
             }
 
             if (GUILayout.Button("Open"))
