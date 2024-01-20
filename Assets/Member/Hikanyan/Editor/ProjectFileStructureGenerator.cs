@@ -21,7 +21,9 @@ public class ProjectFileStructureGenerator
             $"Assets/{filePath}/GameData/Prefabs/UI/{sceneName}",
             $"Assets/{filePath}/GameData/ScriptableObjects/{sceneName}",
             $"Assets/{filePath}/Program/Scripts/{sceneName}",
-            $"Assets/{filePath}/Program/Shaders/{sceneName}"
+            $"Assets/{filePath}/Program/Shaders/{sceneName}",
+            $"Assets/{filePath}/Scenes/DebugScene/{sceneName}",
+            $"Assets/{filePath}/Scenes/MainScene/{sceneName}"
         };
 
         foreach (var path in folderPaths)

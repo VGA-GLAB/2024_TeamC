@@ -11,9 +11,7 @@ public class SceneFileManager : EditorWindow
 
     private string newSceneName = "New Scene";
     private string controlScenePath = "Assets/Scenes/";
-    private string generatedFolderPath = "Assets/Project";
     private string generatedFolderName = "Project";
-    private string lastGeneratedFolderName = "Project";
 
     [MenuItem("HikanyanTools/Scene File Manager")]
     public static void ShowWindow()
@@ -74,15 +72,6 @@ public class SceneFileManager : EditorWindow
         GUILayout.Label("Generate Project File Structure", EditorStyles.boldLabel);
         generatedFolderName = EditorGUILayout.TextField("Folder Name", generatedFolderName);
 
-        // Check for changes in the generatedFolderName
-        if (generatedFolderName != lastGeneratedFolderName)
-        {
-            generatedFolderPath = $"Assets/{generatedFolderName}";
-            lastGeneratedFolderName = generatedFolderName;
-        }
-
-        EditorGUILayout.LabelField("Folder Path", generatedFolderPath);
-
         if (GUILayout.Button("Generate Structure"))
         {
             GenerateProjectFileStructure();
@@ -94,7 +83,7 @@ public class SceneFileManager : EditorWindow
         foreach (var sceneFile in sceneFiles)
         {
             string sceneName = Path.GetFileNameWithoutExtension(sceneFile);
-            ProjectFileStructureGenerator.CreateSceneFolders(generatedFolderPath, sceneName);
+            ProjectFileStructureGenerator.CreateSceneFolders(generatedFolderName, sceneName);
         }
     }
 
@@ -109,7 +98,7 @@ public class SceneFileManager : EditorWindow
         }
         else
         {
-            Debug.LogError("Scene already exists: " + scenePath);
+            Debug.LogError($"Scene already exists: {scenePath}");
         }
     }
 }
