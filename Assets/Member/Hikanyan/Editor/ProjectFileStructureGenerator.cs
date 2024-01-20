@@ -2,27 +2,10 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-[InitializeOnLoad]
 public class ProjectFileStructureGenerator
 {
-    static ProjectFileStructureGenerator()
-    {
-        EditorApplication.hierarchyChanged += CheckAndCreateSceneFolders;
-    }
-
-    private static void CheckAndCreateSceneFolders()
-    {
-        foreach (var scene in EditorBuildSettings.scenes)
-        {
-            if (scene.enabled)
-            {
-                string sceneName = Path.GetFileNameWithoutExtension(scene.path);
-                CreateSceneFolders(sceneName);
-            }
-        }
-    }
-
-    private static void CreateSceneFolders(string sceneName)
+    // このメソッドは外部から呼び出すことができます
+    public static void CreateSceneFolders(string sceneName)
     {
         string[] folderPaths = new string[]
         {
