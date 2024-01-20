@@ -20,10 +20,19 @@ public class ProjectFileStructureGenerator
             $"Assets/{filePath}/GameData/Prefabs/Systems/{sceneName}",
             $"Assets/{filePath}/GameData/Prefabs/UI/{sceneName}",
             $"Assets/{filePath}/GameData/ScriptableObjects/{sceneName}",
-            $"Assets/{filePath}/Program/Scripts/{sceneName}",
+            $"Assets/{filePath}/Program/Scripts/Common/Core",
+            $"Assets/{filePath}/Program/Scripts/Common/Interface",
+            $"Assets/{filePath}/Program/Scripts/Common/UI",
+            $"Assets/{filePath}/Program/Scripts/{sceneName}/Core",
+            $"Assets/{filePath}/Program/Scripts/{sceneName}/Interface",
+            $"Assets/{filePath}/Program/Scripts/{sceneName}/UI",
             $"Assets/{filePath}/Program/Shaders/{sceneName}",
             $"Assets/{filePath}/Scenes/DebugScene/{sceneName}",
-            $"Assets/{filePath}/Scenes/MainScene/{sceneName}"
+            $"Assets/{filePath}/Scenes/MainScene/{sceneName}",
+            $"Assets/AssetStoreTools",
+            $"Assets/Editor",
+            $"Assets/Resources",
+            $"Assets/StreamingAssets",
         };
 
         foreach (var path in folderPaths)
