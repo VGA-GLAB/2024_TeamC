@@ -6,8 +6,22 @@ using UnityEditor.SceneManagement;
 
 public class SceneFileManager : EditorWindow
 {
+    private class SceneInfo
+    {
+        public string Path;
+        public string Name;
+        public bool GenerateFolder;
+
+        public SceneInfo(string path, string name)
+        {
+            Path = path;
+            Name = name;
+            GenerateFolder = true;
+        }
+    }
+
     private Vector2 scrollPosition;
-    private List<string> sceneFiles;
+    private List<SceneInfo> sceneInfos;
 
     private string newSceneName = "New Scene";
     private string controlScenePath = "Assets/Scenes/";
@@ -21,14 +35,15 @@ public class SceneFileManager : EditorWindow
 
     void OnEnable()
     {
-        sceneFiles = new List<string>();
+        sceneInfos = new List<SceneInfo>();
         var guids = AssetDatabase.FindAssets("t:Scene");
         foreach (var guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
             if (!path.EndsWith("/Basic.unity") && !path.EndsWith("/Standard.unity"))
             {
-                sceneFiles.Add(path);
+                string name = Path.GetFileNameWithoutExtension(path);
+                sceneInfos.Add(new SceneInfo(path, name));
             }
         }
     }
@@ -38,19 +53,30 @@ public class SceneFileManager : EditorWindow
         GUILayout.Label("Scene Files", EditorStyles.boldLabel);
         scrollPosition = GUILayout.BeginScrollView(scrollPosition);
 
-        foreach (string sceneFile in sceneFiles)
+        foreach (var sceneInfo in sceneInfos)
         {
             GUILayout.BeginHorizontal();
-            GUILayout.Label(Path.GetFileName(sceneFile), GUILayout.Width(200));
+            sceneInfo.GenerateFolder = EditorGUILayout.Toggle(sceneInfo.GenerateFolder, GUILayout.Width(20));
+
+            GUI.SetNextControlName(sceneInfo.Path);
+            string newName = EditorGUILayout.TextField(sceneInfo.Name, GUILayout.Width(200));
+
+            if (newName != sceneInfo.Name)
+            {
+                if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return)
+                {
+                    RenameScene(sceneInfo, newName);
+                }
+            }
 
             if (GUILayout.Button("Open"))
             {
-                EditorSceneManager.OpenScene(sceneFile);
+                EditorSceneManager.OpenScene(sceneInfo.Path);
             }
 
             if (GUILayout.Button("Select"))
             {
-                Selection.activeObject = AssetDatabase.LoadAssetAtPath<Object>(sceneFile);
+                Selection.activeObject = AssetDatabase.LoadAssetAtPath<Object>(sceneInfo.Path);
             }
 
             GUILayout.EndHorizontal();
@@ -80,10 +106,12 @@ public class SceneFileManager : EditorWindow
 
     private void GenerateProjectFileStructure()
     {
-        foreach (var sceneFile in sceneFiles)
+        foreach (var sceneInfo in sceneInfos)
         {
-            string sceneName = Path.GetFileNameWithoutExtension(sceneFile);
-            ProjectFileStructureGenerator.CreateSceneFolders(generatedFolderName, sceneName);
+            if (sceneInfo.GenerateFolder)
+            {
+                ProjectFileStructureGenerator.CreateSceneFolders(generatedFolderName, sceneInfo.Name);
+            }
         }
     }
 
@@ -99,6 +127,37 @@ public class SceneFileManager : EditorWindow
         else
         {
             Debug.LogError($"Scene already exists: {scenePath}");
+        }
+    }
+
+    private void RenameScene(SceneInfo sceneInfo, string newName)
+    {
+        if (string.IsNullOrEmpty(newName))
+        {
+            Debug.LogError("Error: The new scene name cannot be empty.");
+            return;
+        }
+
+        string newScenePath = Path.Combine(Path.GetDirectoryName(sceneInfo.Path), newName + ".unity");
+
+        if (File.Exists(newScenePath))
+        {
+            Debug.LogError($"Error: A scene with the name '{newName}' already exists.");
+            return;
+        }
+
+        string error = AssetDatabase.RenameAsset(sceneInfo.Path, newName);
+        if (string.IsNullOrEmpty(error))
+        {
+            sceneInfo.Name = newName;
+            sceneInfo.Path = newScenePath;
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            Debug.Log($"Scene renamed to: {newScenePath}");
+        }
+        else
+        {
+            Debug.LogError($"Error: Failed to rename the scene '{sceneInfo.Name}' to '{newName}'. Error: {error}");
         }
     }
 }
