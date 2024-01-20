@@ -1,10 +1,10 @@
 # VS-DM-RunGame  
 # 概要  
-Steamでリリース予定のゲームのリポジトリです。 
+Steamでリリース予定のゲームのリポジトリです。   
 制作まとめページ:https://www.notion.so/DM_VS_Run-5076dc46997c490997dca7574aba72cd  
 シーン遷移図:https://drive.google.com/file/d/1370xhMTO-ZA736jT99h-NXHVCMqDi4J6/view?usp=sharing  
 # 命名規則
-# パスカルケース　HogeHoge
+### パスカルケース　HogeHoge
 
 - クラス
 - プロパティ
@@ -47,7 +47,7 @@ namespace Hoge
 }
 ```
 
-# アンダースコア＋キャメルケース　_hogeHoge
+### アンダースコア＋キャメルケース　_hogeHoge
 
 - privateなメンバ変数
 - SerializeField
@@ -64,7 +64,7 @@ namespace Hoge
 }
 ```
 
-# キャメルケース　hoge
+### キャメルケース　hoge
 
 - ローカル変数
 
@@ -83,13 +83,13 @@ namespace Hoge
 }
 ```
 
-# コメント
+### コメント
 
 クラス、メソッドには必須
 
 変数は変数名で分からないものは書く。
 
-# 名前空間
+### 名前空間
 
 スクリプトを入れるファイルに準拠する
 
