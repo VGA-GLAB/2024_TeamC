@@ -6,13 +6,14 @@ using UnityEditor.SceneManagement;
 
 public class SceneFileManager : EditorWindow
 {
-    private Vector2 scrollPosition; // スクロール位置
-    private List<string> sceneFiles; // シーンファイルのリスト
+    private Vector2 scrollPosition;
+    private List<string> sceneFiles;
 
-    private string newSceneName = "New Scene"; // 新しく作成するシーンの名前
-    private string controlScenePath = "Assets/Scenes/"; // 新しく作成するシーンのパス
-    private string generatedFolderPath = "Assets/Project"; // 生成、管理するファイルのパス
-    private string generatedFolderName = "Project"; // 生成、管理するファイルの名前
+    private string newSceneName = "New Scene";
+    private string controlScenePath = "Assets/Scenes/";
+    private string generatedFolderPath = "Assets/Project";
+    private string generatedFolderName = "Project";
+    private string lastGeneratedFolderName = "Project";
 
     [MenuItem("HikanyanTools/Scene File Manager")]
     public static void ShowWindow()
@@ -71,8 +72,16 @@ public class SceneFileManager : EditorWindow
 
         GUILayout.Space(10);
         GUILayout.Label("Generate Project File Structure", EditorStyles.boldLabel);
-        generatedFolderPath = EditorGUILayout.TextField("Folder Path", generatedFolderPath);
         generatedFolderName = EditorGUILayout.TextField("Folder Name", generatedFolderName);
+
+        // Check for changes in the generatedFolderName
+        if (generatedFolderName != lastGeneratedFolderName)
+        {
+            generatedFolderPath = $"Assets/{generatedFolderName}";
+            lastGeneratedFolderName = generatedFolderName;
+        }
+
+        EditorGUILayout.LabelField("Folder Path", generatedFolderPath);
 
         if (GUILayout.Button("Generate Structure"))
         {
@@ -82,8 +91,11 @@ public class SceneFileManager : EditorWindow
 
     private void GenerateProjectFileStructure()
     {
-        string fullPath = Path.Combine(generatedFolderPath, generatedFolderName);
-        ProjectFileStructureGenerator.CreateSceneFolders(fullPath);
+        foreach (var sceneFile in sceneFiles)
+        {
+            string sceneName = Path.GetFileNameWithoutExtension(sceneFile);
+            ProjectFileStructureGenerator.CreateSceneFolders(sceneName);
+        }
     }
 
     private void CreateNewScene()
