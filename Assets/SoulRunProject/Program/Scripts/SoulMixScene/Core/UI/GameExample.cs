@@ -2,7 +2,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace SoulRun.InGame
+namespace SoulRunProject.SoulMixScene
 {
     // ゲーム内でUIManagerを使用するサンプル
     public class GameExample : MonoBehaviour

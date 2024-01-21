@@ -1,5 +1,5 @@
 ﻿using UniRx;
-namespace SoulRun.InGame
+namespace SoulRunProject.SoulMixScene
 {
     public interface IUserInterfaceSetActive
     {

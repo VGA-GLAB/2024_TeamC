@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace SoulRun.InGame
+namespace SoulRunProject.SoulMixScene
 {
     public class CirclePlacementTool : EditorWindow
     {

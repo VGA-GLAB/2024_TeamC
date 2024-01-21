@@ -5,7 +5,7 @@ using SoulRun.InGame;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace SoulRun.InGame
+namespace SoulRunProject.SoulMixScene
 {
     /// <summary> ボタンの表示状態を管理するボタンクラス Presenter</summary>
     [RequireComponent(typeof(InputUIButton))]

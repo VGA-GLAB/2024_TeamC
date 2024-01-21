@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
-using SoulRun.Core;
+
+using SoulRun.InGame;
+using SoulRunProject.Common;
 using UniRx;
 using UnityEngine;
 
-namespace SoulRun.InGame
+namespace SoulRunProject.SoulMixScene
 {
     public class UIManager : AbstractSingleton<UIManager>
     {
@@ -43,7 +45,7 @@ namespace SoulRun.InGame
         }
         
         // ソウルの情報を表示するためのメソッド
-        public void UpdateSoulDisplay(Soul soul)
+        public void UpdateSoulDisplay(SoulCard soulCard)
         {
             //TODO: ここでSoulMixPanelを取得して、そこにソウルの情報を表示する
             //soulMixPanel.DisplayNewSoulInfo(soul);

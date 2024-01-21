@@ -5,7 +5,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SoulRun.InGame
+namespace SoulRunProject.SoulMixScene
 {
     public class SoulView : MonoBehaviour
     {

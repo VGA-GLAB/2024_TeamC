@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CriWare;
+using SoulRunProject.Common;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -86,7 +87,7 @@ namespace SoulRun.Core
         protected override void OnAwake()
         {
             // acf設定
-            string path = Common.streamingAssetsPath + $"/{streamingAssetsPathAcf}.acf";
+            string path = CriWare.Common.streamingAssetsPath + $"/{streamingAssetsPathAcf}.acf";
             CriAtomEx.RegisterAcf(null, path);
             // CriAtom作成
             new GameObject().AddComponent<CriAtom>();
