@@ -1,4 +1,4 @@
-﻿namespace SoulRun.InGame.SoulRunProject.Program.Scripts.SoulMixScene.Interface
+﻿namespace SoulRunProject.SoulMixScene
 {
     /// <summary> Traitを実行するためのインターフェース </summary>
     public interface ITraitInterface

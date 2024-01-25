@@ -8,7 +8,7 @@ namespace SoulRunProject.Editor
 {
     public class SceneFileManager : EditorWindow
     {
-        //
+        /// <summary> シーンファイルの情報を保持するクラス </summary>
         private class SceneInfo
         {
             public string Path;
@@ -21,28 +21,58 @@ namespace SoulRunProject.Editor
                 Name = name;
                 GenerateFolder = true;
             }
+
+            /// <summary> シーン名を変更します。 </summary>
+            public void Rename(string newName)
+            {
+                if (string.IsNullOrEmpty(newName))
+                {
+                    Debug.LogError("Error: The new scene name cannot be empty.");
+                    return;
+                }
+
+                string newScenePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Path), newName + ".unity");
+
+                if (File.Exists(newScenePath))
+                {
+                    Debug.LogError($"Error: A scene with the name '{newName}' already exists.");
+                    return;
+                }
+
+                string error = AssetDatabase.RenameAsset(Path, newName);
+                if (string.IsNullOrEmpty(error))
+                {
+                    Name = newName;
+                    Path = newScenePath;
+                    AssetDatabase.SaveAssets();
+                    AssetDatabase.Refresh();
+                    Debug.Log($"Scene renamed to: {newScenePath}");
+                }
+                else
+                {
+                    Debug.LogError($"Error: Failed to rename the scene '{Name}' to '{newName}'. Error: {error}");
+                }
+            }
         }
 
-        private Vector2 scrollPosition;
-        private List<SceneInfo> sceneInfos;
+        private Vector2 _scrollPosition;
+        private List<SceneInfo> _sceneInfos;
 
         private string _newSceneName = "New Scene";
         private string _controlScenePath = "Assets/Scenes/";
         private string _generatedFolderName = "Project";
 
-        private string _forcasname = "";
-        string _lastName = "";
-        private bool _isNameChanged = false;
-
+        /// <summary> ウィンドウを開きます。 </summary>
         [MenuItem("HikanyanTools/Scene File Manager")]
         public static void ShowWindow()
         {
             GetWindow<SceneFileManager>("Scene File Manager");
         }
 
+        /// <summary> ウィンドウが開かれたときに呼び出されます。 </summary>
         void OnEnable()
         {
-            sceneInfos = new List<SceneInfo>();
+            _sceneInfos = new List<SceneInfo>();
             var guids = AssetDatabase.FindAssets("t:Scene");
             foreach (var guid in guids)
             {
@@ -50,72 +80,88 @@ namespace SoulRunProject.Editor
                 if (!path.EndsWith("/Basic.unity") && !path.EndsWith("/Standard.unity"))
                 {
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
-                    sceneInfos.Add(new SceneInfo(path, fileNameWithoutExtension));
+                    _sceneInfos.Add(new SceneInfo(path, fileNameWithoutExtension));
                 }
             }
         }
 
+        /// <summary> ウィンドウのGUIを描画します。 </summary>
         void OnGUI()
         {
+            DrawSceneFilesSection();
+            DrawCreateNewSceneSection();
+            DrawGenerateProjectFileStructureSection();
+        }
+
+
+        /// <summary> シーンファイルの情報を描画します。 </summary>
+        private void DrawSceneFilesSection()
+        {
             GUILayout.Label("Scene Files", EditorStyles.boldLabel);
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+            _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
 
-            foreach (var sceneInfo in sceneInfos)
+            foreach (var sceneInfo in _sceneInfos)
             {
-                GUILayout.BeginHorizontal();
-                sceneInfo.GenerateFolder = EditorGUILayout.Toggle(sceneInfo.GenerateFolder, GUILayout.Width(20));
-
-                EditorGUI.BeginChangeCheck(); // テキストフィールドの変更をチェック開始
-                GUI.SetNextControlName(sceneInfo.Name);
-
-                string newName = EditorGUILayout.TextField(sceneInfo.Name, GUILayout.Width(200));
-                if (!_isNameChanged)
-                {
-                    if (newName == _lastName)
-                    {
-                        _lastName = newName;
-                        _isNameChanged = true;
-                    }
-
-                    Debug.Log(_lastName);
-                }
-
-                bool nameChanged = EditorGUI.EndChangeCheck(); // テキストフィールドの変更をチェック終了
-                // エンターキー入力判定
-                if (_forcasname != GUI.GetNameOfFocusedControl())
-                {
-                    Debug.Log("変わった");
-                    RenameScene(sceneInfo, newName);
-
-                    _isNameChanged = false;
-                }
-
-                if (GUILayout.Button("Open"))
-                {
-                    EditorSceneManager.OpenScene(sceneInfo.Path);
-                }
-
-                if (GUILayout.Button("Select"))
-                {
-                    Selection.activeObject = AssetDatabase.LoadAssetAtPath<Object>(sceneInfo.Path);
-                }
-
-                GUILayout.EndHorizontal();
+                DrawSceneInfoRow(sceneInfo);
             }
 
-
             GUILayout.EndScrollView();
+        }
 
+        /// <summary> シーンファイルの情報を描画します。 </summary>
+        private void DrawSceneInfoRow(SceneInfo sceneInfo)
+        {
+            GUILayout.BeginHorizontal();
+            sceneInfo.GenerateFolder = EditorGUILayout.Toggle(sceneInfo.GenerateFolder, GUILayout.Width(20));
+
+            // シーン名を編集するテキストフィールド
+            GUI.SetNextControlName(sceneInfo.Path);
+            string newName = EditorGUILayout.TextField(sceneInfo.Name, GUILayout.Width(200));
+
+            // Enterキーが押されたらシーン名を更新
+            if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return)
+            {
+                if (GUI.GetNameOfFocusedControl() == sceneInfo.Path)
+                {
+                    sceneInfo.Rename(newName);
+                    GUI.FocusControl(null); // フォーカスをクリア
+                }
+            }
+
+            // シーンを開くボタン
+            if (GUILayout.Button("Open"))
+            {
+                EditorSceneManager.OpenScene(sceneInfo.Path);
+            }
+
+            // シーンを選択するボタン
+            if (GUILayout.Button("Select"))
+            {
+                Selection.activeObject = AssetDatabase.LoadAssetAtPath<Object>(sceneInfo.Path);
+            }
+
+            GUILayout.EndHorizontal();
+        }
+
+
+        /// <summary> 新しいシーンを作成するセクションを描画します。 </summary>
+        private void DrawCreateNewSceneSection()
+        {
             GUILayout.Space(10);
             GUILayout.Label("Create New Scene", EditorStyles.boldLabel);
             _newSceneName = EditorGUILayout.TextField("Scene Name", _newSceneName);
             _controlScenePath = EditorGUILayout.TextField("Scene Path", _controlScenePath);
-            Debug.Log(GUI.GetNameOfFocusedControl());
+
+            // ボタンが押されたら新しいシーンを作成
             if (GUILayout.Button("Create New Scene"))
             {
                 CreateNewScene();
             }
+        }
 
+        /// <summary> プロジェクトのファイル構造を生成するセクションを描画します。 </summary>
+        private void DrawGenerateProjectFileStructureSection()
+        {
             GUILayout.Space(10);
             GUILayout.Label("Generate Project File Structure", EditorStyles.boldLabel);
             _generatedFolderName = EditorGUILayout.TextField("Folder Name", _generatedFolderName);
@@ -124,13 +170,13 @@ namespace SoulRunProject.Editor
             {
                 GenerateProjectFileStructure();
             }
-
-            _forcasname = GUI.GetNameOfFocusedControl();
         }
 
+
+        /// <summary> プロジェクトのファイル構造を生成します。 </summary>
         private void GenerateProjectFileStructure()
         {
-            foreach (var sceneInfo in sceneInfos)
+            foreach (var sceneInfo in _sceneInfos)
             {
                 if (sceneInfo.GenerateFolder)
                 {
@@ -139,6 +185,7 @@ namespace SoulRunProject.Editor
             }
         }
 
+        /// <summary> 新しいシーンを作成します。 </summary>
         private void CreateNewScene()
         {
             string scenePath = Path.Combine(_controlScenePath, _newSceneName + ".unity");
@@ -151,37 +198,6 @@ namespace SoulRunProject.Editor
             else
             {
                 Debug.LogError($"Scene already exists: {scenePath}");
-            }
-        }
-
-        private void RenameScene(SceneInfo sceneInfo, string newName)
-        {
-            if (string.IsNullOrEmpty(newName))
-            {
-                Debug.LogError("Error: The new scene name cannot be empty.");
-                return;
-            }
-
-            string newScenePath = Path.Combine(Path.GetDirectoryName(sceneInfo.Path), newName + ".unity");
-
-            if (File.Exists(newScenePath))
-            {
-                Debug.LogError($"Error: A scene with the name '{newName}' already exists.");
-                return;
-            }
-
-            string error = AssetDatabase.RenameAsset(sceneInfo.Path, newName);
-            if (string.IsNullOrEmpty(error))
-            {
-                sceneInfo.Name = newName;
-                sceneInfo.Path = newScenePath;
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-                Debug.Log($"Scene renamed to: {newScenePath}");
-            }
-            else
-            {
-                Debug.LogError($"Error: Failed to rename the scene '{sceneInfo.Name}' to '{newName}'. Error: {error}");
             }
         }
     }
