@@ -9,6 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5416590312b94684b0f036b102e5e370, type: 3}
+  m_Script: {fileID: 11500000, guid: bc5b266fc6b43db4590c4524ce11dd94, type: 3}
   m_Name: TraitWrapper
   m_EditorClassIdentifier: 
+  _trait:
+    rid: 5858663622449037312
+  references:
+    version: 2
+    RefIds:
+    - rid: 5858663622449037312
+      type: {class: TestTrait, ns: SoulRunProject.SoulMixScene.Trait, asm: Assembly-CSharp}
