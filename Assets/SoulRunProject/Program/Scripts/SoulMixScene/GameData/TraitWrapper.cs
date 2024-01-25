@@ -1,9 +1,11 @@
-﻿namespace SoulRunProject.SoulMixScene
+﻿using UnityEngine;
+
+namespace SoulRunProject.SoulMixScene
 {
     /// <summary> Traitを実行するためのインターフェース
     /// インターフェースはSerializeできないので、ラッパークラスを作成してSerializeする</summary>
-    [System.Serializable]
-    public class TraitWrapper
+    [CreateAssetMenu(fileName = "TraitWrapper", menuName = "SoulRunProject/TraitWrapper")]
+    public class TraitWrapper : ScriptableObject
     {
         public ITraitInterface Trait { get; set; }
 

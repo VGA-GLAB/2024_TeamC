@@ -2,8 +2,8 @@
 
 namespace SoulRunProject.SoulMixScene
 {
-    [System.Serializable]
-    public class SoulAbility
+    [CreateAssetMenu(fileName = "SoulAbility", menuName = "SoulRunProject/SoulAbility")]
+    public class SoulAbility : ScriptableObject
     {
         // 技名
         [SerializeField] private string abilityName;

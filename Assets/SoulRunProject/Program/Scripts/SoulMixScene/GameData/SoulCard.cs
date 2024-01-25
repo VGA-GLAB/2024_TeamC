@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SoulRunProject.SoulMixScene
 {
-    [System.Serializable]
-    public class SoulCard
+    [CreateAssetMenu(fileName = "SoulCard", menuName = "SoulRunProject/SoulCard")]
+    [Serializable]
+    public class SoulCard : ScriptableObject
     {
         // 固有番号
         [SerializeField] private int cardID;

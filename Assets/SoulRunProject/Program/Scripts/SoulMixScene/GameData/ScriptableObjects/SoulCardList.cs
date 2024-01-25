@@ -42,7 +42,7 @@ using UnityEngine;
 
 namespace SoulRunProject.SoulMixScene
 {
-    [CreateAssetMenu(fileName = "SoulCard", menuName = "SoulCard")]
+    [CreateAssetMenu(fileName = "SoulCardList", menuName = "SoulRunProject/SoulCardList")]
     public class SoulCardList : ScriptableObject
     {
         [SerializeField] public List<SoulCard> soulCardList;

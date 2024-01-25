@@ -17,8 +17,8 @@ using UnityEngine;
 
 namespace SoulRunProject.SoulMixScene
 {
-    [System.Serializable]
-    public class Status
+    [CreateAssetMenu(fileName = "Status", menuName = "SoulRunProject/Status")]
+    public class Status : ScriptableObject
     {
         [SerializeField] private int hp;
         [SerializeField] private int attack;
