@@ -7,7 +7,7 @@ namespace SoulRunProject.SoulMixScene
     [CreateAssetMenu(fileName = "TraitWrapper", menuName = "SoulRunProject/TraitWrapper")]
     public class TraitWrapper : ScriptableObject
     {
-        [SerializeField] private ITraitInterface _trait;
+        [SerializeReference, SubclassSelector] private ITraitInterface _trait;
 
         public TraitWrapper(ITraitInterface trait)
         {

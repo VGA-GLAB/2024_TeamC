@@ -1,9 +1,9 @@
 using System;
 using System.Reflection;
 using System.Linq;
+using SoulRunProject.SoulMixScene;
 using UnityEngine;
 using UnityEditor;
-using SoulRunProject.SoulMixScene;
 
 namespace SoulRunProject.Editor
 {
