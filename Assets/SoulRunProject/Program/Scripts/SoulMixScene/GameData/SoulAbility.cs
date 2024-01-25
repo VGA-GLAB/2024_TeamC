@@ -1,14 +1,20 @@
-﻿namespace SoulRunProject.SoulMixScene
+﻿using UnityEngine;
+
+namespace SoulRunProject.SoulMixScene
 {
+    [System.Serializable]
     public class SoulAbility
     {
-        //クールタイム
-        public int CoolTime { get; set; }
+        // 技名
+        [SerializeField] private string abilityName;
+
+        // クールタイム
+        [SerializeField] private float coolTime;
 
         // 技効果
-        public int Effect { get; set; }
+        [SerializeField] private string effect;
 
         // 効果テキスト
-        public string EffectText { get; set; }
+        [SerializeField] private string effectText;
     }
 }

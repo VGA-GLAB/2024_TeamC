@@ -13,21 +13,24 @@
 - 運(クリティカル、お金のドロップ数上昇、ソウルドロップ率UP)
  */
 
+using UnityEngine;
+
 namespace SoulRunProject.SoulMixScene
 {
+    [System.Serializable]
     public class Status
     {
-        public int Hp { get; set; }
-        public int Attack { get; set; }
-        public int Defence { get; set; }
-        public int CoolTime { get; set; }
-        public int Range { get; set; }
-        public int BulletSpeed { get; set; }
-        public int EffectTime { get; set; }
-        public int BulletNum { get; set; }
-        public int Penetration { get; set; }
-        public int MoveSpeed { get; set; }
-        public int GrowthSpeed { get; set; }
-        public int Luck { get; set; }
+        [SerializeField] private int hp;
+        [SerializeField] private int attack;
+        [SerializeField] private int defence;
+        [SerializeField] private float coolTime;
+        [SerializeField] private float range;
+        [SerializeField] private float bulletSpeed;
+        [SerializeField] private float effectTime;
+        [SerializeField] private int bulletNum;
+        [SerializeField] private int penetration;
+        [SerializeField] private float moveSpeed;
+        [SerializeField] private float growthSpeed;
+        [SerializeField] private int luck;
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
-using SoulRunProject.SoulMixScene;
 using UnityEngine;
 
 
@@ -44,30 +42,9 @@ using UnityEngine;
 
 namespace SoulRunProject.SoulMixScene
 {
-    public class SoulCard : ScriptableObject
+    [CreateAssetMenu(fileName = "SoulCard", menuName = "SoulCard")]
+    public class SoulCardList : ScriptableObject
     {
-        // 固有番号
-        public int CardID { get; set; }
-
-        // カードの画像
-        public Sprite Image { get; set; }
-
-        // 名前
-        public string SoulName { get; set; }
-
-        // レベル
-        public int SoulLevel { get; set; }
-
-        // 能力
-        public SoulAbility soulAbility { get; set; }
-
-        // 説明文
-        public string ExplanatoryText { get; set; }
-
-        // ステータス
-        public Status Status { get; set; }
-
-        // 特性
-        public List<ITraitInterface> TraitList { get; set; }
+        [SerializeField] public List<SoulCard> soulCardList;
     }
 }
