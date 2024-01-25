@@ -1,7 +1,7 @@
 ﻿using UniRx;
 using UnityEngine;
 
-namespace SoulRun.InGame
+namespace SoulRunProject.SoulMixScene
 {
     /// <summary> ボタンの表示状態を管理するReactivePropertyを持つボタンクラス </summary>
     public class SoulMixPanel : MonoBehaviour, IUserInterfaceSetActive

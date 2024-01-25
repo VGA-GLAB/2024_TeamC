@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-namespace SoulRun.Core
+namespace SoulRunProject.Common
 {
     /// <summary>
     /// 継承してSingleton使用します。
