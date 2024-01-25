@@ -19,4 +19,5 @@ MonoBehaviour:
   soulAbility: {fileID: 11400000, guid: 1427ecec5def6244689c63326c8ea810, type: 2}
   explanatoryText: 
   status: {fileID: 11400000, guid: 6fd9e14c5c2c69747a522e1e55835973, type: 2}
-  traitList: []
+  traitList:
+  - {fileID: 11400000, guid: 4890e6c44451cbb4895780cf74f9dab9, type: 2}
