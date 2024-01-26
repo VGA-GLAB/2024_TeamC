@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 namespace SoulRunProject.SoulMixScene
 {
+    /// <summary> 組み合わせを判定するクラス </summary>
     public class SoulCombiner : MonoBehaviour
     {
         public SoulCardList ownedSouls; // 所持しているソウルのリスト
