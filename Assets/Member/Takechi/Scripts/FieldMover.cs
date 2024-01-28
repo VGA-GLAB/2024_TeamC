@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace SoulRun
 {
+    /// <summary>
+    /// フィールドを動かすクラス
+    /// </summary>
     public class FieldMover : MonoBehaviour
     {
         [SerializeField] [Tooltip("フィールドに使う全ての部品")]
