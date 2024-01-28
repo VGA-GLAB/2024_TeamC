@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using SoulRunProject.Common;
 namespace SoulRunProject.SoulMixScene
 {
     /// <summary> Traitを実行するためのインターフェース
