@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SoulRunProject.SoulMixScene
+namespace SoulRunProject.Common
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     public class SubclassSelectorAttribute : PropertyAttribute
