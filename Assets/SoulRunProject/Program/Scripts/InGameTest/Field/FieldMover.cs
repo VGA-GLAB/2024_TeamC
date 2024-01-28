@@ -5,7 +5,7 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-namespace SoulRun
+namespace SoulRunProject.InGame
 {
     /// <summary>
     /// フィールドを動かすクラス
