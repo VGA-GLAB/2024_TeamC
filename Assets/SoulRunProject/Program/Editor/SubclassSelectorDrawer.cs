@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 using System.Linq;
-using SoulRunProject.SoulMixScene;
+using SoulRunProject.Common;
 using UnityEngine;
 using UnityEditor;
 
