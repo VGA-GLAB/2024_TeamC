@@ -24,16 +24,16 @@ namespace SoulRunProject.SoulMixScene
         void Start()
         {
             // 各UI要素に値を設定
-            idText.text = "ID: " + _soulCard.CardID.ToString();
-            soulImage.sprite = _soulCard.Image; // 画像の設定
-            nameText.text = "Name: " + _soulCard.SoulName;
-            levelText.text = "Level: " + _soulCard.SoulLevel.ToString();
-            descriptionText.text = "Description: " + _soulCard.ExplanatoryText;
-
-            // ステータス、特性、技の表示は、それぞれのクラスの実装に応じて変更する必要があります。
-            statusText.text = "Status: " + GetStatusText(_soulCard.Status);
-            traitsText.text = "Traits: " + GetTraitsText(_soulCard.TraitList);
-            skillsText.text = "Skill: " + GetSkillsText(_soulCard.soulAbility);
+            // idText.text = "ID: " + _soulCard.CardID.ToString();
+            // soulImage.sprite = _soulCard.Image; // 画像の設定
+            // nameText.text = "Name: " + _soulCard.soulName;
+            // levelText.text = "Level: " + _soulCard.soulLevel.ToString();
+            // descriptionText.text = "Description: " + _soulCard.ExplanatoryText;
+            //
+            // // ステータス、特性、技の表示は、それぞれのクラスの実装に応じて変更する必要があります。
+            // statusText.text = "Status: " + GetStatusText(_soulCard.Status);
+            // traitsText.text = "Traits: " + GetTraitsText(_soulCard.TraitList);
+            // skillsText.text = "Skill: " + GetSkillsText(_soulCard.soulAbility);
         }
 
         private string GetStatusText(Status status)
