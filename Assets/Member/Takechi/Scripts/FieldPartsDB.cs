@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace SoulRun
 {
+    /// <summary>
+    /// 複数のパーツをこれ1つで管理するためのScriptableObject
+    /// </summary>
     [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/FieldPartsDB")]
     public class FieldPartsDB : ScriptableObject
     {
