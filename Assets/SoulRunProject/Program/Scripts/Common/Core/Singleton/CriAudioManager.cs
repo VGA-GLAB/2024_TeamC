@@ -1,11 +1,12 @@
-﻿using System;
+﻿// 日本語対応
+
 using System.Collections.Generic;
 using CriWare;
-using SoulRunProject.Common;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+using UnityEngine;
 
-namespace SoulRun.Core
+namespace SoulRunProject.Common
 {
     public class CriAudioManager : AbstractSingleton<CriAudioManager>
     {
@@ -13,13 +14,20 @@ namespace SoulRun.Core
         [SerializeField] string cueSheetBGM = "CueSheet_BGM"; //.acb
         [SerializeField] string cueSheetSe = "CueSheet_SE"; //.acb
         [SerializeField] string cueSheetVoice = "CueSheet_Voice"; //.acb
-    
+
+        public enum CueSheet
+        {
+            None,
+            Bgm,
+            Se,
+            Voice
+        }
 
         private float _masterVolume = 1F;
         private float _bgmVolume = 1F;
         private float _seVolume = 1F;
         private float _voiceVolume = 1F;
-        private const float Diff = 0.01F;
+        private const float Diff = 0.01F; //音量の変更があったかどうかの判定に使う
 
         /// <summary>マスターボリュームが変更された際に呼ばれるEvent</summary>
         public Action<float> MasterVolumeChanged;
@@ -33,31 +41,20 @@ namespace SoulRun.Core
         /// <summary>Voiceボリュームが変更された際に呼ばれる処理</summary>
         public Action<float> VoiceVolumeChanged;
 
-        private CriAtomExPlayer _bgmPlayer = new CriAtomExPlayer();
+        private CriAtomExPlayer _bgmPlayer;
         private CriAtomExPlayback _bgmPlayback;
 
-        private CriAtomExPlayer _sePlayer = new CriAtomExPlayer();
-        private CriAtomExPlayer _loopSEPlayer = new CriAtomExPlayer();
-        private List<CriPlayerData> _seData = new List<CriPlayerData>();
+        private CriAtomExPlayer _sePlayer;
+        private CriAtomExPlayer _loopSEPlayer;
+        private List<CriPlayerData> _seData;
 
-        private CriAtomExPlayer _voicePlayer = new CriAtomExPlayer();
-        private List<CriPlayerData> _voiceData = new List<CriPlayerData>();
+        private CriAtomExPlayer _voicePlayer;
+        private List<CriPlayerData> _voiceData;
 
         private string _currentBGMCueName = "";
         private CriAtomExAcb _currentBGMAcb = null;
 
         private CueSheet _cueSheet = CueSheet.None;
-
-        /// <summary>
-        /// CueSheetの選択
-        /// </summary>
-        public enum CueSheet
-        {
-            None,
-            Bgm,
-            Se,
-            Voice
-        }
 
 
         /// <summary>
@@ -83,21 +80,6 @@ namespace SoulRun.Core
             return null;
         }
 
-        /// <summary>CriAtom の追加。acb追加</summary>
-        protected override void OnAwake()
-        {
-            // acf設定
-            string path = CriWare.Common.streamingAssetsPath + $"/{streamingAssetsPathAcf}.acf";
-            CriAtomEx.RegisterAcf(null, path);
-            // CriAtom作成
-            new GameObject().AddComponent<CriAtom>();
-            // BGM acb追加
-            CriAtom.AddCueSheet(cueSheetBGM, $"{cueSheetBGM}.acb", null, null);
-            // SE acb追加
-            CriAtom.AddCueSheet(cueSheetSe, $"{cueSheetSe}.acb", null, null);
-            //Voice acb追加
-            CriAtom.AddCueSheet(cueSheetVoice, $"{cueSheetVoice}.acb", null, null);
-        }
 
         /// <summary>マスターボリューム</summary>
         /// <value>変更したい値</value>
@@ -182,8 +164,27 @@ namespace SoulRun.Core
             }
         }
 
-        private CriAudioManager()
+
+        /// <summary>CriAtom の追加。acb追加</summary>
+        private void Awake()
         {
+            _bgmPlayer = new CriAtomExPlayer();
+            _sePlayer = new CriAtomExPlayer();
+            _loopSEPlayer = new CriAtomExPlayer();
+            _voicePlayer = new CriAtomExPlayer();
+
+            // acf設定
+            string path = Application.streamingAssetsPath + $"/{streamingAssetsPathAcf}.acf";
+            CriAtomEx.RegisterAcf(null, path);
+            // CriAtom作成
+            new GameObject().AddComponent<CriAtom>();
+            // BGM acb追加
+            CriAtom.AddCueSheet(cueSheetBGM, $"{cueSheetBGM}.acb", null, null);
+            // SE acb追加
+            CriAtom.AddCueSheet(cueSheetSe, $"{cueSheetSe}.acb", null, null);
+            //Voice acb追加
+            CriAtom.AddCueSheet(cueSheetVoice, $"{cueSheetVoice}.acb", null, null);
+
             MasterVolumeChanged += volume =>
             {
                 _bgmPlayer.SetVolume(volume * _bgmVolume);
@@ -245,7 +246,7 @@ namespace SoulRun.Core
             SceneManager.sceneUnloaded += Unload;
         }
 
-        ~CriAudioManager()
+        private void OnDestroy()
         {
             SceneManager.sceneUnloaded -= Unload;
         }
@@ -262,7 +263,7 @@ namespace SoulRun.Core
                 Debug.LogWarning("CueSheetがNullです。");
                 return;
             }
-        
+
             var temp = CriAtom.GetCueSheet(cueSheetName).acb;
 
             if (_currentBGMAcb == temp && _currentBGMCueName == cueName &&
@@ -311,7 +312,7 @@ namespace SoulRun.Core
         {
             CriAtomEx.CueInfo cueInfo;
             CriPlayerData newAtomPlayer = new CriPlayerData();
-        
+
             string cueSheetName = GetCueSheetString(cueSheet);
             if (cueSheetName == null)
             {
@@ -382,7 +383,7 @@ namespace SoulRun.Core
         {
             CriAtomEx.CueInfo cueInfo;
             CriPlayerData newAtomPlayer = new CriPlayerData();
-        
+
             string cueSheetName = GetCueSheetString(cueSheet);
             if (cueSheetName == null)
             {
