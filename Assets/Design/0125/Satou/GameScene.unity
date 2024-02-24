@@ -13356,7 +13356,7 @@ GameObject:
   - component: {fileID: 1005269409}
   - component: {fileID: 1005269408}
   m_Layer: 0
-  m_Name: Quad_1
+  m_Name: Chara
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21322,7 +21322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c3199ed8a622e464b8357f9974d55417, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.13
+      value: 7.33
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c3199ed8a622e464b8357f9974d55417, type: 3}
       propertyPath: m_LocalPosition.y
@@ -21330,7 +21330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c3199ed8a622e464b8357f9974d55417, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.34
+      value: 9.08
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c3199ed8a622e464b8357f9974d55417, type: 3}
       propertyPath: m_LocalRotation.w

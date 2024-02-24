@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SoulRun
+namespace SoulRunProject.InGame
 {
     /// <summary>
     /// 複数のパーツをこれ1つで管理するためのScriptableObject

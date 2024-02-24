@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SoulRun
+namespace SoulRunProject.InGame
 {
     /// <summary>
     ///     Field Moverで道を扱うためのスクリプト
