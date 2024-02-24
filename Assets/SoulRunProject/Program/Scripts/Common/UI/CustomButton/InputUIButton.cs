@@ -22,7 +22,7 @@ namespace SoulRun.InGame
         {
         }
 
-        [FormerlySerializedAs("OnClick")] public ButtonClickEvent onClick;
+        public ButtonClickEvent OnClick;
     
         private void Start()
         {
@@ -47,7 +47,7 @@ namespace SoulRun.InGame
             // イベントの発火
             OnButtonUp?.Invoke();
             // クリックイベントの発火
-            onClick?.Invoke(this);
+            OnClick?.Invoke(this);
         }
     }
 }

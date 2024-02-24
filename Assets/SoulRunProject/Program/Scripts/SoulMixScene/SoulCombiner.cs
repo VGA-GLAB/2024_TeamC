@@ -18,7 +18,7 @@ namespace SoulRunProject.SoulMixScene
         private void Awake()
         {
             TryGetComponent(out soul1Button);
-            soul1Button.onClick.AddListener(SelectSoul1);
+            soul1Button.OnClick.AddListener(SelectSoul1);
         }
 
         // ソウル1を選択するメソッド

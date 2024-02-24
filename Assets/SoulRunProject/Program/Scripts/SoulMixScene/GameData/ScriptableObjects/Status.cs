@@ -20,17 +20,17 @@ namespace SoulRunProject.SoulMixScene
     [CreateAssetMenu(fileName = "Status", menuName = "SoulRunProject/Status")]
     public class Status : ScriptableObject
     {
-        [SerializeField] private int hp;
-        [SerializeField] private int attack;
-        [SerializeField] private int defence;
-        [SerializeField] private float coolTime;
-        [SerializeField] private float range;
-        [SerializeField] private float bulletSpeed;
-        [SerializeField] private float effectTime;
-        [SerializeField] private int bulletNum;
-        [SerializeField] private int penetration;
-        [SerializeField] private float moveSpeed;
-        [SerializeField] private float growthSpeed;
-        [SerializeField] private int luck;
+        public int Hp { get; private set; }
+        public int Attack { get; private set; }
+        public int Defence { get; private set; }
+        public float CoolTime { get; private set; }
+        public float Range { get; private set; }
+        public float BulletSpeed { get; private set; }
+        public float EffectTime { get; private set; }
+        public int BulletNum { get; private set; }
+        public int Penetration { get; private set; }
+        public float MoveSpeed { get; private set; }
+        public float GrowthSpeed { get; private set; }
+        public int Luck { get; private set; }
     }
 }
