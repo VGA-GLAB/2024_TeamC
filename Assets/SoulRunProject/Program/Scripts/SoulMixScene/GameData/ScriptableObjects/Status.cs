@@ -20,17 +20,112 @@ namespace SoulRunProject.SoulMixScene
     [CreateAssetMenu(fileName = "Status", menuName = "SoulRunProject/Status")]
     public class Status : ScriptableObject
     {
-        public int Hp { get; private set; }
-        public int Attack { get; private set; }
-        public int Defence { get; private set; }
-        public float CoolTime { get; private set; }
-        public float Range { get; private set; }
-        public float BulletSpeed { get; private set; }
-        public float EffectTime { get; private set; }
-        public int BulletNum { get; private set; }
-        public int Penetration { get; private set; }
-        public float MoveSpeed { get; private set; }
-        public float GrowthSpeed { get; private set; }
-        public int Luck { get; private set; }
+        // Hp
+        [SerializeField] private int hp;
+
+        public int Hp
+        {
+            get => hp;
+            set => hp = Mathf.Max(value, 0); // HPは0未満にならないように制限
+        }
+
+        // 攻撃力
+        [SerializeField] private int attack;
+
+        public int Attack
+        {
+            get => attack;
+            set => attack = value;
+        }
+
+        // 防御力
+        [SerializeField] private int defence;
+
+        public int Defence
+        {
+            get => defence;
+            set => defence = value;
+        }
+
+        // クールタイム
+        [SerializeField] private float coolTime;
+
+        public float CoolTime
+        {
+            get => coolTime;
+            set => coolTime = Mathf.Max(value, 0); // クールタイムは0未満にならないように制限
+        }
+
+        // 範囲
+        [SerializeField] private float range;
+
+        public float Range
+        {
+            get => range;
+            set => range = value;
+        }
+
+        // 弾速
+        [SerializeField] private float bulletSpeed;
+
+        public float BulletSpeed
+        {
+            get => bulletSpeed;
+            set => bulletSpeed = value;
+        }
+
+        // 効果時間
+        [SerializeField] private float effectTime;
+
+        public float EffectTime
+        {
+            get => effectTime;
+            set => effectTime = value;
+        }
+
+        // 弾数
+        [SerializeField] private int bulletNum;
+
+        public int BulletNum
+        {
+            get => bulletNum;
+            set => bulletNum = Mathf.Max(value, 0); // 弾数は0未満にならないように制限
+        }
+
+        // 貫通力
+        [SerializeField] private int penetration;
+
+        public int Penetration
+        {
+            get => penetration;
+            set => penetration = value;
+        }
+
+        // 移動スピード
+        [SerializeField] private float moveSpeed;
+
+        public float MoveSpeed
+        {
+            get => moveSpeed;
+            set => moveSpeed = value;
+        }
+
+        // 成長速度
+        [SerializeField] private float growthSpeed;
+
+        public float GrowthSpeed
+        {
+            get => growthSpeed;
+            set => growthSpeed = value;
+        }
+
+        // 運
+        [SerializeField] private int luck;
+
+        public int Luck
+        {
+            get => luck;
+            set => luck = value;
+        }
     }
 }
