@@ -1,21 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace SoulRunProject
+namespace SoulRunProject.Common
 {
-    public class EnterStageState : MonoBehaviour
+    /// <summary>
+    /// ステージ開始処理を行うステート
+    /// </summary>
+    public class EnterStageState : State
     {
-        // Start is called before the first frame update
-        void Start()
+        protected override async UniTask OnEnter(CancellationToken cts)
         {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            Debug.Log("EnterStageState");
+            //TODO：カメラ移動、ステージ名表示
+            await UniTask.Delay(1000, cancellationToken: cts);
+            Exit();
         }
     }
 }

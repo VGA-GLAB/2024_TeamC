@@ -1,13 +1,18 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using UnityEngine;
 
 namespace SoulRunProject.Common
 {
     /// <summary>
     /// Stateの基底クラス
+    /// 非同期と同期用のStart,Update,Exit関数を持つ
+    /// 今回はMonobehaviorを使用し、インスペクターから設定できるように
     /// </summary>
-    public abstract class State
+    public abstract class State : MonoBehaviour
     {
+        [SerializeField] protected State _nextState;
         public void Enter()
         {
             OnEnter();

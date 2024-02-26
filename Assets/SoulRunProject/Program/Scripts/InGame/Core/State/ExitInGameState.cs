@@ -4,12 +4,8 @@ using UnityEngine;
 
 namespace SoulRunProject.Common
 {
-    /// <summary>
-    /// ランゲームプレイ中の管理を行うクラス
-    /// </summary>
-    public class PlayingRunGameState : State
+    public class ExitInGameState : State
     {
-        //ToDo: カメラ、プレイヤー、フィールドを動かすクラスを動かす
         // Start is called before the first frame update
         void Start()
         {
