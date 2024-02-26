@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SoulRunProject
+namespace SoulRunProject.Common
 {
-    public class LevelUpState : MonoBehaviour
+    public class LevelUpState : State
     {
         // Start is called before the first frame update
         void Start()
