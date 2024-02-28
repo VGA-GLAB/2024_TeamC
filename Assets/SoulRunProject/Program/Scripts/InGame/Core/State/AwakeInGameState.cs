@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using SoulRunProject.InGame.Field;
 using UnityEngine;
 
 namespace SoulRunProject.Common
@@ -11,9 +12,10 @@ namespace SoulRunProject.Common
     public class AwakeInGameState : State
     {
         //ToDo: ソウルのロード、フィールドのロード、プレイヤーステータスのロードを行う。
+        private FieldMover _fieldMover;
         protected override void OnEnter()
         {
-            Debug.Log("AwakeInGameState");
+            _fieldMover.CreateField();
         }
         
         protected override void OnExit()

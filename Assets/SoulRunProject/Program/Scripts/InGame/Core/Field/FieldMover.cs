@@ -63,7 +63,7 @@ namespace SoulRunProject.InGame.Field
             }
 
             _endPosition = new Vector3(Math.Abs(prevPos.x), Math.Abs(prevPos.y), Math.Abs(prevPos.z));
-            this.UpdateAsObservable().Subscribe(UpdateMapPosition).AddTo(_subscriptions);
+            //this.UpdateAsObservable().Subscribe(UpdateMapPosition).AddTo(_subscriptions);
         }
     }
 }
