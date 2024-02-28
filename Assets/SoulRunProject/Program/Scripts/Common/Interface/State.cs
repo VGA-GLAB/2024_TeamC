@@ -10,9 +10,10 @@ namespace SoulRunProject.Common
     /// 非同期と同期用のStart,Update,Exit関数を持つ
     /// 今回はMonobehaviorを使用し、インスペクターから設定できるように
     /// </summary>
-    public abstract class State : MonoBehaviour
+    public abstract class State
     {
-        [SerializeField] protected State _nextState;
+        protected State _nextState;
+        protected GameObject _owner;
         public void Enter()
         {
             OnEnter();
@@ -37,33 +38,12 @@ namespace SoulRunProject.Common
         
         protected virtual void OnExit() { }
         
-        public async UniTask Exit(CancellationToken token)
-        {
-            await OnExit(token);
-        }
-        
-        protected virtual UniTask OnExit(CancellationToken token)
-        {
-            return UniTask.CompletedTask;
-        }
-        
         public void Update()
         {
             OnUpdate();
         }
         
         protected virtual void OnUpdate() { }
-        
-        public async UniTask Update(CancellationToken token)
-        {
-            await OnUpdate(token);
-        }
-        
-        protected virtual UniTask OnUpdate(CancellationToken token)
-        {
-            return UniTask.CompletedTask;
-        }
-
         
     }
 }

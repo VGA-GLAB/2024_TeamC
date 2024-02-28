@@ -11,7 +11,7 @@ namespace SoulRunProject.Common
     /// </summary>
     public class InGameManager : MonoBehaviour
     {
-        [SerializeField] private State _firstState;
+        private State _firstState;
 
         private void Start()
         {

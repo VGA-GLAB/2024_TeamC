@@ -19,7 +19,7 @@ namespace SoulRunProject.Common
         protected override void OnExit()
         {
             Debug.Log("AwakeInGameState Exit");
-            var cts = this.GetCancellationTokenOnDestroy();
+            var cts = _owner.GetCancellationTokenOnDestroy();
             _nextState.Enter(cts).Forget();
         }
     }
