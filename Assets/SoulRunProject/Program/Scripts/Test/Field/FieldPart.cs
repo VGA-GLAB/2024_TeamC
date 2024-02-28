@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace SoulRunProject.InGame
+namespace SoulRunProject.InGame.Field
 {
     /// <summary>
-    ///     Field Moverで道を扱うためのスクリプト
+    /// Field Moverで道を扱うためのクラス
     /// </summary>
-    public class FieldParts : MonoBehaviour
+    public class FieldPart : MonoBehaviour
     {
         [SerializeField] [Tooltip("パーツの終点となる場所のアンカー")]
         Transform _endAnchor;

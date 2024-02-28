@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aed2c5823e53b4795f0e13321347ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fieldPartsDB: {fileID: 11400000, guid: 4d1664a371caaae4f81050d71d3ddde9, type: 2}
-  _fieldStruct: {fileID: 4900000, guid: eb8a94d8cf8d13e4b978aa3d72d4eaa5, type: 3}
-  _moveSpeed: 5
+  _fieldData: {fileID: 11400000, guid: 85678544d769ef34bb112dcc3deb15f9, type: 2}
+  _scrollSpeed: 20
+  _playOnAwake: 1
