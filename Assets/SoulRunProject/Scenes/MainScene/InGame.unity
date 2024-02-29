@@ -3618,6 +3618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1420106439}
   _offset: {x: 0, y: 0, z: 0}
+  _firstPos: {x: 0, y: 14, z: -6.61}
 --- !u!1001 &1484649755
 PrefabInstance:
   m_ObjectHideFlags: 0

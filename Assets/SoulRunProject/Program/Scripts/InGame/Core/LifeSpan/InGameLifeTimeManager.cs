@@ -13,7 +13,7 @@ namespace SoulRunProject.Common
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register<State, AwakeInGameState>(Lifetime.Singleton);
+            builder.Register<State, EnterInGameState>(Lifetime.Singleton);
             builder.Register<EnterStageState>(Lifetime.Singleton);
             builder.Register<PlayingRunGameState>(Lifetime.Singleton);
             builder.Register<GameOverState>(Lifetime.Singleton);
