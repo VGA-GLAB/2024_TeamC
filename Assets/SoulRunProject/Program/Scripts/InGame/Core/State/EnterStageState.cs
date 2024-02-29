@@ -6,16 +6,9 @@ namespace SoulRunProject.Common
 {
     public class EnterStageState : State
     {
-        // Start is called before the first frame update
-        void Start()
+        protected override void OnEnter(State currentState)
         {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            base.Enter(currentState);
         }
     }
 }

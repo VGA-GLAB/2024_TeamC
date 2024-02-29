@@ -23,7 +23,7 @@ namespace SoulRunProject.Common
         protected override async UniTask OnEnter(State currentState, CancellationToken cts)
         {
             DebugClass.Instance.ShowLog("初期化ステート開始");
-            await _testCamera.DoStartIngameMove(cts);
+            await _testCamera.DoStartIngameMove(_testCamera.GetCancellationTokenOnDestroy());
             _testCamera.StartFollowPlayer();
             Exit(_enterStageState);
         }
