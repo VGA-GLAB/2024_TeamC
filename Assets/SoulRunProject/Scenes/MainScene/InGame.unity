@@ -2631,6 +2631,8 @@ MonoBehaviour:
   autoInjectGameObjects:
   - {fileID: 1174502016}
   _camera: {fileID: 1484104527}
+  _playerMovement: {fileID: 1420106440}
+  _testPlayerForwardMover: {fileID: 1420106443}
 --- !u!4 &1180136328 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164151997940843940, guid: 54942ca6699e8764a8b2eb58690cf15d,
@@ -3317,7 +3319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced7365974afd3948b2dfeb54467d835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isActivated: 1
+  _isActivated: 0
   _speed: 70
 --- !u!1001 &1438173889
 PrefabInstance:
@@ -4480,7 +4482,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 152, y: 27.200012}
+  m_AnchoredPosition: {x: 152, y: 27.199951}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1725612896
