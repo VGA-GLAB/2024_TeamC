@@ -393,7 +393,7 @@ MonoBehaviour:
   _fpsThreshold2: 15
   _isVsyncOff: 1
   _displayTime: 5
-  _maxLines: 5
+  _maxLines: 20
   _fpsText: {fileID: 7475536889384785274}
   timerText: {fileID: 8426390455352336189}
   _logText: {fileID: 4545564124951783786}

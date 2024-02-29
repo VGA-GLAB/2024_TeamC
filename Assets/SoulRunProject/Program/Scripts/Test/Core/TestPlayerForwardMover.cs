@@ -9,9 +9,9 @@ namespace SoulRunProject.InGameTest
         [SerializeField] private bool _isActivated = false;
         [SerializeField] private float _speed = 1.0f;
         
-        public void Activate()
+        public void IsActivate(bool isActivate)
         {
-            gameObject.SetActive(true);
+            _isActivated = isActivate;
         }
         
         private void Update()

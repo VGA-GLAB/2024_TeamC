@@ -17,9 +17,9 @@ namespace SoulRunProject.Common
 
         private void Start()
         {
-            var cts = this.GetCancellationTokenOnDestroy();
             DebugClass.Instance.ShowLog("InGameManager起動");
-            _currenState.Enter(null);
+            var token = this.GetCancellationTokenOnDestroy();
+            _currenState.Enter(null, token).Forget();
         }
     }
 }

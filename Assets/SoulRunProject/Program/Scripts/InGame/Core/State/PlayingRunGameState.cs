@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SoulRunProject.InGameTest;
 using UnityEngine;
 
 namespace SoulRunProject.Common
@@ -9,17 +10,20 @@ namespace SoulRunProject.Common
     /// </summary>
     public class PlayingRunGameState : State
     {
-        //ToDo: カメラ、プレイヤー、フィールドを動かすクラスを動かす
-        // Start is called before the first frame update
-        void Start()
+        private PlayerMovement _playerMovement;
+        private TestPlayerForwardMover _testPlayerForwardMover;
+        public PlayingRunGameState(PlayerMovement playerMovement, TestPlayerForwardMover testPlayerForwardMover)
         {
-        
+            _playerMovement = playerMovement;
+            _testPlayerForwardMover = testPlayerForwardMover;
         }
-
-        // Update is called once per frame
-        void Update()
+        
+        protected override void OnEnter(State currentState)
         {
-        
+            DebugClass.Instance.ShowLog("プレイ中ステート開始");
+            _playerMovement.enabled = true;
+            _testPlayerForwardMover.IsActivate(true);
         }
+        
     }
 }
