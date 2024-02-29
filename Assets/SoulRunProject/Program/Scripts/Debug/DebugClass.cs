@@ -34,8 +34,7 @@ namespace SoulRunProject.Common
                 return;
             }
 
-            QualitySettings.vSyncCount = _isVsyncOff ?  0 : 1;
-            Application.targetFrameRate = _targetFrameRate;
+            SetFPSSetting();
             _startTime = Time.time;
         }
 
@@ -46,6 +45,13 @@ namespace SoulRunProject.Common
             ShowTime();
         }
 
+        #region FPS
+        private void SetFPSSetting()
+        {
+            QualitySettings.vSyncCount = _isVsyncOff ? 0 : 1;
+            Application.targetFrameRate = _targetFrameRate;
+        }
+        
         private void ShowFPS()
         {
             if (!_isShowFPS || _fpsText == null) return;
@@ -67,6 +73,10 @@ namespace SoulRunProject.Common
             // リッチテキストを使用して色を適用
             _fpsText.text = $"<color={color}>FPS: {fps:0.}</color>";
         }
+
+        
+
+        #endregion
 
         #region タイマー
         private void ShowTime()
