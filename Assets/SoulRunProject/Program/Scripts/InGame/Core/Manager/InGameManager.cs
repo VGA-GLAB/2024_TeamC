@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using VContainer;
 
 namespace SoulRunProject.Common
 {
@@ -11,12 +12,14 @@ namespace SoulRunProject.Common
     /// </summary>
     public class InGameManager : MonoBehaviour
     {
-        private State _firstState;
+        [Inject]
+        private State _currenState;
 
         private void Start()
         {
             var cts = this.GetCancellationTokenOnDestroy();
-            _firstState.Enter(cts).Forget();
+            DebugClass.Instance.ShowLog("InGameManager起動");
+            _currenState.Enter(null);
         }
     }
 }

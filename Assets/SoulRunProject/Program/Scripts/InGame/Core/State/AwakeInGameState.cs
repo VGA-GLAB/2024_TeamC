@@ -11,18 +11,22 @@ namespace SoulRunProject.Common
     /// </summary>
     public class AwakeInGameState : State
     {
-        //ToDo: ソウルのロード、フィールドのロード、プレイヤーステータスのロードを行う。
-        private FieldMover _fieldMover;
-        protected override void OnEnter()
+        public AwakeInGameState(EnterStageState enterStageState)
         {
-            _fieldMover.CreateField();
+            _enterStageState = enterStageState;
         }
         
-        protected override void OnExit()
+        EnterStageState _enterStageState;
+        protected override void OnEnter(State currentState)
+        {
+            DebugClass.Instance.ShowLog("初期化ステート開始");
+            Exit(_enterStageState);
+        }
+
+        protected override void OnExit(State nextState)
         {
             Debug.Log("AwakeInGameState Exit");
-            var cts = _owner.GetCancellationTokenOnDestroy();
-            _nextState.Enter(cts).Forget();
+            _enterStageState.Enter(this);
         }
     }
 }

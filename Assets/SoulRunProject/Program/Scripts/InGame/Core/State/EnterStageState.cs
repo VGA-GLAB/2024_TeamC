@@ -9,12 +9,12 @@ namespace SoulRunProject.Common
     /// </summary>
     public class EnterStageState : State
     {
-        protected override async UniTask OnEnter(CancellationToken cts)
+        protected override async UniTask OnEnter(State current, CancellationToken cts)
         {
             Debug.Log("EnterStageState");
             //TODO：カメラ移動、ステージ名表示
             await UniTask.Delay(1000, cancellationToken: cts);
-            Exit();
+            
         }
     }
 }

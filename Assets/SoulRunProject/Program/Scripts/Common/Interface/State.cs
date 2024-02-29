@@ -12,31 +12,31 @@ namespace SoulRunProject.Common
     /// </summary>
     public abstract class State
     {
-        protected State _nextState;
+        protected Dictionary<int,State> _nextStates;
         protected GameObject _owner;
-        public void Enter()
+        public void Enter(State currentState)
         {
-            OnEnter();
+            OnEnter(currentState);
         }
 
-        protected virtual void OnEnter() { }
+        protected virtual void OnEnter(State currentState) { }
         
-        public async UniTask Enter(CancellationToken token)
+        public async UniTask Enter(State currentState, CancellationToken token)
         {
-            await OnEnter(token);
+            await OnEnter(currentState, token);
         }
         
-        protected virtual UniTask OnEnter(CancellationToken token)
+        protected virtual UniTask OnEnter(State currentState, CancellationToken token)
         {
             return UniTask.CompletedTask;
         }
         
-        public void Exit()
+        public void Exit(State nextState)
         {
-            OnExit();
+            OnExit(nextState);
         }
         
-        protected virtual void OnExit() { }
+        protected virtual void OnExit(State nextState) { }
         
         public void Update()
         {
