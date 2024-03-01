@@ -11,53 +11,65 @@ namespace SoulRunProject.InGameTest
     {
         [SerializeField] float _moveSpeed;
         [SerializeField] float _jumpPower;
-        [SerializeField] float _gravPower;
+        [SerializeField] float _grav;
  
         Rigidbody _rb;
         bool _isGround;
+        private bool _jumped;
         float _velocityY = 0;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
+            _rb.useGravity = false;
         }
 
         private void Update()
         {
-            //float velocityY = _rb.velocity.y;
-
-            if (!_isGround)
+            if (_isGround)
             {
-                _velocityY -= _gravPower;
-            }
-
-            if (_isGround && Input.GetButtonDown("Jump"))
-            {
-                _velocityY = _jumpPower;
+                if (Input.GetButtonDown("Jump"))
+                {
+                    _velocityY = _jumpPower;
+                    _isGround = false;
+                    _jumped = true;
+                    CancelInvoke(nameof(CancelJumped));
+                    Invoke(nameof(CancelJumped), Time.fixedDeltaTime * 3);
+                }
+                else
+                {
+                    _velocityY = -_grav;
+                }
             }
 
             _rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal") * _moveSpeed, _velocityY, 0);
         }
 
+        private void FixedUpdate()
+        {
+            if (!_isGround)
+            {
+                _velocityY -= _grav * Time.fixedDeltaTime;
+            }
+
+            _isGround = false;
+        }
+
+        /// <summary> jump直後は接地判定がtrueにならない </summary>
+        void CancelJumped()
+        {
+            _jumped = false;
+        }
+
         private void OnCollisionStay(Collision other)
         {
-            float delay = 3f; // それぞれfalseにするフレーム数
-
             for (int i = 0; i < other.contactCount; i++) // すべての接触点においてIsFloorをかける
             {
-                Vector3 normal = other.contacts[i].normal; // 接している面の法線ベクトル
-
-                if (Vector3.Angle(Vector3.up, normal) < 45) // 地面として扱えるか
+                if (Vector3.Angle(Vector3.up, other.contacts[i].normal) < 45 && !_jumped) // 地面として扱えるか
                 {
                     _isGround = true;
-                    CancelInvoke(nameof(StopGrounded));
-                    Invoke(nameof(StopGrounded), Time.deltaTime * delay);
                 }
             }
-        }
-        void StopGrounded()
-        {
-            _isGround = false;
         }
     }
 }
