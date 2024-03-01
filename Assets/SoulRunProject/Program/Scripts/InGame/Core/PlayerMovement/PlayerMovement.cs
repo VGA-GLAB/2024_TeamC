@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace SoulRunProject.InGameTest
+namespace SoulRunProject.InGame.PlayerMovement
 {
     /// <summary>
     /// プレイヤー移動
