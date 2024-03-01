@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace SoulRun.InGame
 {
+    /// <summary> 隣接リストを保持するクラス </summary>
     public class AdjacencyList : MonoBehaviour
     {
         // 隣接リストを保持する辞書
