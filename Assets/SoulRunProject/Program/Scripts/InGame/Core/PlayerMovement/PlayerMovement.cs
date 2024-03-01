@@ -37,7 +37,7 @@ namespace SoulRunProject.InGame.PlayerMovement
                 }
                 else
                 {
-                    _velocityY = -_grav;
+                    _velocityY = 0;
                 }
             }
 
