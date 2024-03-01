@@ -14,10 +14,10 @@ namespace SoulRunProject.InGameTest
             _isActivated = isActivate;
         }
         
-        private void Update()
+        private void FixedUpdate()
         {
             if (_isActivated)
-                transform.position += transform.forward * (_speed * Time.deltaTime);
+                transform.position += transform.forward * (_speed);
         }
     }
 }
