@@ -1,7 +1,7 @@
 using UnityEngine;
 using SoulRunProject.SoulMixScene;
 
-namespace SoulRun.InGame.Enemy
+namespace SoulRunProject.InGame
 {
     /// <summary>
     /// Enemyの通常攻撃処理の実装クラス
