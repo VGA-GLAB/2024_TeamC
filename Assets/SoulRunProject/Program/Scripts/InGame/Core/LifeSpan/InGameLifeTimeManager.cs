@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using SoulRunProject.InGameTest;
+using SoulRunProject.InGame;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

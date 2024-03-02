@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SoulRunProject.InGameTest
+namespace SoulRunProject.InGame
 {
     public class TestPlayerForwardMover : MonoBehaviour
     {
