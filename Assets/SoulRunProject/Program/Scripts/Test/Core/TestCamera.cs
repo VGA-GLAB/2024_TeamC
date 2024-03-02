@@ -32,7 +32,8 @@ namespace SoulRunProject
         {
             this.LateUpdateAsObservable().Subscribe(_ =>
             {
-                transform.position = _player.position + _offset;
+                var pos = _player.position + _offset;
+                transform.position = new Vector3(pos.x, transform.position.y, pos.z);
             });
         }
     }
