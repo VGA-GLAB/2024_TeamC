@@ -430,7 +430,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 796609671}
         m_TargetAssemblyTypeName: SoulRun.InGame.FieldEntityController, Assembly-CSharp
-        m_MethodName: Hoge
+        m_MethodName: Active
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

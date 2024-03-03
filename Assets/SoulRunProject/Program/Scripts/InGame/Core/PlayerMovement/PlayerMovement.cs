@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SoulRunProject.InGame.PlayerMovement
+namespace SoulRunProject.InGame
 {
     /// <summary>
     /// プレイヤー移動
