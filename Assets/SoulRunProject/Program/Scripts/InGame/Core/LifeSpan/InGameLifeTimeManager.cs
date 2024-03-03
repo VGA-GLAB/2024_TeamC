@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using SoulRunProject.InGameTest;
+using SoulRunProject.InGame;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -14,13 +14,13 @@ namespace SoulRunProject.Common
     {
         [SerializeField] private TestCamera _camera;
         [SerializeField] private PlayerMovement _playerMovement;
-        [SerializeField] private TestPlayerForwardMover _testPlayerForwardMover;
+        [SerializeField] private PlayerForwardMover playerForwardMover;
         protected override void Configure(IContainerBuilder builder)
         {
             //ドメイン層
             builder.RegisterInstance(_camera);
             builder.RegisterInstance(_playerMovement);
-            builder.RegisterInstance(_testPlayerForwardMover);
+            builder.RegisterInstance(playerForwardMover);
             
             //アプリケーション層
             builder.Register<State, EnterInGameState>(Lifetime.Singleton);

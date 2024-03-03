@@ -1,6 +1,6 @@
 using SoulRunProject.SoulMixScene;
 
-namespace SoulRun.InGame.Enemy
+namespace SoulRunProject.InGame
 {
     /// <summary>
     /// Enemyの攻撃処理のインターフェース

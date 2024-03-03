@@ -2,7 +2,7 @@ using UnityEngine;
 using SoulRunProject.Common;
 using SoulRunProject.SoulMixScene;
 
-namespace SoulRun.InGame.Enemy
+namespace SoulRunProject.InGame
 {
     /// <summary>
     /// 敵や障害物を管理するクラス
@@ -27,7 +27,7 @@ namespace SoulRun.InGame.Enemy
             _move?.GetMoveStatus(_enemyData);
         }
         
-        public void Hoge()
+        public void Active()
         {
             _attack?.Attack();
             _move?.Move();
