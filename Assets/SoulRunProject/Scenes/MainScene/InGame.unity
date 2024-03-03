@@ -2765,7 +2765,7 @@ MonoBehaviour:
   - {fileID: 1174502016}
   _camera: {fileID: 1484104527}
   _playerMovement: {fileID: 1420106440}
-  _testPlayerForwardMover: {fileID: 1420106443}
+  playerForwardMover: {fileID: 0}
 --- !u!4 &1180136328 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164151997940843940, guid: 54942ca6699e8764a8b2eb58690cf15d,
@@ -5244,7 +5244,7 @@ Transform:
   m_GameObject: {fileID: 1850531341}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.000000014901159, z: -0, w: 1}
-  m_LocalPosition: {x: 4.38, y: 4.63, z: 6.7}
+  m_LocalPosition: {x: 4.38, y: 4.63, z: 33.64}
   m_LocalScale: {x: 3.2804, y: 3.2804, z: 3.2804}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5265,13 +5265,15 @@ MonoBehaviour:
   _attack:
     rid: -2
   _move:
-    rid: -2
+    rid: 336611155535986688
   _enemyData: {fileID: 0}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 336611155535986688
+      type: {class: EntityNormalMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
 --- !u!1001 &1852177564
 PrefabInstance:
   m_ObjectHideFlags: 0
