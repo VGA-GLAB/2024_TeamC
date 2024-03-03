@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
-    public class TestPlayerForwardMover : MonoBehaviour
+    /// <summary>
+    /// プレイヤーを前に動かす処理
+    /// </summary>
+    public class PlayerForwardMover : MonoBehaviour
     {
         [SerializeField] private bool _isActivated = false;
         [SerializeField] private float _speed = 1.0f;
