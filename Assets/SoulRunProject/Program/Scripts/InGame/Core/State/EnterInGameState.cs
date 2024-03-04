@@ -13,18 +13,18 @@ namespace SoulRunProject.Common
     public class EnterInGameState : State
     {
         EnterStageState _enterStageState;
-        TestCamera _testCamera;
-        public EnterInGameState(EnterStageState enterStageState, TestCamera camera)
+        PlayerCamera _playerCamera;
+        public EnterInGameState(EnterStageState enterStageState, PlayerCamera camera)
         {
             _enterStageState = enterStageState;
-            _testCamera = camera;
+            _playerCamera = camera;
         }
         
         protected override async UniTask OnEnter(State currentState, CancellationToken cts)
         {
             DebugClass.Instance.ShowLog("初期化ステート開始");
-            await _testCamera.DoStartIngameMove(_testCamera.GetCancellationTokenOnDestroy());
-            _testCamera.StartFollowPlayer();
+            await _playerCamera.DoStartIngameMove(_playerCamera.GetCancellationTokenOnDestroy());
+            _playerCamera.StartFollowPlayer();
             Exit(_enterStageState);
         }
 
