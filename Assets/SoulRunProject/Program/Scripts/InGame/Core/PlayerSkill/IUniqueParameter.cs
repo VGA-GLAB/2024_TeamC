@@ -14,6 +14,7 @@ namespace SoulRunProject.InGame.PlayerSkill
     /// </summary>
     public class ReboundParameter : IUniqueParameter
     {
-        [field: SerializeField, Tooltip("跳ね返り回数")] public int ReboundCount;
+        [SerializeField, Tooltip("跳ね返り回数")] int _reboundCount;
+        public int ReboundCount => _reboundCount;
     }
 }
