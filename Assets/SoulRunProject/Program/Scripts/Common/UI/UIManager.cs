@@ -8,8 +8,9 @@ using UnityEngine;
 
 namespace SoulRunProject.SoulMixScene
 {
-    public class UIManager : AbstractSingleton<UIManager>
+    public class UIManager : AbstractSingletonMonoBehaviour<UIManager>
     {
+        protected override bool UseDontDestroyOnLoad => true;
         private readonly Dictionary<Type, IUserInterfaceSetActive> _panels = new ();
         
 
@@ -50,5 +51,6 @@ namespace SoulRunProject.SoulMixScene
             //TODO: ここでSoulMixPanelを取得して、そこにソウルの情報を表示する
             //soulMixPanel.DisplayNewSoulInfo(soul);
         }
+
     }
 }
