@@ -11,7 +11,10 @@ using DG.Tweening;
 
 namespace SoulRunProject
 {
-    public class TestCamera : MonoBehaviour
+    /// <summary>
+    /// プレイヤーのカメラクラス
+    /// </summary>
+    public class PlayerCamera : MonoBehaviour
     {
         [SerializeField] private Transform _player;
         [SerializeField] private Vector3 _offset;
