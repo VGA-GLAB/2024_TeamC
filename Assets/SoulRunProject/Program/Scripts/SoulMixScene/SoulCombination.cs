@@ -8,7 +8,7 @@
         public SoulCard ingredient2; // 組み合わせる2番目のソウルカード
         public SoulCard result; // 組み合わせによって生成される新しいソウルカード
 
-        // この組み合わせが指定された2つのソウルカードと一致するかどうかを確認するメソッド
+        /// <summary> この組み合わせが指定された2つのソウルカードと一致するかどうかを確認するメソッド </summary>
         public bool IsValidCombination(SoulCard soul1, SoulCard soul2)
         {
             return (soul1 == ingredient1 && soul2 == ingredient2) ||

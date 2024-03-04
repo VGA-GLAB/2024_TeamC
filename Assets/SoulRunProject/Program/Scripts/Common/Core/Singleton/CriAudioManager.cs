@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace SoulRunProject.Common
 {
-    public class CriAudioManager : AbstractSingleton<CriAudioManager>
+    public class CriAudioManager : AbstractSingletonMonoBehaviour<CriAudioManager>
     {
         [SerializeField] string streamingAssetsPathAcf = "";
         [SerializeField] string cueSheetBGM = "CueSheet_BGM"; //.acb
@@ -164,6 +164,8 @@ namespace SoulRunProject.Common
             }
         }
 
+
+        protected override bool UseDontDestroyOnLoad => true;
 
         /// <summary>CriAtom の追加。acb追加</summary>
         private void Awake()

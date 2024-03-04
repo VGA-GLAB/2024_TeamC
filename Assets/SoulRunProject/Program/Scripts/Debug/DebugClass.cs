@@ -1,4 +1,4 @@
-#if  UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,24 +7,29 @@ using UnityEngine.UI;
 
 namespace SoulRunProject.Common
 {
-    public class DebugClass : AbstractSingleton<DebugClass>
+    public class DebugClass : AbstractSingletonMonoBehaviour<DebugClass>
     {
-        [Header("設定値")]
-        [SerializeField, Header("デバックモードを付けるか")] private bool _isDebugMode;
+        [Header("設定値")] [SerializeField, Header("デバックモードを付けるか")]
+        private bool _isDebugMode;
+
         [SerializeField, Header("FPSを表示するか")] private bool _isShowFPS;
         [SerializeField, Header("設定フレームレート")] private int _targetFrameRate;
         [SerializeField, Header("FPS警告表示の値")] private float _fpsThreshold1 = 30f; // この値を下回ると黄色
         [SerializeField, Header("FPSエラー表示の値")] private float _fpsThreshold2 = 15f; // この値を下回ると赤色
-        [SerializeField, Header("VsycnをOFFにするか")] private bool _isVsyncOff;
+
+        [SerializeField, Header("VsycnをOFFにするか")]
+        private bool _isVsyncOff;
+
         [SerializeField, Header("ログの表示時間")] private float _displayTime = 5f; // テキストが表示される時間（秒）
         [SerializeField, Header("ログの最大表示行数")] private int _maxLines = 5; // 表示する最大行数
-        [Header("参照用")]
-        [SerializeField] private Text _fpsText;
+        [Header("参照用")] [SerializeField] private Text _fpsText;
         [SerializeField] private Text timerText; // 時間を表示するUI Textへの参照
         [SerializeField] private Text _logText; // UI Text コンポーネントへの参照
         private float _startTime;
         private float _deltaTime;
         private Queue<string> _textLines = new Queue<string>(); // 表示するテキストの行を保持するキュー
+
+        protected override bool UseDontDestroyOnLoad => true;
 
         private void Awake()
         {
@@ -46,12 +51,13 @@ namespace SoulRunProject.Common
         }
 
         #region FPS
+
         private void SetFPSSetting()
         {
             QualitySettings.vSyncCount = _isVsyncOff ? 0 : 1;
             Application.targetFrameRate = _targetFrameRate;
         }
-        
+
         private void ShowFPS()
         {
             if (!_isShowFPS || _fpsText == null) return;
@@ -74,11 +80,10 @@ namespace SoulRunProject.Common
             _fpsText.text = $"<color={color}>FPS: {fps:0.}</color>";
         }
 
-        
-
         #endregion
 
         #region タイマー
+
         private void ShowTime()
         {
             if (timerText == null) return;
@@ -90,9 +95,11 @@ namespace SoulRunProject.Common
 
             timerText.text = string.Format("PlayTime: {0:D2}:{1:D2}:{2:00.00}", hours, minutes, seconds);
         }
+
         #endregion
-        
+
         #region ログ
+
         private void AddText(string text, Color logColor)
         {
             // 色情報をリッチテキスト形式でテキストに追加
@@ -107,11 +114,11 @@ namespace SoulRunProject.Common
             UpdateTextDisplay();
             StartCoroutine(RemoveTextAfterTime(_displayTime)); // 指定時間後にテキストを削除するコルーチンを開始
         }
-        
+
         // テキスト表示を更新するメソッド
         private void UpdateTextDisplay()
         {
-            if (_logText ==  null) return;
+            if (_logText == null) return;
             _logText.text = string.Join("\n", _textLines.ToArray()); // キュー内の全テキスト行を改行で結合して表示
         }
 
@@ -126,18 +133,22 @@ namespace SoulRunProject.Common
                 UpdateTextDisplay();
             }
         }
+
         public void ShowErrorLog(string message)
         {
             AddText(message, Color.red);
         }
+
         public void ShowWarningLog(string message)
         {
             AddText(message, Color.yellow);
         }
+
         public void ShowLog(string message)
         {
             AddText(message, Color.green); // または、デフォルトのテキスト色を使いたい場合はこの引数を省略してもよい
         }
+
         #endregion
     }
 }

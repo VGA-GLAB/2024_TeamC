@@ -12,7 +12,7 @@ namespace SoulRunProject.Common
     /// </summary>
     public class InGameLifeTimeManager : LifetimeScope
     {
-        [SerializeField] private TestCamera _camera;
+        [SerializeField] private PlayerCamera _camera;
         [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private PlayerForwardMover playerForwardMover;
         protected override void Configure(IContainerBuilder builder)
