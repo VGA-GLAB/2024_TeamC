@@ -1,3 +1,5 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
@@ -8,14 +10,18 @@ namespace SoulRunProject.InGame
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] float _moveSpeed;
-        [SerializeField] float _jumpPower;
-        [SerializeField] float _grav;
- 
-        Rigidbody _rb;
-        bool _isGround;
+        [SerializeField] private float _moveSpeed;
+        [SerializeField] private float _jumpPower;
+        [SerializeField] private float _grav;
+        [Header("Check Field")] 
+        [SerializeField, Tooltip("フィールドの端でそれ以上進めなくなる距離")] private float _limitDistance = 0.5f;
+        [SerializeField] private Vector3 _boxSize = new Vector3(0, 10, 0);
+        [SerializeField] private float _distance = 10;
+
+        private Rigidbody _rb;
+        private bool _isGround;
         private bool _jumped;
-        float _velocityY = 0;
+        private float _velocityY;
 
         private void Awake()
         {
@@ -42,6 +48,8 @@ namespace SoulRunProject.InGame
             }
 
             _rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal") * _moveSpeed, _velocityY, 0);
+            RelocateBasedOnField();
+            Debug.Log(transform.position.x);
         }
 
         private void FixedUpdate()
@@ -70,5 +78,73 @@ namespace SoulRunProject.InGame
                 }
             }
         }
+
+        /// <summary>
+        /// フィールドから出ないようにプレイヤーを再配置する
+        /// </summary>
+        void RelocateBasedOnField()
+        {
+            Vector3 leftCenter = transform.position + -transform.right * _distance + -transform.up * _boxSize.y * 0.6f;
+            
+            if (Physics.BoxCast(leftCenter, _boxSize * 0.5f, transform.right, 
+                    out RaycastHit hit, quaternion.identity, _distance)) 
+            {
+                if (transform.position.x - hit.point.x <= _limitDistance)
+                {
+                    Vector3 pos = transform.position;
+                    pos.x = hit.point.x + _limitDistance;
+                    transform.position = pos;
+                    float veloX = Mathf.Clamp(_rb.velocity.x, 0, _moveSpeed);
+                    _rb.velocity = new Vector3(veloX, _velocityY, 0);
+                    return;
+                }
+            }
+            
+            Vector3 rightCenter = transform.position + transform.right * _distance + -transform.up * _boxSize.y * 0.6f;
+            
+            if (Physics.BoxCast(rightCenter, _boxSize * 0.5f, -transform.right, 
+                    out hit, quaternion.identity, _distance)) 
+            {
+                if (hit.point.x - transform.position.x < _limitDistance)
+                {
+                    Vector3 pos = transform.position;
+                    pos.x = hit.point.x - _limitDistance;
+                    transform.position = pos;
+                    float veloX = Mathf.Clamp(_rb.velocity.x, -_moveSpeed, 0);
+                    _rb.velocity = new Vector3(veloX, _velocityY, 0);
+                }
+            }
+        }
+        
+        #if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            Vector3 leftCenter = transform.position + -transform.right * _distance + -transform.up * _boxSize.y * 0.6f;
+            
+            if (Physics.BoxCast (leftCenter, _boxSize * 0.5f, transform.right, 
+                    out RaycastHit hit, quaternion.identity, _distance)) 
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawRay (leftCenter, transform.right * hit.distance);
+                Gizmos.DrawWireCube (leftCenter + transform.right * hit.distance, _boxSize);
+            } else {
+                Gizmos.color = Color.red;
+                Gizmos.DrawRay (leftCenter, transform.right * _distance);
+            }
+
+            Vector3 rightCenter = transform.position + transform.right * _distance + -transform.up * _boxSize.y * 0.6f;
+            
+            if (Physics.BoxCast (rightCenter, _boxSize * 0.5f, -transform.right, 
+                    out hit, quaternion.identity, _distance)) 
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawRay (rightCenter, -transform.right * hit.distance);
+                Gizmos.DrawWireCube (rightCenter - transform.right * hit.distance, _boxSize);
+            } else {
+                Gizmos.color = Color.red;
+                Gizmos.DrawRay (rightCenter, -transform.right * _distance);
+            }
+        }
+        #endif
     }
 }
