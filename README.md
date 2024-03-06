@@ -1,4 +1,4 @@
-# VS-DM-RunGame  
+# ソウルラン
 # 概要  
 Steamでリリース予定のゲームのリポジトリです。   
 制作まとめページ:https://www.notion.so/DM_VS_Run-5076dc46997c490997dca7574aba72cd  
