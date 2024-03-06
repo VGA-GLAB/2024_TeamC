@@ -30,6 +30,7 @@ namespace SoulRunProject.Common
             builder.Register<GameOverState>(Lifetime.Singleton);
             builder.Register<EnterBossStageState>(Lifetime.Singleton);
             builder.Register<PlayingBossStageState>(Lifetime.Singleton);
+            builder.Register<GameClearState>(Lifetime.Singleton);
             builder.Register<InGameManager>(Lifetime.Singleton);
             //開始処理
             builder.RegisterEntryPoint<InGameManager>();

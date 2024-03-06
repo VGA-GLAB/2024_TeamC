@@ -18,7 +18,6 @@ namespace SoulRunProject.Common
         protected override void OnEnter(State currentState)
         {
             DebugClass.Instance.ShowLog("ボスステージ開始前ステート開始");
-            _playingBossStageState.EnterAsync(this, _owner.GetCancellationTokenOnDestroy());
         }
     }
 }
