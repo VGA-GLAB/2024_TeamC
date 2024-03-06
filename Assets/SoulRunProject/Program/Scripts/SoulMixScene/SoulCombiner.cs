@@ -14,20 +14,29 @@ namespace SoulRunProject.SoulMixScene
         public SoulCardList ownedSouls; // 所持しているソウルリスト
         public List<SoulCombination> combinations; // ソウルの組み合わせリスト
 
-        public InputUIButton soul1Button;
 
-        private void Awake()
+        /// <summary> ソウルを選択する </summary>
+        public SoulCard SelectSoul()
         {
-            TryGetComponent(out soul1Button); // この使用例はもしsoul1Buttonが自動的に設定されるべきなら意味があるが、明確化が必要
-            soul1Button.OnClick.AddListener(SelectSoul1);
+            // クリックされたソウルを取得する
+            SoulCard selectSoul = null;
+            // クリックされたソウルを取得する
+            if (EventSystem.current.currentSelectedGameObject.TryGetComponent(out SoulCard soulCard))
+            {
+                selectSoul = soulCard;
+            }
+
+            return selectSoul;
         }
 
-        private void SelectSoul1(InputUIButton button)
+        /// <summary> 特定のソウルカードと組み合わせ可能なソウルカードのリストを返す </summary>
+        public List<SoulCard> SearchCombineSoul(SoulCard selectedSoul)
         {
-            Debug.Log("SelectSoul1");
+            return ownedSouls.soulCardList.Where(soul =>
+                    combinations.Any(combination =>
+                        combination.IsValidCombination(selectedSoul, soul)))
+                .ToList();
         }
-        
-        
 
         /// <summary> ソウルを合成する </summary>
         public SoulCard Combine(SoulCard selectSoul1, SoulCard selectSoul2)
@@ -47,6 +56,16 @@ namespace SoulRunProject.SoulMixScene
             // 作ったソウルをリストに追加する
             ownedSouls.soulCardList.Add(newSoul);
             return newSoul;
+        }
+
+        // Dataを設定する
+        public void SetData(SoulCard newSoul, SoulCard setSoul)
+        {
+            newSoul.SoulName = setSoul.SoulName;
+            newSoul.SoulLevel = setSoul.SoulLevel;
+            newSoul.SoulAbility = setSoul.SoulAbility;
+            newSoul.ExplanatoryText = setSoul.ExplanatoryText;
+            newSoul.Status = setSoul.Status;
         }
     }
 }
