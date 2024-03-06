@@ -19,7 +19,8 @@ namespace SoulRunProject.Common
         protected override void OnEnter(State currentState)
         {
             DebugClass.Instance.ShowLog("ステージ開始ステート開始");
-            OnExit(_playingRunGameState);
+            //TODO：ステージ名の表示
+            StateChange();
         }
         
         protected override void OnExit(State nextState)

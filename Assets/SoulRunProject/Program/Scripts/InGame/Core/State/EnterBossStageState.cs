@@ -1,22 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using SoulRunProject.Common;
 using UnityEngine;
 
-namespace SoulRunProject
+namespace SoulRunProject.Common
 {
     public class EnterBossStageState : State
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        private PlayingBossStageState _playingBossStageState;
         
+        public EnterBossStageState(PlayingBossStageState playingBossStageState)
+        {
+            _playingBossStageState = playingBossStageState;
         }
-
-        // Update is called once per frame
-        void Update()
-        {
         
+        protected override void OnEnter(State currentState)
+        {
+            DebugClass.Instance.ShowLog("ボスステージ開始前ステート開始");
+            _playingBossStageState.EnterAsync(this, _owner.GetCancellationTokenOnDestroy());
         }
     }
 }

@@ -21,15 +21,18 @@ namespace SoulRunProject.Common
             builder.RegisterInstance(_camera);
             builder.RegisterInstance(_playerMovement);
             builder.RegisterInstance(playerForwardMover);
+            builder.RegisterInstance(gameObject);
             
             //アプリケーション層
-            builder.Register<State, EnterInGameState>(Lifetime.Singleton);
+            builder.Register<EnterInGameState>(Lifetime.Singleton);
             builder.Register<EnterStageState>(Lifetime.Singleton);
             builder.Register<PlayingRunGameState>(Lifetime.Singleton);
             builder.Register<GameOverState>(Lifetime.Singleton);
             builder.Register<EnterBossStageState>(Lifetime.Singleton);
             builder.Register<PlayingBossStageState>(Lifetime.Singleton);
-            
+            builder.Register<InGameManager>(Lifetime.Singleton);
+            //開始処理
+            builder.RegisterEntryPoint<InGameManager>();
         }
     }
 }
