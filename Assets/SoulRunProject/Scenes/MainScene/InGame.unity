@@ -2765,7 +2765,7 @@ MonoBehaviour:
   - {fileID: 1174502016}
   _camera: {fileID: 1484104527}
   _playerMovement: {fileID: 1420106440}
-  playerForwardMover: {fileID: 0}
+  playerForwardMover: {fileID: 1420106443}
 --- !u!4 &1180136328 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164151997940843940, guid: 54942ca6699e8764a8b2eb58690cf15d,
