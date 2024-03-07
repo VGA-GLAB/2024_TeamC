@@ -9,6 +9,7 @@ namespace SoulRunProject.InGame
     public class EntityNormalMover : IEntityMover
     {
         private float _moveSpeed;
+        bool _isStopped;
         
         /// <summary>
         /// ステータス入手メソッド
@@ -18,13 +19,15 @@ namespace SoulRunProject.InGame
         {
             _moveSpeed = status.MoveSpeed;
         }
-
-        /// <summary>
-        /// 移動処理メソッド
-        /// </summary>
-        public void Move(Transform self, Rigidbody rb)
+        public void Move(Transform self)
         {
-            rb.velocity = self.forward * _moveSpeed;
+            if (_isStopped) return;
+            self.position = Vector3.MoveTowards(self.position, self.forward, _moveSpeed * Time.deltaTime);
+        }
+
+        public void Stop()
+        {
+            _isStopped = true;
         }
     }
 }
