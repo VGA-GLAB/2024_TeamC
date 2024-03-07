@@ -20,11 +20,11 @@ namespace SoulRunProject.InGame
         }
 
         /// <summary>
-        /// 移動処理メソッド(仮)
+        /// 移動処理メソッド
         /// </summary>
-        public void Move()
+        public void Move(Transform self, Rigidbody rb)
         {
-            Debug.Log($"Move! value = {_moveSpeed}");
+            rb.velocity = self.forward * _moveSpeed;
         }
     }
 }

@@ -1,4 +1,5 @@
 using SoulRunProject.SoulMixScene;
+using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
@@ -8,6 +9,6 @@ namespace SoulRunProject.InGame
     public interface IEntityMover
     {
         public void GetMoveStatus(Status status);
-        public void Move();
+        public void Move(Transform self, Rigidbody rb);
     }
 }

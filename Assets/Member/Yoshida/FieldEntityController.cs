@@ -30,7 +30,7 @@ namespace SoulRunProject.InGame
         public void Active()
         {
             _attack?.Attack();
-            _move?.Move();
+            _move?.Move(null, null);//    TODO: 一時的にnull入れた
         }
     }
 }
