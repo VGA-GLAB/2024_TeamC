@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SoulRunProject.InGame.PlayerSkill
+namespace SoulRunProject.Common
 {
     /// <summary>
     /// スキルの基底クラス

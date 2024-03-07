@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using SoulRunProject.Common;
 using SoulRunProject.SoulMixScene;
@@ -10,13 +9,18 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class FieldEntityController : MonoBehaviour
     {
-        [SerializeReference, SubclassSelector, Tooltip("敵の攻撃パターンを設定する")] IEntityAttacker _attack;
-        [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")] IEntityMover _move;
-        [SerializeField, Tooltip("敵のパラメータを設定する")] Status _enemyData;
-
+        [SerializeReference, SubclassSelector, Tooltip("敵の攻撃パターンを設定する")] protected IEntityAttacker _attacker;
+        [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")] protected IEntityMover _mover;
+        [SerializeField, Tooltip("敵のパラメータを設定する")] protected Status _status;
+        [SerializeField] protected PlayerManager _playerManager;
         void Start()
         {
             InitializeEntityStatus();
+            Active();
+        }
+        
+        void Update()
+        {
             Active();
         }
 
@@ -25,14 +29,14 @@ namespace SoulRunProject.InGame
         /// </summary>
         void InitializeEntityStatus()
         {
-            _attack?.GetAttackStatus(_enemyData);
-            _move?.GetMoveStatus(_enemyData);
+            _attacker?.GetAttackStatus(_status);
+            _mover?.GetMoveStatus(_status);
         }
         
         public void Active()
         {
-            _attack?.Attack();
-            _move?.Move(this.transform);//    TODO: 一時的にnull入れた
+            _attacker?.Attack();
+            _mover?.Move(this.transform);
         }
     }
 }

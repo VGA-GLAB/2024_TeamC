@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SoulRunProject.InGame.PlayerSkill
+namespace SoulRunProject.Common
 {
     /// <summary>
     /// 独自パラメーターをSubclassSelectorで選べるようにするためのインターフェース
