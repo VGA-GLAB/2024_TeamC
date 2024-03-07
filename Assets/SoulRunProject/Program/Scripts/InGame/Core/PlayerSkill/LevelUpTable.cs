@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SoulRunProject.InGame.PlayerSkill
+namespace SoulRunProject.Common
 {
     [CreateAssetMenu(menuName = "SoulRunProject/PlayerSkill/LevelUpTable")]
     public class LevelUpTable : ScriptableObject
