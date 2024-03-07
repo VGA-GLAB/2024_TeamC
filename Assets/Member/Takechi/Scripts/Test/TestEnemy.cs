@@ -12,17 +12,15 @@ namespace SoulRunProject.TakechiTest
     {
         [SerializeField] Status _status;
         [SerializeReference, SubclassSelector] IEntityMover _mover;
-        Rigidbody _rb;
         public IEntityMover Mover => _mover;
         void Start()
         {
             _mover.GetMoveStatus(_status);
-            _rb = GetComponent<Rigidbody>();
         }
 
-        void FixedUpdate()
+        void Update()
         {
-            _mover.Move(transform, _rb);
+            _mover.Move(transform);
         }
     }
 }
