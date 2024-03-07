@@ -26,7 +26,7 @@ namespace SoulRunProject.Common
             }
             else
             {
-                Debug.LogWarning("State with the same ID already exists.");
+                DebugClass.Instance.ShowWarningLog("State with the same ID already exists.");
             }
         }
 
@@ -39,7 +39,7 @@ namespace SoulRunProject.Common
             }
             else
             {
-                Debug.LogWarning("State with the given ID does not exist.");
+                DebugClass.Instance.ShowWarningLog("State with the given ID does not exist.");
             }
         }
 
@@ -54,7 +54,7 @@ namespace SoulRunProject.Common
             }
             else
             {
-                Debug.LogError("State with the given ID does not exist.");
+                DebugClass.Instance.ShowErrorLog("State with the given ID does not exist.");
             }
         }
 

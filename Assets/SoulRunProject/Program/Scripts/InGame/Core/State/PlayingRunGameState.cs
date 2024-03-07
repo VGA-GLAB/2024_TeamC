@@ -20,8 +20,7 @@ namespace SoulRunProject.Common
         public bool ArrivedBossStagePosition { get; private set; } = false;
         
         public PlayingRunGameState(PlayerMovement playerMovement,
-            PlayerForwardMover playerForwardMover,
-            EnterBossStageState enterBossStageState)
+            PlayerForwardMover playerForwardMover)
         {
             _playerMovement = playerMovement;
             _playerForwardMover = playerForwardMover;
@@ -36,7 +35,6 @@ namespace SoulRunProject.Common
         
         protected override void OnUpdate()
         {
-            DebugClass.Instance.ShowLog(_playerMovement.transform.position.z.ToString());
             if (_playerMovement.transform.position.z > _enterBossStagePosition)
             {   //プレイヤーがボスステージ開始前の位置に到達したら前進を止めて遷移
                 _playerForwardMover.IsActivate(false);

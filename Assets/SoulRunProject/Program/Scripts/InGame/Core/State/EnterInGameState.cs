@@ -30,7 +30,7 @@ namespace SoulRunProject.Common
 
         protected override void OnExit(State nextState)
         {
-            nextState.Enter(this);
+            
         }
     }
 }

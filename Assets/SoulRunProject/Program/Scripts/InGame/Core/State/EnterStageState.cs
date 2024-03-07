@@ -25,7 +25,7 @@ namespace SoulRunProject.Common
         
         protected override void OnExit(State nextState)
         {
-            _playingRunGameState.Enter(this);
+    
         }
     }
 }

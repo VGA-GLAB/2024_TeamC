@@ -53,7 +53,6 @@ namespace SoulRunProject.Common
 
         public void Start()
         {
-            
             DebugClass.Instance.ShowLog("InGameManager起動");
             var token = _owner.GetCancellationTokenOnDestroy();
             _currentState.EnterAsync(null, token).Forget();
