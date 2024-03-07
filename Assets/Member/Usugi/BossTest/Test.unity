@@ -306,7 +306,7 @@ MonoBehaviour:
   target: {fileID: 1993552073}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 1
+  stopDistance: 0.1
 --- !u!65 &34121501
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -584,7 +584,7 @@ MonoBehaviour:
   target: {fileID: 458096105}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 0
+  stopDistance: 0.1
 --- !u!1 &458096101
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +706,7 @@ MonoBehaviour:
   target: {fileID: 1935368057}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 0
+  stopDistance: 0.1
 --- !u!1 &475717641
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,7 +757,7 @@ MonoBehaviour:
   target: {fileID: 1446271084}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 0
+  stopDistance: 0.1
 --- !u!65 &475717644
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -879,7 +879,7 @@ MonoBehaviour:
   target: {fileID: 475717642}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 1
+  stopDistance: 0.1
 --- !u!65 &500034832
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1001,7 +1001,7 @@ MonoBehaviour:
   target: {fileID: 500034830}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 1
+  stopDistance: 0.1
 --- !u!65 &596643024
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1123,7 +1123,7 @@ MonoBehaviour:
   target: {fileID: 34121499}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 1
+  stopDistance: 0.1
 --- !u!65 &794864768
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1778,7 +1778,7 @@ MonoBehaviour:
   target: {fileID: 794864766}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 2
+  stopDistance: 0.1
 --- !u!65 &1127753831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1900,7 +1900,7 @@ MonoBehaviour:
   target: {fileID: 1426312894}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 2
+  stopDistance: 0.1
 --- !u!65 &1402981187
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2022,7 +2022,7 @@ MonoBehaviour:
   target: {fileID: 1127753829}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 2
+  stopDistance: 0.1
 --- !u!65 &1426312896
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2215,7 +2215,7 @@ MonoBehaviour:
   target: {fileID: 261175881}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 0
+  stopDistance: 0.1
 --- !u!1 &1812630761
 GameObject:
   m_ObjectHideFlags: 0
@@ -2546,7 +2546,7 @@ MonoBehaviour:
   target: {fileID: 596643022}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 1
+  stopDistance: 0.1
 --- !u!65 &1993552070
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2668,7 +2668,7 @@ MonoBehaviour:
   target: {fileID: 1402981185}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 2}
-  stopDistance: 2
+  stopDistance: 0.1
 --- !u!65 &2020772040
 BoxCollider:
   m_ObjectHideFlags: 0
