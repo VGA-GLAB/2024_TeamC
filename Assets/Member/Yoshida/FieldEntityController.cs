@@ -9,10 +9,9 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class FieldEntityController : MonoBehaviour
     {
-        [SerializeReference, SubclassSelector, Tooltip("敵の攻撃パターンを設定する")] IEntityAttacker _attack;
-        [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")] IEntityMover _move;
-        [SerializeField, Tooltip("敵のパラメータを設定する")] Status _enemyData;
-
+        [SerializeReference, SubclassSelector, Tooltip("敵の攻撃パターンを設定する")] protected IEntityAttacker _attacker;
+        [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")] protected IEntityMover _mover;
+        [SerializeField, Tooltip("敵のパラメータを設定する")] protected Status _status;
         void Start()
         {
             InitializeEntityStatus();
@@ -23,14 +22,13 @@ namespace SoulRunProject.InGame
         /// </summary>
         void InitializeEntityStatus()
         {
-            _attack?.GetAttackStatus(_enemyData);
-            _move?.GetMoveStatus(_enemyData);
+            _attacker?.GetAttackStatus(_status);
+            _mover?.GetMoveStatus(_status);
         }
         
         public void Active()
         {
-            _attack?.Attack();
-            _move?.Move(null);//    TODO: 一時的にnull入れた
+            _attacker?.Attack();
         }
     }
 }
