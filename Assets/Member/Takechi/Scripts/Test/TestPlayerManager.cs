@@ -1,4 +1,4 @@
-using SoulRunProject.InGame;
+using SoulRunProject.Common;
 using UnityEngine;
 
 namespace SoulRunProject.TakechiTest

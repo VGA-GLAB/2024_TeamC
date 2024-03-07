@@ -1,3 +1,4 @@
+using SoulRunProject.Common;
 using SoulRunProject.SoulMixScene;
 using UnityEngine;
 using VContainer;
