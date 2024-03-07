@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GraphProcessor;
+using SoulRunProject.Common;
 using UnityEngine;
 
 namespace BehaviorTree
@@ -10,7 +11,7 @@ namespace BehaviorTree
     [Serializable, NodeMenuItem("Action/CustomLog")]
     public class CustomLog : Action
     {
-        [Input("Target")] public GameObject Target;
+        [SerializeField] private String _logMessage;
         
         public override void OnAwake()
         {
@@ -19,7 +20,7 @@ namespace BehaviorTree
 
         protected override void OnStart()
         {
-            Debug.Log(Target.name);
+            DebugClass.Instance.ShowLog("CustomLog: " + _logMessage);
         }
 
         protected override BehavioreNodeState OnUpdate()

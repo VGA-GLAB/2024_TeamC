@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BossBehavior
   m_EditorClassIdentifier: 
   serializedNodes: []
-  nodes: []
+  nodes:
+  - rid: 336611251338084355
   edges: []
   groups: []
   stackNodes: []
@@ -22,8 +23,24 @@ MonoBehaviour:
   serializedParameterList: []
   stickyNotes: []
   nodeInspectorReference: {fileID: 0}
-  position: {x: 0, y: 0, z: 0}
+  position: {x: 813, y: 157, z: 0}
   scale: {x: 1, y: 1, z: 1}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 336611251338084355
+      type: {class: Root, ns: BehaviorTree, asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: 38c4bdad-738e-4e54-89ef-1befe6705d35
+        computeOrder: 0
+        position:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 100
+          height: 100
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        State: 0
