@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using SoulRunProject.Common;
 using SoulRunProject.SoulMixScene;
@@ -16,6 +17,7 @@ namespace SoulRunProject.InGame
         void Start()
         {
             InitializeEntityStatus();
+            Active();
         }
 
         /// <summary>
@@ -30,7 +32,7 @@ namespace SoulRunProject.InGame
         public void Active()
         {
             _attack?.Attack();
-            _move?.Move(null);//    TODO: 一時的にnull入れた
+            _move?.Move(this.transform);//    TODO: 一時的にnull入れた
         }
     }
 }

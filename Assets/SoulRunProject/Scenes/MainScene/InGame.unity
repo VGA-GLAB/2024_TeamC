@@ -2765,7 +2765,7 @@ MonoBehaviour:
   - {fileID: 1174502016}
   _camera: {fileID: 1484104527}
   _playerMovement: {fileID: 1420106440}
-  playerForwardMover: {fileID: 0}
+  playerForwardMover: {fileID: 1420106443}
 --- !u!4 &1180136328 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164151997940843940, guid: 54942ca6699e8764a8b2eb58690cf15d,
@@ -3386,6 +3386,7 @@ GameObject:
   - component: {fileID: 1420106440}
   - component: {fileID: 1420106442}
   - component: {fileID: 1420106443}
+  - component: {fileID: 1420106444}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3532,13 +3533,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420106435}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ced7365974afd3948b2dfeb54467d835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _isActivated: 0
   _speed: 1.5
+--- !u!114 &1420106444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420106435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da11451554c497787ef1bb9f732bc2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 1420106439}
 --- !u!1001 &1438173889
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3675,6 +3689,56 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54942ca6699e8764a8b2eb58690cf15d, type: 3}
+--- !u!1 &1450398203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1450398204}
+  - component: {fileID: 1450398205}
+  m_Layer: 0
+  m_Name: TestInject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1450398204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450398203}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.5353494, y: -18.01663, z: 68.18953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1450398205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450398203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a369a6f3c745f5aaf805b55c4845db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects:
+  - {fileID: 1850531341}
+  _testPlayerManager: {fileID: 1420106444}
 --- !u!4 &1461523928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164151997940843940, guid: 54942ca6699e8764a8b2eb58690cf15d,
@@ -5265,15 +5329,17 @@ MonoBehaviour:
   _attack:
     rid: -2
   _move:
-    rid: 336611155535986688
-  _enemyData: {fileID: 0}
+    rid: 336611251338084356
+  _enemyData: {fileID: 11400000, guid: a2f95514ea4782b45aa75b4ed0d8c7c0, type: 2}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 336611155535986688
-      type: {class: EntityNormalMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
+    - rid: 336611251338084356
+      type: {class: FollowingMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
+      data:
+        _aimSpeed: 1
 --- !u!1001 &1852177564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6214,3 +6280,4 @@ SceneRoots:
   - {fileID: 1850531348}
   - {fileID: 127391382}
   - {fileID: 1244644403}
+  - {fileID: 1450398204}
