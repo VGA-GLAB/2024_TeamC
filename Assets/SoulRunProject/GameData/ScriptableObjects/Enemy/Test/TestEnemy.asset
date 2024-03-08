@@ -21,6 +21,6 @@ MonoBehaviour:
   effectTime: 1
   bulletNum: 1
   penetration: 1
-  moveSpeed: 1
+  moveSpeed: 10
   growthSpeed: 1
   luck: 1
