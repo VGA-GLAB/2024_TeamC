@@ -10,15 +10,14 @@ namespace SoulRunProject
 {
     public class TitlePresenter : MonoBehaviour
     {
-        private TitleModel _titleModel;
-        private TitleView _titleView;
-        private Button a;
+        [SerializeField] private TitleModel _titleModel;
+        [SerializeField] private TitleView _titleView;
 
         private void Start()
         {
-            _titleView.StartButton.OnButtonDown += () => _titleModel.StartGame();
-            // _titleView.OptionButton.OnClickAsObservable().Subscribe(_ => _titleModel.Option());
-            // _titleView.ExitButton.OnClickAsObservable().Subscribe(_ => _titleModel.Exit());
+            _titleView.StartButton.onClick.AsObservable().Subscribe(_ => _titleModel.StartGame());
+            _titleView.OptionButton.onClick.AsObservable().Subscribe(_ => _titleModel.Option());
+            _titleView.ExitButton.onClick.AsObservable().Subscribe(_ => _titleModel.Exit());
         }
     }
 }

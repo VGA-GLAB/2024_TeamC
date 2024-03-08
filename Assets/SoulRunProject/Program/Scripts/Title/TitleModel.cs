@@ -11,7 +11,6 @@ namespace SoulRunProject.Title
         public void StartGame()
         {
             DebugClass.Instance.ShowLog("ゲーム開始");
-            DebugClass.Instance.ShowLog("ゲーム画面表示");
         }
         public void Option()
         {
