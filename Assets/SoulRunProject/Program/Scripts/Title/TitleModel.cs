@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using SoulRunProject.Framework;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SoulRunProject.Title
 {
@@ -8,9 +10,13 @@ namespace SoulRunProject.Title
     /// </summary>
     public class TitleModel : MonoBehaviour
     {
-        public void StartGame()
+        [SerializeField] float _transitionTime = 1.0f;
+        
+        public async void StartGame()
         {
-            DebugClass.Instance.ShowLog("ゲーム開始");
+            DebugClass.Instance.ShowLog($"ゲーム開始:{_transitionTime}秒後にインゲーム画面に遷移します");
+            //ここで実行
+            SceneManager.LoadScene("InGame");
         }
         public void Option()
         {

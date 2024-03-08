@@ -713,16 +713,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4545564124951783786, guid: 4e0836eb2eb1dd84c8821c10f93d608a,
-        type: 3}
-      propertyPath: m_FontData.m_VerticalOverflow
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4545564124951783786, guid: 4e0836eb2eb1dd84c8821c10f93d608a,
-        type: 3}
-      propertyPath: m_FontData.m_HorizontalOverflow
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6527912228586107537, guid: 4e0836eb2eb1dd84c8821c10f93d608a,
         type: 3}
       propertyPath: m_Name
@@ -1254,6 +1244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9b339bd86ab1d4c935ca3bdf0c335d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _transitionTime: 1
 --- !u!1 &1517205487
 GameObject:
   m_ObjectHideFlags: 0
