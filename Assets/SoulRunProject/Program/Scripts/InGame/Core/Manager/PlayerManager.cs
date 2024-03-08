@@ -1,4 +1,5 @@
-﻿using SoulRunProject.InGame;
+﻿using System;
+using SoulRunProject.InGame;
 using UnityEngine;
 
 namespace SoulRunProject.Common
@@ -11,10 +12,14 @@ namespace SoulRunProject.Common
         [SerializeField] private PlayerInput _playerInput;
         
         private IUsePlayerInput[] _playerInputUsers;
+        private IInGameTime[] _inGameTimes;
+
+        private bool _inPause;
 
         private void Awake()
         {
             _playerInputUsers = GetComponents<IUsePlayerInput>();
+            _inGameTimes = GetComponents<IInGameTime>();
             InitializeInput();
         }
 
@@ -27,6 +32,42 @@ namespace SoulRunProject.Common
             {
                 _playerInput.HorizontalAction += user.InputHorizontal;
                 _playerInput.JumpAction += user.Jump;
+            }
+        }
+
+        public void SwitchPause(bool toPause)
+        {
+            _inPause = toPause;
+
+            foreach (var inGameTime in _inGameTimes)
+            {
+                inGameTime.SwitchPause(_inPause);
+            }
+        }
+
+        private void Update()
+        {
+            if (_inPause)
+            {
+                return;
+            }
+            
+            foreach (var inGameTime in _inGameTimes)
+            {
+                inGameTime.UpdateAction();
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (_inPause)
+            {
+                return;
+            }
+
+            foreach (var inGameTime in _inGameTimes)
+            {
+                inGameTime.FixedUpdateAction();
             }
         }
     }

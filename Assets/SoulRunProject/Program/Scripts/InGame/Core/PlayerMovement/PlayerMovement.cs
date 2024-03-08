@@ -8,7 +8,7 @@ namespace SoulRunProject.InGame
     /// プレイヤー移動
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : MonoBehaviour, IUsePlayerInput
+    public class PlayerMovement : MonoBehaviour, IUsePlayerInput, IInGameTime
     {
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpPower;
@@ -25,10 +25,24 @@ namespace SoulRunProject.InGame
             _rb.useGravity = false;
         }
 
-        private void Update()
+        public void UpdateAction()
         {
             LimitPosition();
             _rb.velocity = _playerVelocity;
+        }
+
+        public void FixedUpdateAction()
+        {
+            if (_isGround && _playerVelocity.y <= 0)
+            {
+                _playerVelocity.y = 0;
+            }
+            else
+            {
+                _playerVelocity.y -= _grav * Time.fixedDeltaTime;
+            }
+
+            _isGround = false;
         }
 
         public void InputHorizontal(float horizontal)
@@ -44,18 +58,16 @@ namespace SoulRunProject.InGame
             }
         }
 
-        private void FixedUpdate()
+        public void SwitchPause(bool toPause)
         {
-            if (_isGround && _playerVelocity.y <= 0)
+            if (toPause)
             {
-                _playerVelocity.y = 0;
+                _rb.Sleep();
             }
             else
             {
-                _playerVelocity.y -= _grav * Time.fixedDeltaTime;
+                _rb.WakeUp();
             }
-
-            _isGround = false;
         }
 
         private void OnCollisionStay(Collision other)
