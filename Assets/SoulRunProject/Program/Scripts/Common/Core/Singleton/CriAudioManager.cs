@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace SoulRunProject.Common
 {
-    public class CriAudioManager : AbstractSingleton<CriAudioManager>
+    public class CriAudioManager : AbstractSingletonMonoBehaviour<CriAudioManager>
     {
-        [SerializeField] string streamingAssetsPathAcf = "";
+        [SerializeField] string streamingAssetsPathAcf = "SoulRun";
         [SerializeField] string cueSheetBGM = "CueSheet_BGM"; //.acb
         [SerializeField] string cueSheetSe = "CueSheet_SE"; //.acb
         [SerializeField] string cueSheetVoice = "CueSheet_Voice"; //.acb
@@ -165,14 +165,11 @@ namespace SoulRunProject.Common
         }
 
 
+        protected override bool UseDontDestroyOnLoad => true;
+
         /// <summary>CriAtom の追加。acb追加</summary>
         private void Awake()
         {
-            _bgmPlayer = new CriAtomExPlayer();
-            _sePlayer = new CriAtomExPlayer();
-            _loopSEPlayer = new CriAtomExPlayer();
-            _voicePlayer = new CriAtomExPlayer();
-
             // acf設定
             string path = Application.streamingAssetsPath + $"/{streamingAssetsPathAcf}.acf";
             CriAtomEx.RegisterAcf(null, path);
@@ -185,29 +182,34 @@ namespace SoulRunProject.Common
             //Voice acb追加
             CriAtom.AddCueSheet(cueSheetVoice, $"{cueSheetVoice}.acb", null, null);
 
+            _bgmPlayer = new CriAtomExPlayer();
+            _sePlayer = new CriAtomExPlayer();
+            _loopSEPlayer = new CriAtomExPlayer();
+            _voicePlayer = new CriAtomExPlayer();
+
             MasterVolumeChanged += volume =>
             {
                 _bgmPlayer.SetVolume(volume * _bgmVolume);
                 _bgmPlayer.Update(_bgmPlayback);
 
-                for (int i = 0; i < _seData.Count; i++)
+                foreach (var se in _seData)
                 {
-                    if (_seData[i].IsLoop)
+                    if (se.IsLoop)
                     {
                         _loopSEPlayer.SetVolume(volume * _seVolume);
-                        _loopSEPlayer.Update(_seData[i].Playback);
+                        _loopSEPlayer.Update(se.Playback);
                     }
                     else
                     {
                         _sePlayer.SetVolume(volume * _seVolume);
-                        _sePlayer.Update(_seData[i].Playback);
+                        _sePlayer.Update(se.Playback);
                     }
                 }
 
-                for (int i = 0; i < _voiceData.Count; i++)
+                foreach (var voice in _voiceData)
                 {
                     _voicePlayer.SetVolume(_masterVolume * volume);
-                    _voicePlayer.Update(_voiceData[i].Playback);
+                    _voicePlayer.Update(voice.Playback);
                 }
             };
 
@@ -219,27 +221,27 @@ namespace SoulRunProject.Common
 
             SEVolumeChanged += volume =>
             {
-                for (int i = 0; i < _seData.Count; i++)
+                foreach (var se in _seData)
                 {
-                    if (_seData[i].IsLoop)
+                    if (se.IsLoop)
                     {
                         _loopSEPlayer.SetVolume(_masterVolume * volume);
-                        _loopSEPlayer.Update(_seData[i].Playback);
+                        _loopSEPlayer.Update(se.Playback);
                     }
                     else
                     {
                         _sePlayer.SetVolume(_masterVolume * volume);
-                        _sePlayer.Update(_seData[i].Playback);
+                        _sePlayer.Update(se.Playback);
                     }
                 }
             };
 
             VoiceVolumeChanged += volume =>
             {
-                for (int i = 0; i < _voiceData.Count; i++)
+                foreach (var voice in _voiceData)
                 {
                     _voicePlayer.SetVolume(_masterVolume * volume);
-                    _voicePlayer.Update(_voiceData[i].Playback);
+                    _voicePlayer.Update(voice.Playback);
                 }
             };
 
