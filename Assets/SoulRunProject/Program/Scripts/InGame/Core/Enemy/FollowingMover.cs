@@ -66,10 +66,6 @@ namespace SoulRunProject.InGame
             playerPos.y = selfPos.y;
             //  移動
             self.position = Vector3.MoveTowards(selfPos, playerPos, _moveSpeed * Time.deltaTime);
-            //  回転
-            var direction = playerPos - selfPos;
-            direction.y = 0;
-            //self.forward = Vector3.Slerp(self.forward, direction, _aimSpeed * Time.deltaTime);
         }
         public void Stop()
         {
