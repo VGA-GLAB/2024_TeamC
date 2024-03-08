@@ -2,6 +2,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using SoulRunProject.Framework;
 using UnityEngine;
+using VContainer.Unity;
 
 namespace SoulRunProject.Common
 {
@@ -12,25 +13,24 @@ namespace SoulRunProject.Common
     /// </summary>
     public class EnterInGameState : State
     {
-        EnterStageState _enterStageState;
         PlayerCamera _playerCamera;
-        public EnterInGameState(EnterStageState enterStageState, PlayerCamera camera)
+        
+        public EnterInGameState(PlayerCamera camera)
         {
-            _enterStageState = enterStageState;
             _playerCamera = camera;
         }
         
-        protected override async UniTask OnEnter(State currentState, CancellationToken cts)
+        protected override async UniTask OnEnterAsync(State currentState, CancellationToken cts)
         {
-            DebugClass.Instance.ShowLog("初期化ステート開始");
+            DebugClass.Instance.ShowLog("インゲーム開始ステート開始");
             await _playerCamera.DoStartIngameMove(_playerCamera.GetCancellationTokenOnDestroy());
             _playerCamera.StartFollowPlayer();
-            Exit(_enterStageState);
+            StateChange();
         }
 
         protected override void OnExit(State nextState)
         {
-            _enterStageState.Enter(this);
+            
         }
     }
 }
