@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using SoulRunProject.Framework;
 using SoulRunProject.InGame;
-using UnityEngine;
 
 namespace SoulRunProject.Common
 {

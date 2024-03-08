@@ -11,7 +11,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Design/0125/Satou/GameScene.unity
     guid: bd4eb1ad5c28e9049a876bdd815629fd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Member/Usugi/Scene/InGameTest.unity
     guid: 9b294e9a01df0eb4a88699e0603a5f5a
+  - enabled: 1
+    path: Assets/SoulRunProject/Scenes/MainScene/Title.unity
+    guid: 3f2c004bed08b7148bb7ca198c66260b
+  - enabled: 1
+    path: Assets/SoulRunProject/Scenes/MainScene/InGame.unity
+    guid: aafe37b1106181a4ab0e52c4413f8e54
+  - enabled: 1
+    path: Assets/SoulRunProject/Scenes/MainScene/SoulMixScene.unity
+    guid: 7f0244cb33ee4074e8503b9fb325fcb0
   m_configObjects: {}
