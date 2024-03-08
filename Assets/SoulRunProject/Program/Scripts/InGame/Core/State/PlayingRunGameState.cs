@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using SoulRunProject.Common;
 using SoulRunProject.Framework;
-using SoulRunProject.InGame;
-using UniRx;
-using UniRx.Triggers;
 
-namespace SoulRunProject.Common
+namespace SoulRunProject.InGame
 {
     /// <summary>
     /// ランゲームプレイ中の管理を行うクラス

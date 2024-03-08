@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using SoulRunProject.Common;
 using SoulRunProject.Framework;
 using UnityEngine;
 
-namespace SoulRunProject.Common
+namespace SoulRunProject.InGame
 {
     public class PlayingBossStageState : State
     {

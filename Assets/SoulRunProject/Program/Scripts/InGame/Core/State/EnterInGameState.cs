@@ -1,10 +1,9 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using SoulRunProject.Common;
 using SoulRunProject.Framework;
-using UnityEngine;
-using VContainer.Unity;
 
-namespace SoulRunProject.Common
+namespace SoulRunProject.InGame
 {
     /// <summary>
     /// インゲーム開始時に最初に一度呼ばれるステート

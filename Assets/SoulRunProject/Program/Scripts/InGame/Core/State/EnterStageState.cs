@@ -1,6 +1,7 @@
+using SoulRunProject.Common;
 using SoulRunProject.Framework;
 
-namespace SoulRunProject.Common
+namespace SoulRunProject.InGame
 {
     /// <summary>
     /// ステージ開始前の処理を行う

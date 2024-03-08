@@ -5,7 +5,7 @@ using SoulRunProject.Common;
 using SoulRunProject.Framework;
 using UnityEngine;
 
-namespace SoulRunProject.Common
+namespace SoulRunProject.InGame
 {
     public class EnterBossStageState : State
     {
