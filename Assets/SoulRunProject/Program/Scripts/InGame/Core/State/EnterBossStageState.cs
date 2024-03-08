@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using SoulRunProject.Common;
+using SoulRunProject.Framework;
 using UnityEngine;
 
 namespace SoulRunProject.Common
