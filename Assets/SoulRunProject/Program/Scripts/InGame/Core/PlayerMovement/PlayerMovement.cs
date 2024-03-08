@@ -8,7 +8,7 @@ namespace SoulRunProject.InGame
     /// プレイヤー移動
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, IUsePlayerInput
     {
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpPower;
@@ -27,14 +27,21 @@ namespace SoulRunProject.InGame
 
         private void Update()
         {
-            if (_isGround && Input.GetButtonDown("Jump"))
+            LimitPosition();
+            _rb.velocity = _playerVelocity;
+        }
+
+        public void InputHorizontal(float horizontal)
+        {
+            _playerVelocity.x = horizontal * _moveSpeed;
+        }
+
+        public void Jump()
+        {
+            if (_isGround)
             {
                 _playerVelocity.y = _jumpPower;
             }
-
-            _playerVelocity.x = Input.GetAxisRaw("Horizontal") * _moveSpeed;
-            LimitPosition();
-            _rb.velocity = _playerVelocity;
         }
 
         private void FixedUpdate()
