@@ -3478,7 +3478,7 @@ MonoBehaviour:
   _moveSpeed: 10
   _jumpPower: 10
   _grav: 10
-  _moveRange: {x: 0, y: 0}
+  _moveRange: {x: -47, y: 47}
 --- !u!54 &1420106441
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3689,72 +3689,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54942ca6699e8764a8b2eb58690cf15d, type: 3}
---- !u!1 &1450398203
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1450398204}
-  - component: {fileID: 1450398205}
-  - component: {fileID: 1450398206}
-  m_Layer: 0
-  m_Name: TestInject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1450398204
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1450398203}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5353494, y: -18.01663, z: 68.18953}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1450398205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1450398203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88a369a6f3c745f5aaf805b55c4845db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentReference:
-    TypeName: 
-  autoRun: 1
-  autoInjectGameObjects: []
-  _testPlayerManager: {fileID: 0}
---- !u!114 &1450398206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1450398203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b2335043c3417348959e1fabfced852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _testEnemy: {fileID: 0}
-  _maxSpawnInterval: 3
-  _minSpawnInterval: 1
-  _lifetimeScope: {fileID: 0}
 --- !u!4 &1461523928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164151997940843940, guid: 54942ca6699e8764a8b2eb58690cf15d,
@@ -6282,5 +6216,4 @@ SceneRoots:
   - {fileID: 1420106439}
   - {fileID: 127391382}
   - {fileID: 1244644403}
-  - {fileID: 1450398204}
   - {fileID: 1764584491}
