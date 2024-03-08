@@ -11,7 +11,7 @@ namespace SoulRunProject.InGame
         public void GetMoveStatus(Status status);
         public void OnStart();
         /// <summary>移動処理メソッド、Updateで呼び出す</summary>
-        public void OnUpdateMove(Transform self, Transform target = default);
+        public void OnUpdateMove(Transform self, Transform target);
         /// <summary>処理停止メソッド</summary>
         public void Stop();
     }
