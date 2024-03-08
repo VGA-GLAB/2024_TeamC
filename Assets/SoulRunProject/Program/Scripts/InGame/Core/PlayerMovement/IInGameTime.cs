@@ -5,8 +5,6 @@ namespace SoulRunProject.InGame
     /// </summary>
     public interface IInGameTime
     {
-        void UpdateAction();
-        void FixedUpdateAction();
         void SwitchPause(bool toPause);
     }
 }

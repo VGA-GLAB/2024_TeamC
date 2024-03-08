@@ -14,8 +14,6 @@ namespace SoulRunProject.Common
         private IUsePlayerInput[] _playerInputUsers;
         private IInGameTime[] _inGameTimes;
 
-        private bool _inPause;
-
         private void Awake()
         {
             _playerInputUsers = GetComponents<IUsePlayerInput>();
@@ -37,37 +35,9 @@ namespace SoulRunProject.Common
 
         public void SwitchPause(bool toPause)
         {
-            _inPause = toPause;
-
             foreach (var inGameTime in _inGameTimes)
             {
-                inGameTime.SwitchPause(_inPause);
-            }
-        }
-
-        private void Update()
-        {
-            if (_inPause)
-            {
-                return;
-            }
-            
-            foreach (var inGameTime in _inGameTimes)
-            {
-                inGameTime.UpdateAction();
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            if (_inPause)
-            {
-                return;
-            }
-
-            foreach (var inGameTime in _inGameTimes)
-            {
-                inGameTime.FixedUpdateAction();
+                inGameTime.SwitchPause(toPause);
             }
         }
     }
