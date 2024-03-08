@@ -10,7 +10,7 @@ namespace SoulRunProject.TakechiTest
         public IEntityMover Mover => _mover;
         void Update()
         {
-            _mover.Move(transform);
+            _mover.OnUpdateMove(transform, null);
         }
     }
 }

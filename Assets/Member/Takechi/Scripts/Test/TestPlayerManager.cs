@@ -1,3 +1,4 @@
+using System;
 using SoulRunProject.Common;
 using UnityEngine;
 

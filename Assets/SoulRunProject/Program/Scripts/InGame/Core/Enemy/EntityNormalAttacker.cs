@@ -26,9 +26,19 @@ namespace SoulRunProject.InGame
         /// <summary>
         /// 攻撃処理メソッド(仮)
         /// </summary>
-        public void Attack()
+        public void OnStart()
         {
             Debug.Log($"Attack! | atk = {_attack} | ct = {_coolTime} | rg = {_range}");
+        }
+
+        public void OnUpdateAttack()
+        {
+            
+        }
+
+        public void Stop()
+        {
+            
         }
     }
 }
