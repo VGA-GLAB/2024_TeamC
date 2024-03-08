@@ -16,7 +16,6 @@ namespace SoulRunProject.InGame
         void Start()
         {
             InitializeEntityStatus();
-            Active();
         }
         
         void Update()
@@ -35,8 +34,8 @@ namespace SoulRunProject.InGame
         
         public void Active()
         {
-            _attacker?.Attack();
-            _mover?.Move(this.transform);
+            _attacker?.OnStart();
+            _mover?.OnUpdateMove(this.transform, _playerManager.transform);
         }
     }
 }

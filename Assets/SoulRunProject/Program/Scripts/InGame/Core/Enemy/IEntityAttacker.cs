@@ -8,6 +8,14 @@ namespace SoulRunProject.InGame
     public interface IEntityAttacker
     {
         public void GetAttackStatus(Status status);
-        public void Attack();
+        /// <summary>
+        /// 起動時に一度のみ呼ばれる
+        /// </summary>
+        public void OnStart();
+        /// <summary>
+        /// Updateで呼ばれる攻撃処理
+        /// </summary>
+        public void OnUpdateAttack();
+        public void Stop();
     }
 }

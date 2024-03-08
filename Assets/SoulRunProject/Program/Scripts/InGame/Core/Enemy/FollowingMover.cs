@@ -28,7 +28,13 @@ namespace SoulRunProject.InGame
         {
             _moveSpeed = status.MoveSpeed;
         }
-        public void Move(Transform self)
+
+        public void OnStart()
+        {
+            
+        }
+
+        public void OnUpdateMove(Transform self, Transform target = default)
         {
             if (_isStopped) return;
             if (!_initialized)  //  初期化されていなければ最初のForwardを登録する。
