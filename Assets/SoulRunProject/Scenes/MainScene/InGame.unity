@@ -3550,10 +3550,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420106435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da11451554c497787ef1bb9f732bc2f, type: 3}
+  m_Script: {fileID: 11500000, guid: c8f658ff644a4c5387a60090509359a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1420106439}
 --- !u!1001 &1438173889
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3739,7 +3738,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  _testPlayerManager: {fileID: 1420106444}
+  _testPlayerManager: {fileID: 0}
 --- !u!114 &1450398206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5022,6 +5021,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a2f95514ea4782b45aa75b4ed0d8c7c0,
         type: 2}
+    - target: {fileID: 2511897171064765921, guid: b64cc04e2262a9f45aa22366a8030f9e,
+        type: 3}
+      propertyPath: _playerManager
+      value: 
+      objectReference: {fileID: 1420106444}
     - target: {fileID: 2511897171064765921, guid: b64cc04e2262a9f45aa22366a8030f9e,
         type: 3}
       propertyPath: managedReferences[336611267492970496]
