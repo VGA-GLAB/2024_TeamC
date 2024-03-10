@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 943783790915088870}
   - component: {fileID: 6629192014113086248}
   m_Layer: 0
-  m_Name: TestEnemy
+  m_Name: TestEnemyVertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
     - rid: 7688072464027353090
       type: {class: FollowingMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
       data:
-        _canVerticalMove: 0
+        _canVerticalMove: 1
         _nearDistance: 4
         _straightMoveTime: 3
 --- !u!1 &6858465760396178767
