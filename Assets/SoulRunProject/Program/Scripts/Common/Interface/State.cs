@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SoulRunProject.Common
@@ -14,19 +16,26 @@ namespace SoulRunProject.Common
     {
         protected Dictionary<int,State> _nextStates;
         protected GameObject _owner;
+        public event Action<State> OnStateChange;
+    
         public void Enter(State currentState)
         {
             OnEnter(currentState);
         }
 
+        protected void StateChange()
+        {
+            OnStateChange?.Invoke(this);
+        }
+
         protected virtual void OnEnter(State currentState) { }
         
-        public async UniTask Enter(State currentState, CancellationToken token)
+        public async UniTask EnterAsync(State currentState, CancellationToken token = default)
         {
-            await OnEnter(currentState, token);
+            await OnEnterAsync(currentState, token);
         }
         
-        protected virtual UniTask OnEnter(State currentState, CancellationToken token)
+        protected virtual UniTask OnEnterAsync(State currentState, CancellationToken token)
         {
             return UniTask.CompletedTask;
         }
