@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4748005074451829931}
   - component: {fileID: 8648642415442163180}
   - component: {fileID: 943783790915088870}
-  - component: {fileID: 819332982799084543}
+  - component: {fileID: 6629192014113086248}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -85,7 +85,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &819332982799084543
+--- !u!114 &6629192014113086248
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,16 +97,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df37cb0aa61543f7b9465208c79d924c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _status: {fileID: 11400000, guid: 5b665772f6394d44aba714ea0bec57ec, type: 2}
+  _attacker:
+    rid: -2
   _mover:
-    rid: 7688072437762621442
+    rid: 7688072464027353090
+  _status: {fileID: 11400000, guid: 5b665772f6394d44aba714ea0bec57ec, type: 2}
+  _playerManager: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 7688072437762621442
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7688072464027353090
       type: {class: FollowingMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
       data:
-        _aimSpeed: 1
+        _canVerticalMove: 0
+        _nearDistance: 4
+        _straightMoveTime: 3
 --- !u!1 &6858465760396178767
 GameObject:
   m_ObjectHideFlags: 0

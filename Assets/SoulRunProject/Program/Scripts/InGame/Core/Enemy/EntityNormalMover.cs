@@ -19,7 +19,13 @@ namespace SoulRunProject.InGame
         {
             _moveSpeed = status.MoveSpeed;
         }
-        public void Move(Transform self)
+
+        public void OnStart()
+        {
+            
+        }
+
+        public void OnUpdateMove(Transform self, Transform target = default)
         {
             if (_isStopped) return;
             self.position = Vector3.MoveTowards(self.position, self.forward, _moveSpeed * Time.deltaTime);

@@ -1,8 +1,10 @@
 ﻿using System;
 using DG.Tweening;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace SoulRun.InGame
 {
@@ -22,8 +24,16 @@ namespace SoulRun.InGame
         {
         }
 
-        public ButtonClickEvent OnClick;
-    
+        public ButtonClickEvent onClick;
+        
+        private Subject<InputUIButton> _onClickSubject = new Subject<InputUIButton>();
+
+        public IObservable<InputUIButton> OnClickAsObservable()
+        {
+            return _onClickSubject.AsObservable();
+        }
+        
+
         private void Start()
         {
             _button = GetComponent<CanvasGroup>();
@@ -47,7 +57,7 @@ namespace SoulRun.InGame
             // イベントの発火
             OnButtonUp?.Invoke();
             // クリックイベントの発火
-            OnClick?.Invoke(this);
+            onClick?.Invoke(this);
         }
     }
 }

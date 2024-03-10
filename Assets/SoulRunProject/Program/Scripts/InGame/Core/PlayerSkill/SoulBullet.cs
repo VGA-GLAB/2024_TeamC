@@ -1,4 +1,4 @@
-namespace SoulRunProject.InGame.PlayerSkill
+namespace SoulRunProject.Common
 {
     /// <summary>
     /// 最初から持っているスキル。

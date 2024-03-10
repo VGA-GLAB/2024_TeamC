@@ -1,9 +1,8 @@
 using System;
 using System.Text;
-using SoulRunProject.Common;
 using UnityEngine;
 
-namespace SoulRunProject.InGame.PlayerSkill
+namespace SoulRunProject.Common
 {
     /// <summary>
     /// スキルのパラメーター
@@ -18,7 +17,7 @@ namespace SoulRunProject.InGame.PlayerSkill
         [SerializeField,Tooltip("スキルの一回の発動時間")] float _duration;
         [SerializeField, Tooltip("スキルの一回の発射するオブジェクトの数")] int _amount;
         [SerializeField, Tooltip("敵を何体まで貫通するか")] int _penetration;
-        [SerializeField, SerializeReference, SubclassSelector, Tooltip("独自パラメーター")] 
+        [SerializeReference, SubclassSelector, Tooltip("独自パラメーター")] 
         IUniqueParameter _uniqueParameter;
         public float AttackDamage => _attackDamage;
         public float CoolTime => _coolTime;

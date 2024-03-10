@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using SoulRunProject.Framework;
 using UnityEngine;
 
 namespace SoulRunProject.Common
 {
     public class PlayingBossStageState : State
     {
-        // Start is called before the first frame update
-        void Start()
+        public bool IsBossDefeated { get; private set; } = false;
+        protected override void OnEnter(State currentState)
         {
-        
+            DebugClass.Instance.ShowLog("ボスステージ開始ステート開始");
         }
-
-        // Update is called once per frame
-        void Update()
-        {
         
+        protected override void OnUpdate()
+        {
+            // ボスステージのプレイ中の処理
+            if (IsBossDefeated)
+            {
+                StateChange();
+            }
         }
     }
 }

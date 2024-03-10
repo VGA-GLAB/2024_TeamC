@@ -75,8 +75,8 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 
 --- !u!1 &1815099220524941199
@@ -299,7 +299,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &3588202133877296002
 MonoBehaviour:
@@ -393,7 +393,7 @@ MonoBehaviour:
   _fpsThreshold2: 15
   _isVsyncOff: 1
   _displayTime: 5
-  _maxLines: 20
+  _maxLines: 40
   _fpsText: {fileID: 7475536889384785274}
   timerText: {fileID: 8426390455352336189}
   _logText: {fileID: 4545564124951783786}

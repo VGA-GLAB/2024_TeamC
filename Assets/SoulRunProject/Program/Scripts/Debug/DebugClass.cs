@@ -1,11 +1,11 @@
-#if UNITY_EDITOR
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SoulRunProject.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SoulRunProject.Common
+namespace SoulRunProject.Framework
 {
     public class DebugClass : AbstractSingletonMonoBehaviour<DebugClass>
     {
@@ -152,4 +152,3 @@ namespace SoulRunProject.Common
         #endregion
     }
 }
-#endif

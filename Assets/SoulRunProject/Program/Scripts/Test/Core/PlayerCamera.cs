@@ -37,7 +37,7 @@ namespace SoulRunProject
             {
                 var pos = _player.position + _offset;
                 transform.position = new Vector3(pos.x, transform.position.y, pos.z);
-            });
+            }).AddTo(_player.gameObject);
         }
     }
 }
