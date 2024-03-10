@@ -22,5 +22,10 @@ namespace SoulRunProject.InGame
         {
             _resultPanel.SetActive(isShow);
         }
+        
+        public void ShowResult()
+        {
+            
+        }
     }
 }

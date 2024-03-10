@@ -4122,6 +4122,7 @@ GameObject:
   - component: {fileID: 1420106442}
   - component: {fileID: 1420106443}
   - component: {fileID: 1420106444}
+  - component: {fileID: 1420106445}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4286,6 +4287,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8f658ff644a4c5387a60090509359a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerInput: {fileID: 1420106445}
+--- !u!114 &1420106445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420106435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67af9876f0281cf40b526c49962e4dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1438173889
@@ -6135,7 +6149,7 @@ MonoBehaviour:
     - rid: 336611275209179136
       type: {class: FollowingMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
       data:
-        _aimSpeed: 4
+        _canVerticalMove: 0
         _nearDistance: 3
         _straightMoveTime: 3
 --- !u!1001 &1852177564
