@@ -8,7 +8,7 @@ namespace SoulRunProject.InGame
     /// プレイヤー移動
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, IUsePlayerInput, IInGameTime
     {
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpPower;
@@ -18,6 +18,7 @@ namespace SoulRunProject.InGame
         private Rigidbody _rb;
         private bool _isGround;
         private Vector3 _playerVelocity;
+        private bool _inPause;
 
         private void Awake()
         {
@@ -27,18 +28,15 @@ namespace SoulRunProject.InGame
 
         private void Update()
         {
-            if (_isGround && Input.GetButtonDown("Jump"))
-            {
-                _playerVelocity.y = _jumpPower;
-            }
-
-            _playerVelocity.x = Input.GetAxisRaw("Horizontal") * _moveSpeed;
+            if (_inPause) return;
             LimitPosition();
             _rb.velocity = _playerVelocity;
         }
 
         private void FixedUpdate()
         {
+            if (_inPause) return;
+            
             if (_isGround && _playerVelocity.y <= 0)
             {
                 _playerVelocity.y = 0;
@@ -49,6 +47,36 @@ namespace SoulRunProject.InGame
             }
 
             _isGround = false;
+        }
+
+        public void InputHorizontal(float horizontal)
+        {
+            if (_inPause) return;
+            _playerVelocity.x = horizontal * _moveSpeed;
+        }
+
+        public void Jump()
+        {
+            if (_inPause) return;
+            
+            if (_isGround)
+            {
+                _playerVelocity.y = _jumpPower;
+            }
+        }
+
+        public void SwitchPause(bool toPause)
+        {
+            _inPause = toPause;
+            
+            if (toPause)
+            {
+                _rb.Sleep();
+            }
+            else
+            {
+                _rb.WakeUp();
+            }
         }
 
         private void OnCollisionStay(Collision other)
