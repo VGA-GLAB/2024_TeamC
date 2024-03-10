@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SoulRunProject.InGame.SpawnPattern
+namespace SoulRunProject.Common
 {
+    /// <summary>
+    /// 生成パターンのインターフェース
+    /// </summary>
     public interface ISpawnPattern
     {
-        public List<Vector3> GetSpawnPositions(int spawnCount);
+        public List<Vector3> GetSpawnPositions();
     }
 }
