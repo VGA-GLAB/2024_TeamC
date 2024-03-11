@@ -13,11 +13,14 @@ namespace SoulRunProject.Common
         
         private IUsePlayerInput[] _playerInputUsers;
         private IInGameTime[] _inGameTimes;
+        private PlayerLevelManager _pLevelManager;
 
         private void Awake()
         {
             _playerInputUsers = GetComponents<IUsePlayerInput>();
             _inGameTimes = GetComponents<IInGameTime>();
+            
+            
             InitializeInput();
         }
 
@@ -33,12 +36,25 @@ namespace SoulRunProject.Common
             }
         }
 
+        /// <summary>
+        /// Pauseの切替
+        /// </summary>
+        /// <param name="toPause"></param>
         public void SwitchPause(bool toPause)
         {
             foreach (var inGameTime in _inGameTimes)
             {
                 inGameTime.SwitchPause(toPause);
             }
+        }
+
+        /// <summary>
+        /// 経験値を取得する
+        /// </summary>
+        /// <param name="exp">経験値量</param>
+        public void GetEXP(int exp)
+        {
+            _pLevelManager.AddExp(exp);
         }
     }
 }
