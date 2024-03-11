@@ -19,7 +19,7 @@ namespace SoulRunProject.Common
         {
             _playerInputUsers = GetComponents<IUsePlayerInput>();
             _inGameTimes = GetComponents<IInGameTime>();
-            
+            _pLevelManager = GetComponent<PlayerLevelManager>();
             
             InitializeInput();
         }

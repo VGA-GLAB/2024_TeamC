@@ -930,9 +930,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6695279337835194699}
-        m_TargetAssemblyTypeName: SoulRunProject.InGame.PlayerLevelManager, Assembly-CSharp
-        m_MethodName: AddExp
+      - m_Target: {fileID: 6695279337835194698}
+        m_TargetAssemblyTypeName: SoulRunProject.Common.PlayerManager, Assembly-CSharp
+        m_MethodName: GetEXP
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1781,11 +1781,11 @@ MonoBehaviour:
   _levelUpTable:
     Table:
     - CurrentLevel: 1
-      EXPToNextLevel: 10
+      ExpToNextLevel: 10
     - CurrentLevel: 2
-      EXPToNextLevel: 10
+      ExpToNextLevel: 20
     - CurrentLevel: 3
-      EXPToNextLevel: 10
+      ExpToNextLevel: 30
 --- !u!114 &6695279337835194700
 MonoBehaviour:
   m_ObjectHideFlags: 0
