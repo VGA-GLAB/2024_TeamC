@@ -11,7 +11,7 @@ namespace SoulRunProject.SoulMixScene
 
         private void Start()
         {
-            _soulMixView.Soul1Button.onClick.AsObservable().Subscribe(_ => _soulMixModel.SelectSoul1());
+            _soulMixView.Soul1Button.onClick.AsObservable().Subscribe(_ => _soulMixModel.SoulMixAsync().Forget());
         }
     }
 }

@@ -2629,6 +2629,102 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514886293}
   m_CullTransparentMesh: 1
+--- !u!1 &520335574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 520335576}
+  - component: {fileID: 520335575}
+  - component: {fileID: 520335577}
+  - component: {fileID: 520335578}
+  - component: {fileID: 520335579}
+  m_Layer: 0
+  m_Name: SoulMixUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &520335575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520335574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88206ef45c494bb998993a365cc612fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soul1Button: {fileID: 8726717493714210313}
+--- !u!4 &520335576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520335574}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &520335577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520335574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607cb439e83e403cb9ee0439a0724f78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soulMixView: {fileID: 520335575}
+  _soulMixModel: {fileID: 520335578}
+--- !u!114 &520335578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520335574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0bbffab1c3b4f2c916240cbad0e9246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soulCombiner: {fileID: 520335579}
+  _ownerCardList: {fileID: 11400000, guid: 318fdb43c2bb04d40b91c680f45f7648, type: 2}
+--- !u!114 &520335579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520335574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abe797538ff456ea4dd516cabb1ed0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownedSelectSouls: {fileID: 11400000, guid: 1f1378421cf42d242b44bb0eed4fbe54, type: 2}
+  combinations:
+  - ingredient1: {fileID: 11400000, guid: 06c785b2ccdec7845acb08d8c17a90de, type: 2}
+    ingredient2: {fileID: 11400000, guid: 922658b6dbaf6024482870a79e23253d, type: 2}
+    result: {fileID: 11400000, guid: a44004da3631a0d42beea6221cf352a6, type: 2}
+  - ingredient1: {fileID: 11400000, guid: e6b246c7b3b118441b9763ac57bd952c, type: 2}
+    ingredient2: {fileID: 11400000, guid: ff8aa541512d95d40a1c16ec2003af7c, type: 2}
+    result: {fileID: 11400000, guid: 217ba046b21b5f643bcfc6b6e3163209, type: 2}
 --- !u!1 &543707866
 GameObject:
   m_ObjectHideFlags: 0
@@ -12384,7 +12480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f75ebff9b6460890cd62d5c5857ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
+  onClick:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2910669092569934875
@@ -12826,12 +12922,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abe797538ff456ea4dd516cabb1ed0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownedSouls: {fileID: 11400000, guid: 318fdb43c2bb04d40b91c680f45f7648, type: 2}
+  ownedSelectSouls: {fileID: 11400000, guid: 318fdb43c2bb04d40b91c680f45f7648, type: 2}
   combinations:
   - ingredient1: {fileID: 11400000, guid: 06c785b2ccdec7845acb08d8c17a90de, type: 2}
     ingredient2: {fileID: 11400000, guid: 922658b6dbaf6024482870a79e23253d, type: 2}
     result: {fileID: 0}
-  soul1Button: {fileID: 0}
 --- !u!225 &4574289655884336959
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -13462,7 +13557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f75ebff9b6460890cd62d5c5857ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
+  onClick:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &8825488420629763379
@@ -13556,3 +13651,4 @@ SceneRoots:
   - {fileID: 821360632}
   - {fileID: 6749094256181945187}
   - {fileID: 134757264}
+  - {fileID: 520335576}
