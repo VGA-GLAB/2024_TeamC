@@ -1,0 +1,28 @@
+﻿@startuml
+
+object Instance {
+ インスタンス化(実行中)
+}
+
+object ScriptableObject {
+ ScriptableObject(実行中)
+}
+
+object JsonPlayerData {
+ JsonPlayerData(ゲームを終了、開始時)
+}
+
+object CSVMasterData {
+ CSVMasterData(マスターデータ)
+}
+
+Instance --> ScriptableObject : 保存
+ScriptableObject --> Instance : ロード
+
+ScriptableObject --> JsonPlayerData : 保存
+JsonPlayerData --> ScriptableObject : ロード
+
+JsonPlayerData --> CSVMasterData : 保存
+CSVMasterData --> JsonPlayerData : ロード
+
+@enduml

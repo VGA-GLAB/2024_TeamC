@@ -45,6 +45,6 @@ namespace SoulRunProject.SoulMixScene
     [CreateAssetMenu(fileName = "SoulCardList", menuName = "SoulRunProject/SoulCardList")]
     public class SoulCardList : ScriptableObject
     {
-        [SerializeField] public List<SoulCard> soulCardList;
+        [SerializeField] public List<SoulCardData> soulCardList;
     }
 }

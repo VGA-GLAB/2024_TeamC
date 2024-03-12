@@ -12,47 +12,38 @@ namespace SoulRunProject.SoulMixScene
 
         public async UniTaskVoid SoulMixAsync()
         {
-            // 所持しているソウルカードの出力
-            foreach (var card in _ownerCardList.soulCardList)
-            {
-                Debug.Log($"{card.CardID}:{card.SoulName}");
-            }
-
             // 選択されたソウルカードのリストが2つ以上であるか確認
             if (_soulCombiner.ownedSelectSouls.soulCardList.Count < 2)
             {
-                Debug.Log("2つ以上のソウルカードを選択してください。");
+                Debug.Log("ソウルカードを2つ以上選択してください。");
                 return;
             }
 
-            // 選択された2つのソウルカードを取得
-            var selectedSoul1 = _soulCombiner.ownedSelectSouls.soulCardList[0]; //最初に選択されたもの
+            // 選択された最初のソウルカードを取得
+            var selectedSoul1 = _soulCombiner.ownedSelectSouls.soulCardList[0];
 
+            // 組み合わせ可能なソウルカードを探す
+            var combinableSoul = _soulCombiner.SearchCombinableSoul(selectedSoul1);
 
-            // もし組み合わせ可能なソウルカードが見つかったら
-            if (_soulCombiner.IsSelectedSoul(selectedSoul1))
+            if (combinableSoul != null)
             {
-                Debug.Log("組み合わせ可能なソウルカードが見つかりました。\n" +
-                          "合成しますか？Y/N");
+                var resultSoul = _soulCombiner.combinations
+                    .Find(c => c.IsValidCombination(selectedSoul1, combinableSoul))
+                    .Result;
+
+                Debug.Log($"ソウルカード「{selectedSoul1.SoulName}」と" +
+                          $"組み合わせ可能なソウルカード「{combinableSoul.SoulName}」が見つかりました。");
+                Debug.Log($"組み合わせた後のソウルカード：{resultSoul.SoulName}");
+                Debug.Log("合成しますか？Y/N");
+
                 if (await WaitForKeyDown(KeyCode.Y))
                 {
                     Debug.Log("合成します");
-                    // ソウルカードの組み合わせ可能リストを取得
-                    var combineSoul = _soulCombiner.SearchCombineSoul(selectedSoul1);
-
-                    // ソウルを合成し、新しいソウルカードを作成
-                    var newSoul = _soulCombiner.Combine(selectedSoul1, combineSoul);
-
-                    if (newSoul != null)
-                    {
-                        // 新しいソウルカードを所有者のリストに追加
-                        _ownerCardList.soulCardList.Add(newSoul);
-                        Debug.Log($"新しいソウルカードを作成しました: {newSoul.SoulName}");
-                    }
-                    else
-                    {
-                        Debug.Log("合成できるソウルカードが見つかりませんでした。");
-                    }
+                    var newSoul = _soulCombiner.Combine(selectedSoul1, combinableSoul);
+                    _ownerCardList.soulCardList.Remove(selectedSoul1);
+                    _ownerCardList.soulCardList.Remove(combinableSoul);
+                    _ownerCardList.soulCardList.Add(newSoul);
+                    Debug.Log($"新しいソウルカード「{newSoul.SoulName}」を作成しました");
                 }
                 else if (await WaitForKeyDown(KeyCode.N))
                 {
@@ -63,6 +54,11 @@ namespace SoulRunProject.SoulMixScene
             {
                 Debug.Log("組み合わせ可能なソウルカードが見つかりませんでした。");
             }
+            
+            //レベルアップ処理
+            //経験値の取得
+            //経験値の計算
+            
         }
 
         private static async UniTask<bool> WaitForKeyDown(KeyCode keyCode)

@@ -6,7 +6,7 @@ namespace SoulRunProject.SoulMixScene
 {
     [CreateAssetMenu(fileName = "SoulCard", menuName = "SoulRunProject/SoulCard")]
     [Serializable]
-    public class SoulCard : ScriptableObject
+    public class SoulCardData : ScriptableObject
     {
         // ソウルカードのID
         [SerializeField] private int cardID;

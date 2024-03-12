@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace SoulRunProject.SoulMixScene
@@ -9,7 +10,7 @@ namespace SoulRunProject.SoulMixScene
     public class SoulView : MonoBehaviour
     {
         // ソウルカードの参照
-        [SerializeField] private SoulCard _soulCard;
+        [FormerlySerializedAs("_soulCard")] [SerializeField] private SoulCardData soulCardData;
 
         // UI要素への参照
         [SerializeField] private Text idText;

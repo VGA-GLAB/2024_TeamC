@@ -18,67 +18,81 @@ namespace SoulRunProject.SoulMixScene
 
 
         /// <summary> ソウルを選択する </summary>
-        public SoulCard SelectSoul()
+        public SoulCardData SelectSoul()
         {
             // クリックされたソウルを取得する
-            SoulCard selectSoul = null;
+            SoulCardData selectSoul = null;
             // クリックされたソウルを取得する
-            if (EventSystem.current.currentSelectedGameObject.TryGetComponent(out SoulCard soulCard))
+            if (EventSystem.current.currentSelectedGameObject.TryGetComponent(out SoulCardData soulCard))
             {
                 selectSoul = soulCard;
             }
 
             return selectSoul;
         }
-
+        /// <summary> 所持しているソウルカードの中から合成可能なソウルカードを探す </summary>
+        public SoulCardData SearchCombinableSoul(SoulCardData selectedSoul)
+        {
+            return ownedSelectSouls.soulCardList.FirstOrDefault(ownedSoul => 
+                    ownedSoul != selectedSoul && IsValidCombination(selectedSoul, ownedSoul));
+        }
+        
+        /// <summary> 2つのソウルカードの組み合わせが有効かどうかを判定する </summary>
+        private bool IsValidCombination(SoulCardData soul1, SoulCardData soul2)
+        {
+            return combinations.Any(c => c.IsValidCombination(soul1, soul2));
+        }
+        
         /// <summary> 特定のソウルカードと組み合わせ可能な組み合わせを探す共通処理 </summary>
-        private SoulCombination FindCompatibleCombination(SoulCard selectedSoul)
+        private SoulCombination FindCompatibleCombination(SoulCardData selectedSoul)
         {
             // 組み合わせリストから選択されたソウルカードと組み合わせ可能な組み合わせを検索する。
-            // ただし、組み合わせの両方の成分が選択されたソウルカード自身でないことを確認する。Equalsは参照型の比較
+            // 選択されたソウルカードが組み合わせの一方の成分であり、もう一方の成分が選択されたソウルカードでないことを確認する。
             return combinations.FirstOrDefault(combination =>
-                ((combination.Ingredient1.Equals(selectedSoul) && !combination.Ingredient2.Equals(selectedSoul)) ||
-                 (combination.Ingredient2.Equals(selectedSoul) && !combination.Ingredient1.Equals(selectedSoul))));
+                (combination.Ingredient1.Equals(selectedSoul) && !combination.Ingredient2.Equals(selectedSoul)) ||
+                (combination.Ingredient2.Equals(selectedSoul) && !combination.Ingredient1.Equals(selectedSoul)));
+            
+            
         }
 
         /// <summary>  選択されたソウルカードが組み合わせに使えるかどうかを判定する </summary>
-        public bool IsSelectedSoul(SoulCard selectSoul)
+        public bool IsSelectedSoul(SoulCardData selectSoul)
         {
             return FindCompatibleCombination(selectSoul) != null;
         }
 
-        /// <summary> 特定のソウルカードと組み合わせ可能なソウルカードのリストを返す </summary>
-        public SoulCard SearchCombineSoul(SoulCard selectedSoul)
+        /// <summary> 特定のソウルカードと組み合わせ可能なソウルカードのResultを返す </summary>
+        public SoulCardData SearchCombineSoul(SoulCardData selectedSoul)
         {
             var combination = FindCompatibleCombination(selectedSoul);
             return combination?.Result; // null許容型のアクセス演算子を使用
         }
 
         /// <summary> ソウルを合成する </summary>
-        public SoulCard Combine(SoulCard selectSoul1, SoulCard selectSoul2)
+        public SoulCardData Combine(SoulCardData selectSoul1, SoulCardData selectSoul2)
         {
-            ownedSelectSouls.soulCardList.Remove(selectSoul1);
-            ownedSelectSouls.soulCardList.Remove(selectSoul2);
-
             // 何を作るかを決定する
-            SoulCombination combination = combinations.Find(c => c.IsValidCombination(selectSoul1, selectSoul2));
+            SoulCombination combination = combinations.Find(c => 
+                c.IsValidCombination(selectSoul1, selectSoul2));
             if (combination == null)
             {
                 Debug.Log("有効な組み合わせがありません。");
                 return null;
             }
 
-            SoulCard newSoul = ScriptableObject.CreateInstance<SoulCard>();
+            SoulCardData newSoul = ScriptableObject.CreateInstance<SoulCardData>();
             // 新しいソウルカードのデータを設定
             SetData(newSoul, combination.Result);
 
+            ownedSelectSouls.soulCardList.Remove(selectSoul1);
+            ownedSelectSouls.soulCardList.Remove(selectSoul2);
 
             return newSoul;
         }
 
 
         // Dataを設定する
-        public void SetData(SoulCard newSoul, SoulCard setSoul)
+        public void SetData(SoulCardData newSoul, SoulCardData setSoul)
         {
             newSoul.SoulName = setSoul.SoulName;
             newSoul.SoulLevel = setSoul.SoulLevel;

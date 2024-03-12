@@ -46,7 +46,7 @@ namespace SoulRunProject.SoulMixScene
         }
         
         // ソウルの情報を表示するためのメソッド
-        public void UpdateSoulDisplay(SoulCard soulCard)
+        public void UpdateSoulDisplay(SoulCardData soulCardData)
         {
             //TODO: ここでSoulMixPanelを取得して、そこにソウルの情報を表示する
             //soulMixPanel.DisplayNewSoulInfo(soul);

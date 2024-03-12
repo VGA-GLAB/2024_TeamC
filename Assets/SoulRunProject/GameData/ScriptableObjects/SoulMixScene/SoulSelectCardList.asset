@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b591e32439db4b61bbbece99aaca72d5, type: 3}
   m_Name: SoulSelectCardList
   m_EditorClassIdentifier: 
-  soulCardList:
-  - {fileID: 11400000, guid: 06c785b2ccdec7845acb08d8c17a90de, type: 2}
-  - {fileID: 11400000, guid: 922658b6dbaf6024482870a79e23253d, type: 2}
+  soulCardList: []
