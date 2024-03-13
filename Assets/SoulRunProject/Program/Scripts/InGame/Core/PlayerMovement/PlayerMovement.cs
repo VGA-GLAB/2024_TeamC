@@ -1,5 +1,4 @@
-using System;
-using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
@@ -13,7 +12,8 @@ namespace SoulRunProject.InGame
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpPower;
         [SerializeField] private float _grav;
-        [SerializeField, Tooltip("position.x制限のx下限、y上限")] private Vector2 _moveRange;
+        [SerializeField, HideInInspector] private float _moveRangeMin;
+        [SerializeField, HideInInspector] private float _moveRangeMax;
 
         private Rigidbody _rb;
         private bool _isGround;
@@ -96,11 +96,11 @@ namespace SoulRunProject.InGame
         void LimitPosition()
         {
             // x マイナス側の制限
-            if (transform.position.x <= _moveRange.x)
+            if (transform.position.x <= _moveRangeMin)
             {
                 // 位置の制限
                 Vector3 pos = transform.position;
-                pos.x = _moveRange.x;
+                pos.x = _moveRangeMin;
                 transform.position = pos;
                 // Velocityの制限
                 _playerVelocity.x = Mathf.Clamp(_playerVelocity.x, 0, _moveSpeed);
@@ -108,11 +108,11 @@ namespace SoulRunProject.InGame
             }
 
             // x プラス側の制限
-            if (transform.position.x >= _moveRange.y)
+            if (transform.position.x >= _moveRangeMax)
             {
                 // 位置の制限
                 Vector3 pos = transform.position;
-                pos.x = _moveRange.y;
+                pos.x = _moveRangeMax;
                 transform.position = pos;
                 // Velocityの制限
                 _playerVelocity.x = Mathf.Clamp(_playerVelocity.x, -_moveSpeed, 0);
@@ -120,14 +120,69 @@ namespace SoulRunProject.InGame
         }
         
         #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            SceneView.RepaintAll();
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.cyan;
-            Vector3 posX = Vector3.right * _moveRange.x;
-            Vector3 posY = Vector3.right * _moveRange.y;
+            Vector3 posX = Vector3.right * _moveRangeMin;
+            Vector3 posY = Vector3.right * _moveRangeMax;
             Gizmos.DrawLine(posX, posY);
             Gizmos.DrawLine(posX + Vector3.up, posX - Vector3.up);
             Gizmos.DrawLine(posY + Vector3.up, posY - Vector3.up);
+        }
+        
+        /// <summary>
+        /// move rangeの拡張
+        /// </summary>
+        [CustomEditor(typeof(PlayerMovement))]
+        public class PlayerMovementEditor : Editor
+        {
+            public override void OnInspectorGUI()
+            {
+                PlayerMovement playerMovement = target as PlayerMovement;
+
+                DrawDefaultInspector();
+                
+                EditorGUILayout.BeginHorizontal();
+                EditorGUIUtility.labelWidth = 32;
+                GUILayoutOption[] fieldOptions = new GUILayoutOption[]
+                {
+                    GUILayout.MinWidth(0),
+                    GUILayout.MaxWidth(98)
+                };
+                EditorGUILayout.LabelField("X座標の移動範囲", fieldOptions);
+                
+                GUILayout.FlexibleSpace();
+                
+                fieldOptions = new GUILayoutOption[]
+                {
+                    GUILayout.MinWidth(84),
+                    GUILayout.MaxWidth(84 < EditorGUIUtility.currentViewWidth * 0.27f? EditorGUIUtility.currentViewWidth * 0.27f : 84)
+                };
+                EditorGUI.BeginChangeCheck();
+                playerMovement._moveRangeMin =
+                    EditorGUILayout.FloatField("Min", playerMovement._moveRangeMin, fieldOptions);
+                GUILayout.Space(EditorGUIUtility.currentViewWidth * 0.03f);
+                playerMovement._moveRangeMax =
+                    EditorGUILayout.FloatField("Max", playerMovement._moveRangeMax, fieldOptions);
+                EditorGUILayout.EndHorizontal();
+
+                if (playerMovement._moveRangeMin > playerMovement._moveRangeMax)
+                {
+                    playerMovement._moveRangeMin = playerMovement._moveRangeMax;
+                }
+                
+                if (EditorGUI.EndChangeCheck())
+                {
+                    SceneView.RepaintAll();
+                }
+                
+                Undo.RecordObject(playerMovement, "set playerMovement");
+            }
         }
         #endif
     }
