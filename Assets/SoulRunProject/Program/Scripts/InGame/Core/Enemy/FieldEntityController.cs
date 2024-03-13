@@ -13,7 +13,7 @@ namespace SoulRunProject.InGame
         [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")] protected IEntityMover _mover;
         [SerializeField, Tooltip("敵のパラメータを設定する")] protected Status _status;
         [SerializeField] protected PlayerManager _playerManager;
-        private float _hp = 1;
+        public Status Status => _status;
         
         void Start()
         {
@@ -33,7 +33,7 @@ namespace SoulRunProject.InGame
         {
             _attacker?.GetAttackStatus(_status);
             _mover?.GetMoveStatus(_status);
-            _hp = _status.Hp;
+            _status = _status.Copy();
         }
         
         public void Active()
@@ -49,8 +49,8 @@ namespace SoulRunProject.InGame
         
         public void Damage(int damage)
         {
-            _hp -= damage;
-            if (_hp <= 0)
+            _status.Hp -= damage;
+            if (_status.Hp <= 0)
             {
                 Death();
             }
