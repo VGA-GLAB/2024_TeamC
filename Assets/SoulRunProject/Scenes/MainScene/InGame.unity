@@ -3139,7 +3139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1048446436
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3572,8 +3572,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _camera: {fileID: 1484104527}
-  _playerMovement: {fileID: 1420106440}
-  playerForwardMover: {fileID: 1420106443}
+  _playerManager: {fileID: 1420106444}
 --- !u!4 &1180136328 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164151997940843940, guid: 54942ca6699e8764a8b2eb58690cf15d,
@@ -4443,7 +4442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced7365974afd3948b2dfeb54467d835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isActivated: 0
+  _isPause: 1
   _speed: 0.2
 --- !u!114 &1420106444
 MonoBehaviour:
