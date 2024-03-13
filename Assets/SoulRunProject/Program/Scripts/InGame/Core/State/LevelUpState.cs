@@ -7,16 +7,11 @@ namespace SoulRunProject.InGame
 {
     public class LevelUpState : State
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        private PlayerManager _playerManager;
         
-        }
-
-        // Update is called once per frame
-        void Update()
+        public LevelUpState(PlayerManager playerManager)
         {
-        
+            _playerManager = playerManager;
         }
     }
 }
