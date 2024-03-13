@@ -1,22 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using SoulRunProject.Common;
+using SoulRunProject.Framework;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
     public class GameOverState : State
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        PlayerManager _playerManager;
         
+        public GameOverState(PlayerManager playerManager)
+        {
+            _playerManager = playerManager;
         }
-
-        // Update is called once per frame
-        void Update()
-        {
         
+        protected override void OnEnter(State currentState)
+        {
+            DebugClass.Instance.ShowLog("ゲームオーバーステート開始");
+            _playerManager.SwitchPause(true);
         }
     }
 }

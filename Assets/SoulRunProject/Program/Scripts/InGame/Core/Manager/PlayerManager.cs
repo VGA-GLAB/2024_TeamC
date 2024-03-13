@@ -1,4 +1,5 @@
 ﻿using System;
+using SoulRunProject.Framework;
 using SoulRunProject.InGame;
 using SoulRunProject.SoulMixScene;
 using UnityEngine;
@@ -15,12 +16,14 @@ namespace SoulRunProject.Common
         private IUsePlayerInput[] _playerInputUsers;
         private IInGameTime[] _inGameTimes;
         private PlayerLevelManager _pLevelManager;
+        private PlayerForwardMover _forwardMover;
 
         private void Awake()
         {
             _playerInputUsers = GetComponents<IUsePlayerInput>();
             _inGameTimes = GetComponents<IInGameTime>();
             _pLevelManager = GetComponent<PlayerLevelManager>();
+            _forwardMover = GetComponent<PlayerForwardMover>();
             _status = _status.Copy();
             InitializeInput();
         }
@@ -48,6 +51,15 @@ namespace SoulRunProject.Common
                 inGameTime.SwitchPause(toPause);
             }
         }
+        
+        /// <summary>
+        /// Playerの前進処理のPauseの切替
+        /// </summary>
+        /// <param name="isActivated"></param>
+        public void SetPlayerForwardMover(bool isActivated)
+        {
+            _forwardMover.SwitchPause(isActivated);
+        }
 
         /// <summary>
         /// 経験値を取得する
@@ -70,11 +82,13 @@ namespace SoulRunProject.Common
         private void Death()
         {
             // TODO 死亡時の処理を考える
+            DebugClass.Instance.ShowLog("Player is Dead");
+            SwitchPause(true);
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnCollisionEnter(Collision other)
         {
-            if (other.TryGetComponent(out FieldEntityController fieldEntityController))
+            if (other.gameObject.TryGetComponent(out FieldEntityController fieldEntityController))
             {
                 Damage(fieldEntityController.Status.Attack);
             }

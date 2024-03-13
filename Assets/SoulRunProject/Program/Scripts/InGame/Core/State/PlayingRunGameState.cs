@@ -8,32 +8,28 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class PlayingRunGameState : State
     {
-        private PlayerMovement _playerMovement;
-        private PlayerForwardMover _playerForwardMover;
+        private PlayerManager _playerManager;
         
         //TODO：ボスステージ開始前のプレイヤーの位置を設定する場所を検討
         private float _enterBossStagePosition = 1000f;
         public bool ArrivedBossStagePosition { get; private set; } = false;
         
-        public PlayingRunGameState(PlayerMovement playerMovement,
-            PlayerForwardMover playerForwardMover)
+        public PlayingRunGameState(PlayerManager playerManager)
         {
-            _playerMovement = playerMovement;
-            _playerForwardMover = playerForwardMover;
+            _playerManager = playerManager;
         }
         
         protected override void OnEnter(State currentState)
         {
             DebugClass.Instance.ShowLog("プレイ中ステート開始");
-            _playerMovement.enabled = true;
-            _playerForwardMover.IsActivate(true);
+            _playerManager.SwitchPause(false);
         }
         
         protected override void OnUpdate()
         {
-            if (_playerMovement.transform.position.z > _enterBossStagePosition)
+            if (_playerManager.transform.position.z > _enterBossStagePosition)
             {   //プレイヤーがボスステージ開始前の位置に到達したら前進を止めて遷移
-                _playerForwardMover.IsActivate(false);
+                _playerManager.SetPlayerForwardMover(false);
                 ArrivedBossStagePosition = true;
                 StateChange();
             }

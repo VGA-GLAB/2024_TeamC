@@ -63,11 +63,9 @@ namespace SoulRunProject.InGame
         /// </summary>
         void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.gameObject.name);
             if (!other.gameObject.CompareTag("Player")) return;
             _playerManager = other.gameObject.GetComponent<PlayerManager>();
             SpawnEntity();
-            Debug.Log("Player Hit");
         }
 
         // bool CheckPlayerDistance(Transform playerTrans)

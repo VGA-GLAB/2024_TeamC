@@ -13,14 +13,12 @@ namespace SoulRunProject.Common
     public class InGameLifeTimeManager : LifetimeScope
     {
         [SerializeField] private PlayerCamera _camera;
-        [SerializeField] private PlayerMovement _playerMovement;
-        [SerializeField] private PlayerForwardMover playerForwardMover;
+        [SerializeField] private PlayerManager _playerManager;
         protected override void Configure(IContainerBuilder builder)
         {
             //ドメイン層
             builder.RegisterInstance(_camera);
-            builder.RegisterInstance(_playerMovement);
-            builder.RegisterInstance(playerForwardMover);
+            builder.RegisterInstance(_playerManager);
             builder.RegisterInstance(gameObject);
             
             //アプリケーション層

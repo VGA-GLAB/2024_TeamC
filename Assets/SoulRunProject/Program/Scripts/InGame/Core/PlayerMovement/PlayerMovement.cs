@@ -1,3 +1,4 @@
+using SoulRunProject.Framework;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,6 +29,7 @@ namespace SoulRunProject.InGame
 
         private void Update()
         {
+            //DebugClass.Instance.ShowLog(_inPause.ToString());
             if (_inPause) return;
             LimitPosition();
             _rb.velocity = _playerVelocity;

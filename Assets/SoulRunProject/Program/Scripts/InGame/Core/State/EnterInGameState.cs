@@ -13,15 +13,18 @@ namespace SoulRunProject.InGame
     public class EnterInGameState : State
     {
         PlayerCamera _playerCamera;
+        PlayerManager _playerManager;
         
-        public EnterInGameState(PlayerCamera camera)
+        public EnterInGameState(PlayerCamera camera, PlayerManager playerManager)
         {
             _playerCamera = camera;
+            _playerManager = playerManager;
         }
         
         protected override async UniTask OnEnterAsync(State currentState, CancellationToken cts)
         {
             DebugClass.Instance.ShowLog("インゲーム開始ステート開始");
+            _playerManager.SwitchPause(true);
             await _playerCamera.DoStartIngameMove(_playerCamera.GetCancellationTokenOnDestroy());
             _playerCamera.StartFollowPlayer();
             StateChange();
