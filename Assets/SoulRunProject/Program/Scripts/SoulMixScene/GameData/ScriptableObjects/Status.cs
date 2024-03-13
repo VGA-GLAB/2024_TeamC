@@ -22,6 +22,11 @@ namespace SoulRunProject.SoulMixScene
     {
         // Hp
         [SerializeField] private int hp;
+        
+        public Status Copy()
+        {
+            return (Status)MemberwiseClone();
+        }
 
         public int Hp
         {

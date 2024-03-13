@@ -56,5 +56,13 @@ namespace SoulRunProject.Common
         {
             _pLevelManager.AddExp(exp);
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out FieldEntityController fieldEntityController))
+            {
+                
+            }
+        }
     }
 }
