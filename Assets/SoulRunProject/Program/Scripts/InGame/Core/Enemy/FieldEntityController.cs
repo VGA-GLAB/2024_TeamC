@@ -38,5 +38,10 @@ namespace SoulRunProject.InGame
             _attacker?.OnStart();
             _mover?.OnStart();
         }
+
+        public void SetPlayer(PlayerManager playerManager)
+        {
+            _playerManager = playerManager;
+        }
     }
 }
