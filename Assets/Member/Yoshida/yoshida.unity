@@ -406,14 +406,14 @@ MonoBehaviour:
   - {fileID: 1811792853480408, guid: 6bc7ae01abec37845801bd8d12f2ae09, type: 3}
   _spawnerEnableRange: 1
   _spawnPattern:
-    rid: 8234824463501492224
+    rid: 336611383857119234
   references:
     version: 2
     RefIds:
-    - rid: 8234824463501492224
+    - rid: 336611383857119234
       type: {class: InvertedTrianglePattern, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _spawnRowCount: 5
+        _spawnRowCount: 0
 --- !u!1 &517028366
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,11 +584,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attack:
+  _attacker:
     rid: -2
-  _move:
+  _mover:
     rid: -2
-  _enemyData: {fileID: 11400000, guid: 6bcf6a19a9f72d944b6e89a7eebf1902, type: 2}
+  _status: {fileID: 0}
+  _playerManager: {fileID: 0}
   references:
     version: 2
     RefIds:
