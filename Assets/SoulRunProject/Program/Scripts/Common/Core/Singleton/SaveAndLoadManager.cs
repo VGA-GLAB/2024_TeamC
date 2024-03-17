@@ -13,9 +13,9 @@ namespace SoulRunProject.Common
         private const string SaveFileName = "PlayerData.json";
         private const string MasterDataPath = "MasterData";
 
-        private DataStorage dataStorage;
+        private DataStorage _dataStorage;
 
-        public void OnAwake()
+        public override void OnAwake()
         {
             LoadMasterDataFromCSV();
             LoadPlayerDataFromJson();
@@ -31,11 +31,11 @@ namespace SoulRunProject.Common
         /// </summary>
         private void LoadMasterDataFromCSV()
         {
-            dataStorage.masterData = new MasterData();
+            _dataStorage.masterData = new MasterData();
 
             // CSVファイルからソウルカードのマスターデータを読み込む
             TextAsset soulCardCsvFile = Resources.Load<TextAsset>(Path.Combine(MasterDataPath, "SoulCardMasterData"));
-            dataStorage.masterData.soulCardDataList = LoadSoulCardDataFromCSV(soulCardCsvFile);
+            _dataStorage.masterData.soulCardDataList = LoadSoulCardDataFromCSV(soulCardCsvFile);
 
             // その他のマスターデータのCSVファイルからデータを読み込む
             // 例：
@@ -78,12 +78,12 @@ namespace SoulRunProject.Common
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
-                dataStorage.playerData = JsonUtility.FromJson<PlayerData>(json);
+                _dataStorage.playerData = JsonUtility.FromJson<PlayerData>(json);
             }
             else
             {
-                dataStorage.playerData = new PlayerData();
-                dataStorage.playerData.soulCardDataList = new List<SoulCardData>();
+                _dataStorage.playerData = new PlayerData();
+                _dataStorage.playerData.soulCardDataList = new List<SoulCardData>();
                 // その他のプレイヤーデータを初期化
             }
         }
@@ -93,7 +93,7 @@ namespace SoulRunProject.Common
         /// </summary>
         private void SavePlayerDataToJson()
         {
-            string json = JsonUtility.ToJson(dataStorage.playerData, true);
+            string json = JsonUtility.ToJson(_dataStorage.playerData, true);
             File.WriteAllText(GetSaveFilePath(), json);
         }
 
@@ -112,7 +112,7 @@ namespace SoulRunProject.Common
         /// <param name="soulCardData"></param>
         public void AddSoulCardToPlayerData(SoulCardData soulCardData)
         {
-            dataStorage.playerData.soulCardDataList.Add(soulCardData);
+            _dataStorage.playerData.soulCardDataList.Add(soulCardData);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace SoulRunProject.Common
         /// <param name="soulCardData"></param>
         public void RemoveSoulCardFromPlayerData(SoulCardData soulCardData)
         {
-            dataStorage.playerData.soulCardDataList.Remove(soulCardData);
+            _dataStorage.playerData.soulCardDataList.Remove(soulCardData);
         }
 
         // その他のプレイヤーデータの操作メソッドを追加
@@ -132,12 +132,12 @@ namespace SoulRunProject.Common
         // マスターデータとプレイヤーデータのアクセサを追加
         public MasterData GetMasterData()
         {
-            return dataStorage.masterData;
+            return _dataStorage.masterData;
         }
 
         public PlayerData GetPlayerData()
         {
-            return dataStorage.playerData;
+            return _dataStorage.playerData;
         }
 
         [System.Serializable]
