@@ -17,6 +17,8 @@ namespace SoulRunProject.InGame
 
         [SerializeReference, SubclassSelector, Tooltip("生成パターン")]
         ISpawnPattern _spawnPattern;
+        //現状はヒットしたplayerの参照をヒット時に格納する
+        PlayerManager _playerManager;
 
         void Start()
         {
@@ -50,7 +52,8 @@ namespace SoulRunProject.InGame
                 }
                 
                 // TODO 複数種出す場合、それらを選択するロジックを考える
-                Instantiate(_fieldEntity[spawnIndex], transform.position + pos, Quaternion.identity);
+                var entity = Instantiate(_fieldEntity[spawnIndex], transform.position + pos, Quaternion.identity);
+                entity.SetPlayer(_playerManager);
                 spawnIndex++;
             }
         }
@@ -61,8 +64,8 @@ namespace SoulRunProject.InGame
         void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag("Player")) return;
+            _playerManager = other.gameObject.GetComponent<PlayerManager>();
             SpawnEntity();
-            Debug.Log("Player Hit");
         }
 
         // bool CheckPlayerDistance(Transform playerTrans)
