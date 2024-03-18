@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Legacy/Scenes/Title.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
-    path: Assets/Design/0125/Satou/GameScene.unity
+    path: Assets/Designer/0125/Satou/GameScene.unity
     guid: bd4eb1ad5c28e9049a876bdd815629fd
   - enabled: 0
     path: Assets/Member/Usugi/Scene/InGameTest.unity
