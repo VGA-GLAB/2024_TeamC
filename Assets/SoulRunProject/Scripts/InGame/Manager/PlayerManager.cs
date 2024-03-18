@@ -88,6 +88,7 @@ namespace SoulRunProject.Common
 
         private void OnCollisionEnter(Collision other)
         {
+            //仮のダメージ処理
             if (other.gameObject.TryGetComponent(out FieldEntityController fieldEntityController))
             {
                 Damage(fieldEntityController.Status.Attack);
