@@ -1,5 +1,5 @@
-﻿using System;
-using SoulRunProject.InGame;
+﻿using SoulRunProject.InGame;
+using UniRx;
 using UnityEngine;
 
 namespace SoulRunProject.Common
@@ -31,8 +31,8 @@ namespace SoulRunProject.Common
         {
             foreach (var user in _playerInputUsers)
             {
-                _playerInput.HorizontalAction += user.InputHorizontal;
-                _playerInput.JumpAction += user.Jump;
+                _playerInput.HorizontalInput.Subscribe(user.InputHorizontal);
+                _playerInput.JumpInput.Where(x => x).Subscribe(_ => user.Jump());
             }
         }
 
@@ -52,7 +52,7 @@ namespace SoulRunProject.Common
         /// 経験値を取得する
         /// </summary>
         /// <param name="exp">経験値量</param>
-        public void GetEXP(int exp)
+        public void GetExp(int exp)
         {
             _pLevelManager.AddExp(exp);
         }

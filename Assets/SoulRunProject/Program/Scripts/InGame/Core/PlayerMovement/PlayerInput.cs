@@ -1,4 +1,4 @@
-using System;
+using UniRx;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
@@ -8,17 +8,22 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class PlayerInput : MonoBehaviour
     {
-        public event Action<float> HorizontalAction; 
-        public event Action JumpAction;
+        private readonly FloatReactiveProperty _horizontalInput = new FloatReactiveProperty();
+        private readonly BoolReactiveProperty _jumpInput = new BoolReactiveProperty();
+
+        public FloatReactiveProperty HorizontalInput => _horizontalInput;
+        public BoolReactiveProperty JumpInput => _jumpInput;
+
+        private void Awake()
+        {
+            _horizontalInput.AddTo(this);
+            _jumpInput.AddTo(this);
+        }
 
         private void Update()
         {
-            HorizontalAction?.Invoke(Input.GetAxisRaw("Horizontal"));
-            
-            if (Input.GetButtonDown("Jump"))
-            {
-                JumpAction?.Invoke();
-            }
+            _horizontalInput.Value = Input.GetAxisRaw("Horizontal");
+            _jumpInput.Value = Input.GetButtonDown("Jump");
         }
     }
 }
