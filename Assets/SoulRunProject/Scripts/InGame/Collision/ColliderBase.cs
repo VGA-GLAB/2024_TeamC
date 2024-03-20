@@ -18,13 +18,7 @@ namespace SoulRunProject.InGame
         public readonly Subject<ColliderBase> Exit = new();
         public readonly HashSet<ColliderBase> Contacts = new();
         static bool _isQuitting;    //  再生終了は全オブジェクト共通なのでstaticにした。
-
-        void Awake()
-        {
-            Enter.Subscribe(c=>Debug.Log(gameObject.name + "が" + c.gameObject.name + "と衝突した。")).AddTo(this);
-            Exit.Subscribe(c=>Debug.Log(gameObject.name + "が" + c.gameObject.name + "から離れた。")).AddTo(this);
-        }
-
+        
         void OnApplicationQuit()
         {
             _isQuitting = true;
