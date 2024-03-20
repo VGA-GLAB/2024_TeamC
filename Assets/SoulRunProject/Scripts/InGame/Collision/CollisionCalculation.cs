@@ -43,18 +43,21 @@ namespace SoulRunProject.Common
             if (result && !cube1.IsTrigger && !cube2.IsTrigger)
             {
                 var distance = cube1.Center - cube2.Center;
+                distance.x = Mathf.Abs(distance.x);
+                distance.y = Mathf.Abs(distance.y);
+                distance.z = Mathf.Abs(distance.z);
                 var overlap = (cube1.Size / 2 + cube2.Size / 2 - distance) / 2;
-                float max = float.MinValue;
-                int maxIndex = 0;
+                float min = float.MaxValue;
+                int minIndex = 0;
                 for (int i = 0; i < 3; i++)
                 {
-                    if (!(overlap[i] > max)) continue;
-                    max = overlap[i];
-                    maxIndex = i;
+                    if (!(overlap[i] < min)) continue;
+                    min = overlap[i];
+                    minIndex = i;
                 }
 
                 Vector3 solveV = Vector3.zero;
-                solveV[maxIndex] = max;
+                solveV[minIndex] = min;
                 cube1.transform.position += solveV;
                 cube2.transform.position -= solveV;
             }
