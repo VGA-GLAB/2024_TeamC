@@ -7,36 +7,36 @@ namespace SoulRunProject.SoulMixScene
     [System.Serializable]
     public class SoulCombination
     {
-        [SerializeField] private SoulCardData ingredient1; // 組み合わせる最初のソウルカード
-        [SerializeField] private SoulCardData ingredient2; // 組み合わせる2番目のソウルカード
-        [SerializeField] private SoulCardData result; // 組み合わせによって生成される新しいソウルカード
+        [SerializeField] private SoulCard ingredient1; // 組み合わせる最初のソウルカード
+        [SerializeField] private SoulCard ingredient2; // 組み合わせる2番目のソウルカード
+        [SerializeField] private SoulCard result; // 組み合わせによって生成される新しいソウルカード
 
-        public SoulCardData Ingredient1
+        public SoulCard Ingredient1
         {
             get => ingredient1;
             set => ingredient1 = value;
         }
 
-        public SoulCardData Ingredient2
+        public SoulCard Ingredient2
         {
             get => ingredient2;
             set => ingredient2 = value;
         }
 
-        public SoulCardData Result
+        public SoulCard Result
         {
             get => result;
             set => result = value;
         }
 
         /// <summary> この組み合わせが指定された2つのソウルカードと一致するかどうかを確認するメソッド </summary>
-        public bool IsValidCombination(SoulCardData soul1, SoulCardData soul2)
+        public bool IsValidCombination(SoulCard soul1, SoulCard soul2)
         {
             return (soul1 == ingredient1 && soul2 == ingredient2) ||
                    (soul1 == ingredient2 && soul2 == ingredient1);
         }
 
-        public SoulCardData CombineResult(SoulCardData soul1, SoulCardData soul2)
+        public SoulCard CombineResult(SoulCard soul1, SoulCard soul2)
         {
             return IsValidCombination(soul1, soul2) ? result : null;
         }
