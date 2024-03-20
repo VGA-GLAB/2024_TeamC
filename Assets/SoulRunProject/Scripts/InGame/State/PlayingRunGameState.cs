@@ -29,7 +29,7 @@ namespace SoulRunProject.InGame
         {
             if (_playerManager.transform.position.z > _enterBossStagePosition)
             {   //プレイヤーがボスステージ開始前の位置に到達したら前進を止めて遷移
-                _playerManager.SetPlayerForwardMover(false);
+                _playerManager.SwitchPause(false);
                 ArrivedBossStagePosition = true;
                 StateChange();
             }
