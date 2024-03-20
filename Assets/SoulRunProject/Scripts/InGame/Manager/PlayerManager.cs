@@ -1,7 +1,5 @@
-﻿using System;
-using SoulRunProject.Framework;
-using SoulRunProject.InGame;
-using SoulRunProject.SoulMixScene;
+﻿using SoulRunProject.InGame;
+using UniRx;
 using UnityEngine;
 
 namespace SoulRunProject.Common
@@ -12,19 +10,17 @@ namespace SoulRunProject.Common
     public class PlayerManager : MonoBehaviour
     {
         [SerializeField] private PlayerInput _playerInput;
-        [SerializeField] private Status _status;
+        
         private IUsePlayerInput[] _playerInputUsers;
         private IInGameTime[] _inGameTimes;
         private PlayerLevelManager _pLevelManager;
-        private PlayerForwardMover _forwardMover;
 
         private void Awake()
         {
             _playerInputUsers = GetComponents<IUsePlayerInput>();
             _inGameTimes = GetComponents<IInGameTime>();
             _pLevelManager = GetComponent<PlayerLevelManager>();
-            _forwardMover = GetComponent<PlayerForwardMover>();
-            _status = _status.Copy();
+            
             InitializeInput();
         }
 
@@ -35,8 +31,8 @@ namespace SoulRunProject.Common
         {
             foreach (var user in _playerInputUsers)
             {
-                _playerInput.HorizontalAction += user.InputHorizontal;
-                _playerInput.JumpAction += user.Jump;
+                _playerInput.HorizontalInput.Subscribe(user.InputHorizontal);
+                _playerInput.JumpInput.Where(x => x).Subscribe(_ => user.Jump());
             }
         }
 
@@ -51,48 +47,14 @@ namespace SoulRunProject.Common
                 inGameTime.SwitchPause(toPause);
             }
         }
-        
-        /// <summary>
-        /// Playerの前進処理のPauseの切替
-        /// </summary>
-        /// <param name="isPause"></param>
-        public void SetPlayerForwardMover(bool isPause)
-        {
-            _forwardMover.SwitchPause(isPause);
-        }
 
         /// <summary>
         /// 経験値を取得する
         /// </summary>
         /// <param name="exp">経験値量</param>
-        private void GetEXP(int exp)
+        public void GetExp(int exp)
         {
             _pLevelManager.AddExp(exp);
-        }
-        
-        private void Damage(int damage)
-        {
-            _status.Hp -= damage;
-            if (_status.Hp <= 0)
-            {
-                Death();
-            }
-        }
-        
-        private void Death()
-        {
-            // TODO 死亡時の処理を考える
-            DebugClass.Instance.ShowLog("Player is Dead");
-            SwitchPause(true);
-        }
-
-        private void OnCollisionEnter(Collision other)
-        {
-            //仮のダメージ処理
-            if (other.gameObject.TryGetComponent(out FieldEntityController fieldEntityController))
-            {
-                Damage(fieldEntityController.Status.Attack);
-            }
         }
     }
 }
