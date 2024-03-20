@@ -7,7 +7,7 @@ namespace SoulRunProject.InGame
     /// <summary>
     /// 敵や障害物を管理するクラス
     /// </summary>
-    public class FieldEntityController : MonoBehaviour
+    public class FieldEntityController : MonoBehaviour, IInGameTime
     {
         [SerializeReference, SubclassSelector, Tooltip("敵の攻撃パターンを設定する")] protected IEntityAttacker _attacker;
         [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")] protected IEntityMover _mover;
@@ -36,7 +36,7 @@ namespace SoulRunProject.InGame
             _status = _status.Copy();
         }
         
-        public void SetActive(bool isActive = true)
+        private void SetActive()
         {
             _attacker?.OnStart();
             _mover?.OnStart();
@@ -61,6 +61,20 @@ namespace SoulRunProject.InGame
             _attacker?.Stop();
             _mover?.Stop();
             Destroy(gameObject);
+        }
+
+        public void SwitchPause(bool toPause)
+        {
+            if (toPause)
+            {
+                _attacker?.Stop();
+                _mover?.Stop();
+            }
+            else
+            {
+                _attacker?.OnStart();
+                _mover?.OnStart();
+            }
         }
     }
 }
