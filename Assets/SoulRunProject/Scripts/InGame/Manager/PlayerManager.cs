@@ -1,6 +1,9 @@
-﻿using SoulRunProject.InGame;
+﻿using System;
+using SoulRunProject.InGame;
+using SoulRunProject.SoulMixScene;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace SoulRunProject.Common
 {
@@ -10,6 +13,7 @@ namespace SoulRunProject.Common
     public class PlayerManager : MonoBehaviour
     {
         [SerializeField] private PlayerInput _playerInput;
+        [SerializeField] private Status _status;
         
         private IUsePlayerInput[] _playerInputUsers;
         private IInGameTime[] _inGameTimes;
@@ -17,6 +21,7 @@ namespace SoulRunProject.Common
 
         private void Awake()
         {
+            _status = _status.Copy();
             _playerInputUsers = GetComponents<IUsePlayerInput>();
             _inGameTimes = GetComponents<IInGameTime>();
             _pLevelManager = GetComponent<PlayerLevelManager>();
@@ -55,6 +60,29 @@ namespace SoulRunProject.Common
         public void GetExp(int exp)
         {
             _pLevelManager.AddExp(exp);
+        }
+        
+        public void Damage(int damage)
+        {
+            _status.Hp -= damage;
+            if (_status.Hp <= 0)
+            {
+                Death();
+            }
+        }
+        
+        private void Death()
+        {
+            Debug.Log("GameOver");
+            SwitchPause(true);
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.TryGetComponent(out FieldEntityController fieldEntityController))
+            {
+                Damage(fieldEntityController.Status.Attack);
+            }
         }
     }
 }
