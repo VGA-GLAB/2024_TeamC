@@ -1,4 +1,3 @@
-using SoulRunProject.InGame;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,10 +8,10 @@ namespace SoulRunProject.TakechiTest
     /// </summary>
     public class TestEnemySpawner : MonoBehaviour
     {
-        [SerializeField] TestEnemy _testEnemy;
+        [SerializeField] TestEnemy _enemy;
+        [SerializeField] TestPlayerManager _playerManager;
         [SerializeField] float _maxSpawnInterval = 3f;
         [SerializeField] float _minSpawnInterval = 1f;
-        [SerializeField] TestLifetimeScope _lifetimeScope;
         float _timer, _spawnInterval;
 
         void Start()
@@ -27,11 +26,8 @@ namespace SoulRunProject.TakechiTest
             {
                 _timer = 0;
                 _spawnInterval = Random.Range(_minSpawnInterval, _maxSpawnInterval);
-                var enemy = Instantiate(_testEnemy, transform);
-                if (enemy.Mover is FollowingMover mover)
-                {
-                    _lifetimeScope.Container.Inject(mover);
-                }
+                var enemy = Instantiate(_enemy, transform);
+                enemy.PlayerReference = _playerManager;
             }
         }
     }
