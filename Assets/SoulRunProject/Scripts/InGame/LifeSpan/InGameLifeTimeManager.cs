@@ -14,12 +14,14 @@ namespace SoulRunProject.Common
     {
         [SerializeField] private PlayerCamera _camera;
         [SerializeField] private PlayerManager _playerManager;
+        [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private ResultView _resultView;
         protected override void Configure(IContainerBuilder builder)
         {
             //ドメイン層
             builder.RegisterInstance(_camera);
             builder.RegisterInstance(_playerManager);
+            builder.RegisterInstance(_playerInput);
             builder.RegisterInstance(gameObject);
             
             //アプリケーション層
@@ -30,6 +32,7 @@ namespace SoulRunProject.Common
             builder.Register<EnterBossStageState>(Lifetime.Singleton);
             builder.Register<PlayingBossStageState>(Lifetime.Singleton);
             builder.Register<GameClearState>(Lifetime.Singleton);
+            builder.Register<PauseState>(Lifetime.Singleton);
             builder.Register<InGameManager>(Lifetime.Singleton);
             
             //プレゼンテーション層
