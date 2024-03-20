@@ -18,7 +18,7 @@ namespace SoulRunProject.InGame
         void Start()
         {
             InitializeEntityStatus();
-            Active();
+            SetActive();
         }
         
         void Update()
@@ -36,7 +36,7 @@ namespace SoulRunProject.InGame
             _status = _status.Copy();
         }
         
-        public void Active()
+        public void SetActive(bool isActive = true)
         {
             _attacker?.OnStart();
             _mover?.OnStart();
