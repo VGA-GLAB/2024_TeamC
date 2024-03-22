@@ -18,6 +18,7 @@ namespace SoulRunProject.Common
         private IUsePlayerInput[] _playerInputUsers;
         private IInGameTime[] _inGameTimes;
         private PlayerLevelManager _pLevelManager;
+        private SkillManager _skillManager;
 
         private void Awake()
         {
@@ -25,6 +26,7 @@ namespace SoulRunProject.Common
             _playerInputUsers = GetComponents<IUsePlayerInput>();
             _inGameTimes = GetComponents<IInGameTime>();
             _pLevelManager = GetComponent<PlayerLevelManager>();
+            _skillManager = GetComponent<SkillManager>();
             
             InitializeInput();
         }
@@ -70,6 +72,15 @@ namespace SoulRunProject.Common
                 Death();
             }
         }
+
+        /// <summary>
+        /// Skillを追加する
+        /// </summary>
+        /// <param name="skill"></param>
+        public void AddSkill(SkillBase skill)
+        {
+            _skillManager.AddSkill(skill);
+        }
         
         private void Death()
         {
@@ -77,6 +88,10 @@ namespace SoulRunProject.Common
             SwitchPause(true);
         }
 
+        /// <summary>
+        /// 仮の当たり判定関数
+        /// </summary>
+        /// <param name="other"></param>
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.TryGetComponent(out FieldEntityController fieldEntityController))

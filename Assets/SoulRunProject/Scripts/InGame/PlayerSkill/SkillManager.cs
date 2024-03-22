@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
-    public class SkillManager : MonoBehaviour
+    public class SkillManager : MonoBehaviour, IInGameTime
     {
         [SerializeField] List<SkillBase> _skills = new List<SkillBase>();
         
@@ -13,7 +13,7 @@ namespace SoulRunProject.InGame
             _skills.Add(skill);
         }
         
-        public void StartSkill()
+        private void StartSkill()
         {
             foreach (var skill in _skills)
             {
@@ -29,11 +29,23 @@ namespace SoulRunProject.InGame
             }
         }
         
-        public void StopSkill()
+        private void StopSkill()
         {
             foreach (var skill in _skills)
             {
                 skill.Stop();
+            }
+        }
+
+        public void SwitchPause(bool toPause)
+        {
+            if (toPause)
+            {
+                StopSkill();
+            }
+            else
+            {
+                StartSkill();
             }
         }
     }
