@@ -20,10 +20,13 @@ namespace SoulRunProject.Common
         private SkillManager _skillManager;
         private SoulSkillManager _soulSkillManager;
         private PlayerMovement _playerMovement;
+        public FloatReactiveProperty CurrentHp { get; private set; }
+        public float MaxHp => _status.Hp;
 
         private void Awake()
         {
             _status = _status.Copy();
+            CurrentHp = new FloatReactiveProperty(_status.Hp);
             _inGameTimes = GetComponents<IInGameTime>();
             _pLevelManager = GetComponent<PlayerLevelManager>();
             _skillManager = GetComponent<SkillManager>();
