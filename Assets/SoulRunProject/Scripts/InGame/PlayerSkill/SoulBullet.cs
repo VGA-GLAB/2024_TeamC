@@ -5,13 +5,6 @@ namespace SoulRunProject.Common
     /// </summary>
     public class SoulBullet : SkillBase
     {
-        public override void Fire()
-        {
-        }
-
-        public override void Stop()
-        {
-        }
 
         public SoulBullet() : base(nameof(SoulBullet)) { }
     }
