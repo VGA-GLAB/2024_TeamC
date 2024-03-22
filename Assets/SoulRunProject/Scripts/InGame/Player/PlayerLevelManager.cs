@@ -18,6 +18,7 @@ namespace SoulRunProject.InGame
         
         public IObservable<LevelData> OnCurrentLevelDataChanged => _currentLevelData;
         public IObservable<int> OnCurrentExpChanged => _currentExp;
+        public int CurrentMaxExp => _currentLevelData.Value.ExpToNextLevel;
 
         private void Awake()
         {

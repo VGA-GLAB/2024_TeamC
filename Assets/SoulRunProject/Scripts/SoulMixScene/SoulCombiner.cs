@@ -97,7 +97,6 @@ namespace SoulRunProject.SoulMixScene
             newSoul.SoulName = setSoul.SoulName;
             newSoul.SoulLevel = setSoul.SoulLevel;
             newSoul.SoulAbility = setSoul.SoulAbility;
-            newSoul.ExplanatoryText = setSoul.ExplanatoryText;
             newSoul.Status = setSoul.Status;
             newSoul.TraitList = setSoul.TraitList;
         }
