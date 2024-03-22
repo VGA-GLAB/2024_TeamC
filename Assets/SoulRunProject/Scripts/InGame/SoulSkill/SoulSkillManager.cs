@@ -1,3 +1,5 @@
+using System;
+using UniRx;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
@@ -8,6 +10,8 @@ namespace SoulRunProject.InGame
     public class SoulSkillManager : MonoBehaviour
     {
         [SerializeField] SoulSkillBase _currentSoulSkill;
+        public float MaxSoul => _currentSoulSkill.MaxSoul;
+        public IObservable<float> CurrentSoul => _currentSoulSkill.OnCurrentSoulChanged;
         
         public void SetSoulSkill(SoulSkillBase soulSkill)
         {
