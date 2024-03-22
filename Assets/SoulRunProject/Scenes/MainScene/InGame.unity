@@ -3672,8 +3672,12 @@ MonoBehaviour:
   autoInjectGameObjects: []
   _camera: {fileID: 1484104527}
   _playerManager: {fileID: 1420106444}
+  _playerLevelManager: {fileID: 1420106446}
+  _soulSkillManager: {fileID: 1420106450}
+  _skillManager: {fileID: 1420106449}
   _playerInput: {fileID: 1420106445}
   _resultView: {fileID: 183513116}
+  _commonView: {fileID: 183513117}
 --- !u!4 &1180136328 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164151997940843940, guid: 54942ca6699e8764a8b2eb58690cf15d,
