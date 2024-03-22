@@ -9,9 +9,9 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class SoulSkillManager : MonoBehaviour
     {
-        [SerializeField] SoulSkillBase _currentSoulSkill;
+        [SerializeReference] SoulSkillBase _currentSoulSkill;
         public float MaxSoul => _currentSoulSkill.MaxSoul;
-        public IObservable<float> CurrentSoul => _currentSoulSkill.OnCurrentSoulChanged;
+        public IObservable<float> CurrentSoul => _currentSoulSkill?.OnCurrentSoulChanged;
         
         public void SetSoulSkill(SoulSkillBase soulSkill)
         {
