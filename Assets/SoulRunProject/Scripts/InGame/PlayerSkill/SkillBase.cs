@@ -1,3 +1,4 @@
+using SoulRunProject.InGame;
 using UnityEngine;
 
 namespace SoulRunProject.Common
@@ -5,11 +6,11 @@ namespace SoulRunProject.Common
     /// <summary>
     /// スキルの基底クラス
     /// </summary>
-    public abstract class SkillBase
+    public class SkillBase
     {
         /// <summary>スキルのレベル(0スタート)</summary>
-        int _level;
-
+        int _level; 
+        ISkillAction _skillAction;
         readonly LevelUpTable _levelUpTable;
         readonly string _className;
 
@@ -39,10 +40,21 @@ namespace SoulRunProject.Common
         public int MaxLevel { get; } = 5;
 
         /// <summary>スキル起動</summary>
-        public abstract void Fire();
+        public void Start()
+        {
+            _skillAction.Start();
+        }
+        
+        public void Update()
+        {
+            _skillAction.Update();
+        }
 
         /// <summary>スキル停止</summary>
-        public abstract void Stop();
+        public void Stop()
+        {
+            _skillAction.Stop();
+        }
 
         /// <summary>スキル進化</summary>
         public void LevelUp()
