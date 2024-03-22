@@ -5,6 +5,10 @@ namespace SoulRunProject.InGame
     /// </summary>
     public interface IInGameTime
     {
+        /// <summary>
+        /// Trueでとめる、Falseでうごかす
+        /// </summary>
+        /// <param name="toPause"></param>
         void SwitchPause(bool toPause);
     }
 }

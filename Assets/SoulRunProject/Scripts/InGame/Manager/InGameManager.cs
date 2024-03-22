@@ -19,7 +19,8 @@ namespace SoulRunProject.Common
             GameOverState gameOverState,
             EnterBossStageState enterBossStageState,
             PlayingBossStageState playingBossStageState,
-            GameClearState gameClearState)
+            GameClearState gameClearState,
+            PauseState pauseState)
         {   //ステートの追加、遷移処理の設定を行う。
             _currentState = firstState;
             _owner = owner;
@@ -30,13 +31,17 @@ namespace SoulRunProject.Common
             AddState(4, enterBossStageState);
             AddState(5, playingBossStageState);
             AddState(6, gameClearState);
+            AddState(7, pauseState);
             firstState.OnStateExit += _ => ChangeState(1);
             enterStageState.OnStateExit += _ => ChangeState(2);
-            playingRunGameState.OnStateExit += state =>
+            playingRunGameState.OnStateExit += _ =>
             {   
                 if (playingRunGameState.ArrivedBossStagePosition) //Playerが生きていて、ボスステージに移行する場合
                     ChangeState(4);
+                if (playingRunGameState.SwitchToPauseState)
+                    ChangeState(7);
             };
+            pauseState.OnStateExit += _ => ChangeState(2);
             enterBossStageState.OnStateExit += _ => ChangeState(5);
             playingBossStageState.OnStateExit += state =>
             {

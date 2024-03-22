@@ -1,3 +1,4 @@
+using SoulRunProject.InGame;
 using UnityEngine;
 
 namespace SoulRunProject.Common
@@ -5,32 +6,12 @@ namespace SoulRunProject.Common
     /// <summary>
     /// スキルの基底クラス
     /// </summary>
-    public abstract class SkillBase
+    public abstract class SkillBase : MonoBehaviour
     {
         /// <summary>スキルのレベル(0スタート)</summary>
-        int _level;
-
-        readonly LevelUpTable _levelUpTable;
+        int _level; 
+        [SerializeField] LevelUpTable _levelUpTable;
         readonly string _className;
-
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        protected SkillBase(string className)
-        {
-            _className = className;
-            var temp = Resources.Load<LevelUpTable>($"LevelUpTable/{className}");
-            if (temp == null)
-            {
-                Debug.LogError($"{className}のレベルアップテーブルが見つかりませんでした。");
-            }
-            else
-            {
-                _levelUpTable = temp;
-                //  レベル1のパラメーターを割り当てる。
-                SkillParameter = _levelUpTable.SkillParameters[0];
-            }
-        }
 
         /// <summary>スキルのパラメーター</summary>
         public SkillParameter SkillParameter { get; private set; }
@@ -39,10 +20,12 @@ namespace SoulRunProject.Common
         public int MaxLevel { get; } = 5;
 
         /// <summary>スキル起動</summary>
-        public abstract void Fire();
+        public abstract void StartSkill();
+
+        public abstract void UpdateSkill();
 
         /// <summary>スキル停止</summary>
-        public abstract void Stop();
+        public abstract void StopSkill();
 
         /// <summary>スキル進化</summary>
         public void LevelUp()

@@ -7,6 +7,7 @@ namespace SoulRunProject.Common
     public class TrianglePattern : ISpawnPattern
     {
         [SerializeField] int _spawnRowCount;
+        [SerializeField] float _entitySpacing;
         List<Vector3> _spawnPositions = new();
 
         /// <returns>生成位置のリスト</returns>
@@ -23,23 +24,28 @@ namespace SoulRunProject.Common
             // 2列目からの生成位置を求めるループ
             for (var i = 1; i < _spawnRowCount; i++)
             {
-                var value = -i;
+                var xPos = -i * _entitySpacing;
+                var zPos = i * _entitySpacing;
                 for (var j = 0; j <= i; j++)
                 {
                     // 各列左端は基準になるので、処理を分ける
                     if (j <= 0)
                     {
-                        var poss = new Vector3(value, 0, i);
-                        _spawnPositions.Add(poss);
+                        _spawnPositions.Add(new Vector3(xPos, 0, zPos));
                         continue;
                     }
 
-                    var pos = new Vector3(value += 2, 0, i);
+                    var pos = new Vector3(xPos += (_entitySpacing * 2), 0, zPos);
                     _spawnPositions.Add(pos);
                 }
             }
 
             return _spawnPositions;
+        }
+
+        public void DrawGizmos(Vector3 pos)
+        {
+            // ignore
         }
     }
 }

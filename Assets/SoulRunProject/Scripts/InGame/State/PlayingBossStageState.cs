@@ -21,7 +21,7 @@ namespace SoulRunProject.InGame
         protected override void OnEnter(State currentState)
         {
             DebugClass.Instance.ShowLog("ボスステージステート開始");
-            _playerManager.SetPlayerForwardMover(true);
+            _playerManager.SwitchPause(true);
             //TODO：ボスステージの処理を入れる
             //ボスが倒されたらIsBossDefeatedをtrueにしてStateChangeを呼ぶ
             IsBossDefeated = true;

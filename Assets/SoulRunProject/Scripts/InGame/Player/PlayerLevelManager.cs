@@ -12,8 +12,8 @@ namespace SoulRunProject.InGame
         [SerializeField] private LevelUpTable _levelUpTable;
         
         /// <summary> 現在のレベルの情報 </summary>
-        private ReactiveProperty<LevelData> _currentLevelData = new ReactiveProperty<LevelData>(new LevelData());
-        private IntReactiveProperty _currentExp = new IntReactiveProperty(0);
+        private readonly ReactiveProperty<LevelData> _currentLevelData = new ReactiveProperty<LevelData>(new LevelData());
+        private readonly IntReactiveProperty _currentExp = new IntReactiveProperty(0);
         private int _levelDataIndex = 0;
         
         public IObservable<LevelData> OnCurrentLevelDataChanged => _currentLevelData;
@@ -21,6 +21,8 @@ namespace SoulRunProject.InGame
 
         private void Awake()
         {
+            _currentLevelData.AddTo(this);
+            _currentExp.AddTo(this);
             Initialize();
         }
 
