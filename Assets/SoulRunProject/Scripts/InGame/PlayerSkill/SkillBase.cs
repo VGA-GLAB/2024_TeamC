@@ -20,12 +20,12 @@ namespace SoulRunProject.Common
         public int MaxLevel { get; } = 5;
 
         /// <summary>スキル起動</summary>
-        public abstract void Start();
+        public abstract void StartSkill();
 
-        public abstract void Update();
+        public abstract void UpdateSkill();
 
         /// <summary>スキル停止</summary>
-        public abstract void Stop();
+        public abstract void StopSkill();
 
         /// <summary>スキル進化</summary>
         public void LevelUp()

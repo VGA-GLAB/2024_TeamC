@@ -17,7 +17,7 @@ namespace SoulRunProject.InGame
         {
             foreach (var skill in _skills)
             {
-                skill.Start();
+                skill.StartSkill();
             }
         }
         
@@ -25,7 +25,7 @@ namespace SoulRunProject.InGame
         {
             foreach (var skill in _skills)
             {
-                skill.Update();
+                skill.UpdateSkill();
             }
         }
         
@@ -33,7 +33,7 @@ namespace SoulRunProject.InGame
         {
             foreach (var skill in _skills)
             {
-                skill.Stop();
+                skill.StopSkill();
             }
         }
 
