@@ -10,6 +10,7 @@ namespace SoulRunProject
     /// <summary>
     /// ソウル技のインターフェース
     /// </summary>
+    [Serializable]
     public abstract class SoulSkillBase : MonoBehaviour
     {
         [SerializeField] private SkillParameter _skillParameter;
