@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using SoulRunProject.InGame;
 using SoulRunProject.SoulMixScene;
 using UniRx;
@@ -38,9 +39,9 @@ namespace SoulRunProject.Common
         /// </summary>
         private void InitializeInput()
         {
-            _playerInput.HorizontalInput.Subscribe(input => _playerMovement.InputHorizontal(input));
-            _playerInput.JumpInput.Where(x => x).Subscribe(_ => _playerMovement.Jump());
-            _playerInput.ShiftInput.Where(x => x).Subscribe(_ => UseSoulSkill());
+            _playerInput.HorizontalInput.Subscribe(input => _playerMovement.InputHorizontal(input)).AddTo(this);
+            _playerInput.JumpInput.Where(x => x).Subscribe(_ => _playerMovement.Jump()).AddTo(this);
+            _playerInput.ShiftInput.Where(x => x).Subscribe(_ => UseSoulSkill()).AddTo(this);
         }
 
         /// <summary>
