@@ -4,7 +4,6 @@ using SoulRunProject.InGame;
 using SoulRunProject.SoulMixScene;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace SoulRunProject.Common
 {
