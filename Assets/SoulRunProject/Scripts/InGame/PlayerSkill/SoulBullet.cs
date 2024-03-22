@@ -5,7 +5,19 @@ namespace SoulRunProject.Common
     /// </summary>
     public class SoulBullet : SkillBase
     {
+        public override void StartSkill()
+        {
+            throw new System.NotImplementedException();
+        }
 
-        public SoulBullet() : base(nameof(SoulBullet)) { }
+        public override void UpdateSkill()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void StopSkill()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
