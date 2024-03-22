@@ -15,20 +15,20 @@ namespace SoulRunProject.Common
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private Status _status;
         
-        private IUsePlayerInput[] _playerInputUsers;
         private IInGameTime[] _inGameTimes;
         private PlayerLevelManager _pLevelManager;
         private SkillManager _skillManager;
         private SoulSkillManager _soulSkillManager;
+        private PlayerMovement _playerMovement;
 
         private void Awake()
         {
             _status = _status.Copy();
-            _playerInputUsers = GetComponents<IUsePlayerInput>();
             _inGameTimes = GetComponents<IInGameTime>();
             _pLevelManager = GetComponent<PlayerLevelManager>();
             _skillManager = GetComponent<SkillManager>();
             _soulSkillManager = GetComponent<SoulSkillManager>();
+            _playerMovement = GetComponent<PlayerMovement>();
             
             InitializeInput();
         }
@@ -38,11 +38,9 @@ namespace SoulRunProject.Common
         /// </summary>
         private void InitializeInput()
         {
-            foreach (var user in _playerInputUsers)
-            {
-                _playerInput.HorizontalInput.Subscribe(user.InputHorizontal);
-                _playerInput.JumpInput.Where(x => x).Subscribe(_ => user.Jump());
-            }
+            _playerInput.HorizontalInput.Subscribe(input => _playerMovement.InputHorizontal(input));
+            _playerInput.JumpInput.Where(x => x).Subscribe(_ => _playerMovement.Jump());
+            _playerInput.ShiftInput.Where(x => x).Subscribe(_ => UseSoulSkill());
         }
 
         /// <summary>

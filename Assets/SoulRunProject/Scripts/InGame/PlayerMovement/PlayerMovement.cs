@@ -8,7 +8,7 @@ namespace SoulRunProject.InGame
     /// プレイヤー移動
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : MonoBehaviour, IUsePlayerInput, IInGameTime
+    public class PlayerMovement : MonoBehaviour, IInGameTime
     {
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpPower;
