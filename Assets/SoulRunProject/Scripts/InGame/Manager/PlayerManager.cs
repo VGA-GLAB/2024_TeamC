@@ -1,9 +1,9 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using SoulRunProject.InGame;
 using SoulRunProject.SoulMixScene;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace SoulRunProject.Common
 {
@@ -15,18 +15,23 @@ namespace SoulRunProject.Common
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private Status _status;
         
-        private IUsePlayerInput[] _playerInputUsers;
         private IInGameTime[] _inGameTimes;
         private PlayerLevelManager _pLevelManager;
         private SkillManager _skillManager;
+        private SoulSkillManager _soulSkillManager;
+        private PlayerMovement _playerMovement;
+        public FloatReactiveProperty CurrentHp { get; private set; }
+        public float MaxHp => _status.Hp;
 
         private void Awake()
         {
             _status = _status.Copy();
-            _playerInputUsers = GetComponents<IUsePlayerInput>();
+            CurrentHp = new FloatReactiveProperty(_status.Hp);
             _inGameTimes = GetComponents<IInGameTime>();
             _pLevelManager = GetComponent<PlayerLevelManager>();
             _skillManager = GetComponent<SkillManager>();
+            _soulSkillManager = GetComponent<SoulSkillManager>();
+            _playerMovement = GetComponent<PlayerMovement>();
             
             InitializeInput();
         }
@@ -36,11 +41,9 @@ namespace SoulRunProject.Common
         /// </summary>
         private void InitializeInput()
         {
-            foreach (var user in _playerInputUsers)
-            {
-                _playerInput.HorizontalInput.Subscribe(user.InputHorizontal);
-                _playerInput.JumpInput.Where(x => x).Subscribe(_ => user.Jump());
-            }
+            _playerInput.HorizontalInput.Subscribe(input => _playerMovement.InputHorizontal(input)).AddTo(this);
+            _playerInput.JumpInput.Where(x => x).Subscribe(_ => _playerMovement.Jump()).AddTo(this);
+            _playerInput.ShiftInput.Where(x => x).Subscribe(_ => UseSoulSkill()).AddTo(this);
         }
 
         /// <summary>
@@ -99,5 +102,27 @@ namespace SoulRunProject.Common
                 Damage(fieldEntityController.Status.Attack);
             }
         }
+
+        #region SoulSkill関連
+        /// <summary>
+        /// SoulSkillを使用する
+        /// </summary>
+        public void UseSoulSkill()
+        {
+            _soulSkillManager.UseSoulSkill();
+        }
+        
+        public void SetSoul(SoulSkillBase soul)
+        {
+            _soulSkillManager.SetSoulSkill(soul);
+        }
+        
+        private void AddSoul(float soul)
+        {
+            _soulSkillManager.AddSoul(soul);
+        }
+        
+
+        #endregion
     }
 }

@@ -14,8 +14,12 @@ namespace SoulRunProject.Common
     {
         [SerializeField] private PlayerCamera _camera;
         [SerializeField] private PlayerManager _playerManager;
+        [SerializeField] private PlayerLevelManager _playerLevelManager;
+        [SerializeField] private SoulSkillManager _soulSkillManager;
+        [SerializeField] private SkillManager _skillManager;
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private ResultView _resultView;
+        [SerializeField] private CommonView _commonView;
         protected override void Configure(IContainerBuilder builder)
         {
             //ドメイン層
@@ -23,6 +27,7 @@ namespace SoulRunProject.Common
             builder.RegisterInstance(_playerManager);
             builder.RegisterInstance(_playerInput);
             builder.RegisterInstance(gameObject);
+            
             
             //アプリケーション層
             builder.Register<EnterInGameState>(Lifetime.Singleton);
@@ -34,13 +39,19 @@ namespace SoulRunProject.Common
             builder.Register<GameClearState>(Lifetime.Singleton);
             builder.Register<PauseState>(Lifetime.Singleton);
             builder.Register<InGameManager>(Lifetime.Singleton);
+            builder.RegisterInstance(_playerLevelManager);
+            builder.RegisterInstance(_skillManager);
+            builder.RegisterInstance(_soulSkillManager);
             
             //プレゼンテーション層
             builder.RegisterComponent(_resultView);
             builder.Register<ResultPresenter>(Lifetime.Singleton);
+            builder.RegisterComponent(_commonView);
+            builder.Register<CommonUIPresenter>(Lifetime.Singleton);
             
             //開始処理
             builder.RegisterEntryPoint<ResultPresenter>();
+            builder.RegisterEntryPoint<CommonUIPresenter>();
             builder.RegisterEntryPoint<InGameManager>();
         }
     }
