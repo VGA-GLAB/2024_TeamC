@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
-using System.IO;
 using System.Linq;
+using UnityEngine;
+using UniRx;
 using SoulRunProject.Common;
 
 namespace SoulRunProject.SoulMixScene
 {
-    /// <summary> ソウルを管理するクラス Controller </summary>
-    public class SoulCardManager : MonoBehaviour
+    /// <summary> ソウルカードのデータを管理するクラス </summary> 
+    public class SoulCardManager : AbstractSingletonMonoBehaviour<SoulCardManager>
     {
-        public List<SoulCard> soulCards = new List<SoulCard>();
+        protected override bool UseDontDestroyOnLoad => false;
+        public SoulCardList soulCardListSO; // ゲームに登場する全てのソウルカード
+        public SoulMixModel soulMixModel; // エディターから設定する
 
         private SaveAndLoadManager _saveAndLoadManager;
 
@@ -17,49 +19,40 @@ namespace SoulRunProject.SoulMixScene
         {
             _saveAndLoadManager = SaveAndLoadManager.Instance;
             LoadSoulCards();
+            SaveAndLoadManager.MasterData masterData = _saveAndLoadManager.GetMasterData();
+            //soulCardListSO.soulCardList = masterData.soulCardDataList;
         }
 
-        /// <summary> ソウルカードをロードする </summary>
         private void LoadSoulCards()
         {
             SaveAndLoadManager.PlayerData playerData = _saveAndLoadManager.GetPlayerData();
 
-            foreach (SoulCardData soulCardData in playerData.soulCardDataList)
+            // PlayerDataからソウルカードをロードしてOwnedCardsに追加
+            foreach (SoulCardData soulCardData in playerData.CurrentSoulCardDataList)
             {
-                CreateSoulCard(soulCardData);
+                soulMixModel.OwnedCards.Add(soulCardData);
             }
         }
 
-        /// <summary> ソウルカードを作成する </summary>
-        public SoulCard CreateSoulCard(SoulCardData data)
-        {
-            GameObject soulCardObject = new GameObject();
-            SoulCard soulCard = soulCardObject.AddComponent<SoulCard>();
-            soulCard.SetData(data);
-            soulCard.name = data.SoulName;
-            soulCards.Add(soulCard);
-            return soulCard;
-        }
-
-        /// <summary> ソウルカードを追加する </summary>
+        // ソウルカードをリストに追加する処理は、OwnedCards.Addを直接使用
         public void AddSoulCard(SoulCardData soulCardData)
         {
-            SoulCard soulCard = CreateSoulCard(soulCardData);
-            _saveAndLoadManager.AddSoulCardToPlayerData(soulCardData);
+            if (!soulMixModel.OwnedCards.Contains(soulCardData))
+            {
+                soulMixModel.OwnedCards.Add(soulCardData);
+            }
         }
 
-        /// <summary> ソウルカードを削除する </summary>
-        public void RemoveSoulCard(SoulCard soulCard)
+        // ソウルカードをリストから削除する処理は、OwnedCards.Removeを直接使用
+        public void RemoveSoulCard(SoulCardData soulCard)
         {
-            soulCards.Remove(soulCard);
-            _saveAndLoadManager.RemoveSoulCardFromPlayerData(soulCard.GetData());
-            Destroy(soulCard.gameObject);
+            soulMixModel.OwnedCards.Remove(soulCard);
         }
 
-        /// <summary> ソウルカードをIDで検索する </summary>
-        public SoulCard FindSoulCardByID(int cardID)
+        // IDでソウルカードを検索する処理
+        public SoulCardData FindSoulCardByID(int cardID)
         {
-            return soulCards.FirstOrDefault(card => card.CardID == cardID);
+            return soulMixModel.OwnedCards.FirstOrDefault(card => card.CardID == cardID);
         }
     }
 }

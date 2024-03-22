@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using SoulRunProject.SoulMixScene;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SoulRunProject.Common
 {
@@ -83,7 +84,7 @@ namespace SoulRunProject.Common
             else
             {
                 _dataStorage.playerData = new PlayerData();
-                _dataStorage.playerData.soulCardDataList = new List<SoulCardData>();
+                _dataStorage.playerData.CurrentSoulCardDataList = new List<SoulCardData>();
                 // その他のプレイヤーデータを初期化
             }
         }
@@ -112,7 +113,7 @@ namespace SoulRunProject.Common
         /// <param name="soulCardData"></param>
         public void AddSoulCardToPlayerData(SoulCardData soulCardData)
         {
-            _dataStorage.playerData.soulCardDataList.Add(soulCardData);
+            _dataStorage.playerData.CurrentSoulCardDataList.Add(soulCardData);
         }
 
         /// <summary>
@@ -121,7 +122,7 @@ namespace SoulRunProject.Common
         /// <param name="soulCardData"></param>
         public void RemoveSoulCardFromPlayerData(SoulCardData soulCardData)
         {
-            _dataStorage.playerData.soulCardDataList.Remove(soulCardData);
+            _dataStorage.playerData.CurrentSoulCardDataList.Remove(soulCardData);
         }
 
         // その他のプレイヤーデータの操作メソッドを追加
@@ -150,13 +151,19 @@ namespace SoulRunProject.Common
         [System.Serializable]
         public class MasterData
         {
-            public List<SoulCardData> soulCardDataList;
+            public List<SoulCardData> soulCardDataList; // ソウルカードのマスターデータ
+
+            public List<SoulCardData> soulCardDataCombinations; // ソウルカードの組み合わせのマスターデータ
+            // エネミーのマスターデータ
+            // アイテムのマスターデータ
         }
 
         [System.Serializable]
         public class PlayerData
         {
-            public List<SoulCardData> soulCardDataList;
+            public int MaxScore; //最高スコア
+            public int CurrentMoney; //所持金
+            public List<SoulCardData> CurrentSoulCardDataList; //所持しているもの
         }
     }
 }

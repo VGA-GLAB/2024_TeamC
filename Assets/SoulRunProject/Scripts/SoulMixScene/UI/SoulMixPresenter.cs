@@ -11,7 +11,12 @@ namespace SoulRunProject.SoulMixScene
 
         private void Start()
         {
-            _soulMixView.Soul1Button.onClick.AsObservable().Subscribe(_ => _soulMixModel.SoulMixAsync().Forget());
+            _soulMixView.SoulMixButton.onClick.AsObservable().Subscribe(_ => _soulMixModel.SoulMixAsync().Forget());
+            _soulMixModel.logMessage.Subscribe(_soulMixView.DisplayLogMessage).AddTo(this);
+
+            _soulMixModel.OwnedCards.ObserveAdd().Subscribe(ev => _soulMixView.AddCard(ev.Value)).AddTo(this);
+            _soulMixModel.OwnedCards.ObserveRemove().Subscribe(_ => _soulMixView.ClearCards()).AddTo(this);
+            _soulMixModel.OwnedCards.ObserveReset().Subscribe(_ => _soulMixView.ClearCards()).AddTo(this);
         }
     }
 }
