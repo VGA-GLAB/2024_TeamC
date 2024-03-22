@@ -18,13 +18,12 @@ namespace SoulRunProject.Common
             var ar = sphere1.Radius + sphere2.Radius;
             //  重なり判定
             bool result = dr <= ar * ar + 0.01f;
-            if (result && !sphere1.IsTrigger && !sphere2.IsTrigger)
+            if (result && !sphere1.IsTrigger && !sphere2.IsTrigger && !(sphere1.IsKinematic && sphere2.IsKinematic))
             {
                 var overlap = ar - Mathf.Sqrt(dr);
                 var nv = subV.normalized;
-                var solveV = nv * overlap / 2;
-                sphere1.transform.position += solveV;
-                sphere2.transform.position -= solveV;
+                var solveV = nv * overlap;
+                CollisionResolution(sphere1, sphere2, solveV);
             }
             return result;
         }
@@ -40,13 +39,14 @@ namespace SoulRunProject.Common
                          cube1.Back <= cube2.Forward &&
                          cube1.Forward >= cube2.Back;
             
-            if (result && !cube1.IsTrigger && !cube2.IsTrigger)
+            if (result && !cube1.IsTrigger && !cube2.IsTrigger && !(cube1.IsKinematic && cube2.IsKinematic))
             {
                 var distance = cube1.Center - cube2.Center;
                 distance.x = Mathf.Abs(distance.x);
                 distance.y = Mathf.Abs(distance.y);
                 distance.z = Mathf.Abs(distance.z);
-                var overlap = (cube1.Size / 2 + cube2.Size / 2 - distance) / 2;
+                //  重なりが一番少ない軸を基準に解消していく
+                var overlap = cube1.Size / 2 + cube2.Size / 2 - distance;
                 float min = float.MaxValue;
                 int minIndex = 0;
                 for (int i = 0; i < 3; i++)
@@ -58,8 +58,7 @@ namespace SoulRunProject.Common
 
                 Vector3 solveV = Vector3.zero;
                 solveV[minIndex] = min;
-                cube1.transform.position += solveV;
-                cube2.transform.position -= solveV;
+                CollisionResolution(cube1, cube2, solveV);
             }
             return result;
         }
@@ -89,24 +88,31 @@ namespace SoulRunProject.Common
             {
                 solveV = nv * overlap;
             }
-                
-            if (!ball.IsKinematic && !cube.IsKinematic)
+            CollisionResolution(ball, cube, solveV);
+
+            return result;
+        }
+        /// <summary>
+        /// 衝突解決
+        /// </summary>
+        static void CollisionResolution(ColliderBase collider1, ColliderBase collider2, Vector3 solveV)
+        {
+            if (!collider1.IsKinematic && !collider2.IsKinematic)
             {
                 //  どちらもKinematicではないなら
                 //  均等に押し合う
-                ball.transform.position += solveV / 2;
-                cube.transform.position -= solveV / 2;
+                collider1.transform.position += solveV / 2;
+                collider2.transform.position -= solveV / 2;
             }
-            else if (ball.IsKinematic && !cube.IsKinematic)
+            else if (collider1.IsKinematic && !collider2.IsKinematic)
             {
                 //  どちらか片方がKinematicならKinematicじゃない方だけ移動させる。
-                cube.transform.position -= solveV;
+                collider2.transform.position -= solveV;
             }
             else
             {
-                ball.transform.position += solveV;
+                collider1.transform.position += solveV;
             }
-            return result;
         }
     }
 }
