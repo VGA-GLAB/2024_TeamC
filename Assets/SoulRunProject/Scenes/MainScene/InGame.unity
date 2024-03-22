@@ -1798,9 +1798,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6355369861113314371, guid: 9f96e5b5c8ea06a48a28b24a13e95b2b,
         type: 3}
+      propertyPath: _requiredSoul
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355369861113314371, guid: 9f96e5b5c8ea06a48a28b24a13e95b2b,
+        type: 3}
       propertyPath: _meteorParticle
       value: 
       objectReference: {fileID: 560462176}
+    - target: {fileID: 6355369861113314371, guid: 9f96e5b5c8ea06a48a28b24a13e95b2b,
+        type: 3}
+      propertyPath: _skillParameter._duration
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

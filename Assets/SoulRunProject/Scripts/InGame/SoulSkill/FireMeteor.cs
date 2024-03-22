@@ -11,7 +11,7 @@ namespace SoulRunProject.InGame
     {
         [SerializeField] private ParticleSystem _meteorParticle;
         
-        protected override async void StartSoulSkill()
+        public override async void StartSoulSkill()
         {
             _meteorParticle.Play();
             await UniTask.Delay(System.TimeSpan.FromSeconds(_skillParameter.Duration));
