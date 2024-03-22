@@ -10,7 +10,7 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class SoulSkillManager : MonoBehaviour
     {
-        SoulSkillBase _currentSoulSkill;
+        [SerializeField] SoulSkillBase _currentSoulSkill;
         
         public void SetSoulSkill(SoulSkillBase soulSkill)
         {

@@ -19,6 +19,7 @@ namespace SoulRunProject.Common
         private IInGameTime[] _inGameTimes;
         private PlayerLevelManager _pLevelManager;
         private SkillManager _skillManager;
+        private SoulSkillManager _soulSkillManager;
 
         private void Awake()
         {
@@ -27,6 +28,7 @@ namespace SoulRunProject.Common
             _inGameTimes = GetComponents<IInGameTime>();
             _pLevelManager = GetComponent<PlayerLevelManager>();
             _skillManager = GetComponent<SkillManager>();
+            _soulSkillManager = GetComponent<SoulSkillManager>();
             
             InitializeInput();
         }
@@ -99,5 +101,27 @@ namespace SoulRunProject.Common
                 Damage(fieldEntityController.Status.Attack);
             }
         }
+
+        #region SoulSkill関連
+        /// <summary>
+        /// SoulSkillを使用する
+        /// </summary>
+        public void UseSoulSkill()
+        {
+            _soulSkillManager.UseSoulSkill();
+        }
+        
+        public void SetSoul(SoulSkillBase soul)
+        {
+            _soulSkillManager.SetSoulSkill(soul);
+        }
+        
+        private void AddSoul(float soul)
+        {
+            _soulSkillManager.AddSoul(soul);
+        }
+        
+
+        #endregion
     }
 }
