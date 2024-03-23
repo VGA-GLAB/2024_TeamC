@@ -13,11 +13,11 @@ namespace SoulRunProject
     [Serializable]
     public abstract class SoulSkillBase : MonoBehaviour
     {
-        [SerializeField] private SkillParameterBase _skillParameterBase;
+        [SerializeField] protected SkillParameterBase _skillParameterBase;
         [SerializeField] private float _requiredSoul;
         private FloatReactiveProperty _currentSoul = new FloatReactiveProperty(0);
         public IObservable<float> OnCurrentSoulChanged => _currentSoul;
-        public float MaxSoul => _requiredSoul;
+        public float RequiredSoul => _requiredSoul;
         
         public void AddSoul(float soul)
         {
@@ -38,6 +38,6 @@ namespace SoulRunProject
             StartSoulSkill();
         }
         
-        protected abstract void StartSoulSkill();
+        public abstract void StartSoulSkill();
     }
 }
