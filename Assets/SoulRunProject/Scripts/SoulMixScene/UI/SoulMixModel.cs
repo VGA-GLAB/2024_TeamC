@@ -10,7 +10,7 @@ namespace SoulRunProject.SoulMixScene
     {
         [SerializeField] private SoulCombiner _soulCombiner;
         public ReactiveCollection<SoulCardData> OwnedCards = new ReactiveCollection<SoulCardData>();
-        private SoulCardManager _soulCardManager = SoulCardManager.Instance;
+        private readonly SoulCardManager _soulCardManager = SoulCardManager.Instance;
 
         // ログメッセージを発行するためのReactiveProperty
         public ReactiveProperty<string> logMessage = new ReactiveProperty<string>();

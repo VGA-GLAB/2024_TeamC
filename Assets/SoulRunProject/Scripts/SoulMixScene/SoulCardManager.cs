@@ -10,8 +10,8 @@ namespace SoulRunProject.SoulMixScene
     public class SoulCardManager : AbstractSingletonMonoBehaviour<SoulCardManager>
     {
         protected override bool UseDontDestroyOnLoad => false;
-        public SoulCardList soulCardListSO; // ゲームに登場する全てのソウルカード
-        public SoulMixModel soulMixModel; // エディターから設定する
+        [SerializeField] SoulCardList soulCardListSO; // ゲームに登場する全てのソウルカード
+        [SerializeField] SoulMixModel soulMixModel; // エディターから設定する
 
         private SaveAndLoadManager _saveAndLoadManager;
 
