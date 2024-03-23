@@ -2,18 +2,27 @@
 
 namespace SoulRunProject.Common
 {
-    public abstract class AbstractSingleton<T> where T : class
+    public abstract class AbstractSingleton<T> : ISingleton<T> where T : class, new()
     {
-        /// <summary> シングルトンのインスタンス </summary>
-        private static readonly Lazy<T> _instance =
-            new Lazy<T>(() =>
-                Activator.CreateInstance(typeof(T), true) as T);
+        private static T _instance;
 
-        protected AbstractSingleton()
+        public static T Instance
         {
-            // コンストラクタはprotectedにすることで、外部からのインスタンス化を防ぎます。
+            get
+            {
+                if (_instance != null) return _instance;
+                _instance = new T();
+                (_instance as AbstractSingleton<T>)?.OnAwake();
+                return _instance;
+            }
         }
 
-        public static T Instance => _instance.Value;
+        public virtual void OnAwake()
+        {
+        }
+
+        public virtual void OnDestroyed()
+        {
+        }
     }
 }

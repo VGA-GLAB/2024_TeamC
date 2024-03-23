@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using SoulRunProject.Common;
+using System;
+using UniRx;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
@@ -10,7 +9,9 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class SoulSkillManager : MonoBehaviour
     {
-        SoulSkillBase _currentSoulSkill;
+        [SerializeField] SoulSkillBase _currentSoulSkill;
+        public float MaxSoul => _currentSoulSkill.MaxSoul;
+        public IObservable<float> CurrentSoul => _currentSoulSkill.OnCurrentSoulChanged;
         
         public void SetSoulSkill(SoulSkillBase soulSkill)
         {

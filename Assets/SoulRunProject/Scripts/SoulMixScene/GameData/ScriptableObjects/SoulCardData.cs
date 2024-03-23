@@ -6,7 +6,7 @@ namespace SoulRunProject.SoulMixScene
 {
     [CreateAssetMenu(fileName = "SoulCard", menuName = "SoulRunProject/SoulCard")]
     [Serializable]
-    public class SoulCard : ScriptableObject
+    public class SoulCardData : ScriptableObject
     {
         // ソウルカードのID
         [SerializeField] private int cardID;
@@ -44,22 +44,13 @@ namespace SoulRunProject.SoulMixScene
             set => soulLevel = value;
         }
 
-        // ソウルカードの説明文
+        // ソウルカードのアビリティ
         [SerializeField] private SoulAbility soulAbility;
 
         public SoulAbility SoulAbility
         {
             get => soulAbility;
             set => soulAbility = value;
-        }
-
-        // ソウルカードの特性の説明文
-        [SerializeField] private string explanatoryText;
-
-        public string ExplanatoryText
-        {
-            get => explanatoryText;
-            set => explanatoryText = value;
         }
 
         // ソウルカードのステータス

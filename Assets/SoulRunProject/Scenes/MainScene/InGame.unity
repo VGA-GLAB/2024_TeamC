@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.0019524717, g: 0.003835365, b: 0.008846895, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -474,7 +474,6 @@ MonoBehaviour:
       type: {class: TrianglePattern, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
         _spawnRowCount: 20
-        _entitySpacing: 0
 --- !u!135 &91430025
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -821,6 +820,7 @@ GameObject:
   - component: {fileID: 183513113}
   - component: {fileID: 183513112}
   - component: {fileID: 183513116}
+  - component: {fileID: 183513117}
   m_Layer: 5
   m_Name: InGameView
   m_TagString: Untagged
@@ -930,6 +930,30 @@ MonoBehaviour:
   _exitButton: {fileID: 1323562243}
   _resultPanel: {fileID: 1048446435}
   _resultText: {fileID: 533655689}
+--- !u!114 &183513117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183513111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d876255950d8c6489c1021f2152b273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hpGauge: {fileID: 1990613038}
+  _expGauge: {fileID: 2022202200}
+  _soulGauge: {fileID: 545346072}
+  _levelText: {fileID: 1499152568}
+  _skillIcons:
+  - {fileID: 1698915878}
+  - {fileID: 1423281888}
+  - {fileID: 1218369944}
+  - {fileID: 1020650598}
+  - {fileID: 1657437623}
+  _scoreText: {fileID: 1770521942}
+  _coinText: {fileID: 1286128194}
 --- !u!1 &193391968
 GameObject:
   m_ObjectHideFlags: 0
@@ -3648,8 +3672,12 @@ MonoBehaviour:
   autoInjectGameObjects: []
   _camera: {fileID: 1484104527}
   _playerManager: {fileID: 1420106444}
+  _playerLevelManager: {fileID: 1420106446}
+  _soulSkillManager: {fileID: 1420106450}
+  _skillManager: {fileID: 1420106449}
   _playerInput: {fileID: 1420106445}
   _resultView: {fileID: 183513116}
+  _commonView: {fileID: 183513117}
 --- !u!4 &1180136328 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164151997940843940, guid: 54942ca6699e8764a8b2eb58690cf15d,
@@ -4451,6 +4479,7 @@ GameObject:
   - component: {fileID: 1420106442}
   - component: {fileID: 1420106441}
   - component: {fileID: 1420106448}
+  - component: {fileID: 1420106450}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4687,7 +4716,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6075843f4893e842bfcc7a2cfcae3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skillDataSet: {fileID: 11400000, guid: b46d97e22cc1e804d9e82f91f50ebb47, type: 2}
+  _skills: []
+--- !u!114 &1420106450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420106435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c77eda4c25f42df42900dfed143ab44a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentSoulSkill: {fileID: 0}
 --- !u!1 &1423281886
 GameObject:
   m_ObjectHideFlags: 0
