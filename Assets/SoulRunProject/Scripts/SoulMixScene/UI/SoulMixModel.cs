@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
@@ -10,10 +11,15 @@ namespace SoulRunProject.SoulMixScene
     {
         [SerializeField] private SoulCombiner _soulCombiner;
         public ReactiveCollection<SoulCardData> OwnedCards = new ReactiveCollection<SoulCardData>();
-        private readonly SoulCardManager _soulCardManager = SoulCardManager.Instance;
+        private SoulCardManager _soulCardManager;
 
         // ログメッセージを発行するためのReactiveProperty
         public ReactiveProperty<string> logMessage = new ReactiveProperty<string>();
+
+        private void Start()
+        {
+            _soulCardManager = SoulCardManager.Instance;
+        }
 
         public async UniTaskVoid SoulMixAsync()
         {
