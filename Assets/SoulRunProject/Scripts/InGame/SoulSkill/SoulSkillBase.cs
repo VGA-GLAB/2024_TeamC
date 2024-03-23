@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SoulRunProject.Common;
-using SoulRunProject.Framework;
 using UniRx;
 using UnityEngine;
 
@@ -14,9 +13,31 @@ namespace SoulRunProject
     [Serializable]
     public abstract class SoulSkillBase : MonoBehaviour
     {
-        [SerializeField] protected SkillParameter _skillParameter;
+        [SerializeField] private SkillParameterBase _skillParameterBase;
         [SerializeField] private float _requiredSoul;
-        public float RequiredSoul => _requiredSoul;
-        public abstract void StartSoulSkill();
+        private FloatReactiveProperty _currentSoul = new FloatReactiveProperty(0);
+        public IObservable<float> OnCurrentSoulChanged => _currentSoul;
+        public float MaxSoul => _requiredSoul;
+        
+        public void AddSoul(float soul)
+        {
+            _currentSoul.Value += soul;
+            if (_currentSoul.Value >= _requiredSoul)
+            {
+                _currentSoul.Value = _requiredSoul;
+            }
+        }
+
+        public void UseSoulSkill()
+        {
+            if (_currentSoul.Value < _requiredSoul)
+            {
+                return;
+            }
+            _currentSoul.Value -= _requiredSoul;
+            StartSoulSkill();
+        }
+        
+        protected abstract void StartSoulSkill();
     }
 }

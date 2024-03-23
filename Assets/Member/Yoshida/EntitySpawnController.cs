@@ -7,30 +7,54 @@ namespace SoulRunProject.InGame
     /// <summary>
     /// Entityの生成管理クラス
     /// </summary>
-    [RequireComponent(typeof(SphereCollider))]
     public class EntitySpawnController : MonoBehaviour
     {
         [SerializeField, Tooltip("生成するEntity")]
         List<FieldEntityController> _fieldEntity;
 
-        [SerializeField, Tooltip("生成開始距離")] float _spawnerEnableRange;
+        [SerializeField, Tooltip("生成開始距離(緑の範囲)")] float _spawnerEnableRange;
 
         [SerializeReference, SubclassSelector, Tooltip("生成パターン")]
         ISpawnPattern _spawnPattern;
+        
         //現状はヒットしたplayerの参照をヒット時に格納する
         PlayerManager _playerManager;
+        
+        Transform _playerTransform;
+        bool _spawnFlag;
+        public ISpawnPattern SpawnPattern => _spawnPattern;
+        
+#if UNITY_EDITOR
+        void OnDrawGizmos()
+        {
+            var position = transform.position;
+            _spawnPattern.DrawGizmos(position);
+            DrawWireDisk(position, _spawnerEnableRange, Color.green);
 
+            // TODO シーン上で生成パターンを見れるようにしたいね
+            // _spawnFlag = false;
+            // foreach (var pos in _spawnPattern.GetSpawnPositions())
+            // {
+            //     Gizmos.color = Color.red;
+            //     Gizmos.DrawWireSphere(pos, 1);
+            // }
+        }
+        //
+        // public void SpawnEditorEntity()
+        // {
+        //     _spawnFlag = true;
+        // }
+#endif
+        
         void Start()
         {
-            var spawnRangeCollider = GetComponent<SphereCollider>();
-            if (!spawnRangeCollider.isTrigger)
+            if (!GameObject.FindWithTag("Player").TryGetComponent(out _playerTransform))
             {
-                Debug.LogError($"{gameObject.name} の SphereCollider が IsTrigger に設定されていません");
+                Debug.LogWarning("Playerのタグが適切でない または、PlayerタグのオブジェクトにTransformがついていない");
             }
-
-            spawnRangeCollider.radius = _spawnerEnableRange;
         }
 
+        // TODO たぶんオブジェクトプールが必要になる気がする
 
         /// <summary>
         /// GetSpawnPositionsで渡された場所にEntityを召喚するメソッド
@@ -52,25 +76,27 @@ namespace SoulRunProject.InGame
                 }
                 
                 // TODO 複数種出す場合、それらを選択するロジックを考える
-                var entity = Instantiate(_fieldEntity[spawnIndex], transform.position + pos, Quaternion.identity);
+                var entity = Instantiate(_fieldEntity[spawnIndex], transform);
+                entity.transform.position = transform.position + pos;
                 entity.SetPlayer(_playerManager);
                 spawnIndex++;
             }
         }
-
+        
         /// <summary>
-        /// スポナー感知処理（仮でコライダー式）
+        /// 2D円形のGizmosを描画するメソッド
         /// </summary>
-        void OnTriggerEnter(Collider other)
+        public static void DrawWireDisk(Vector3 position, float radius, Color color)
         {
-            if (!other.gameObject.CompareTag("Player")) return;
-            _playerManager = other.gameObject.GetComponent<PlayerManager>();
-            SpawnEntity();
+            const float gizmoDiskThickness = 0.01f;
+            // 参考 https://discussions.unity.com/t/draw-2d-circle-with-gizmos/123578/2
+            var oldColor = Gizmos.color;
+            Gizmos.color = color;
+            var oldMatrix = Gizmos.matrix;
+            Gizmos.matrix = Matrix4x4.TRS(position, Quaternion.identity, new Vector3(1, gizmoDiskThickness, 1));
+            Gizmos.DrawWireSphere(Vector3.zero, radius);
+            Gizmos.matrix = oldMatrix;
+            Gizmos.color = oldColor;
         }
-
-        // bool CheckPlayerDistance(Transform playerTrans)
-        // {
-        //     return true;
-        // }
     }
 }

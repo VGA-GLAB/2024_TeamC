@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 namespace SoulRunProject.Common
 {
     /// <summary>
@@ -8,7 +9,7 @@ namespace SoulRunProject.Common
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <summary> シングルトンの基底クラス </summary>
-    public abstract class AbstractSingletonMonoBehaviour<T> : MonoBehaviour where T : Component
+    public abstract class AbstractSingletonMonoBehaviour<T> : MonoBehaviour, ISingleton<T> where T : MonoBehaviour
     {
         /// <summary>
         /// 継承先でDontDestroyOnLoadを使用するかどうかを制御します。
@@ -26,7 +27,11 @@ namespace SoulRunProject.Common
                 if (_instance != null) return _instance;
                 GameObject singletonObject = new GameObject(typeof(T).Name);
                 _instance = singletonObject.AddComponent<T>();
-                DontDestroyOnLoad(singletonObject);
+                if ((_instance as AbstractSingletonMonoBehaviour<T>).UseDontDestroyOnLoad)
+                {
+                    DontDestroyOnLoad(singletonObject);
+                }
+
                 return _instance;
             }
         }
@@ -50,7 +55,7 @@ namespace SoulRunProject.Common
         }
 
         /// <summary> Awake時に実行される処理 </summary>
-        protected virtual void OnAwake()
+        public virtual void OnAwake()
         {
         }
 
@@ -62,7 +67,7 @@ namespace SoulRunProject.Common
         }
 
         /// <summary> OnDestroy時に実行される処理 </summary>
-        protected virtual void OnDestroyed()
+        public virtual void OnDestroyed()
         {
         }
     }

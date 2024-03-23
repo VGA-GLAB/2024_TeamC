@@ -402,18 +402,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fieldEntity:
-  - {fileID: 1811792853480408, guid: c851968ca3d27c248a3c096eb12e2c96, type: 3}
-  - {fileID: 1811792853480408, guid: 6bc7ae01abec37845801bd8d12f2ae09, type: 3}
-  _spawnerEnableRange: 1
+  - {fileID: 4536212462802788339, guid: 19d2a6fc7c1c0524b86f5657cac7084b, type: 3}
+  - {fileID: 1153978861344912035, guid: 6bc7ae01abec37845801bd8d12f2ae09, type: 3}
+  _spawnerEnableRange: 5
   _spawnPattern:
-    rid: 336611383857119234
+    rid: 8234824676868096106
   references:
     version: 2
     RefIds:
-    - rid: 336611383857119234
-      type: {class: InvertedTrianglePattern, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+    - rid: 8234824676868096106
+      type: {class: RandomPattern, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _spawnRowCount: 0
+        _spawnCount: 0
+        _spawnRadiusRange: 2.69
 --- !u!1 &517028366
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,7 +545,6 @@ GameObject:
   - component: {fileID: 796609674}
   - component: {fileID: 796609673}
   - component: {fileID: 796609672}
-  - component: {fileID: 796609671}
   m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
@@ -572,29 +572,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &796609671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796609669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 0}
-  _playerManager: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &796609672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,18 +616,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 796609671}
-        m_TargetAssemblyTypeName: SoulRun.InGame.FieldEntityController, Assembly-CSharp
-        m_MethodName: Active
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 314851228}
         m_TargetAssemblyTypeName: SoulRunProject.InGame.EntitySpawnController, Assembly-CSharp
         m_MethodName: SpawnEntity

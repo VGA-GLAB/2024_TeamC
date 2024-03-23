@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SoulRunProject.Common;
+using UnityEngine;
 
 namespace SoulRunProject.SoulMixScene
 {
@@ -24,12 +25,12 @@ namespace SoulRunProject.SoulMixScene
         }
 
         // 技効果
-        [SerializeField] private string effect;
+        [SerializeField] private SkillBase skillBase;
 
-        public string Effect
+        public SkillBase SkillBase
         {
-            get => effect;
-            set => effect = value;
+            get => skillBase;
+            set => skillBase = value;
         }
 
         // 効果テキスト
