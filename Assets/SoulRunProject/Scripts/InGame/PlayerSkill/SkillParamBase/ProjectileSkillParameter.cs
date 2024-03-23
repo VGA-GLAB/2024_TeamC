@@ -12,13 +12,13 @@ namespace SoulRunProject.Common
     [CreateAssetMenu(menuName = "SoulRunProject/PlayerSkill/ProjectionSkillParameter")]
     public class ProjectileSkillParameter : SkillParameterBase
     {
-        [SerializeField, Tooltip("同時発射するオブジェクトの数")] int _amount;
-        //[SerializeField, Tooltip("発射間隔")] float _fireInterval;
-        [SerializeField, Tooltip("敵にヒットしたときに与えるダメージ")] float _attackDamage;
-        [SerializeField, Tooltip("スキルのオブジェクトの大きさ")] float _range;
-        [SerializeField, Tooltip("スキルオブジェクトの移動速度")] float _speed;
-        [SerializeField, Tooltip("敵を何体まで貫通するか")] int _penetration;
-        [SerializeReference, SubclassSelector, Tooltip("独自パラメーター")] 
+        [SerializeField, Header("同時発射するオブジェクトの数")] int _amount;
+        //[SerializeField, Header("発射間隔")] float _fireInterval;
+        [SerializeField, Header("敵にヒットしたときに与えるダメージ")] float _attackDamage;
+        [SerializeField, Header("スキルのオブジェクトの大きさ")] float _range;
+        [SerializeField, Header("スキルオブジェクトの移動速度")] float _speed;
+        [SerializeField, Header("敵を何体まで貫通するか")] int _penetration;
+        [SerializeReference, SubclassSelector, Header("独自パラメーター")] 
         List<IUniqueParameter> _uniqueParameters;
 
         /// <summary>
