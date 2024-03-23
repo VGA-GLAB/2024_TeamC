@@ -6,47 +6,37 @@ namespace SoulRunProject.InGame
 {
     public class SkillManager : MonoBehaviour, IInGameTime
     {
-        [SerializeField] List<SkillBase> _skills = new List<SkillBase>();
-        
-        public void AddSkill(SkillBase skill)
+        [SerializeField , Header("スキルデータセット")] private SkillDataSet _skillDataSet;
+        private SkillDataSet _skillData;
+        private readonly List<ISkill> _currentSkills = new(5);
+        private bool _isPause;
+        public void Start()
         {
-            _skills.Add(skill);
-        }
-        
-        private void StartSkill()
-        {
-            foreach (var skill in _skills)
-            {
-                skill.StartSkill();
-            }
-        }
-        
-        public void UpdateSkill()
-        {
-            foreach (var skill in _skills)
-            {
-                skill.UpdateSkill();
-            }
-        }
-        
-        private void StopSkill()
-        {
-            foreach (var skill in _skills)
-            {
-                skill.StopSkill();
-            }
+            //Instantiateしないと、ScriptableObject内のクラスが生成されない。
+            _skillData = Instantiate(_skillDataSet);
+            AddSkill(_skillData.Skills[0]);
         }
 
+        public void AddSkill(ISkill skill)
+        {
+            _currentSkills.Add(skill);
+        }
+        
+        //TODO とりあえずUpdateで動かしているが
+        public void Update()
+        {
+            if (!_isPause)
+            {
+                foreach (var skill in _currentSkills)
+                {
+                    skill.UpdateSkill(Time.deltaTime);
+                }
+            }
+        }
+        
         public void SwitchPause(bool toPause)
         {
-            if (toPause)
-            {
-                StopSkill();
-            }
-            else
-            {
-                StartSkill();
-            }
+            _isPause = toPause;
         }
     }
 }

@@ -186,6 +186,8 @@ namespace SoulRunProject.Common
             _sePlayer = new CriAtomExPlayer();
             _loopSEPlayer = new CriAtomExPlayer();
             _voicePlayer = new CriAtomExPlayer();
+            _seData = new List<CriPlayerData>();
+            _voiceData = new List<CriPlayerData>();
 
             MasterVolumeChanged += volume =>
             {
