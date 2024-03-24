@@ -11,9 +11,10 @@ namespace SoulRunProject
     {
         private readonly PlayerManager _playerManager;
         private readonly PlayerInput _playerInput;
+        private State _lastState;
         private CancellationTokenSource _cts;
-        
-        public int StateToReturn { get; set; }
+
+        public State StateToReturn => _lastState;
         
         public PauseState(PlayerManager playerManager, PlayerInput playerInput)
         {
@@ -25,6 +26,7 @@ namespace SoulRunProject
         {
             DebugClass.Instance.ShowLog("ポーズステート開始");
             _playerManager.SwitchPause(true);
+            _lastState = currentState;
             _cts = new CancellationTokenSource();
             
             // PlayerInputへの購読

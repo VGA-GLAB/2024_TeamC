@@ -41,18 +41,18 @@ namespace SoulRunProject.Common
                 if (playingRunGameState.ArrivedBossStagePosition) //Playerが生きていて、ボスステージに移行する場合
                     ChangeState(4);
                 else if (playingRunGameState.SwitchToPauseState) // PauseStateへの移行
-                {
                     ChangeState(7);
-                    pauseState.StateToReturn = 2; // 同じStateに戻るための登録
-                }
-                else if (playingRunGameState.SwitchToLevelUpState)
-                {
+                else if (playingRunGameState.SwitchToLevelUpState) // LevelUpStateへの移行
                     ChangeState(8);
-                    levelUpState.StateToReturn = 2; // 同じStateに戻るための登録
-                }
             };
-            pauseState.OnStateExit += _ => ChangeState(pauseState.StateToReturn);
-            levelUpState.OnStateExit += _ => ChangeState(levelUpState.StateToReturn);
+            pauseState.OnStateExit += _ =>
+            {
+                if (pauseState.StateToReturn == playingRunGameState) ChangeState(2);
+            };
+            levelUpState.OnStateExit += _ =>
+            {
+                if (levelUpState.StateToReturn == playingRunGameState) ChangeState(2);
+            };
             enterBossStageState.OnStateExit += _ => ChangeState(5);
             playingBossStageState.OnStateExit += state =>
             {
