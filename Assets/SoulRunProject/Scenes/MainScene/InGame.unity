@@ -8692,7 +8692,7 @@ MonoBehaviour:
   - {fileID: 1140021887}
   - {fileID: 1397121987}
   _playerManager: {fileID: 1420106444}
-  _activationDistance: 50
+  _activationDistance: 100
 --- !u!4 &1180136328 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164151997940843940, guid: 54942ca6699e8764a8b2eb58690cf15d,

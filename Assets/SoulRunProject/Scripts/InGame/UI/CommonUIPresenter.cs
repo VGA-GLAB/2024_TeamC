@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using SoulRunProject.Common;
+using SoulRunProject.Framework;
 using UniRx;
 using UnityEngine;
 using VContainer.Unity;
@@ -25,7 +26,11 @@ namespace SoulRunProject.InGame
 
         public void Start()
         {
-            _playerManager.CurrentHp.Subscribe(hp => _view.SetHpGauge(hp, _playerManager.MaxHp)).AddTo(_view);
+            _playerManager.CurrentHp.Subscribe(hp =>
+            {
+                DebugClass.Instance.ShowLog(hp.ToString());
+                _view.SetHpGauge(hp, _playerManager.MaxHp);
+            }).AddTo(_view);
             _playerLevelManager.OnCurrentExpChanged.Subscribe(exp => _view.SetExpGauge(exp, _playerLevelManager.CurrentMaxExp)).AddTo(_view);
             _playerLevelManager.OnCurrentLevelDataChanged.Subscribe(data => _view.SetLevelText(data.CurrentLevel)).AddTo(_view);
             _soulSkillManager.CurrentSoul?.Subscribe(current => _view.SetSoulGauge(current, _soulSkillManager.RequiredSoul)).AddTo(_view);

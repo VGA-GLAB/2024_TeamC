@@ -70,8 +70,8 @@ namespace SoulRunProject.Common
         
         public void Damage(int damage)
         {
-            _status.Hp -= damage;
-            if (_status.Hp <= 0)
+            CurrentHp.Value -= damage;
+            if (CurrentHp.Value <= 0)
             {
                 Death();
             }
@@ -89,7 +89,7 @@ namespace SoulRunProject.Common
         private void Death()
         {
             Debug.Log("GameOver");
-            SwitchPause(true);
+            //SwitchPause(true);
         }
 
         /// <summary>
