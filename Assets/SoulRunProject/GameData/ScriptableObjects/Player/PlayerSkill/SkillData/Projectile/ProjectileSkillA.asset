@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coolTime: 1.5
   _lifeTime: 2
-  _amount: 4
-  _attackDamage: 0
+  _amount: 1
+  _attackDamage: 100
   _range: 2
   _speed: 100
-  _penetration: 0
+  _penetration: 1
   _uniqueParameters: []
   references:
     version: 2

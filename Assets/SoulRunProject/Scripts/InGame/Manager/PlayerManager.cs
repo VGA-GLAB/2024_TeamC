@@ -79,10 +79,10 @@ namespace SoulRunProject.Common
         /// <summary>
         /// Skillを追加する
         /// </summary>
-        /// <param name="skill"></param>
-        public void AddSkill(SkillBase skill)
+        /// <param name="skillType"></param>
+        public void AddSkill(PlayerSkill skillType)
         {
-            _skillManager.AddSkill(skill);
+            _skillManager.AddSkill(skillType);
         }
         
         private void Death()

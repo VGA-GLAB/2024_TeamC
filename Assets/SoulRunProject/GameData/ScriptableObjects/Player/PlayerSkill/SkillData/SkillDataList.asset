@@ -20,7 +20,7 @@ MonoBehaviour:
     - rid: 4571640131307438080
       type: {class: ProjectileSkillBase, ns: SoulRunProject, asm: Assembly-CSharp}
       data:
-        _skillName: "\u30BD\u30A6\u30EB\u30D0\u30EC\u30C3\u30C8"
+        _skillType: 0
         ProjectileSkillLevelUpEvent: {fileID: 11400000, guid: 128d3683716ab3640929db43e2ca9544,
           type: 2}
         SkillBaseParam: {fileID: 11400000, guid: bade1725d5e72ee4a87c15f01a63f7b2,
