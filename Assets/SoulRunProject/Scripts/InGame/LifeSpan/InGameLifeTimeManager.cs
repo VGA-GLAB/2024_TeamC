@@ -20,6 +20,7 @@ namespace SoulRunProject.Common
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private ResultView _resultView;
         [SerializeField] private CommonView _commonView;
+        [SerializeField] private StageNameView _stageNameView;
         protected override void Configure(IContainerBuilder builder)
         {
             //ドメイン層
@@ -27,7 +28,7 @@ namespace SoulRunProject.Common
             builder.RegisterInstance(_playerManager);
             builder.RegisterInstance(_playerInput);
             builder.RegisterInstance(gameObject);
-            
+            builder.RegisterInstance(_stageNameView);
             
             //アプリケーション層
             builder.Register<EnterInGameState>(Lifetime.Singleton);
@@ -48,9 +49,11 @@ namespace SoulRunProject.Common
             builder.Register<ResultPresenter>(Lifetime.Singleton);
             builder.RegisterComponent(_commonView);
             builder.Register<CommonUIPresenter>(Lifetime.Singleton);
+            builder.Register<StageEnterPresenter>(Lifetime.Singleton);
             
             //開始処理
             builder.RegisterEntryPoint<ResultPresenter>();
+            builder.RegisterEntryPoint<StageEnterPresenter>();
             builder.RegisterEntryPoint<CommonUIPresenter>();
             builder.RegisterEntryPoint<InGameManager>();
         }

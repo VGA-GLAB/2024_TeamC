@@ -98,7 +98,6 @@ namespace SoulRunProject.Common
         /// <param name="other"></param>
         private void OnCollisionEnter(Collision other)
         {
-            DebugClass.Instance.ShowLog(other.gameObject.name);
             if (other.gameObject.TryGetComponent(out FieldEntityController fieldEntityController))
             {
                 Damage(fieldEntityController.Status.Attack);
