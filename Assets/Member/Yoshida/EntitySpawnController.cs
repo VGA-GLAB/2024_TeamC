@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using SoulRunProject.Common;
 using UnityEngine;
+using UniRx;
 
 namespace SoulRunProject.InGame
 {
@@ -19,38 +21,21 @@ namespace SoulRunProject.InGame
         
         //現状はヒットしたplayerの参照をヒット時に格納する
         PlayerManager _playerManager;
-        
-        Transform _playerTransform;
         bool _spawnFlag;
         public ISpawnPattern SpawnPattern => _spawnPattern;
         
-#if UNITY_EDITOR
-        void OnDrawGizmos()
-        {
-            var position = transform.position;
-            _spawnPattern.DrawGizmos(position);
-            DrawWireDisk(position, _spawnerEnableRange, Color.green);
-
-            // TODO シーン上で生成パターンを見れるようにしたいね
-            // _spawnFlag = false;
-            // foreach (var pos in _spawnPattern.GetSpawnPositions())
-            // {
-            //     Gizmos.color = Color.red;
-            //     Gizmos.DrawWireSphere(pos, 1);
-            // }
-        }
-        //
-        // public void SpawnEditorEntity()
-        // {
-        //     _spawnFlag = true;
-        // }
-#endif
-        
         void Start()
         {
-            if (!GameObject.FindWithTag("Player").TryGetComponent(out _playerTransform))
+            _playerManager = FindObjectOfType<PlayerManager>();
+        }
+
+        private void Update()
+        {
+            if (_spawnFlag) return;
+            if (Vector3.Distance(_playerManager.transform.position, transform.position) < _spawnerEnableRange)
             {
-                Debug.LogWarning("Playerのタグが適切でない または、PlayerタグのオブジェクトにTransformがついていない");
+                SpawnEntity();
+                _spawnFlag = true;
             }
         }
 
@@ -98,5 +83,28 @@ namespace SoulRunProject.InGame
             Gizmos.matrix = oldMatrix;
             Gizmos.color = oldColor;
         }
+                
+#if UNITY_EDITOR
+        void OnDrawGizmos()
+        {
+            var position = transform.position;
+            _spawnPattern.DrawGizmos(position);
+            DrawWireDisk(position, _spawnerEnableRange, Color.green);
+
+            // TODO シーン上で生成パターンを見れるようにしたいね
+            // _spawnFlag = false;
+            // foreach (var pos in _spawnPattern.GetSpawnPositions())
+            // {
+            //     Gizmos.color = Color.red;
+            //     Gizmos.DrawWireSphere(pos, 1);
+            // }
+        }
+        //
+        // public void SpawnEditorEntity()
+        // {
+        //     _spawnFlag = true;
+        // }
+#endif
+        
     }
 }

@@ -29,6 +29,10 @@ namespace SoulRunProject.InGame
         {
             if (_isStopped) return;
             self.position = Vector3.MoveTowards(self.position, self.forward, _moveSpeed * Time.deltaTime);
+            if (self.position.z < target.position.z)    //  プレイヤーよりz座標が後ろに行ったら
+            {
+                Stop();
+            }
         }
 
         public void Stop()

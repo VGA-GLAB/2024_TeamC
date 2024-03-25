@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: HogeHoge
-  m_EditorClassIdentifier: Assembly-CSharp:SoulRunProject.SoulMixScene:Status
-  hp: 0
-  attack: 0
+  m_Script: {fileID: 11500000, guid: b114a7cc77c94d6f82983505cdecf1d3, type: 3}
+  m_Name: Tree
+  m_EditorClassIdentifier: 
+  hp: 1000
+  attack: 10
   defence: 0
   coolTime: 0
   range: 0

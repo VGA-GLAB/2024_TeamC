@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -50,8 +49,9 @@ namespace SoulRunProject.Common
             if (_states.ContainsKey(id))
             {
                 _currentState?.Exit(_states[id]);
+                var lastState = _currentState;
                 _currentState = _states[id];
-                _currentState.Enter(_currentState);
+                _currentState.Enter(lastState);
             }
             else
             {
