@@ -9,7 +9,7 @@ namespace SoulRunProject.InGame
     /// <summary>
     /// ゲームクリア時に行われるステート
     /// </summary>
-    public class ResultState : State
+    public class GameClearState : State
     {
         private PlayerManager _playerManager;
         
