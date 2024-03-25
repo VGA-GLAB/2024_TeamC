@@ -1,9 +1,7 @@
 using System;
-using System.Threading;
 using SoulRunProject.Common;
 using SoulRunProject.Framework;
 using UniRx;
-using Cysharp.Threading.Tasks;
 
 namespace SoulRunProject.InGame
 {
@@ -17,7 +15,7 @@ namespace SoulRunProject.InGame
         private IDisposable _disposable;
         
         //TODO：ボスステージ開始前のプレイヤーの位置を設定する場所を検討
-        private float _enterBossStagePosition = 1000f;
+        private float _enterBossStagePosition = 120;
         public bool ArrivedBossStagePosition { get; private set; } = false;
         public bool SwitchToPauseState { get; private set; } = false;
         
