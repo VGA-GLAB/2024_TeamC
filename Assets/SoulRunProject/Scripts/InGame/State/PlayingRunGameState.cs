@@ -1,9 +1,6 @@
-using System;
-using System.Threading;
 using SoulRunProject.Common;
 using SoulRunProject.Framework;
 using UniRx;
-using Cysharp.Threading.Tasks;
 
 namespace SoulRunProject.InGame
 {
@@ -14,32 +11,46 @@ namespace SoulRunProject.InGame
     {
         private PlayerManager _playerManager;
         private PlayerInput _playerInput;
-        private IDisposable _disposable;
+        private PlayerLevelManager _playerLevelManager;
+        private CompositeDisposable _compositeDisposable = new CompositeDisposable();
         
         //TODO：ボスステージ開始前のプレイヤーの位置を設定する場所を検討
         private float _enterBossStagePosition = 1000f;
         public bool ArrivedBossStagePosition { get; private set; } = false;
         public bool SwitchToPauseState { get; private set; } = false;
+        public bool SwitchToLevelUpState { get; private set; } = false;
         
-        public PlayingRunGameState(PlayerManager playerManager, PlayerInput playerInput)
+        public PlayingRunGameState(PlayerManager playerManager, PlayerInput playerInput, PlayerLevelManager playerLevelManager)
         {
             _playerManager = playerManager;
             _playerInput = playerInput;
+            _playerLevelManager = playerLevelManager;
         }
         
         protected override void OnEnter(State currentState)
         {
             DebugClass.Instance.ShowLog("プレイ中ステート開始");
             _playerManager.SwitchPause(false);
+            SwitchToLevelUpState = false;
             
             // PlayerInputへの購読
-            _disposable = _playerInput.PauseInput
+            _playerInput.PauseInput
                 .SkipLatestValueOnSubscribe()
                 .Subscribe(toPause =>
                 {
                     SwitchToPauseState = toPause;
                     if (toPause) StateChange();
-                });
+                })
+                .AddTo(_compositeDisposable);
+            
+            _playerLevelManager.OnCurrentLevelDataChanged
+                .SkipLatestValueOnSubscribe()
+                .Subscribe(_ =>
+                {
+                    SwitchToLevelUpState = true;
+                    StateChange();
+                })
+                .AddTo(_compositeDisposable);
         }
         
         protected override void OnUpdate()
@@ -54,7 +65,7 @@ namespace SoulRunProject.InGame
 
         protected override void OnExit(State nextState)
         {
-            _disposable.Dispose();
+            _compositeDisposable.Clear();
         }
     }
 }

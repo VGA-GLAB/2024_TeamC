@@ -1,4 +1,3 @@
-using SoulRunProject.Framework;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,6 +12,7 @@ namespace SoulRunProject.InGame
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpPower;
         [SerializeField] private float _grav;
+        [SerializeField] private float _yAxisGroundLine = 0;
         [SerializeField, HideInInspector] private float _moveRangeMin;
         [SerializeField, HideInInspector] private float _moveRangeMax;
 
@@ -29,9 +29,9 @@ namespace SoulRunProject.InGame
 
         private void Update()
         {
-            //DebugClass.Instance.ShowLog(_inPause.ToString());
             if (_inPause) return;
             LimitPosition();
+            GroundCheck();
             _rb.velocity = _playerVelocity;
         }
 
@@ -47,8 +47,6 @@ namespace SoulRunProject.InGame
             {
                 _playerVelocity.y -= _grav * Time.fixedDeltaTime;
             }
-
-            _isGround = false;
         }
 
         public void InputHorizontal(float horizontal)
@@ -67,6 +65,21 @@ namespace SoulRunProject.InGame
             }
         }
 
+        private void GroundCheck()
+        {
+            if (transform.position.y <= _yAxisGroundLine)
+            {
+                Vector3 pos = transform.position;
+                pos.y = 0;
+                transform.position = pos;
+                _isGround = true;
+            }
+            else
+            {
+                _isGround = false;
+            }
+        }
+
         public void SwitchPause(bool toPause)
         {
             _inPause = toPause;
@@ -78,17 +91,6 @@ namespace SoulRunProject.InGame
             else
             {
                 _rb.WakeUp();
-            }
-        }
-
-        private void OnCollisionStay(Collision other)
-        {
-            for (int i = 0; i < other.contactCount; i++)
-            {
-                if (Vector3.Angle(Vector3.up, other.GetContact(i).normal) < 45)
-                {
-                    _isGround = true;
-                }
             }
         }
 
