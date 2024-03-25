@@ -16,7 +16,7 @@ namespace SoulRunProject.InGame
         private readonly IntReactiveProperty _currentExp = new IntReactiveProperty(0);
         private int _levelDataIndex = 0;
         
-        public IObservable<LevelData> OnCurrentLevelDataChanged => _currentLevelData;
+        public ReactiveProperty<LevelData> OnCurrentLevelDataChanged => _currentLevelData;
         public IObservable<int> OnCurrentExpChanged => _currentExp;
         public int CurrentMaxExp => _currentLevelData.Value.ExpToNextLevel;
 
