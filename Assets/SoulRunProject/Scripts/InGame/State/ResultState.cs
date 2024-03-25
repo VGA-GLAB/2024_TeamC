@@ -11,9 +11,17 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class ResultState : State
     {
+        private PlayerManager _playerManager;
+        
+        public GameClearState(PlayerManager playerManager)
+        {
+            _playerManager = playerManager;
+        }
+        
         protected override void OnEnter(State currentState)
         {
             DebugClass.Instance.ShowLog("ゲームクリアステート開始");
+            _playerManager.SwitchPause(true);
         }
 
         public void ExitToTitle()

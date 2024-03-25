@@ -66,6 +66,10 @@ namespace SoulRunProject.Common
             {
                 if (playingBossStageState.IsBossDefeated) //ボスを倒した場合
                     ChangeState(6);
+                else if (playingRunGameState.SwitchToPauseState) // PauseStateへの移行
+                    ChangeState(7);
+                else if (playingRunGameState.SwitchToLevelUpState) // LevelUpStateへの移行
+                    ChangeState(8);
                 // else if (playingBossStageState.IsPlayerDead) //プレイヤーが死んだ場合
                 //     ChangeState(3);
             };
