@@ -1,3 +1,4 @@
+using SoulRunProject.Framework;
 using UnityEditor;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ namespace SoulRunProject.InGame
         {
             _rb = GetComponent<Rigidbody>();
             _rb.useGravity = false;
+            _yAxisGroundLine = transform.position.y;
         }
 
         private void Update()
@@ -38,9 +40,9 @@ namespace SoulRunProject.InGame
         private void FixedUpdate()
         {
             if (_inPause) return;
-            
             if (_isGround && _playerVelocity.y <= 0)
             {
+               
                 _playerVelocity.y = 0;
             }
             else
