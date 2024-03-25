@@ -11,12 +11,19 @@ namespace SoulRunProject.Common
     /// </summary>
     public class InGameManager : StateMachine, IStartable, ITickable
     {
-
+        private EnterInGameState _enterInGameState;
+        private EnterStageState _enterStageState;
+        private PlayingRunGameState _playingRunGameState;
+        private EnterBossStageState _enterBossStageState;
+        private PlayingBossStageState _playingBossStageState;
+        private GameClearState _gameClearState;
+        private PauseState _pauseState;
+        private LevelUpState _levelUpState;
+        
         public InGameManager( GameObject owner, 
             EnterInGameState firstState,
             EnterStageState enterStageState,
             PlayingRunGameState playingRunGameState,
-            GameOverState gameOverState,
             EnterBossStageState enterBossStageState,
             PlayingBossStageState playingBossStageState,
             GameClearState gameClearState,
@@ -28,7 +35,6 @@ namespace SoulRunProject.Common
             AddState(0, firstState);
             AddState(1, enterStageState);
             AddState(2, playingRunGameState);
-            AddState(3, gameOverState);
             AddState(4, enterBossStageState);
             AddState(5, playingBossStageState);
             AddState(6, gameClearState);
@@ -44,6 +50,8 @@ namespace SoulRunProject.Common
                     ChangeState(7);
                 else if (playingRunGameState.SwitchToLevelUpState) // LevelUpStateへの移行
                     ChangeState(8);
+                else if (playingRunGameState.IsPlayerDead) // ResultStateへの移行
+                    ChangeState(6);
             };
             pauseState.OnStateExit += _ =>
             {
@@ -64,7 +72,6 @@ namespace SoulRunProject.Common
                     ChangeState(8);
                 // else if (playingBossStageState.IsPlayerDead) //プレイヤーが死んだ場合
                 //     ChangeState(3);
-                //プレイヤーが死んだ場合
             };
         }
 
@@ -74,7 +81,7 @@ namespace SoulRunProject.Common
             var token = _owner.GetCancellationTokenOnDestroy();
             _currentState.EnterAsync(null, token).Forget();
         }
-        
+
         public void Tick()
         {
             _currentState.Update();

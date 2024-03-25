@@ -1,3 +1,4 @@
+using System;
 using SoulRun.InGame;
 using UnityEngine;
 
@@ -9,7 +10,12 @@ namespace SoulRunProject.InGame
         [SerializeField] private InputUIButton _tempOptionButton;
 
         public InputUIButton TempOptionButton => _tempOptionButton;
-        
+
+        private void Start()
+        {
+            SetLevelUpPanelVisibility(false);
+        }
+
         /// <summary>
         /// LevelUpPanelの表示を切り替える
         /// </summary>
