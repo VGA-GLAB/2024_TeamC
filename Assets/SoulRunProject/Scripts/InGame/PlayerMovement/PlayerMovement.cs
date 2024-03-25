@@ -1,3 +1,6 @@
+using System;
+using UniRx;
+using UniRx.Triggers;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,14 +20,20 @@ namespace SoulRunProject.InGame
         [SerializeField, HideInInspector] private float _moveRangeMax;
 
         private Rigidbody _rb;
-        private bool _isGround;
+        private readonly BoolReactiveProperty _onIsGroundChanged = new BoolReactiveProperty();
         private Vector3 _playerVelocity;
         private bool _inPause;
+
+        public BoolReactiveProperty OnIsGroundChanged => _onIsGroundChanged;
+        public event Action OnJumped;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
             _rb.useGravity = false;
+
+            _onIsGroundChanged.AddTo(this);
+            this.OnDestroyAsObservable().Subscribe(_ => OnJumped = null);
         }
 
         private void Update()
@@ -39,7 +48,7 @@ namespace SoulRunProject.InGame
         {
             if (_inPause) return;
             
-            if (_isGround && _playerVelocity.y <= 0)
+            if (_onIsGroundChanged.Value && _playerVelocity.y <= 0)
             {
                 _playerVelocity.y = 0;
             }
@@ -59,9 +68,10 @@ namespace SoulRunProject.InGame
         {
             if (_inPause) return;
             
-            if (_isGround)
+            if (_onIsGroundChanged.Value)
             {
                 _playerVelocity.y = _jumpPower;
+                OnJumped?.Invoke();
             }
         }
 
@@ -72,11 +82,11 @@ namespace SoulRunProject.InGame
                 Vector3 pos = transform.position;
                 pos.y = _yAxisGroundLine;
                 transform.position = pos;
-                _isGround = true;
+                _onIsGroundChanged.Value = true;
             }
             else
             {
-                _isGround = false;
+                _onIsGroundChanged.Value = false;
             }
         }
 
