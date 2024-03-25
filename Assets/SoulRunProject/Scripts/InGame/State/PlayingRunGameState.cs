@@ -15,10 +15,11 @@ namespace SoulRunProject.InGame
         private CompositeDisposable _compositeDisposable = new CompositeDisposable();
         
         //TODO：ボスステージ開始前のプレイヤーの位置を設定する場所を検討
-        private float _enterBossStagePosition = 1000f;
-        public bool ArrivedBossStagePosition { get; private set; } = false;
-        public bool SwitchToPauseState { get; private set; } = false;
-        public bool SwitchToLevelUpState { get; private set; } = false;
+        private float _enterBossStagePosition = 440;
+        public bool ArrivedBossStagePosition { get; private set; }
+        public bool SwitchToPauseState { get; private set; }
+        public bool SwitchToGameOverState { get; private set; }
+        public bool SwitchToLevelUpState { get; private set; }
         
         public PlayingRunGameState(PlayerManager playerManager, PlayerInput playerInput, PlayerLevelManager playerLevelManager)
         {
@@ -59,6 +60,10 @@ namespace SoulRunProject.InGame
             {   //プレイヤーがボスステージ開始前の位置に到達したら前進を止めて遷移
                 _playerManager.SwitchPause(false);
                 ArrivedBossStagePosition = true;
+                StateChange();
+            }
+            else if (_playerManager.CurrentHp.Value <= 0)
+            {   //プレイヤーのHPが0になったら遷移
                 StateChange();
             }
         }

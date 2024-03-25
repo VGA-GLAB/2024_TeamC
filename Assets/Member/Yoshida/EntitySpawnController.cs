@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using SoulRunProject.Common;
 using UnityEngine;
+using UniRx;
 
 namespace SoulRunProject.InGame
 {
@@ -48,9 +50,21 @@ namespace SoulRunProject.InGame
         
         void Start()
         {
-            if (!GameObject.FindWithTag("Player").TryGetComponent(out _playerTransform))
+            _playerManager = FindObjectOfType<PlayerManager>();
+                
+            if (_playerTransform == null)
             {
                 Debug.LogWarning("Playerのタグが適切でない または、PlayerタグのオブジェクトにTransformがついていない");
+            }
+        }
+
+        private void Update()
+        {
+            if (_spawnFlag) return;
+            if (Vector3.Distance(_playerManager.transform.position, transform.position) < _spawnerEnableRange)
+            {
+                SpawnEntity();
+                _spawnFlag = true;
             }
         }
 

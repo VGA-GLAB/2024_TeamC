@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using SoulRunProject.Framework;
 using SoulRunProject.InGame;
 using SoulRunProject.SoulMixScene;
 using UniRx;
@@ -69,8 +70,8 @@ namespace SoulRunProject.Common
         
         public void Damage(int damage)
         {
-            _status.Hp -= damage;
-            if (_status.Hp <= 0)
+            CurrentHp.Value -= damage;
+            if (CurrentHp.Value <= 0)
             {
                 Death();
             }
@@ -88,7 +89,7 @@ namespace SoulRunProject.Common
         private void Death()
         {
             Debug.Log("GameOver");
-            SwitchPause(true);
+            //SwitchPause(true);
         }
 
         /// <summary>
@@ -121,7 +122,6 @@ namespace SoulRunProject.Common
         {
             _soulSkillManager.AddSoul(soul);
         }
-        
 
         #endregion
     }
