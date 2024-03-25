@@ -15,7 +15,7 @@ namespace SoulRunProject.InGame
         private IDisposable _disposable;
         
         //TODO：ボスステージ開始前のプレイヤーの位置を設定する場所を検討
-        private float _enterBossStagePosition = 120;
+        private float _enterBossStagePosition = 440;
         public bool ArrivedBossStagePosition { get; private set; } = false;
         public bool SwitchToPauseState { get; private set; } = false;
         
