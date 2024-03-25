@@ -54,7 +54,7 @@ namespace SoulRunProject.Common
     [Serializable]
     public class LevelUpProjectionCoolTime : IProjectionLevelUp
     {
-        [SerializeField , Header("弾のクールタイムを除算 -% (現在のクールタイムから)")] private float _reduceCoolTime;
+        [SerializeField , Header("弾のクールタイムを減少 -% (現在のクールタイムから)")] private float _reduceCoolTime;
 
         public override void LevelUpParam(in ProjectileSkillParameter param)
         {
@@ -77,7 +77,7 @@ namespace SoulRunProject.Common
     [Serializable]
     public class LevelUpProjectionSpeed : IProjectionLevelUp
     {
-        [SerializeField , Header("弾の速度を乗算 +% (現在の速度から) ")] private float _multipleProjectionSpeed;
+        [SerializeField , Header("弾の速度を増加 +% (現在の速度から) ")] private float _multipleProjectionSpeed;
         public override void LevelUpParam(in ProjectileSkillParameter param)
         {
             param.Speed *= 1 + _multipleProjectionSpeed / 100 ;

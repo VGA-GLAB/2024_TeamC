@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using SoulRunProject.InGame;
 using UnityEngine;
 using VContainer;
@@ -21,6 +19,7 @@ namespace SoulRunProject.Common
         [SerializeField] private ResultView _resultView;
         [SerializeField] private CommonView _commonView;
         [SerializeField] private StageNameView _stageNameView;
+        [SerializeField] private LevelUpView _levelUpView;
         protected override void Configure(IContainerBuilder builder)
         {
             //ドメイン層
@@ -39,6 +38,7 @@ namespace SoulRunProject.Common
             builder.Register<PlayingBossStageState>(Lifetime.Singleton);
             builder.Register<GameClearState>(Lifetime.Singleton);
             builder.Register<PauseState>(Lifetime.Singleton);
+            builder.Register<LevelUpState>(Lifetime.Singleton);
             builder.Register<InGameManager>(Lifetime.Singleton);
             builder.RegisterInstance(_playerLevelManager);
             builder.RegisterInstance(_skillManager);
@@ -50,11 +50,14 @@ namespace SoulRunProject.Common
             builder.RegisterComponent(_commonView);
             builder.Register<CommonUIPresenter>(Lifetime.Singleton);
             builder.Register<StageEnterPresenter>(Lifetime.Singleton);
+            builder.RegisterComponent(_levelUpView);
+            builder.Register<LevelUpUIPresenter>(Lifetime.Singleton);
             
             //開始処理
             builder.RegisterEntryPoint<ResultPresenter>();
             builder.RegisterEntryPoint<StageEnterPresenter>();
             builder.RegisterEntryPoint<CommonUIPresenter>();
+            builder.RegisterEntryPoint<LevelUpUIPresenter>();
             builder.RegisterEntryPoint<InGameManager>();
         }
     }
