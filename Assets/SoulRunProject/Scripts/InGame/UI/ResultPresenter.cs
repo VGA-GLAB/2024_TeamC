@@ -7,19 +7,19 @@ namespace SoulRunProject.InGame
     public class ResultPresenter : IInitializable
     {
         ResultView _resultView;
-        ResultState _resultState;
+        GameClearState _gameClearState;
         GameOverState _gameOverState;
         
-        public ResultPresenter(ResultView resultView, ResultState resultState, GameOverState gameOverState)
+        public ResultPresenter(ResultView resultView, GameClearState gameClearState, GameOverState gameOverState)
         {
             _resultView = resultView;
-            _resultState = resultState;
+            _gameClearState = gameClearState;
             _gameOverState = gameOverState;
         }
 
         public void Initialize()
         {
-            _resultState.OnStateEnter += _ =>
+            _gameClearState.OnStateEnter += _ =>
             {
                 _resultView.SetResultPanelVisibility(true);
                 _resultView.ShowResult(ResultView.ResultType.Clear);
@@ -34,12 +34,12 @@ namespace SoulRunProject.InGame
             {
                 DebugClass.Instance.ShowLog("リスタートボタンが押されました。");
                 _resultView.SetResultPanelVisibility(false);
-                _resultState.RetryStage();
+                _gameClearState.RetryStage();
             });
             _resultView.ExitButton.onClick.AsObservable().Subscribe(_ =>
             {
                 _resultView.SetResultPanelVisibility(false);
-                _resultState.ExitToTitle();
+                _gameClearState.ExitToTitle();
             });
             
             _resultView.SetResultPanelVisibility(false);
