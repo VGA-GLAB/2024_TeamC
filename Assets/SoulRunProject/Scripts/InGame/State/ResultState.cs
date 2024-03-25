@@ -9,7 +9,7 @@ namespace SoulRunProject.InGame
     /// <summary>
     /// ゲームクリア時に行われるステート
     /// </summary>
-    public class GameClearState : State
+    public class ResultState : State
     {
         protected override void OnEnter(State currentState)
         {
