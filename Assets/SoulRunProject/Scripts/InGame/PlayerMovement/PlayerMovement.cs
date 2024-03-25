@@ -70,7 +70,7 @@ namespace SoulRunProject.InGame
             if (transform.position.y <= _yAxisGroundLine)
             {
                 Vector3 pos = transform.position;
-                pos.y = 0;
+                pos.y = _yAxisGroundLine;
                 transform.position = pos;
                 _isGround = true;
             }
