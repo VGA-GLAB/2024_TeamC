@@ -18,7 +18,7 @@ namespace SoulRunProject.InGame
         private float _enterBossStagePosition = 440;
         public bool ArrivedBossStagePosition { get; private set; }
         public bool SwitchToPauseState { get; private set; }
-        public bool SwitchToGameOverState { get; private set; }
+        public bool IsPlayerDead { get; private set; }
         public bool SwitchToLevelUpState { get; private set; }
         
         public PlayingRunGameState(PlayerManager playerManager, PlayerInput playerInput, PlayerLevelManager playerLevelManager)
@@ -64,6 +64,7 @@ namespace SoulRunProject.InGame
             }
             else if (_playerManager.CurrentHp.Value <= 0)
             {   //プレイヤーのHPが0になったら遷移
+                IsPlayerDead = true;
                 StateChange();
             }
         }
