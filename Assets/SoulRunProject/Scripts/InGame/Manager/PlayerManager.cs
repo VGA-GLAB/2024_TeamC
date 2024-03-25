@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using SoulRunProject.Framework;
 using SoulRunProject.InGame;
 using SoulRunProject.SoulMixScene;
 using UniRx;
@@ -97,6 +98,7 @@ namespace SoulRunProject.Common
         /// <param name="other"></param>
         private void OnCollisionEnter(Collision other)
         {
+            DebugClass.Instance.ShowLog(other.gameObject.name);
             if (other.gameObject.TryGetComponent(out FieldEntityController fieldEntityController))
             {
                 Damage(fieldEntityController.Status.Attack);
@@ -121,7 +123,6 @@ namespace SoulRunProject.Common
         {
             _soulSkillManager.AddSoul(soul);
         }
-        
 
         #endregion
     }
