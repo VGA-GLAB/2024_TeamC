@@ -3,35 +3,41 @@ using UnityEngine;
 
 namespace SoulRunProject.Common
 {
-    public interface ISkill
+    public enum PlayerSkill
     {
-        public void Fire();
-
-        public void UpdateSkill(float deltaTime);
-        
+         SoulBullet = 0 ,
+         HollyField = 1 ,
+         SoulSword = 2 ,
+         SoulShell = 3 ,
+         SoulRay = 4 ,
+         SoulOfHealing = 5 ,
+         SoulFrame = 6 ,
     }
     
     /// <summary>
     /// スキルの基底クラス
     /// </summary>
     [Serializable]
-    public class SkillBase : ISkill
+    public abstract class SkillBase 
     {
-        [SerializeField, Header("スキルの名前")] private string _skillName;
+        [SerializeField, Header("スキルの名前")] private PlayerSkill _skillType;
         [SerializeField, Header("レベルアップイベントデータ")] protected ProjectileSkillLevelUpEvent ProjectileSkillLevelUpEvent;
         [SerializeField , Header("スキルのパラメーターデータ")] protected SkillParameterBase SkillBaseParam;
 
-        public string SkillName => _skillName;
+        /// <summary> スキルの最大レベル </summary>
+        public const int MaxSkillLevel = 5;
 
-        private readonly string _className;
-        
-
-        /// <summary>スキルの最大レベル(1スタート)</summary>
-        private int _currentLevel = 1; 
-        public int MaxLevel { get; } = 5;
-
+        private int _currentLevel = 1;
         private float _currentCoolTime;
-    
+        
+        public PlayerSkill SkillType => _skillType;
+        
+        /// <summary> スキルレベルアップ可能かどうか </summary>
+        public bool CanLevelUp()
+        {
+            return _currentLevel <= MaxSkillLevel;
+        }
+        
         public virtual void UpdateSkill(float deltaTime)
         {
             if (_currentCoolTime < SkillBaseParam.CoolTime)
@@ -41,7 +47,6 @@ namespace SoulRunProject.Common
             else
             {
                 Fire();
-                LevelUp();
                 _currentCoolTime = 0;
             }
         }
@@ -51,16 +56,17 @@ namespace SoulRunProject.Common
             Debug.Log("発射");
         }
         
-
         /// <summary>スキル進化</summary>
         public void LevelUp()
         {
             _currentLevel++;
-            //  現在のレベルが最大レベル-1より小さければ
-            if (_currentLevel <= MaxLevel)
+            if (CanLevelUp())
             {
                 ProjectileSkillLevelUpEvent.LevelUp(_currentLevel , SkillBaseParam);
-                
+            }
+            else
+            {
+                Debug.LogError("レベル上限を超えています。");
             }
         }
     }
