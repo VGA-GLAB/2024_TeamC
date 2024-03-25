@@ -1,7 +1,4 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
-using SoulRunProject.Framework;
-using SoulRunProject.InGame;
+﻿using SoulRunProject.InGame;
 using SoulRunProject.SoulMixScene;
 using UniRx;
 using UnityEngine;
@@ -11,6 +8,7 @@ namespace SoulRunProject.Common
     /// <summary>
     /// プレイヤーを管理するクラス
     /// </summary>
+    [RequireComponent(typeof(HitDamageEffectManager))]
     public class PlayerManager : MonoBehaviour
     {
         [SerializeField] private PlayerInput _playerInput;
@@ -21,6 +19,7 @@ namespace SoulRunProject.Common
         private SkillManager _skillManager;
         private SoulSkillManager _soulSkillManager;
         private PlayerMovement _playerMovement;
+        private HitDamageEffectManager _hitDamageEffectManager;
         public FloatReactiveProperty CurrentHp { get; private set; }
         public float MaxHp => _status.Hp;
 
@@ -33,6 +32,7 @@ namespace SoulRunProject.Common
             _skillManager = GetComponent<SkillManager>();
             _soulSkillManager = GetComponent<SoulSkillManager>();
             _playerMovement = GetComponent<PlayerMovement>();
+            _hitDamageEffectManager = GetComponent<HitDamageEffectManager>();
             
             InitializeInput();
         }
@@ -75,6 +75,8 @@ namespace SoulRunProject.Common
             {
                 Death();
             }
+            // 白色点滅メソッド
+            _hitDamageEffectManager.HitFadeBlinkWhite();
         }
 
         /// <summary>
