@@ -16,6 +16,7 @@ namespace SoulRunProject
         [SerializeField , Header("発射する弾のプレハブ")] private BulletController _bullet;
         [SerializeField] Vector3 _muzzleOffset;
         private Transform _playerTransform;
+        PlayerForwardMover _playerForwardMover;
         float _playerMoveSpeed;
         BulletPool _bulletPool;
         public BulletController Bullet => _bullet;
@@ -29,10 +30,10 @@ namespace SoulRunProject
         {
             //プレイヤーのポジションから発射させたい
             _playerTransform ??= Object.FindObjectOfType<PlayerManager>().transform;
-            var playerForwardMover = Object.FindObjectOfType<PlayerForwardMover>();
-            if (playerForwardMover)
+            _playerForwardMover ??= Object.FindObjectOfType<PlayerForwardMover>();
+            if (_playerForwardMover)
             {
-                _playerMoveSpeed = playerForwardMover.Speed;
+                _playerMoveSpeed = _playerForwardMover.Speed;
             }
             if (SkillBaseParam is ProjectileSkillParameter param)
             {
