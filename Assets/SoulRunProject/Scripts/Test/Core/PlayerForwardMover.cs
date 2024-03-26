@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using SoulRunProject.Framework;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
@@ -16,7 +13,7 @@ namespace SoulRunProject.InGame
         
         private void FixedUpdate()
         {
-            if (_isPause) return; 
+            if (_isPause) return;
             transform.position += transform.forward * (_speed * Time.fixedDeltaTime);
         }
 

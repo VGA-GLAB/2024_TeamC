@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
@@ -12,7 +13,6 @@ namespace SoulRunProject.InGame
         [SerializeField] GameObject _hit;
         [SerializeField] GameObject _flash;
         [SerializeField] GameObject[] _detached;
-        [SerializeField] Rigidbody _rigidbody;
         [SerializeField] SphereCollider _collider;
         [SerializeField] Light _light;
         [SerializeField] ParticleSystem _particleSystem;
@@ -42,7 +42,7 @@ namespace SoulRunProject.InGame
             _penetration = penetration;
             _hitCount = 0;
             _collider.radius = range;
-            Observable.EveryUpdate()
+            this.FixedUpdateAsObservable()
                 .TakeUntilDisable(this)
                 .TakeUntilDestroy(this)
                 .Subscribe(_ => Move());
@@ -79,7 +79,7 @@ namespace SoulRunProject.InGame
 
         public virtual void Move()
         {
-            transform.position += Vector3.forward * (_speed * Time.deltaTime);
+            transform.position += Vector3.forward * (_speed * Time.fixedDeltaTime);
         }
 
         void OnTriggerEnter(Collider other)

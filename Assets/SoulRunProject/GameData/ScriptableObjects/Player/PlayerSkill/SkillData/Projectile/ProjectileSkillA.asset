@@ -17,7 +17,7 @@ MonoBehaviour:
   _amount: 1
   _attackDamage: 100
   _range: 2
-  _speed: 100
+  _speed: 10
   _penetration: 1
   _uniqueParameters: []
   references:
