@@ -15,12 +15,13 @@ namespace SoulRunProject.SoulMixScene
         [SerializeField] private SoulMixModel _soulMixModel; // エディターから設定する
 
         private SaveAndLoadManager _saveAndLoadManager;
+        SaveAndLoadManager.MasterData _masterData;
 
         private void Start()
         {
             _saveAndLoadManager = SaveAndLoadManager.Instance;
             LoadSoulCards();
-            SaveAndLoadManager.MasterData masterData = _saveAndLoadManager.GetMasterData();
+            _masterData = _saveAndLoadManager.GetMasterData();
             //soulCardListSO.soulCardList = masterData.soulCardDataList;
         }
 
