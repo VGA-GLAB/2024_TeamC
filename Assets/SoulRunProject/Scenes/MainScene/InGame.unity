@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0019524717, g: 0.003835365, b: 0.008846895, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031405292, g: 0.0061706104, b: 0.014241753, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23094,6 +23094,7 @@ GameObject:
   - component: {fileID: 1174502017}
   - component: {fileID: 1174502019}
   - component: {fileID: 1174502020}
+  - component: {fileID: 1174502021}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -23167,6 +23168,22 @@ MonoBehaviour:
   - {fileID: 1397121987}
   _playerManager: {fileID: 1420106444}
   _activationDistance: 100
+--- !u!114 &1174502021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174502016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 342fd8d87ed91b84f80c0ffc379a1d5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillDataSet: {fileID: 11400000, guid: b46d97e22cc1e804d9e82f91f50ebb47, type: 2}
+  _preloadCount: 5
+  _threshold: 5
+  _useDontDestroyOnLoad: 0
 --- !u!4 &1180136328 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164151997940843940, guid: 54942ca6699e8764a8b2eb58690cf15d,
@@ -27114,6 +27131,7 @@ GameObject:
   - component: {fileID: 1420106448}
   - component: {fileID: 1420106450}
   - component: {fileID: 1420106451}
+  - component: {fileID: 1420106452}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -27216,7 +27234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isPause: 1
-  _speed: 1
+  _speed: 20
 --- !u!114 &1420106444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27384,6 +27402,20 @@ MonoBehaviour:
   _isKinematic: 0
   _center: {x: 0, y: 0, z: 0}
   _radius: 0
+--- !u!114 &1420106452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420106435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91850b292134f24a8ef6e7ce567f766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0
+  _loopCount: 0
 --- !u!1 &1423281886
 GameObject:
   m_ObjectHideFlags: 0
