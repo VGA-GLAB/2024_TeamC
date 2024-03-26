@@ -25,7 +25,7 @@ namespace SoulRunProject.SoulMixScene
         
         public Status Copy()
         {
-            return (Status)MemberwiseClone();
+            return Instantiate(this);
         }
 
         public int Hp
