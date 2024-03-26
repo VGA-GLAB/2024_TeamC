@@ -14815,9 +14815,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &7496366539032194065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14836,7 +14836,6 @@ MonoBehaviour:
   _flash: {fileID: 1367524815892938, guid: 40f5e004d2504a04db181f5453658776, type: 3}
   _detached:
   - {fileID: 616909258198794064}
-  _rigidbody: {fileID: 1471483964671027593}
   _collider: {fileID: 7728589861092496342}
   _light: {fileID: 0}
   _particleSystem: {fileID: 5346422094025305700}
