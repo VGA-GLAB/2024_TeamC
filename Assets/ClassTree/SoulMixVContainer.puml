@@ -1,0 +1,63 @@
+﻿@startuml
+
+!theme plain
+
+package "SoulMixScene" {
+
+class "SoulMixPresenter" {
+}
+
+class "SoulMixView" {
+}
+
+class "SoulMixModel" {
+}
+
+class "SoulCombiner" {
+}
+
+class "SoulCardManager" {
+}
+
+'Singleton or Scoped are used to denote the lifecycle management by VContainer
+note right of "SoulCardManager"
+    Singleton
+end note
+
+note right of "SoulMixModel"
+    Scoped
+end note
+
+note right of "SoulMixPresenter"
+    Scoped
+end note
+
+note right of "SoulCombiner"
+    Scoped
+end note
+
+class "SoulMixSceneLifetimeScope" {
+    +Configure(builder : IContainerBuilder) : void
+}
+
+"SoulMixSceneLifetimeScope" ..> "SoulMixPresenter" : creates
+"SoulMixSceneLifetimeScope" ..> "SoulMixView" : creates
+"SoulMixSceneLifetimeScope" ..> "SoulMixModel" : creates
+"SoulMixSceneLifetimeScope" ..> "SoulCombiner" : creates
+"SoulMixSceneLifetimeScope" ..> "SoulCardManager" : creates
+
+"SoulMixPresenter" --> "SoulMixView" : depends on
+"SoulMixPresenter" --> "SoulMixModel" : depends on
+"SoulMixModel" --> "SoulCombiner" : uses
+"SoulCardManager" --> "SoulMixModel" : interacts with
+
+note as N1
+    VContainer's LifetimeScope is used for dependency
+    injection. Classes like SoulMixPresenter are
+    registered with their dependencies, and VContainer
+    handles their lifecycles and dependencies resolution.
+end note
+
+N1 .. "SoulMixSceneLifetimeScope"
+
+@enduml
