@@ -25,5 +25,6 @@ MonoBehaviour:
           type: 2}
         SkillBaseParam: {fileID: 11400000, guid: bade1725d5e72ee4a87c15f01a63f7b2,
           type: 2}
-        _bullet: {fileID: 6634481328009095737, guid: df1b0f982d77023429096990f3dba7a8,
+        _bullet: {fileID: 7496366539032194065, guid: 93ebba11e021a9d4b92b90f0aeb5ef5b,
           type: 3}
+        _muzzleOffset: {x: 0, y: 0, z: 0}

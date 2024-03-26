@@ -37,7 +37,8 @@ namespace SoulRunProject.Common
         {
             return _currentLevel <= MaxSkillLevel;
         }
-        
+
+        public abstract void StartSkill();
         public virtual void UpdateSkill(float deltaTime)
         {
             if (_currentCoolTime < SkillBaseParam.CoolTime)

@@ -16,6 +16,10 @@ namespace SoulRunProject.InGame
             //Instantiateしないと、ScriptableObject内のクラスが生成されない。
             _skillData = Instantiate(_skillDataSet);
             AddSkill(PlayerSkill.SoulBullet);
+            foreach (var skill in _currentSkills)
+            {
+                skill.StartSkill();
+            }
         }
         
         public void Update()
