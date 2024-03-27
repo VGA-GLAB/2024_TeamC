@@ -20,11 +20,11 @@ namespace SoulRunProject.InGame
         [SerializeField, HideInInspector] private float _moveRangeMax;
 
         private Rigidbody _rb;
-        private readonly BoolReactiveProperty _onIsGroundChanged = new BoolReactiveProperty();
+        private readonly BoolReactiveProperty _isGround = new BoolReactiveProperty(true);
         private Vector3 _playerVelocity;
         private bool _inPause;
 
-        public BoolReactiveProperty OnIsGroundChanged => _onIsGroundChanged;
+        public BoolReactiveProperty IsGround => _isGround;
         public event Action OnJumped;
 
         private void Awake()
@@ -32,7 +32,7 @@ namespace SoulRunProject.InGame
             _rb = GetComponent<Rigidbody>();
             _rb.useGravity = false;
 
-            _onIsGroundChanged.AddTo(this);
+            _isGround.AddTo(this);
             this.OnDestroyAsObservable().Subscribe(_ => OnJumped = null);
         }
 
@@ -48,7 +48,7 @@ namespace SoulRunProject.InGame
         {
             if (_inPause) return;
             
-            if (_onIsGroundChanged.Value && _playerVelocity.y <= 0)
+            if (_isGround.Value && _playerVelocity.y <= 0)
             {
                 _playerVelocity.y = 0;
             }
@@ -68,7 +68,7 @@ namespace SoulRunProject.InGame
         {
             if (_inPause) return;
             
-            if (_onIsGroundChanged.Value)
+            if (_isGround.Value)
             {
                 _playerVelocity.y = _jumpPower;
                 OnJumped?.Invoke();
@@ -82,11 +82,11 @@ namespace SoulRunProject.InGame
                 Vector3 pos = transform.position;
                 pos.y = _yAxisGroundLine;
                 transform.position = pos;
-                _onIsGroundChanged.Value = true;
+                _isGround.Value = true;
             }
             else
             {
-                _onIsGroundChanged.Value = false;
+                _isGround.Value = false;
             }
         }
 
