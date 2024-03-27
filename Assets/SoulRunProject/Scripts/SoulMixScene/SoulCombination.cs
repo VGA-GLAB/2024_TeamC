@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SoulRunProject.SoulMixScene
 {
@@ -7,38 +8,38 @@ namespace SoulRunProject.SoulMixScene
     [System.Serializable]
     public class SoulCombination
     {
-        [SerializeField] private SoulCardData ingredient1; // 組み合わせる最初のソウルカード
-        [SerializeField] private SoulCardData ingredient2; // 組み合わせる2番目のソウルカード
-        [SerializeField] private SoulCardData result; // 組み合わせによって生成される新しいソウルカード
+        [SerializeField] private SoulCardData _ingredient1; // 組み合わせる最初のソウルカード
+        [SerializeField] private SoulCardData _ingredient2; // 組み合わせる2番目のソウルカード
+        [SerializeField] private SoulCardData _result; // 組み合わせによって生成される新しいソウルカード
 
         public SoulCardData Ingredient1
         {
-            get => ingredient1;
-            set => ingredient1 = value;
+            get => _ingredient1;
+            set => _ingredient1 = value;
         }
 
         public SoulCardData Ingredient2
         {
-            get => ingredient2;
-            set => ingredient2 = value;
+            get => _ingredient2;
+            set => _ingredient2 = value;
         }
 
         public SoulCardData Result
         {
-            get => result;
-            set => result = value;
+            get => _result;
+            set => _result = value;
         }
 
         /// <summary> この組み合わせが指定された2つのソウルカードと一致するかどうかを確認するメソッド </summary>
         public bool IsValidCombination(SoulCardData soul1, SoulCardData soul2)
         {
-            return (soul1 == ingredient1 && soul2 == ingredient2) ||
-                   (soul1 == ingredient2 && soul2 == ingredient1);
+            return (soul1 == _ingredient1 && soul2 == _ingredient2) ||
+                   (soul1 == _ingredient2 && soul2 == _ingredient1);
         }
 
         public SoulCardData CombineResult(SoulCardData soul1, SoulCardData soul2)
         {
-            return IsValidCombination(soul1, soul2) ? result : null;
+            return IsValidCombination(soul1, soul2) ? _result : null;
         }
     }
 }

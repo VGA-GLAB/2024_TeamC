@@ -13,18 +13,76 @@ MonoBehaviour:
   m_Name: SkillDataList
   m_EditorClassIdentifier: 
   _skills:
-  - rid: 4571640131307438080
+  - rid: 4571640225553186822
+  - rid: 4571640225553186828
   references:
     version: 2
     RefIds:
-    - rid: 4571640131307438080
-      type: {class: ProjectileSkillBase, ns: SoulRunProject, asm: Assembly-CSharp}
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 4571640225553186822
+      type: {class: SoulBullet, ns: SoulRunProject.Skill, asm: Assembly-CSharp}
       data:
-        _skillType: 0
-        ProjectileSkillLevelUpEvent: {fileID: 11400000, guid: 128d3683716ab3640929db43e2ca9544,
-          type: 2}
+        MaxSkillLevel: 5
+        SkillLevelUpEvent:
+          _levelUpType:
+            rid: 4571640225553186824
         SkillBaseParam: {fileID: 11400000, guid: bade1725d5e72ee4a87c15f01a63f7b2,
           type: 2}
         _bullet: {fileID: 7496366539032194065, guid: 93ebba11e021a9d4b92b90f0aeb5ef5b,
           type: 3}
         _muzzleOffset: {x: 0, y: 0, z: 0}
+    - rid: 4571640225553186824
+      type: {class: ProjectileSkillLevelUpEventTableType, ns: SoulRunProject.Common,
+        asm: Assembly-CSharp}
+      data:
+        _levelUpTable:
+        - _levelUpEventType:
+          - rid: 4571640225553186825
+          - rid: 4571640225553186826
+        - _levelUpEventType:
+          - rid: 4571640225553186825
+        - _levelUpEventType:
+          - rid: 4571640225553186825
+          - rid: 4571640225553186827
+        - _levelUpEventType:
+          - rid: 4571640225553186825
+    - rid: 4571640225553186825
+      type: {class: LevelUpEventProjectileCoolTime, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _reduceCoolTime: 30
+    - rid: 4571640225553186826
+      type: {class: LevelUpEventProjectileSpeed, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _multipleProjectionSpeed: 100
+    - rid: 4571640225553186827
+      type: {class: LevelUpEventProjectileSpeed, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _multipleProjectionSpeed: 150
+    - rid: 4571640225553186828
+      type: {class: SoulBullet, ns: SoulRunProject.Skill, asm: Assembly-CSharp}
+      data:
+        MaxSkillLevel: 5
+        SkillLevelUpEvent:
+          _levelUpType:
+            rid: 4571640225553186829
+        SkillBaseParam: {fileID: 0}
+        _bullet: {fileID: 0}
+        _muzzleOffset: {x: 0, y: 0, z: 0}
+    - rid: 4571640225553186829
+      type: {class: ProjectileSkillLevelUpEventTableType, ns: SoulRunProject.Common,
+        asm: Assembly-CSharp}
+      data:
+        _levelUpTable:
+        - _levelUpEventType:
+          - rid: 4571640225553186830
+          - rid: 4571640225553186831
+          - rid: -2
+    - rid: 4571640225553186830
+      type: {class: LevelUpEventProjectileCoolTime, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _reduceCoolTime: 0
+    - rid: 4571640225553186831
+      type: {class: LevelUpEventProjectileSpeed, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _multipleProjectionSpeed: 0

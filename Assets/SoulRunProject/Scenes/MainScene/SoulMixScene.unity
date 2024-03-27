@@ -492,7 +492,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 520335576}
-  - component: {fileID: 520335580}
   - component: {fileID: 520335575}
   - component: {fileID: 520335577}
   - component: {fileID: 520335578}
@@ -584,20 +583,6 @@ MonoBehaviour:
   - ingredient1: {fileID: 11400000, guid: e6b246c7b3b118441b9763ac57bd952c, type: 2}
     ingredient2: {fileID: 11400000, guid: ff8aa541512d95d40a1c16ec2003af7c, type: 2}
     result: {fileID: 11400000, guid: 217ba046b21b5f643bcfc6b6e3163209, type: 2}
---- !u!114 &520335580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 520335574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 294171f5046c42568a9f5079846dd15b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soulCardListSO: {fileID: 11400000, guid: 318fdb43c2bb04d40b91c680f45f7648, type: 2}
-  soulMixModel: {fileID: 520335578}
 --- !u!1 &821360630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,6 +1197,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699217552}
   m_CullTransparentMesh: 1
+--- !u!1 &1953477527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1953477529}
+  - component: {fileID: 1953477528}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1953477528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953477527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294171f5046c42568a9f5079846dd15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soulCardListSO: {fileID: 11400000, guid: 318fdb43c2bb04d40b91c680f45f7648, type: 2}
+  soulMixModel: {fileID: 520335578}
+--- !u!4 &1953477529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953477527}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 479.74652, y: 326.5864, z: -1.4803766}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &36408262449773471
 GameObject:
   m_ObjectHideFlags: 0
@@ -2663,8 +2694,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b8325e84f34b0286dbacd244497bfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <IsVisible>k__BackingField:
-    value: 0
 --- !u!223 &7980129173892365398
 Canvas:
   m_ObjectHideFlags: 0
@@ -2791,3 +2820,4 @@ SceneRoots:
   - {fileID: 6749094256181945187}
   - {fileID: 134757264}
   - {fileID: 520335576}
+  - {fileID: 1953477529}
