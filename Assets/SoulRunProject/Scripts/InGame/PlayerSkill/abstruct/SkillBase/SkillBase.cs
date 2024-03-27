@@ -20,17 +20,14 @@ namespace SoulRunProject.Common
     [Serializable]
     public abstract class SkillBase 
     {
-        [SerializeField, Header("スキルの名前")] private PlayerSkill _skillType;
-        [SerializeField, Header("レベルアップイベントデータ")] protected ProjectileSkillLevelUpEvent ProjectileSkillLevelUpEvent;
+        [SerializeField , Header("スキルの最大レベル")] public int MaxSkillLevel = 5;
+        [SerializeField, Header("レベルアップイベントデータ")] protected SkillLevelUpEvent SkillLevelUpEvent;
         [SerializeField , Header("スキルのパラメーターデータ")] protected SkillParameterBase SkillBaseParam;
-
-        /// <summary> スキルの最大レベル </summary>
-        public const int MaxSkillLevel = 5;
 
         private int _currentLevel = 1;
         private float _currentCoolTime;
         
-        public PlayerSkill SkillType => _skillType;
+        public PlayerSkill SkillType => SkillBaseParam.SkillType;
         
         /// <summary> スキルレベルアップ可能かどうか </summary>
         public bool CanLevelUp()
@@ -63,7 +60,7 @@ namespace SoulRunProject.Common
             _currentLevel++;
             if (CanLevelUp())
             {
-                ProjectileSkillLevelUpEvent.LevelUp(_currentLevel , SkillBaseParam);
+                SkillLevelUpEvent.LevelUp(_currentLevel , SkillBaseParam);
             }
             else
             {

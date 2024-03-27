@@ -11,8 +11,11 @@ namespace SoulRunProject.Common
     [Serializable]
     public class SkillParameterBase : ScriptableObject
     {
+        [SerializeField, Header("スキルの名前")] private PlayerSkill _skillType;
         [SerializeField, Header("次にこのスキルを使えるまでの時間")] float _coolTime;
         [SerializeField, Header("スキルの持続時間")] float _lifeTime;
+        
+        public PlayerSkill SkillType => _skillType;
         
         /// <summary>
         /// ScriptableObjectのデータを上書きせずに、ランタイム時に変更したいためこのような書き方をしている。

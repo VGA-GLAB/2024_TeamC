@@ -10,6 +10,12 @@ namespace SoulRunProject.InGame
         [SerializeField , Header("スキルデータセット")] private SkillDataSet _skillDataSet;
         private SkillDataSet _skillData;
         private readonly List<SkillBase> _currentSkills = new(5);
+
+        /// <summary>
+        /// 現在所持しているスキル名リスト
+        /// </summary>
+        public List<PlayerSkill> CurrentSkillTypes => _currentSkills.Select(x => x.SkillType).ToList();
+        
         private bool _isPause;
         public void Start()
         {
@@ -33,6 +39,10 @@ namespace SoulRunProject.InGame
             }
         }
         
+        /// <summary>
+        /// スキルを追加する
+        /// </summary>
+        /// <param name="skillType">スキル名</param>
         public void AddSkill(PlayerSkill skillType)
         {
             var skillBase = _skillData.Skills.FirstOrDefault(x => x.SkillType == skillType);
@@ -46,6 +56,10 @@ namespace SoulRunProject.InGame
             }
         }
 
+        /// <summary>
+        /// スキルのレベルアップ
+        /// </summary>
+        /// <param name="skillType">スキル名</param>
         public void LevelUpSkill(PlayerSkill skillType)
         {
             var skill = _currentSkills.FirstOrDefault(x => x.SkillType == skillType);

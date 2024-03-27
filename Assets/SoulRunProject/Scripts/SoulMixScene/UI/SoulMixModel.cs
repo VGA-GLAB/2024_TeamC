@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
@@ -10,17 +11,22 @@ namespace SoulRunProject.SoulMixScene
     {
         [SerializeField] private SoulCombiner _soulCombiner;
         public ReactiveCollection<SoulCardData> OwnedCards = new ReactiveCollection<SoulCardData>();
-        private SoulCardManager _soulCardManager = SoulCardManager.Instance;
+        private SoulCardManager _soulCardManager;
 
         // ログメッセージを発行するためのReactiveProperty
-        public ReactiveProperty<string> logMessage = new ReactiveProperty<string>();
+        public ReactiveProperty<string> LogMessage = new ReactiveProperty<string>();
+
+        private void Start()
+        {
+            _soulCardManager = SoulCardManager.Instance;
+        }
 
         public async UniTaskVoid SoulMixAsync()
         {
             // 選択されたソウルカードのリストが2つ以上であるか確認
             if (_soulCombiner.ownedSelectSouls.soulCardList.Count < 2)
             {
-                logMessage.Value = "ソウルカードを2つ以上選択してください。";
+                LogMessage.Value = "ソウルカードを2つ以上選択してください。";
                 return;
             }
 
@@ -36,28 +42,28 @@ namespace SoulRunProject.SoulMixScene
                     .Find(c => c.IsValidCombination(selectedSoul1, combinableSoul))
                     .Result;
 
-                logMessage.Value = $"ソウルカード「{selectedSoul1.SoulName}」と" +
+                LogMessage.Value = $"ソウルカード「{selectedSoul1.SoulName}」と" +
                                    $"組み合わせ可能なソウルカード「{combinableSoul.SoulName}」が見つかりました。";
-                logMessage.Value = $"組み合わせた後のソウルカード：{resultSoul.SoulName}";
-                logMessage.Value = "合成しますか？Y/N";
+                LogMessage.Value = $"組み合わせた後のソウルカード：{resultSoul.SoulName}";
+                LogMessage.Value = "合成しますか？Y/N";
 
                 if (await WaitForKeyDown(KeyCode.Y))
                 {
-                    logMessage.Value = "合成します";
+                    LogMessage.Value = "合成します";
                     var newSoul = _soulCombiner.Combine(selectedSoul1, combinableSoul);
                     _soulCardManager.RemoveSoulCard(selectedSoul1);
                     _soulCardManager.RemoveSoulCard(combinableSoul);
                     _soulCardManager.AddSoulCard(newSoul);
-                    logMessage.Value = $"新しいソウルカード「{newSoul.SoulName}」を作成しました";
+                    LogMessage.Value = $"新しいソウルカード「{newSoul.SoulName}」を作成しました";
                 }
                 else if (await WaitForKeyDown(KeyCode.N))
                 {
-                    logMessage.Value = "合成しません";
+                    LogMessage.Value = "合成しません";
                 }
             }
             else
             {
-                logMessage.Value = "組み合わせ可能なソウルカードが見つかりませんでした。";
+                LogMessage.Value = "組み合わせ可能なソウルカードが見つかりませんでした。";
             }
 
             //レベルアップ処理

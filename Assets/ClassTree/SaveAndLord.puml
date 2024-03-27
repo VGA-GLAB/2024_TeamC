@@ -16,13 +16,13 @@ object CSVMasterData {
  CSVMasterData(マスターデータ)
 }
 
-Instance --> ScriptableObject : 保存
-ScriptableObject --> Instance : ロード
+Instance --> ScriptableObject : ゲーム実行中に保存
+ScriptableObject --> Instance : ゲーム実行中にロード
 
-ScriptableObject --> JsonPlayerData : 保存
-JsonPlayerData --> ScriptableObject : ロード
+ScriptableObject --> JsonPlayerData : ゲームが終了したときに保存
+JsonPlayerData --> ScriptableObject : ゲームが開始したときにロード
 
-JsonPlayerData --> CSVMasterData : 保存
-CSVMasterData --> JsonPlayerData : ロード
+JsonPlayerData --> CSVMasterData : ゲームが終了したときに保存
+CSVMasterData --> JsonPlayerData : Jsonに保存されているバージョンとCSV(サーバ)に保存されているバージョンが違ったときにロード
 
 @enduml
