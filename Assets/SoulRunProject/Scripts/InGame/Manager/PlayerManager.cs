@@ -1,6 +1,4 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
-using SoulRunProject.InGame;
+﻿using SoulRunProject.InGame;
 using SoulRunProject.SoulMixScene;
 using UniRx;
 using UnityEngine;
@@ -10,6 +8,7 @@ namespace SoulRunProject.Common
     /// <summary>
     /// プレイヤーを管理するクラス
     /// </summary>
+    [RequireComponent(typeof(HitDamageEffectManager))]
     public class PlayerManager : MonoBehaviour
     {
         [SerializeField] private PlayerInput _playerInput;
@@ -20,6 +19,7 @@ namespace SoulRunProject.Common
         private SkillManager _skillManager;
         private SoulSkillManager _soulSkillManager;
         private PlayerMovement _playerMovement;
+        private HitDamageEffectManager _hitDamageEffectManager;
         public FloatReactiveProperty CurrentHp { get; private set; }
         public float MaxHp => _status.Hp;
 
@@ -32,6 +32,7 @@ namespace SoulRunProject.Common
             _skillManager = GetComponent<SkillManager>();
             _soulSkillManager = GetComponent<SoulSkillManager>();
             _playerMovement = GetComponent<PlayerMovement>();
+            _hitDamageEffectManager = GetComponent<HitDamageEffectManager>();
             
             InitializeInput();
         }
@@ -69,26 +70,28 @@ namespace SoulRunProject.Common
         
         public void Damage(int damage)
         {
-            _status.Hp -= damage;
-            if (_status.Hp <= 0)
+            CurrentHp.Value -= damage;
+            if (CurrentHp.Value <= 0)
             {
                 Death();
             }
+            // 白色点滅メソッド
+            _hitDamageEffectManager.HitFadeBlinkWhite();
         }
 
         /// <summary>
         /// Skillを追加する
         /// </summary>
-        /// <param name="skill"></param>
-        public void AddSkill(SkillBase skill)
+        /// <param name="skillType"></param>
+        public void AddSkill(PlayerSkill skillType)
         {
-            _skillManager.AddSkill(skill);
+            _skillManager.AddSkill(skillType);
         }
         
         private void Death()
         {
             Debug.Log("GameOver");
-            SwitchPause(true);
+            //SwitchPause(true);
         }
 
         /// <summary>
@@ -121,7 +124,6 @@ namespace SoulRunProject.Common
         {
             _soulSkillManager.AddSoul(soul);
         }
-        
 
         #endregion
     }

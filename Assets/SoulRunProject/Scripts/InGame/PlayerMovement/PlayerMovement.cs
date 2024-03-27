@@ -1,4 +1,6 @@
-using SoulRunProject.Framework;
+using System;
+using UniRx;
+using UniRx.Triggers;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,25 +15,32 @@ namespace SoulRunProject.InGame
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpPower;
         [SerializeField] private float _grav;
+        [SerializeField] private float _yAxisGroundLine = 0;
         [SerializeField, HideInInspector] private float _moveRangeMin;
         [SerializeField, HideInInspector] private float _moveRangeMax;
 
         private Rigidbody _rb;
-        private bool _isGround;
+        private readonly BoolReactiveProperty _isGround = new BoolReactiveProperty(true);
         private Vector3 _playerVelocity;
         private bool _inPause;
+
+        public BoolReactiveProperty IsGround => _isGround;
+        public event Action OnJumped;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
             _rb.useGravity = false;
+
+            _isGround.AddTo(this);
+            this.OnDestroyAsObservable().Subscribe(_ => OnJumped = null);
         }
 
         private void Update()
         {
-            //DebugClass.Instance.ShowLog(_inPause.ToString());
             if (_inPause) return;
             LimitPosition();
+            GroundCheck();
             _rb.velocity = _playerVelocity;
         }
 
@@ -39,7 +48,7 @@ namespace SoulRunProject.InGame
         {
             if (_inPause) return;
             
-            if (_isGround && _playerVelocity.y <= 0)
+            if (_isGround.Value && _playerVelocity.y <= 0)
             {
                 _playerVelocity.y = 0;
             }
@@ -47,8 +56,6 @@ namespace SoulRunProject.InGame
             {
                 _playerVelocity.y -= _grav * Time.fixedDeltaTime;
             }
-
-            _isGround = false;
         }
 
         public void InputHorizontal(float horizontal)
@@ -61,9 +68,25 @@ namespace SoulRunProject.InGame
         {
             if (_inPause) return;
             
-            if (_isGround)
+            if (_isGround.Value)
             {
                 _playerVelocity.y = _jumpPower;
+                OnJumped?.Invoke();
+            }
+        }
+
+        private void GroundCheck()
+        {
+            if (transform.position.y <= _yAxisGroundLine)
+            {
+                Vector3 pos = transform.position;
+                pos.y = _yAxisGroundLine;
+                transform.position = pos;
+                _isGround.Value = true;
+            }
+            else
+            {
+                _isGround.Value = false;
             }
         }
 
@@ -78,17 +101,6 @@ namespace SoulRunProject.InGame
             else
             {
                 _rb.WakeUp();
-            }
-        }
-
-        private void OnCollisionStay(Collision other)
-        {
-            for (int i = 0; i < other.contactCount; i++)
-            {
-                if (Vector3.Angle(Vector3.up, other.GetContact(i).normal) < 45)
-                {
-                    _isGround = true;
-                }
             }
         }
 

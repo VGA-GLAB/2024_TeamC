@@ -13,6 +13,7 @@ namespace SoulRunProject.InGame
         [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")] protected IEntityMover _mover;
         [SerializeField, Tooltip("敵のパラメータを設定する")] protected Status _status;
         [SerializeField] protected PlayerManager _playerManager;
+        [SerializeField] HitDamageEffectManager _hitDamageEffectManager;
         public Status Status => _status;
         
         void Start()
@@ -36,7 +37,7 @@ namespace SoulRunProject.InGame
             _status = _status.Copy();
         }
         
-        private void SetActive()
+        void SetActive()
         {
             _attacker?.OnStart();
             _mover?.OnStart();
@@ -54,9 +55,10 @@ namespace SoulRunProject.InGame
             {
                 Death();
             }
+            _hitDamageEffectManager.HitFadeBlinkWhite();
         }
         
-        private void Death()
+        void Death()
         {
             _attacker?.Stop();
             _mover?.Stop();

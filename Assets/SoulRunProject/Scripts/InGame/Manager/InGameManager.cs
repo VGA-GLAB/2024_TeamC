@@ -11,45 +11,67 @@ namespace SoulRunProject.Common
     /// </summary>
     public class InGameManager : StateMachine, IStartable, ITickable
     {
-
+        private EnterInGameState _enterInGameState;
+        private EnterStageState _enterStageState;
+        private PlayingRunGameState _playingRunGameState;
+        private EnterBossStageState _enterBossStageState;
+        private PlayingBossStageState _playingBossStageState;
+        private GameClearState _gameClearState;
+        private PauseState _pauseState;
+        private LevelUpState _levelUpState;
+        
         public InGameManager( GameObject owner, 
             EnterInGameState firstState,
             EnterStageState enterStageState,
             PlayingRunGameState playingRunGameState,
-            GameOverState gameOverState,
             EnterBossStageState enterBossStageState,
             PlayingBossStageState playingBossStageState,
             GameClearState gameClearState,
-            PauseState pauseState)
+            PauseState pauseState,
+            LevelUpState levelUpState)
         {   //ステートの追加、遷移処理の設定を行う。
             _currentState = firstState;
             _owner = owner;
             AddState(0, firstState);
             AddState(1, enterStageState);
             AddState(2, playingRunGameState);
-            AddState(3, gameOverState);
             AddState(4, enterBossStageState);
             AddState(5, playingBossStageState);
             AddState(6, gameClearState);
             AddState(7, pauseState);
+            AddState(8, levelUpState);
             firstState.OnStateExit += _ => ChangeState(1);
             enterStageState.OnStateExit += _ => ChangeState(2);
             playingRunGameState.OnStateExit += _ =>
             {   
                 if (playingRunGameState.ArrivedBossStagePosition) //Playerが生きていて、ボスステージに移行する場合
                     ChangeState(4);
-                if (playingRunGameState.SwitchToPauseState)
+                else if (playingRunGameState.SwitchToPauseState) // PauseStateへの移行
                     ChangeState(7);
+                else if (playingRunGameState.SwitchToLevelUpState) // LevelUpStateへの移行
+                    ChangeState(8);
+                else if (playingRunGameState.IsPlayerDead) // ResultStateへの移行
+                    ChangeState(6);
             };
-            pauseState.OnStateExit += _ => ChangeState(2);
+            pauseState.OnStateExit += _ =>
+            {
+                if (pauseState.StateToReturn == playingRunGameState) ChangeState(2);
+            };
+            levelUpState.OnStateExit += _ =>
+            {
+                if (levelUpState.StateToReturn == playingRunGameState) ChangeState(2);
+            };
             enterBossStageState.OnStateExit += _ => ChangeState(5);
             playingBossStageState.OnStateExit += state =>
             {
                 if (playingBossStageState.IsBossDefeated) //ボスを倒した場合
                     ChangeState(6);
+                else if (playingRunGameState.SwitchToPauseState) // PauseStateへの移行
+                    ChangeState(7);
+                else if (playingRunGameState.SwitchToLevelUpState) // LevelUpStateへの移行
+                    ChangeState(8);
                 // else if (playingBossStageState.IsPlayerDead) //プレイヤーが死んだ場合
                 //     ChangeState(3);
-                //プレイヤーが死んだ場合
             };
         }
 
@@ -59,7 +81,7 @@ namespace SoulRunProject.Common
             var token = _owner.GetCancellationTokenOnDestroy();
             _currentState.EnterAsync(null, token).Forget();
         }
-        
+
         public void Tick()
         {
             _currentState.Update();
