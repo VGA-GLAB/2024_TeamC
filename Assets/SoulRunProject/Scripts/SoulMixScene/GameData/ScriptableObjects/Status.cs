@@ -72,7 +72,7 @@ namespace SoulRunProject.SoulMixScene
         public float Range
         {
             get => _range;
-            set => _range = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+            set => _range = Mathf.Max(value, 0.00f); // 0.00未満にならないように制限
         }
 
         // 弾速増加率
@@ -81,7 +81,7 @@ namespace SoulRunProject.SoulMixScene
         public float BulletSpeed
         {
             get => _bulletSpeed;
-            set => _bulletSpeed = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+            set => _bulletSpeed = Mathf.Max(value, 0.00f); // 0.00未満にならないように制限
         }
 
         // 効果時間(秒)
@@ -90,10 +90,10 @@ namespace SoulRunProject.SoulMixScene
         public float EffectTime
         {
             get => _effectTime;
-            set => _effectTime = value;
+            set => _effectTime = Mathf.Max(value, 0.00f); // 0.00未満にならないように制限
         }
 
-        // 追加弾数
+        // 弾数
         [SerializeField] private int _bulletNum;
 
         public int BulletNum
@@ -103,12 +103,12 @@ namespace SoulRunProject.SoulMixScene
         }
 
         // 貫通力
-        [SerializeField] private int _penetration;
+        [SerializeField] private float _penetration;
 
-        public int Penetration
+        public float Penetration
         {
             get => _penetration;
-            set => _penetration = Mathf.Max(value, 0); // 貫通力は0未満にならないように制限
+            set => _penetration = Mathf.Max(value, 0.00f); // 貫通力は0未満にならないように制限
         }
 
         // 移動スピード
@@ -117,7 +117,7 @@ namespace SoulRunProject.SoulMixScene
         public float MoveSpeed
         {
             get => _moveSpeed;
-            set => _moveSpeed = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+            set => _moveSpeed = Mathf.Max(value, 0.00f); // 0.00未満にならないように制限
         }
 
         // 成長速度
@@ -126,7 +126,7 @@ namespace SoulRunProject.SoulMixScene
         public float GrowthSpeed
         {
             get => _growthSpeed;
-            set => _growthSpeed = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+            set => _growthSpeed = Mathf.Max(value, 0.00f); // 0.00未満にならないように制限
         }
 
         // 運
@@ -135,7 +135,7 @@ namespace SoulRunProject.SoulMixScene
         public float Luck
         {
             get => _luck;
-            set => _luck = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+            set => _luck = Mathf.Max(value, 0.00f); // 0.00未満にならないように制限
         }
 
 
@@ -145,7 +145,7 @@ namespace SoulRunProject.SoulMixScene
         public float CriticalRate
         {
             get => _criticalRate;
-            set => _criticalRate = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+            set => _criticalRate = Mathf.Max(value, 0.00f); // 0.00未満にならないように制限
         }
 
         // クリティカルダメージ倍率
@@ -154,7 +154,7 @@ namespace SoulRunProject.SoulMixScene
         public float CriticalDamageRate
         {
             get => _criticalDamageRate;
-            set => _criticalDamageRate = Mathf.Max(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+            set => _criticalDamageRate = Mathf.Max(value, 0.00f); // 0.00未満にならないように制限
         }
 
         // ソウル吸収力
@@ -163,7 +163,7 @@ namespace SoulRunProject.SoulMixScene
         public float SoulAbsorption
         {
             get => _soulAbsorption;
-            set => _soulAbsorption = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+            set => _soulAbsorption = Mathf.Max(value, 0.00f); // 0.00未満にならないように制限
         }
 
         // ソウル獲得率
@@ -172,7 +172,7 @@ namespace SoulRunProject.SoulMixScene
         public float SoulAcquisition
         {
             get => _soulAcquisition;
-            set => _soulAcquisition = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+            set => _soulAcquisition = Mathf.Max(value, 0.00f); // 0.00未満にならないように制限
         }
     }
 }
