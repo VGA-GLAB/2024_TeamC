@@ -10,11 +10,12 @@ namespace SoulRunProject.InGame
     {
         // シェーダーのカラープロパティ取得
         static readonly int PramID = Shader.PropertyToID("_Color");
+
         // 良い感じの白色
         static readonly Color WhiteColor = new(0.85f, 0.85f, 0.85f, 0.6f);
         [SerializeField, Tooltip("点滅時間")] float _duration;
         [SerializeField, Tooltip("点滅回数")] int _loopCount;
-        Renderer _renderer;
+        [SerializeField] Renderer _renderer;
         Material _copyMaterial;
         Sequence _sequence;
         Color _defaultColor;
@@ -24,12 +25,18 @@ namespace SoulRunProject.InGame
         /// </summary>
         void Awake()
         {
-            _renderer = GetComponent<SpriteRenderer>();
-            var material = _renderer.material;
+            if (_renderer == null)
+            {
+                Debug.LogWarning($"{gameObject.name} のレンダラーがアタッチされていません");
+                return;
+            }
+
+            var material = new Material(_renderer.material);
             _copyMaterial = material;
             _defaultColor = material.color;
+            _renderer.material = _copyMaterial;
         }
-        
+
         /// <summary>
         /// 白色点滅メソッド
         /// </summary>
@@ -47,19 +54,10 @@ namespace SoulRunProject.InGame
             _sequence?.Kill();
             _sequence = DOTween.Sequence();
             _sequence.Append(DOTween.To(() => _defaultColor, c => _copyMaterial.SetColor(PramID, c), color, _duration));
-            _sequence.Append(DOTween.To(() => color, c => _copyMaterial.SetColor(PramID, c), color, _duration));
+            _sequence.Append(DOTween.To(() => color, c => _copyMaterial.SetColor(PramID, c), _defaultColor, _duration));
             _sequence.SetLoops(_loopCount, LoopType.Restart);
             _sequence.SetLink(gameObject);
             _sequence.Play();
         }
-#if UNITY_EDITOR
-        /// <summary>
-        /// ボタンでのテスト用メソッド
-        /// </summary>
-        public void HitFadeBlinkTest()
-        {
-            HitFadeBlinkWhite();
-        }
-#endif
     }
 }

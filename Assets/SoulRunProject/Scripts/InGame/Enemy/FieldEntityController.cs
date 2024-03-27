@@ -7,19 +7,17 @@ namespace SoulRunProject.InGame
     /// <summary>
     /// 敵や障害物を管理するクラス
     /// </summary>
-    [RequireComponent(typeof(HitDamageEffectManager))]
     public class FieldEntityController : MonoBehaviour, IInGameTime
     {
         [SerializeReference, SubclassSelector, Tooltip("敵の攻撃パターンを設定する")] protected IEntityAttacker _attacker;
         [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")] protected IEntityMover _mover;
         [SerializeField, Tooltip("敵のパラメータを設定する")] protected Status _status;
         [SerializeField] protected PlayerManager _playerManager;
-        HitDamageEffectManager _hitDamageEffectManager;
+        [SerializeField] HitDamageEffectManager _hitDamageEffectManager;
         public Status Status => _status;
         
         void Start()
         {
-            _hitDamageEffectManager = GetComponent<HitDamageEffectManager>();
             InitializeEntityStatus();
             SetActive();
         }
@@ -39,7 +37,7 @@ namespace SoulRunProject.InGame
             _status = _status.Copy();
         }
         
-        private void SetActive()
+        void SetActive()
         {
             _attacker?.OnStart();
             _mover?.OnStart();
@@ -60,7 +58,7 @@ namespace SoulRunProject.InGame
             _hitDamageEffectManager.HitFadeBlinkWhite();
         }
         
-        private void Death()
+        void Death()
         {
             _attacker?.Stop();
             _mover?.Stop();
@@ -78,14 +76,6 @@ namespace SoulRunProject.InGame
             {
                 _attacker?.OnStart();
                 _mover?.OnStart();
-            }
-        }
-
-        void OnCollisionEnter(Collision other)
-        {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                Damage(0);
             }
         }
     }
