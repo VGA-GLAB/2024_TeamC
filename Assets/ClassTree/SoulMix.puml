@@ -1,101 +1,91 @@
 ﻿@startuml
 
-class SoulCard {
-    -cardID : int
-    -image : Sprite
-    -soulName : string
-    -soulLevel : int
-    -soulAbility : SoulAbility
-    -explanatoryText : string
-    -status : Status
-    -traitList : List<TraitWrapper>
+package SoulMixScene {
 
-    +CardID : int
-    +Image : Sprite
-    +SoulName : string
-    +SoulLevel : int
-    +SoulAbility : SoulAbility
-    +ExplanatoryText : string
-    +Status : Status
-    +TraitList : List<TraitWrapper>
+class SoulMixPresenter {
+    - SoulMixView _soulMixView
+    - SoulMixModel _soulMixModel
+}
+
+class SoulMixView {
+    - InputUIButton _soulMixButton
+    - Text _logText
+    - Transform _cardContainer
+    - GameObject _soulCardPrefab
+}
+
+class SoulMixModel {
+    - SoulCombiner _soulCombiner
+    - ReactiveCollection<SoulCardData> OwnedCards
+    - ReactiveProperty<string> LogMessage
+    - SoulCardManager _soulCardManager
+}
+
+class SoulCombiner {
+    - SoulCardList ownedSelectSouls
+    - List<SoulCombination> combinations
+}
+
+class SoulCardManager {
+    - SoulCardList _soulCardListSo
+    - SoulMixModel _soulMixModel
+    - SaveAndLoadManager _saveAndLoadManager
+}
+
+SoulMixPresenter --> SoulMixView : has
+SoulMixPresenter --> SoulMixModel : has
+SoulMixModel --> SoulCombiner : uses
+SoulCardManager --> SoulCardList : has
+SoulCardManager --> SoulMixModel : uses
+
+class SoulCardData {
+    - int cardID
+    - Sprite image
+    - string soulName
+    - int soulLevel
+    - SoulAbility soulAbility
+    - Status status
+    - List<TraitWrapper> traitList
 }
 
 class SoulAbility {
-    -abilityName : string
-    -coolTime : float
-    -effect : string
-    -effectText : string
-    +AbilityName : string
-    +CoolTime : float
-    +Effect : string
-    +EffectText : string
-}
-
-class SoulCardList {
-    -soulCardList : List<SoulCard>
+    - string abilityName
+    - float coolTime
+    - SkillBase skillBase
+    - string effectText
 }
 
 class Status {
-    -hp : int
-    -attack : int
-    -defence : int
-    -coolTime : float
-    -range : float
-    -bulletSpeed : float
-    -effectTime : float
-    -bulletNum : int
-    -penetration : int
-    -moveSpeed : float
-    -growthSpeed : float
-    -luck : int
-    +Hp : int
-    +Attack : int
-    +Defence : int
-    +CoolTime : float
-    +Range : float
-    +BulletSpeed : float
-    +EffectTime : float
-    +BulletNum : int
-    +Penetration : int
-    +MoveSpeed : float
-    +GrowthSpeed : float
-    +Luck : int
-}
-
-class TraitWrapper {
-    -_trait : ITraitInterface
+    - int hp
+    - int attack
+    - int defence
+    - float coolTime
+    - float range
+    - float bulletSpeed
+    - float effectTime
+    - int bulletNum
+    - int penetration
+    - float moveSpeed
+    - float growthSpeed
+    - int luck
 }
 
 interface ITraitInterface {
+    void ExecuteTrait()
 }
 
-class AdjacencyList {
-    -_adjacencyList : Dictionary<SoulCard, List<SoulCard>>
-    -soulCardList : List<SoulCard>
-    +AddCombination(SoulCard, SoulCard) : void
-    +CanCombine(SoulCard, SoulCard) : bool
+class TraitWrapper {
+    - ITraitInterface _trait
+}
+class SoulCardList {
+    - List<SoulCardData> _soulCardList
 }
 
-class SoulCombination {
-    -ingredient1 : SoulCard
-    -ingredient2 : SoulCard
-    -result : SoulCard
-    +IsValidCombination(SoulCard, SoulCard) : bool
+ITraitInterface <|.. TraitWrapper : implements
+SoulCardData "0..*" --> "1" SoulAbility : has
+SoulCardData "0..*" --> "1" Status : has
+SoulCardData "0..*" --> "0..*" TraitWrapper : has
+
 }
-
-class SoulMixManager {
-    -soulCombinations : List<SoulCombination>
-    +CombineSouls(SoulCard, SoulCard) : SoulCard
-}
-
-SoulCard --> "1" SoulAbility : has
-SoulCard --> "1" Status : has
-SoulCard --> "*" TraitWrapper : has
-
-SoulCard "1" -- "*" SoulCardList : contains
-SoulCard "2" -- "1" SoulCombination : ingredients > result
-SoulMixManager --> "*" SoulCombination : manages
-
-AdjacencyList --> "n" SoulCard : manages
 
 @enduml
