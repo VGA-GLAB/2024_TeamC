@@ -1,16 +1,20 @@
 ﻿/*
-- HP
-- 攻撃力
-- 防御力
-- クールタイム
-- 範囲
-- 弾速
-- 効果時間
-- 弾数
-- 貫通力
-- 移動スピード(前と横両方)
-- 成長速度(経験値ジェム取得時のEXP上昇率増加)
-- 運(クリティカル、お金のドロップ数上昇、ソウルドロップ率UP)
+HP	値	100
+攻撃力	値	1	各スキルにこの値が加算
+防御力	値	0	ダメージからこの値が引かれる
+クールタイム減少率	割合	1	クールタイムにこの値が乗算。値が小さくなるほどクールタイムが短くなる
+スキル範囲増加率	割合	1	この値が乗算
+弾速増加率	割合	1	この値が乗算
+追加効果時間(秒)	値	0	スキルの効果時間にこの値が追加される
+追加弾数	値	0	1増えるごとに弾が1増える
+貫通力	値	0	1増えるごとに敵を1体貫通できる。元から貫通するものもある。
+移動スピード	割合	1	基本スピードに乗算される(縦横共通)
+成長速度	割合	1	経験値を獲得したときに獲得した値にこの割合が乗算される
+金運	割合	1	ドロップオブジェクト数が増加
+クリティカル率	割合	0.1
+クリティカルダメージ倍率	割合	2	基本クリティカルはダメージ2倍
+ソウル吸収力	割合	1	上昇で吸収範囲が上昇
+ソウル獲得率	割合	1	敵のドロップ率と掛け合わせて100％を超えるとドロップ率が上昇
  */
 
 using UnityEngine;
@@ -59,28 +63,28 @@ namespace SoulRunProject.SoulMixScene
         public float CoolTime
         {
             get => _coolTime;
-            set => _coolTime = Mathf.Max(value, 0); // クールタイムは0未満にならないように制限
+            set => _coolTime = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
         }
 
-        // 範囲
+        // スキル範囲増加率
         [SerializeField] private float _range;
 
         public float Range
         {
             get => _range;
-            set => _range = value;
+            set => _range = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
         }
 
-        // 弾速
+        // 弾速増加率
         [SerializeField] private float _bulletSpeed;
 
         public float BulletSpeed
         {
             get => _bulletSpeed;
-            set => _bulletSpeed = value;
+            set => _bulletSpeed = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
         }
 
-        // 効果時間
+        // 効果時間(秒)
         [SerializeField] private float _effectTime;
 
         public float EffectTime
@@ -89,7 +93,7 @@ namespace SoulRunProject.SoulMixScene
             set => _effectTime = value;
         }
 
-        // 弾数
+        // 追加弾数
         [SerializeField] private int _bulletNum;
 
         public int BulletNum
@@ -104,7 +108,7 @@ namespace SoulRunProject.SoulMixScene
         public int Penetration
         {
             get => _penetration;
-            set => _penetration = value;
+            set => _penetration = Mathf.Max(value, 0); // 貫通力は0未満にならないように制限
         }
 
         // 移動スピード
@@ -113,7 +117,7 @@ namespace SoulRunProject.SoulMixScene
         public float MoveSpeed
         {
             get => _moveSpeed;
-            set => _moveSpeed = value;
+            set => _moveSpeed = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
         }
 
         // 成長速度
@@ -122,16 +126,53 @@ namespace SoulRunProject.SoulMixScene
         public float GrowthSpeed
         {
             get => _growthSpeed;
-            set => _growthSpeed = value;
+            set => _growthSpeed = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
         }
 
         // 運
-        [SerializeField] private int _luck;
+        [SerializeField] private float _luck;
 
-        public int Luck
+        public float Luck
         {
             get => _luck;
-            set => _luck = value;
+            set => _luck = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+        }
+
+
+        // クリティカル率
+        [SerializeField] private float _criticalRate;
+
+        public float CriticalRate
+        {
+            get => _criticalRate;
+            set => _criticalRate = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+        }
+
+        // クリティカルダメージ倍率
+        [SerializeField] private float _criticalDamageRate;
+
+        public float CriticalDamageRate
+        {
+            get => _criticalDamageRate;
+            set => _criticalDamageRate = Mathf.Max(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+        }
+
+        // ソウル吸収力
+        [SerializeField] private float _soulAbsorption;
+
+        public float SoulAbsorption
+        {
+            get => _soulAbsorption;
+            set => _soulAbsorption = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
+        }
+
+        // ソウル獲得率
+        [SerializeField] private float _soulAcquisition;
+
+        public float SoulAcquisition
+        {
+            get => _soulAcquisition;
+            set => _soulAcquisition = Mathf.Clamp(value, 0.00f, 1.00f); // 0.00から1.00までの範囲に制限
         }
     }
 }
