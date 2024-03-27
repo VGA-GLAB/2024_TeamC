@@ -14,6 +14,7 @@
  */
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SoulRunProject.SoulMixScene
 {
@@ -21,8 +22,8 @@ namespace SoulRunProject.SoulMixScene
     public class Status : ScriptableObject
     {
         // Hp
-        [SerializeField] private int hp;
-        
+        [SerializeField] private int _hp;
+
         public Status Copy()
         {
             return (Status)MemberwiseClone();
@@ -30,107 +31,107 @@ namespace SoulRunProject.SoulMixScene
 
         public int Hp
         {
-            get => hp;
-            set => hp = Mathf.Max(value, 0); // HPは0未満にならないように制限
+            get => _hp;
+            set => _hp = Mathf.Max(value, 0); // HPは0未満にならないように制限
         }
 
         // 攻撃力
-        [SerializeField] private int attack;
+        [SerializeField] private int _attack;
 
         public int Attack
         {
-            get => attack;
-            set => attack = value;
+            get => _attack;
+            set => _attack = value;
         }
 
         // 防御力
-        [SerializeField] private int defence;
+        [SerializeField] private int _defence;
 
         public int Defence
         {
-            get => defence;
-            set => defence = value;
+            get => _defence;
+            set => _defence = value;
         }
 
-        // クールタイム
-        [SerializeField] private float coolTime;
+        // クールタイム減少率
+        [SerializeField] private float _coolTime;
 
         public float CoolTime
         {
-            get => coolTime;
-            set => coolTime = Mathf.Max(value, 0); // クールタイムは0未満にならないように制限
+            get => _coolTime;
+            set => _coolTime = Mathf.Max(value, 0); // クールタイムは0未満にならないように制限
         }
 
         // 範囲
-        [SerializeField] private float range;
+        [SerializeField] private float _range;
 
         public float Range
         {
-            get => range;
-            set => range = value;
+            get => _range;
+            set => _range = value;
         }
 
         // 弾速
-        [SerializeField] private float bulletSpeed;
+        [SerializeField] private float _bulletSpeed;
 
         public float BulletSpeed
         {
-            get => bulletSpeed;
-            set => bulletSpeed = value;
+            get => _bulletSpeed;
+            set => _bulletSpeed = value;
         }
 
         // 効果時間
-        [SerializeField] private float effectTime;
+        [SerializeField] private float _effectTime;
 
         public float EffectTime
         {
-            get => effectTime;
-            set => effectTime = value;
+            get => _effectTime;
+            set => _effectTime = value;
         }
 
         // 弾数
-        [SerializeField] private int bulletNum;
+        [SerializeField] private int _bulletNum;
 
         public int BulletNum
         {
-            get => bulletNum;
-            set => bulletNum = Mathf.Max(value, 0); // 弾数は0未満にならないように制限
+            get => _bulletNum;
+            set => _bulletNum = Mathf.Max(value, 0); // 弾数は0未満にならないように制限
         }
 
         // 貫通力
-        [SerializeField] private int penetration;
+        [SerializeField] private int _penetration;
 
         public int Penetration
         {
-            get => penetration;
-            set => penetration = value;
+            get => _penetration;
+            set => _penetration = value;
         }
 
         // 移動スピード
-        [SerializeField] private float moveSpeed;
+        [SerializeField] private float _moveSpeed;
 
         public float MoveSpeed
         {
-            get => moveSpeed;
-            set => moveSpeed = value;
+            get => _moveSpeed;
+            set => _moveSpeed = value;
         }
 
         // 成長速度
-        [SerializeField] private float growthSpeed;
+        [SerializeField] private float _growthSpeed;
 
         public float GrowthSpeed
         {
-            get => growthSpeed;
-            set => growthSpeed = value;
+            get => _growthSpeed;
+            set => _growthSpeed = value;
         }
 
         // 運
-        [SerializeField] private int luck;
+        [SerializeField] private int _luck;
 
         public int Luck
         {
-            get => luck;
-            set => luck = value;
+            get => _luck;
+            set => _luck = value;
         }
     }
 }
