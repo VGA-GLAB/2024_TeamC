@@ -1,22 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SoulRunProject.Common
 {
-    [CreateAssetMenu(menuName = "SoulRunProject/PlayerSkill/ProjectionSkillLevelUpEvent")]
-    public class ProjectileSkillLevelUpEvent : ScriptableObject
+    //[CreateAssetMenu(menuName = "SoulRunProject/PlayerSkill/ProjectionSkillLevelUpEvent")]
+    [Serializable]
+    public class SkillLevelUpEvent
     {
         //TODO リストのリスト化
-        [SerializeField, Header("投射物レベルアップイベント")]  List<ProjectileSkillLevelUpEventList> _levelUpEvents;
-
+        [SerializeReference, SubclassSelector, Header("レベルアップイベントタイプ")]  ILevenUpEventTableType _levelUpType;
         public void LevelUp(int level , SkillParameterBase currentParam)
         {
             //　2レベルになってからレベルテーブルを使うため。
             int levelIndex = level - 2;
-            if (levelIndex　<= _levelUpEvents.Count)
+            if (levelIndex　<= _levelUpType.LevelUpTable.Count)
             {
-                foreach (var levelUpEvent in _levelUpEvents[levelIndex].LevelUpType)
+                foreach (var levelUpEvent in _levelUpType.LevelUpTable[levelIndex].LevelUpType)
                 {
                     levelUpEvent.LevelUp(currentParam);
                 }
@@ -28,16 +29,40 @@ namespace SoulRunProject.Common
         }
     }
 
-    [Serializable]
-    public class ProjectileSkillLevelUpEventList
+    public interface ILevenUpEventTableType
     {
-        [SerializeReference, SubclassSelector, Header("投射物レベルアップイベント")]  List<IProjectionLevelUp> _levelUpType;
-        public List<IProjectionLevelUp> LevelUpType => _levelUpType;
+        public List<ILevelUpEventGroup> LevelUpTable { get; }
     }
+
     [Serializable]
-    public abstract class IProjectionLevelUp
+    public class ProjectileSkillLevelUpEventTableType : ILevenUpEventTableType
     {
-        public virtual void LevelUp(in SkillParameterBase skillParameterBase)
+        [SerializeField, Header("レベルアップイベントテーブル")]  List<ProjectileSkillLevelUpEventGroup> _levelUpTable;
+        public List<ILevelUpEventGroup> LevelUpTable => _levelUpTable.OfType<ILevelUpEventGroup>().ToList();
+    }
+    
+    public interface ILevelUpEventGroup
+    {
+        public List<ILevelUpEvent> LevelUpType { get; }
+    }
+
+
+    [Serializable]
+    public class ProjectileSkillLevelUpEventGroup : ILevelUpEventGroup
+    {
+        [SerializeReference, SubclassSelector, Header("投射物レベルアップイベント")]  List<ILevelUpEvent> _levelUpEventType;
+        public List<ILevelUpEvent> LevelUpType => _levelUpEventType.OfType<ILevelUpEvent>().ToList();
+    }
+
+    public interface ILevelUpEvent
+    {
+        public void LevelUp(in SkillParameterBase skillParameterBase);
+    }
+    
+    [Serializable]
+    public abstract class ProjectileLevelUpEvent : ILevelUpEvent
+    {
+        public void LevelUp(in SkillParameterBase skillParameterBase)
         {
             if (skillParameterBase is ProjectileSkillParameter param)
             {
@@ -52,7 +77,7 @@ namespace SoulRunProject.Common
     }
     
     [Serializable]
-    public class LevelUpProjectionCoolTime : IProjectionLevelUp
+    public class LevelUpEventProjectileCoolTime : ProjectileLevelUpEvent
     {
         [SerializeField , Header("弾のクールタイムを減少 -% (現在のクールタイムから)")] private float _reduceCoolTime;
 
@@ -64,7 +89,7 @@ namespace SoulRunProject.Common
     }
     
     [Serializable]
-    public class LevelUpProjectionAmount : IProjectionLevelUp
+    public class LevelUpEventProjectileAmount : ProjectileLevelUpEvent
     {
         [SerializeField , Header(" 弾の発射数を増加 +同時発射数")] private int _addAmountCount;
         public override void LevelUpParam(in ProjectileSkillParameter param)
@@ -75,7 +100,7 @@ namespace SoulRunProject.Common
     }
     
     [Serializable]
-    public class LevelUpProjectionSpeed : IProjectionLevelUp
+    public class LevelUpEventProjectileSpeed : ProjectileLevelUpEvent
     {
         [SerializeField , Header("弾の速度を増加 +% (現在の速度から) ")] private float _multipleProjectionSpeed;
         public override void LevelUpParam(in ProjectileSkillParameter param)
