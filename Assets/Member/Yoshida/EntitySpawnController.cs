@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using SoulRunProject.Common;
 using UnityEngine;
-using UniRx;
 
 namespace SoulRunProject.InGame
 {
@@ -29,7 +27,7 @@ namespace SoulRunProject.InGame
             _playerManager = FindObjectOfType<PlayerManager>();
         }
 
-        private void Update()
+        void Update()
         {
             if (_spawnFlag) return;
             if (Vector3.Distance(_playerManager.transform.position, transform.position) < _spawnerEnableRange)

@@ -301,6 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 0.1
   _loopCount: 0
+  _renderer: {fileID: 53555438}
 --- !u!114 &53555442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,6 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 0.1
   _loopCount: 0
+  _renderer: {fileID: 0}
 --- !u!212 &68302647
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -700,15 +702,15 @@ MonoBehaviour:
   - {fileID: 759619267}
   _spawnerEnableRange: 5
   _spawnPattern:
-    rid: 8234824676868096106
+    rid: 8234824820725907456
   references:
     version: 2
     RefIds:
-    - rid: 8234824676868096106
-      type: {class: RandomPattern, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+    - rid: 8234824820725907456
+      type: {class: TrianglePattern, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _spawnCount: 5
-        _spawnRadiusRange: 2.69
+        _spawnRowCount: 5
+        _entitySpacing: 1
 --- !u!1 &517028366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,21 +1475,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5955460711347416917, guid: 19d2a6fc7c1c0524b86f5657cac7084b,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -5955460711347416917, guid: 19d2a6fc7c1c0524b86f5657cac7084b,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -5955460711347416917, guid: 19d2a6fc7c1c0524b86f5657cac7084b,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4536212462802788339, guid: 19d2a6fc7c1c0524b86f5657cac7084b,
         type: 3}
       propertyPath: _playerManager
