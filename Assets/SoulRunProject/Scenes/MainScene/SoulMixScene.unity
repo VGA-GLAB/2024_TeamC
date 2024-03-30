@@ -546,8 +546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607cb439e83e403cb9ee0439a0724f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soulMixView: {fileID: 520335575}
-  _soulMixModel: {fileID: 520335578}
 --- !u!114 &520335578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,7 +559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soulCombiner: {fileID: 520335579}
-  logMessage:
+  LogMessage:
     value: 
 --- !u!114 &520335579
 MonoBehaviour:
@@ -577,12 +575,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownedSelectSouls: {fileID: 11400000, guid: 1f1378421cf42d242b44bb0eed4fbe54, type: 2}
   combinations:
-  - ingredient1: {fileID: 11400000, guid: 06c785b2ccdec7845acb08d8c17a90de, type: 2}
-    ingredient2: {fileID: 11400000, guid: 922658b6dbaf6024482870a79e23253d, type: 2}
-    result: {fileID: 11400000, guid: a44004da3631a0d42beea6221cf352a6, type: 2}
-  - ingredient1: {fileID: 11400000, guid: e6b246c7b3b118441b9763ac57bd952c, type: 2}
-    ingredient2: {fileID: 11400000, guid: ff8aa541512d95d40a1c16ec2003af7c, type: 2}
-    result: {fileID: 11400000, guid: 217ba046b21b5f643bcfc6b6e3163209, type: 2}
+  - _ingredient1: {fileID: 11400000, guid: 06c785b2ccdec7845acb08d8c17a90de, type: 2}
+    _ingredient2: {fileID: 11400000, guid: 922658b6dbaf6024482870a79e23253d, type: 2}
+    _result: {fileID: 11400000, guid: a44004da3631a0d42beea6221cf352a6, type: 2}
+  - _ingredient1: {fileID: 11400000, guid: e6b246c7b3b118441b9763ac57bd952c, type: 2}
+    _ingredient2: {fileID: 11400000, guid: ff8aa541512d95d40a1c16ec2003af7c, type: 2}
+    _result: {fileID: 11400000, guid: 217ba046b21b5f643bcfc6b6e3163209, type: 2}
 --- !u!1 &821360630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,7 +1211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1953477528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,8 +1224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 294171f5046c42568a9f5079846dd15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soulCardListSO: {fileID: 11400000, guid: 318fdb43c2bb04d40b91c680f45f7648, type: 2}
-  soulMixModel: {fileID: 520335578}
+  _soulCardListSo: {fileID: 11400000, guid: 318fdb43c2bb04d40b91c680f45f7648, type: 2}
+  _soulMixModel: {fileID: 520335578}
 --- !u!4 &1953477529
 Transform:
   m_ObjectHideFlags: 0
@@ -2215,9 +2213,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownedSelectSouls: {fileID: 11400000, guid: 318fdb43c2bb04d40b91c680f45f7648, type: 2}
   combinations:
-  - ingredient1: {fileID: 11400000, guid: 06c785b2ccdec7845acb08d8c17a90de, type: 2}
-    ingredient2: {fileID: 11400000, guid: 922658b6dbaf6024482870a79e23253d, type: 2}
-    result: {fileID: 0}
+  - _ingredient1: {fileID: 11400000, guid: 06c785b2ccdec7845acb08d8c17a90de, type: 2}
+    _ingredient2: {fileID: 11400000, guid: 922658b6dbaf6024482870a79e23253d, type: 2}
+    _result: {fileID: 0}
 --- !u!225 &4574289655884336959
 CanvasGroup:
   m_ObjectHideFlags: 0
