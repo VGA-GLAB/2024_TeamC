@@ -8,21 +8,25 @@ using UnityEngine.Serialization;
 namespace SoulRunProject.SoulMixScene
 {
     /// <summary> ソウルカードのデータを管理するクラス </summary> 
-    public class SoulCardManager : AbstractSingletonMonoBehaviour<SoulCardManager>
+    public class SoulCardManager
     {
-        protected override bool UseDontDestroyOnLoad => false;
-        [SerializeField] private SoulCardList _soulCardListSo; // ゲームに登場する全てのソウルカード
-        [SerializeField] private SoulMixModel _soulMixModel; // エディターから設定する
+        private readonly SoulCardList _soulCardAllList; // ゲームに登場する全てのソウルカード
+        private readonly SoulMixModel _soulMixModel;
+        private readonly SaveAndLoadManager _saveAndLoadManager;
 
-        private SaveAndLoadManager _saveAndLoadManager;
-
-        private void Start()
+        // コンストラクタインジェクションを使用して依存関係を注入
+        public SoulCardManager(SoulCardList soulCardAllList, SoulMixModel soulMixModel,
+            SaveAndLoadManager saveAndLoadManager)
         {
-            _saveAndLoadManager = SaveAndLoadManager.Instance;
+            _soulCardAllList = soulCardAllList;
+            _soulMixModel = soulMixModel;
+            _saveAndLoadManager = saveAndLoadManager;
+            _soulMixModel.OnCardAdded.Subscribe(AddSoulCard);
+            _soulMixModel.OnCardRemoved.Subscribe(RemoveSoulCard);
+            // コンストラクタまたは初期化メソッド内でデータのロードを行う
             LoadSoulCards();
-            SaveAndLoadManager.MasterData masterData = _saveAndLoadManager.GetMasterData();
-            //soulCardListSO.soulCardList = masterData.soulCardDataList;
         }
+
 
         private void LoadSoulCards()
         {
@@ -34,6 +38,7 @@ namespace SoulRunProject.SoulMixScene
                 _soulMixModel.OwnedCards.Add(soulCardData);
             }
         }
+
 
         // ソウルカードをリストに追加する処理は、OwnedCards.Addを直接使用
         public void AddSoulCard(SoulCardData soulCardData)

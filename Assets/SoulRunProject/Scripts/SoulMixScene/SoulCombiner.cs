@@ -6,15 +6,24 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using VContainer;
 
 namespace SoulRunProject.SoulMixScene
 {
     /// <summary> ソウルを合成するクラス </summary>
     [Serializable]
     public class SoulCombiner : MonoBehaviour
+
     {
-        public SoulCardList ownedSelectSouls; // 所持しているかつ選んだソウルリスト
+        public SoulCardList ownedSelectSouls; // 選んだソウルリスト
         public List<SoulCombination> combinations; // ソウルの組み合わせリスト
+
+        [Inject]
+        public void Construct(SoulCardList ownedSelectSouls, List<SoulCombination> combinations)
+        {
+            this.ownedSelectSouls = ownedSelectSouls;
+            this.combinations = combinations;
+        }
 
 
         /// <summary> ソウルを選択する </summary>
@@ -30,19 +39,20 @@ namespace SoulRunProject.SoulMixScene
 
             return selectSoul;
         }
+
         /// <summary> 所持しているソウルカードの中から合成可能なソウルカードを探す </summary>
         public SoulCardData SearchCombinableSoul(SoulCardData selectedSoul)
         {
-            return ownedSelectSouls.soulCardList.FirstOrDefault(ownedSoul => 
-                    ownedSoul != selectedSoul && IsValidCombination(selectedSoul, ownedSoul));
+            return ownedSelectSouls.soulCardList.FirstOrDefault(ownedSoul =>
+                ownedSoul != selectedSoul && IsValidCombination(selectedSoul, ownedSoul));
         }
-        
+
         /// <summary> 2つのソウルカードの組み合わせが有効かどうかを判定する </summary>
         private bool IsValidCombination(SoulCardData soul1, SoulCardData soul2)
         {
             return combinations.Any(c => c.IsValidCombination(soul1, soul2));
         }
-        
+
         /// <summary> 特定のソウルカードと組み合わせ可能な組み合わせを探す共通処理 </summary>
         private SoulCombination FindCompatibleCombination(SoulCardData selectedSoul)
         {
@@ -51,8 +61,6 @@ namespace SoulRunProject.SoulMixScene
             return combinations.FirstOrDefault(combination =>
                 (combination.Ingredient1.Equals(selectedSoul) && !combination.Ingredient2.Equals(selectedSoul)) ||
                 (combination.Ingredient2.Equals(selectedSoul) && !combination.Ingredient1.Equals(selectedSoul)));
-            
-            
         }
 
         /// <summary>  選択されたソウルカードが組み合わせに使えるかどうかを判定する </summary>
@@ -72,7 +80,7 @@ namespace SoulRunProject.SoulMixScene
         public SoulCardData Combine(SoulCardData selectSoul1, SoulCardData selectSoul2)
         {
             // 何を作るかを決定する
-            SoulCombination combination = combinations.Find(c => 
+            SoulCombination combination = combinations.Find(c =>
                 c.IsValidCombination(selectSoul1, selectSoul2));
             if (combination == null)
             {

@@ -4,22 +4,31 @@ using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Serialization;
+using VContainer;
 
 namespace SoulRunProject.SoulMixScene
 {
-    public class SoulMixModel : MonoBehaviour
+    public class SoulMixModel
     {
-        [SerializeField] private SoulCombiner _soulCombiner;
+        private readonly SoulCombiner _soulCombiner;
+
         public ReactiveCollection<SoulCardData> OwnedCards = new ReactiveCollection<SoulCardData>();
-        private SoulCardManager _soulCardManager;
 
         // ログメッセージを発行するためのReactiveProperty
         public ReactiveProperty<string> LogMessage = new ReactiveProperty<string>();
 
-        private void Start()
+        // ソウルカードが追加されたことを通知するイベント
+        public IObservable<SoulCardData> OnCardAdded => OwnedCards.ObserveAdd().Select(e => e.Value);
+
+        // ソウルカードが削除されたことを通知するイベント
+        public IObservable<SoulCardData> OnCardRemoved => OwnedCards.ObserveRemove().Select(e => e.Value);
+
+        [Inject]
+        public SoulMixModel(SoulCombiner soulCombiner)
         {
-            _soulCardManager = SoulCardManager.Instance;
+            _soulCombiner = soulCombiner;
         }
+
 
         public async UniTaskVoid SoulMixAsync()
         {
@@ -51,9 +60,9 @@ namespace SoulRunProject.SoulMixScene
                 {
                     LogMessage.Value = "合成します";
                     var newSoul = _soulCombiner.Combine(selectedSoul1, combinableSoul);
-                    _soulCardManager.RemoveSoulCard(selectedSoul1);
-                    _soulCardManager.RemoveSoulCard(combinableSoul);
-                    _soulCardManager.AddSoulCard(newSoul);
+                    OwnedCards.Remove(selectedSoul1);
+                    OwnedCards.Remove(combinableSoul);
+                    OwnedCards.Add(newSoul);
                     LogMessage.Value = $"新しいソウルカード「{newSoul.SoulName}」を作成しました";
                 }
                 else if (await WaitForKeyDown(KeyCode.N))

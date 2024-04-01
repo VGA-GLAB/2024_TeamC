@@ -2,23 +2,35 @@
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Cysharp.Threading.Tasks; // UniTaskを使用するため
 
 namespace SoulRunProject.SoulMixScene
 {
-    public class SoulMixPresenter : MonoBehaviour
+    public class SoulMixPresenter : IStartable
     {
-        [Inject] private SoulMixView _soulMixView;
-        [Inject] private SoulMixModel _soulMixModel;
+        private readonly SoulMixView _soulMixView;
+        private readonly SoulMixModel _soulMixModel;
 
-        private void Start()
+        [Inject]
+        public SoulMixPresenter(SoulMixModel model, SoulMixView view)
         {
-            // VContainerから依存オブジェクトが注入された後に、イベントサブスクリプションなどの初期化を行う
-            _soulMixView.SoulMixButton.onClick.AsObservable().Subscribe(_ => _soulMixModel.SoulMixAsync().Forget());
-            _soulMixModel.LogMessage.Subscribe(_soulMixView.DisplayLogMessage).AddTo(this);
+            _soulMixModel = model;
+            _soulMixView = view;
+        }
 
-            _soulMixModel.OwnedCards.ObserveAdd().Subscribe(ev => _soulMixView.AddCard(ev.Value)).AddTo(this);
-            _soulMixModel.OwnedCards.ObserveRemove().Subscribe(_ => _soulMixView.ClearCards()).AddTo(this);
-            _soulMixModel.OwnedCards.ObserveReset().Subscribe(_ => _soulMixView.ClearCards()).AddTo(this);
+        public void Start()
+        {
+            // イベントサブスクリプションなどの初期化を行う
+            _soulMixView.SoulMixButton.onClick.AsObservable().Subscribe(_ =>
+                _soulMixModel.SoulMixAsync().Forget());
+            _soulMixModel.LogMessage.Subscribe(_soulMixView.DisplayLogMessage).AddTo(_soulMixView);
+
+            _soulMixModel.OwnedCards.ObserveAdd().Subscribe(ev =>
+                _soulMixView.AddCard(ev.Value)).AddTo(_soulMixView);
+            _soulMixModel.OwnedCards.ObserveRemove().Subscribe(_ =>
+                _soulMixView.ClearCards()).AddTo(_soulMixView);
+            _soulMixModel.OwnedCards.ObserveReset().Subscribe(_ =>
+                _soulMixView.ClearCards()).AddTo(_soulMixView);
         }
     }
 }

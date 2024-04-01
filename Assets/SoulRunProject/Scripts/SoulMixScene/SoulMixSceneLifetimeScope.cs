@@ -1,18 +1,33 @@
-﻿using VContainer;
+﻿using SoulRunProject.Common;
+using UnityEngine;
+using VContainer;
 using VContainer.Unity;
 
 namespace SoulRunProject.SoulMixScene
 {
     public class SoulMixSceneLifetimeScope : LifetimeScope
     {
+        [SerializeField] private SoulCardList _soulCardAllList;
+
         protected override void Configure(IContainerBuilder builder)
         {
-            // Presenter, View, Model, その他の依存関係の登録
+            // ドメイン層
+            builder.Register<SoulMixModel>(Lifetime.Scoped);
+            builder.RegisterInstance(_soulCardAllList).AsSelf();
+            
+            // アプリケーション層
+            builder.RegisterComponentInHierarchy<SoulCombiner>();
+            builder.Register<SoulCardManager>(Lifetime.Singleton);
+            
+            // プレゼンテーション層
             builder.RegisterComponentInHierarchy<SoulMixView>();
-            builder.Register<SoulMixModel>(Lifetime.Scoped).AsSelf();
-            builder.RegisterComponentInHierarchy<SoulMixPresenter>();
+            builder.Register<SoulMixPresenter>(Lifetime.Singleton);
+            
 
-            // 他に必要な依存関係があればここで登録
+
+
+            // 開始処理
+            builder.RegisterEntryPoint<SoulCardManager>();
         }
     }
 }
