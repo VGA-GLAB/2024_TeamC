@@ -16,8 +16,12 @@ namespace SoulRunProject.InGame
         [SerializeField] private float _jumpPower;
         [SerializeField] private float _grav;
         [SerializeField] private float _yAxisGroundLine = 0;
-        [SerializeField, HideInInspector] private float _moveRangeMin;
-        [SerializeField, HideInInspector] private float _moveRangeMax;
+        [SerializeField, HideInInspector] private float _xMoveRangeMin;
+        [SerializeField, HideInInspector] private float _xMoveRangeMax;
+        [SerializeField, HideInInspector] private bool _canZAxisMovement;
+        [SerializeField, HideInInspector] private float _zAxisMoveSpeed;
+        [SerializeField, HideInInspector] private float _zMoveRangeMin;
+        [SerializeField, HideInInspector] private float _zMoveRangeMax;
 
         private Rigidbody _rb;
         private readonly BoolReactiveProperty _isGround = new BoolReactiveProperty(true);
@@ -58,10 +62,11 @@ namespace SoulRunProject.InGame
             }
         }
 
-        public void InputHorizontal(float horizontal)
+        public void InputMove(Vector2 moveInput)
         {
             if (_inPause) return;
-            _playerVelocity.x = horizontal * _moveSpeed;
+            _playerVelocity.x = moveInput.x * _moveSpeed;
+            if (_canZAxisMovement) _playerVelocity.z = moveInput.y * _zAxisMoveSpeed;
         }
 
         public void Jump()
@@ -109,27 +114,46 @@ namespace SoulRunProject.InGame
         /// </summary>
         void LimitPosition()
         {
-            // x マイナス側の制限
-            if (transform.position.x <= _moveRangeMin)
+            // x座標軸の制限
+            if (transform.position.x <= _xMoveRangeMin) // x マイナス側の制限
             {
                 // 位置の制限
                 Vector3 pos = transform.position;
-                pos.x = _moveRangeMin;
+                pos.x = _xMoveRangeMin;
                 transform.position = pos;
                 // Velocityの制限
                 _playerVelocity.x = Mathf.Clamp(_playerVelocity.x, 0, _moveSpeed);
-                return;
             }
-
-            // x プラス側の制限
-            if (transform.position.x >= _moveRangeMax)
+            else if (transform.position.x >= _xMoveRangeMax) // x プラス側の制限
             {
                 // 位置の制限
                 Vector3 pos = transform.position;
-                pos.x = _moveRangeMax;
+                pos.x = _xMoveRangeMax;
                 transform.position = pos;
                 // Velocityの制限
                 _playerVelocity.x = Mathf.Clamp(_playerVelocity.x, -_moveSpeed, 0);
+            }
+            
+            if (!_canZAxisMovement) return;
+
+            // z座標軸の制限
+            if (transform.position.z <= _zMoveRangeMin) // z マイナス側の制限
+            {
+                // 位置の制限
+                Vector3 pos = transform.position;
+                pos.z = _zMoveRangeMin;
+                transform.position = pos;
+                // Velocityの制限
+                _playerVelocity.z = Mathf.Clamp(_playerVelocity.z, 0, _zAxisMoveSpeed);
+            }
+            else if (transform.position.z >= _zMoveRangeMax)
+            {
+                // 位置の制限
+                Vector3 pos = transform.position;
+                pos.z = _zMoveRangeMax;
+                transform.position = pos;
+                // Velocityの制限
+                _playerVelocity.z = Mathf.Clamp(_playerVelocity.z, -_zAxisMoveSpeed, 0);
             }
         }
         
@@ -142,11 +166,19 @@ namespace SoulRunProject.InGame
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.cyan;
-            Vector3 posX = Vector3.right * _moveRangeMin;
-            Vector3 posY = Vector3.right * _moveRangeMax;
-            Gizmos.DrawLine(posX, posY);
-            Gizmos.DrawLine(posX + Vector3.up, posX - Vector3.up);
-            Gizmos.DrawLine(posY + Vector3.up, posY - Vector3.up);
+            Vector3 leftPos = Vector3.right * _xMoveRangeMin;
+            Vector3 rightPos = Vector3.right * _xMoveRangeMax;
+            Gizmos.DrawLine(leftPos, rightPos);
+            Gizmos.DrawLine(leftPos + Vector3.up, leftPos - Vector3.up);
+            Gizmos.DrawLine(rightPos + Vector3.up, rightPos - Vector3.up);
+            
+            if (!_canZAxisMovement) return;
+
+            Vector3 backPos = Vector3.forward * _zMoveRangeMin;
+            Vector3 forwardPos = Vector3.forward * _zMoveRangeMax;
+            Gizmos.DrawLine(backPos, forwardPos);
+            Gizmos.DrawLine(backPos + Vector3.up, backPos - Vector3.up);
+            Gizmos.DrawLine(forwardPos + Vector3.up, forwardPos - Vector3.up);
         }
         
         /// <summary>
@@ -155,20 +187,26 @@ namespace SoulRunProject.InGame
         [CustomEditor(typeof(PlayerMovement))]
         public class PlayerMovementEditor : Editor
         {
+            private PlayerMovement _playerMovement;
+            
+            private void Awake()
+            {
+                _playerMovement = target as PlayerMovement;
+            }
+
             public override void OnInspectorGUI()
             {
-                PlayerMovement playerMovement = target as PlayerMovement;
-
                 DrawDefaultInspector();
                 
                 EditorGUILayout.BeginHorizontal();
+                float width = EditorGUIUtility.labelWidth;
                 EditorGUIUtility.labelWidth = 32;
                 GUILayoutOption[] fieldOptions = new GUILayoutOption[]
                 {
                     GUILayout.MinWidth(0),
                     GUILayout.MaxWidth(98)
                 };
-                EditorGUILayout.LabelField("X座標の移動範囲", fieldOptions);
+                EditorGUILayout.LabelField("X軸座標の移動範囲", fieldOptions);
                 
                 GUILayout.FlexibleSpace();
                 
@@ -177,17 +215,43 @@ namespace SoulRunProject.InGame
                     GUILayout.MinWidth(84),
                     GUILayout.MaxWidth(84 < EditorGUIUtility.currentViewWidth * 0.27f? EditorGUIUtility.currentViewWidth * 0.27f : 84)
                 };
+                
                 EditorGUI.BeginChangeCheck();
-                playerMovement._moveRangeMin =
-                    EditorGUILayout.FloatField("Min", playerMovement._moveRangeMin, fieldOptions);
+                _playerMovement._xMoveRangeMin =
+                    EditorGUILayout.FloatField("Min", _playerMovement._xMoveRangeMin, fieldOptions);
                 GUILayout.Space(EditorGUIUtility.currentViewWidth * 0.03f);
-                playerMovement._moveRangeMax =
-                    EditorGUILayout.FloatField("Max", playerMovement._moveRangeMax, fieldOptions);
+                _playerMovement._xMoveRangeMax =
+                    EditorGUILayout.FloatField("Max", _playerMovement._xMoveRangeMax, fieldOptions);
                 EditorGUILayout.EndHorizontal();
 
-                if (playerMovement._moveRangeMin > playerMovement._moveRangeMax)
+                if (_playerMovement._xMoveRangeMin > _playerMovement._xMoveRangeMax)
                 {
-                    playerMovement._moveRangeMin = playerMovement._moveRangeMax;
+                    _playerMovement._xMoveRangeMin = _playerMovement._xMoveRangeMax;
+                }
+                
+                EditorGUIUtility.labelWidth = width;
+                _playerMovement._canZAxisMovement =
+                    EditorGUILayout.Toggle("前後に移動可能か", _playerMovement._canZAxisMovement);
+                
+                EditorGUI.BeginDisabledGroup(!_playerMovement._canZAxisMovement);
+                _playerMovement._zAxisMoveSpeed =
+                    EditorGUILayout.FloatField("前後移動速度", _playerMovement._zAxisMoveSpeed);
+                EditorGUIUtility.labelWidth = 32;
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Z軸座標の移動範囲", fieldOptions);
+                GUILayout.FlexibleSpace();
+            
+                _playerMovement._zMoveRangeMin =
+                    EditorGUILayout.FloatField("Min", _playerMovement._zMoveRangeMin, fieldOptions);
+                GUILayout.Space(EditorGUIUtility.currentViewWidth * 0.03f);
+                _playerMovement._zMoveRangeMax =
+                    EditorGUILayout.FloatField("Max", _playerMovement._zMoveRangeMax, fieldOptions);
+                EditorGUILayout.EndHorizontal();
+                EditorGUI.EndDisabledGroup();
+
+                if (_playerMovement._zMoveRangeMin > _playerMovement._zMoveRangeMax)
+                {
+                    _playerMovement._zMoveRangeMin = _playerMovement._zMoveRangeMax;
                 }
                 
                 if (EditorGUI.EndChangeCheck())
@@ -195,7 +259,7 @@ namespace SoulRunProject.InGame
                     SceneView.RepaintAll();
                 }
                 
-                Undo.RecordObject(playerMovement, "set playerMovement");
+                Undo.RecordObject(_playerMovement, "set playerMovement");
             }
         }
         #endif

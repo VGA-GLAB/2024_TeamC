@@ -13,16 +13,16 @@ namespace SoulRunProject.InGame
         [SerializeField] GameObject _hit;
         [SerializeField] GameObject _flash;
         [SerializeField] GameObject[] _detached;
-        [SerializeField] SphereCollider _collider;
+        [SerializeField] Collider _collider;
         [SerializeField] Light _light;
         [SerializeField] ParticleSystem _particleSystem;
         [SerializeField] Vector3 _rotationOffset;
         [SerializeField] float _hitOffset;
-        private float _lifeTime;
-        private float _attackDamage;
-        private float _range;
-        private float _speed;
-        private int _penetration;
+        float _lifeTime;
+        float _attackDamage;
+        float _range;
+        float _speed;
+        int _penetration;
         int _hitCount;
         readonly Subject<Unit> _finishedSubject = new();
         public IObservable<Unit> OnFinishedAsync => _finishedSubject.Take(1);
@@ -41,7 +41,7 @@ namespace SoulRunProject.InGame
             _speed = speed;
             _penetration = penetration;
             _hitCount = 0;
-            _collider.radius = range;
+            transform.localScale = new Vector3(range, range, range);
             this.FixedUpdateAsObservable()
                 .TakeUntilDisable(this)
                 .TakeUntilDestroy(this)

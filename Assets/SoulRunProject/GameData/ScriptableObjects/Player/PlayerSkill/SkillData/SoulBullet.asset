@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfab0d6b02607134d92580570dbb59ed, type: 3}
+  m_Name: SoulBullet
+  m_EditorClassIdentifier: 
+  _skill:
+    rid: 4571640270207844355
+  references:
+    version: 2
+    RefIds:
+    - rid: 4571640270207844355
+      type: {class: SoulBullet, ns: SoulRunProject.Skill, asm: Assembly-CSharp}
+      data:
+        MaxSkillLevel: 5
+        SkillLevelUpEvent:
+          _levelUpType:
+            rid: 4571640270207844356
+        SkillBaseParam:
+          rid: 4571640270207844357
+        _bullet: {fileID: 7496366539032194065, guid: 93ebba11e021a9d4b92b90f0aeb5ef5b,
+          type: 3}
+        _muzzleOffset: {x: 0, y: 0, z: 0}
+    - rid: 4571640270207844356
+      type: {class: ProjectileSkillLevelUpEventTableType, ns: SoulRunProject.Common,
+        asm: Assembly-CSharp}
+      data:
+        _levelUpTable:
+        - _levelUpEventType:
+          - rid: 7688072956877471757
+        - _levelUpEventType:
+          - rid: 7688072956877471757
+        - _levelUpEventType:
+          - rid: 7688072956877471757
+        - _levelUpEventType:
+          - rid: 7688072956877471757
+        - _levelUpEventType:
+          - rid: 7688072956877471757
+    - rid: 4571640270207844357
+      type: {class: ProjectileSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _skillType: 0
+        _coolTime: 3
+        _lifeTime: 2
+        _amount: 1
+        _attackDamage: 50
+        _range: 4
+        _speed: 15
+        _penetration: 0
+        _uniqueParameters: []
+    - rid: 7688072956877471757
+      type: {class: LevelUpEventProjectileCoolTime, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _reduceCoolTime: 10

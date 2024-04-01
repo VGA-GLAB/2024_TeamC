@@ -15,7 +15,7 @@ namespace SoulRunProject.InGame
         static readonly Color WhiteColor = new(0.85f, 0.85f, 0.85f, 0.6f);
         [SerializeField, Tooltip("点滅時間")] float _duration;
         [SerializeField, Tooltip("点滅回数")] int _loopCount;
-        [SerializeField] Renderer _renderer;
+        Renderer _renderer;
         Material _copyMaterial;
         Sequence _sequence;
         Color _defaultColor;
@@ -25,7 +25,7 @@ namespace SoulRunProject.InGame
         /// </summary>
         void Awake()
         {
-            if (_renderer == null)
+            if (!TryGetComponent(out _renderer))
             {
                 Debug.LogWarning($"{gameObject.name} のレンダラーがアタッチされていません");
                 return;

@@ -1,23 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using SoulRunProject.Common;
-using SoulRunProject.Framework;
+using UniRx;
 using UnityEngine;
 
-namespace SoulRunProject
+namespace SoulRunProject.InGame
 {
-    public class InGameExp : MonoBehaviour
+    /// <summary>
+    /// 経験値
+    /// </summary>
+    public class InGameExp : DropBase
     {
         [SerializeField] private int _exp;
-        private void OnCollisionEnter(Collision other)
+        protected override void PickUp(PlayerManager playerManager)
         {
-            DebugClass.Instance.ShowLog("OnCollisionEnter");
-            if (other.gameObject.TryGetComponent(out PlayerManager playerManager))
-            {
-                playerManager.GetExp(_exp);
-                Destroy(gameObject);
-            }
+            playerManager.GetExp(_exp);
+            FinishedSubject.OnNext(Unit.Default);
         }
     }
 }

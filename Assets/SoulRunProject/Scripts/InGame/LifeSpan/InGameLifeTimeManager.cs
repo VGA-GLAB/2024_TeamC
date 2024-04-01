@@ -15,6 +15,7 @@ namespace SoulRunProject.Common
         [SerializeField] private PlayerLevelManager _playerLevelManager;
         [SerializeField] private SoulSkillManager _soulSkillManager;
         [SerializeField] private SkillManager _skillManager;
+        [SerializeField] private LevelUpItemData _levelUpItemData;
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private ResultView _resultView;
         [SerializeField] private CommonView _commonView;
@@ -43,6 +44,7 @@ namespace SoulRunProject.Common
             builder.RegisterInstance(_playerLevelManager);
             builder.RegisterInstance(_skillManager);
             builder.RegisterInstance(_soulSkillManager);
+            builder.RegisterInstance(_levelUpItemData);
             
             //プレゼンテーション層
             builder.RegisterComponent(_resultView);

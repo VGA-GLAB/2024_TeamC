@@ -8,8 +8,7 @@ namespace SoulRunProject.Common
     /// <summary>
     /// スキルのパラメーター
     /// </summary>
-    [Serializable]
-    [CreateAssetMenu(menuName = "SoulRunProject/PlayerSkill/ProjectionSkillParameter")]
+    [Serializable , Name("発射スキルパラメータ")]
     public class ProjectileSkillParameter : SkillParameterBase
     {
         [SerializeField, Header("同時発射するオブジェクトの数")] int _amount;
@@ -22,19 +21,19 @@ namespace SoulRunProject.Common
         List<IUniqueParameter> _uniqueParameters;
 
         /// <summary>
-        /// ScriptableObjectのデータを上書きせずに、ランタイム時に変更したいためこのような書き方をしている。
+        /// ランタイム時に変更したいためこのような書き方をしている。
         /// </summary>
         [NonSerialized] public int Amount;
-        [NonSerialized] public float FireInterval;
+        //[NonSerialized] public float FireInterval;
         [NonSerialized] public float AttackDamage;
         [NonSerialized] public float Range;
         [NonSerialized] public float Speed;
         [NonSerialized] public int Penetration;
         [NonSerialized] public List<IUniqueParameter> UniqueParameters;
 
-        public override void InitializeParam()
+        public override void InitializeParamOnSceneLoaded()
         {
-            base.InitializeParam();
+            base.InitializeParamOnSceneLoaded();
             Amount = _amount;
             AttackDamage = _attackDamage;
             Range = _range;

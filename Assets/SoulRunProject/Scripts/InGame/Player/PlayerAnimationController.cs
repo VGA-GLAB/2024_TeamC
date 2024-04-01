@@ -16,9 +16,10 @@ namespace SoulRunProject.InGame
             Animator playerAnimator = GetComponent<Animator>();
 
             playerMovement.IsGround.Subscribe(isGround =>
-            {
-                playerAnimator.SetBool("IsGround", isGround);
-            });
+                {
+                    playerAnimator.SetBool("IsGround", isGround);
+                })
+                .AddTo(this);
             playerMovement.OnJumped += () => playerAnimator.SetTrigger("OnJump");
         }
     }

@@ -6,7 +6,7 @@ namespace SoulRunProject.Common
     public enum PlayerSkill
     {
          SoulBullet = 0 ,
-         HollyField = 1 ,
+         HolyField = 1 ,
          SoulSword = 2 ,
          SoulShell = 3 ,
          SoulRay = 4 ,
@@ -17,13 +17,23 @@ namespace SoulRunProject.Common
     /// <summary>
     /// スキルの基底クラス
     /// </summary>
-    [Serializable]
-    public abstract class SkillBase 
+    [Serializable , Name("基底クラス(名前をオーバーライドしてください)")]
+    public class SkillBase 
     {
         [SerializeField , Header("スキルの最大レベル")] public int MaxSkillLevel = 5;
         [SerializeField, Header("レベルアップイベントデータ")] protected SkillLevelUpEvent SkillLevelUpEvent;
-        [SerializeField , Header("スキルのパラメーターデータ")] protected SkillParameterBase SkillBaseParam;
+        [SerializeReference,SubclassSelector , Header("スキルのパラメーターデータ")] protected SkillParameterBase SkillBaseParam;
 
+        /// <summary>
+        /// シーンロード時にパラメータを初期化するように登録する。
+        /// </summary>
+        public virtual void InitializeParamOnSceneLoaded()
+        {
+            SkillBaseParam.InitializeParamOnSceneLoaded();
+            _currentLevel = 1;
+            _currentCoolTime = 0f;
+        }
+        
         private int _currentLevel = 1;
         private float _currentCoolTime;
         
@@ -35,7 +45,7 @@ namespace SoulRunProject.Common
             return _currentLevel <= MaxSkillLevel;
         }
 
-        public abstract void StartSkill();
+        public virtual void StartSkill(){}
         public virtual void UpdateSkill(float deltaTime)
         {
             if (_currentCoolTime < SkillBaseParam.CoolTime)
@@ -44,8 +54,8 @@ namespace SoulRunProject.Common
             }
             else
             {
-                Fire();
                 _currentCoolTime = 0;
+                Fire();
             }
         }
 
@@ -53,6 +63,8 @@ namespace SoulRunProject.Common
         {
             Debug.Log("発射");
         }
+        /// <summary>レベルアップ時イベント</summary>
+        public virtual void OnLevelUp(){}
         
         /// <summary>スキル進化</summary>
         public void LevelUp()
@@ -61,6 +73,7 @@ namespace SoulRunProject.Common
             if (CanLevelUp())
             {
                 SkillLevelUpEvent.LevelUp(_currentLevel , SkillBaseParam);
+                OnLevelUp();
             }
             else
             {

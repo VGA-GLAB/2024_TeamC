@@ -26,17 +26,17 @@ namespace SoulRunProject.SoulMixScene
     public class Status : ScriptableObject
     {
         // Hp
-        [SerializeField] private int _hp;
+        [SerializeField] private float _hp;
 
         public Status Copy()
         {
-            return (Status)MemberwiseClone();
+            return Instantiate(this);
         }
 
-        public int Hp
+        public float Hp
         {
             get => _hp;
-            set => _hp = Mathf.Max(value, 0); // HPは0未満にならないように制限
+            set => _hp = Mathf.Max(value, 0f); // HPは0未満にならないように制限
         }
 
         // 攻撃力

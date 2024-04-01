@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b114a7cc77c94d6f82983505cdecf1d3, type: 3}
   m_Name: TakechiTestEnemyStatus
   m_EditorClassIdentifier: 
-  hp: 0
-  attack: 0
+  hp: 3
+  attack: 3
   defence: 0
   coolTime: 0
   range: 0
@@ -23,4 +23,4 @@ MonoBehaviour:
   penetration: 0
   moveSpeed: 5
   growthSpeed: 0
-  luck: 0
+  luck: 3

@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b114a7cc77c94d6f82983505cdecf1d3, type: 3}
   m_Name: TestEnemy
   m_EditorClassIdentifier: 
-  hp: 1
-  attack: 1
-  defence: 1
-  coolTime: 1
-  range: 1
-  bulletSpeed: 1
-  effectTime: 1
-  bulletNum: 1
-  penetration: 1
-  moveSpeed: 10
-  growthSpeed: 1
-  luck: 1
+  _hp: 23525
+  _attack: 0
+  _defence: 0
+  _coolTime: 0
+  _range: 0
+  _bulletSpeed: 0
+  _effectTime: 0
+  _bulletNum: 0
+  _penetration: 0
+  _moveSpeed: 0
+  _growthSpeed: 0
+  _luck: 0
+  _criticalRate: 0
+  _criticalDamageRate: 0
+  _soulAbsorption: 0
+  _soulAcquisition: 0

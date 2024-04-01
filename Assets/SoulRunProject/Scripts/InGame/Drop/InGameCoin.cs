@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using SoulRunProject.Common;
+using UniRx;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
-    public class InGameCoin : MonoBehaviour
+    /// <summary>
+    /// コイン
+    /// </summary>
+    public class InGameCoin : DropBase
     {
-        [SerializeField] private int _exp;
-        private void OnCollisionEnter(Collision other)
+        [SerializeField] private int _coin;
+        protected override void PickUp(PlayerManager playerManager)
         {
-            if (other.gameObject.TryGetComponent(out PlayerManager playerManager))
-            {
-                //playerManager.(_exp);
-                Destroy(gameObject);
-            }
+            playerManager.ResourceContainer.Coin += _coin;
+            FinishedSubject.OnNext(Unit.Default);
         }
     }
 }

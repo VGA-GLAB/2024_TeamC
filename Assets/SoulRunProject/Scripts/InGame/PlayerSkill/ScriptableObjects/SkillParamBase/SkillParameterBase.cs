@@ -1,15 +1,14 @@
 using System;
 using System.Text;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace SoulRunProject.Common
 {
     /// <summary>
     /// スキルのパラメーター
     /// </summary>
-    [Serializable]
-    public class SkillParameterBase : ScriptableObject
+    [Serializable , Name("基底クラス")]
+    public abstract class SkillParameterBase
     {
         [SerializeField, Header("スキルの名前")] private PlayerSkill _skillType;
         [SerializeField, Header("次にこのスキルを使えるまでの時間")] float _coolTime;
@@ -23,25 +22,15 @@ namespace SoulRunProject.Common
         [NonSerialized] public float CoolTime;
         [NonSerialized] public float LifeTime;
         
-        private void OnEnable()
-        {
-            SceneManager.sceneLoaded += RegisterDelegate;
-        }
-        private void OnDisable()
-        {
-            SceneManager.sceneLoaded -= RegisterDelegate;
-        }
-        
-        private void RegisterDelegate(Scene scene , LoadSceneMode loadSceneMode)
-        {
-            InitializeParam();
-        }
-        
-        public virtual void InitializeParam()
+        /// <summary>
+        /// シーンロード時にこのパラメータを初期化するように登録する。
+        /// </summary>
+        public virtual void InitializeParamOnSceneLoaded()
         {
             CoolTime = _coolTime;
             LifeTime = _lifeTime;
         }
+        
         
 
         #region Debug用

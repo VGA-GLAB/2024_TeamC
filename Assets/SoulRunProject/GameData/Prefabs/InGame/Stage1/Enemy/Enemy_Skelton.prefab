@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1530575377226818083}
   - component: {fileID: 8160015286760555117}
   - component: {fileID: 4104162914166171959}
+  - component: {fileID: 8329125932870208999}
   m_Layer: 0
   m_Name: Enemy_Skelton
   m_TagString: Untagged
@@ -55,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 170bc916c9774b5468aa3b1cd2d11fbf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,16 +124,20 @@ MonoBehaviour:
   _attacker:
     rid: -2
   _mover:
-    rid: 336611659787534336
-  _status: {fileID: 11400000, guid: a2f95514ea4782b45aa75b4ed0d8c7c0, type: 2}
+    rid: 336611771449606144
+  _status: {fileID: 11400000, guid: bc21bffee40270242a797af70295e78b, type: 2}
+  _lootTable: {fileID: 11400000, guid: 336e4d9ca71d4f8498bc390b9e894732, type: 2}
   _playerManager: {fileID: 0}
+  _hitDamageEffectManager: {fileID: 8329125932870208999}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 336611659787534336
-      type: {class: StraightMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
+    - rid: 336611771449606144
+      type: {class: FollowingMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
+      data:
+        _canVerticalMove: 0
 --- !u!65 &4104162914166171959
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -148,9 +153,24 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 4.3308067, y: 10.239999, z: 0.19999999}
   m_Center: {x: -0.15666488, y: 0, z: 0}
+--- !u!114 &8329125932870208999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7073754473475370446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91850b292134f24a8ef6e7ce567f766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0.1
+  _loopCount: 1
+  _renderer: {fileID: 9165621589667773365}

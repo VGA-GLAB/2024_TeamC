@@ -12,6 +12,7 @@ namespace SoulRunProject.InGame
         [SerializeReference, SubclassSelector, Tooltip("敵の攻撃パターンを設定する")] protected IEntityAttacker _attacker;
         [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")] protected IEntityMover _mover;
         [SerializeField, Tooltip("敵のパラメータを設定する")] protected Status _status;
+        [SerializeField, Tooltip("ドロップデータ")] LootTable _lootTable;
         [SerializeField] protected PlayerManager _playerManager;
         [SerializeField] HitDamageEffectManager _hitDamageEffectManager;
         public Status Status => _status;
@@ -48,18 +49,26 @@ namespace SoulRunProject.InGame
             _playerManager = playerManager;
         }
         
-        public void Damage(int damage)
+        public void Damage(float damage)
         {
             _status.Hp -= damage;
             if (_status.Hp <= 0)
             {
                 Death();
             }
-            _hitDamageEffectManager.HitFadeBlinkWhite();
+
+            if (_hitDamageEffectManager)
+            {
+                _hitDamageEffectManager.HitFadeBlinkWhite();
+            }
         }
         
         void Death()
         {
+            if (_lootTable)
+            {
+                ItemDropManager.Instance.Drop(_lootTable, transform.position, _playerManager.CurrentStatus);
+            }
             _attacker?.Stop();
             _mover?.Stop();
             Destroy(gameObject);

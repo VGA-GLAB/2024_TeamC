@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using SoulRunProject.Common;
 using UniRx;
 using UnityEngine;
@@ -38,6 +39,14 @@ namespace SoulRunProject
             StartSoulSkill();
         }
         
+        /// <summary>
+        /// ソウル技を実行する
+        /// </summary>
         public abstract void StartSoulSkill();
+        
+        /// <summary>
+        /// ソウル技を一時停止する
+        /// </summary>
+        public abstract void PauseSoulSkill(bool isPause);
     }
 }

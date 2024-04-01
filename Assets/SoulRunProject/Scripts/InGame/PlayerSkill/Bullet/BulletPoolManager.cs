@@ -23,7 +23,9 @@ namespace SoulRunProject.InGame
                 return value;
             }
             //  無ければ新しく生成
-            var bullet = _skillDataSet.Skills.OfType<ProjectileSkillBase>()
+            var bullet = _skillDataSet.Skills
+                .Select(x => x.Skill).
+                OfType<ProjectileSkillBase>()
                 .First(skill => skill.SkillType.Equals(skillId)).Bullet;
 
             var newParent = new GameObject().transform;
