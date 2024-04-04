@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SoulRunProject.SoulMixScene
 {
@@ -9,12 +10,21 @@ namespace SoulRunProject.SoulMixScene
     public class SoulCardData : ScriptableObject
     {
         // ソウルカードのID
-        [SerializeField] private int cardID;
+        [SerializeField] private int _uniqueUniqueCardID;
 
-        public int CardID
+        public int UniqueCardID
         {
-            get => cardID;
-            set => cardID = value;
+            get => _uniqueUniqueCardID;
+            set => _uniqueUniqueCardID = value;
+        }
+
+        // ソウルカードの個体識別番号
+        [SerializeField] private string _individualIdentificationNumber;
+
+        public string IndividualIdentificationNumber
+        {
+            get => _individualIdentificationNumber;
+            set => _individualIdentificationNumber = value;
         }
 
         // ソウルカードの画像

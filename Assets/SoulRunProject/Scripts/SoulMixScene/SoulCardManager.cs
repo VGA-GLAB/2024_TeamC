@@ -61,7 +61,7 @@ namespace SoulRunProject.SoulMixScene
         // IDでソウルカードを検索する処理
         public SoulCardData FindSoulCardByID(int cardID)
         {
-            return _soulMixModel.OwnedCards.FirstOrDefault(card => card.CardID == cardID);
+            return _soulMixModel.OwnedCards.FirstOrDefault(card => card.UniqueCardID == cardID);
         }
     }
 }
