@@ -4,40 +4,43 @@ using UnityEngine;
 using UniRx;
 using SoulRunProject.Common;
 using UnityEngine.Serialization;
+using VContainer.Unity;
 
 namespace SoulRunProject.SoulMixScene
 {
     /// <summary> ソウルカードのデータを管理するクラス </summary> 
-    public class SoulCardManager
+    public class SoulCardManager : IStartable
     {
         private readonly SoulCardList _soulCardAllList; // ゲームに登場する全てのソウルカード
         private readonly SoulMixModel _soulMixModel;
-        private readonly SaveAndLoadManager _saveAndLoadManager;
+        //private readonly SaveAndLoadManager _saveAndLoadManager;
 
         // コンストラクタインジェクションを使用して依存関係を注入
-        public SoulCardManager(SoulCardList soulCardAllList, SoulMixModel soulMixModel,
-            SaveAndLoadManager saveAndLoadManager)
+        public SoulCardManager(SoulCardList soulCardAllList, SoulMixModel soulMixModel)
         {
             _soulCardAllList = soulCardAllList;
             _soulMixModel = soulMixModel;
-            _saveAndLoadManager = saveAndLoadManager;
+            //_saveAndLoadManager = saveAndLoadManager;
             _soulMixModel.OnCardAdded.Subscribe(AddSoulCard);
             _soulMixModel.OnCardRemoved.Subscribe(RemoveSoulCard);
-            // コンストラクタまたは初期化メソッド内でデータのロードを行う
-            LoadSoulCards();
         }
 
-
-        private void LoadSoulCards()
+        public void Start()
         {
-            SaveAndLoadManager.PlayerData playerData = _saveAndLoadManager.GetPlayerData();
-
-            // PlayerDataからソウルカードをロードしてOwnedCardsに追加
-            foreach (SoulCardData soulCardData in playerData.CurrentSoulCardDataList)
-            {
-                _soulMixModel.OwnedCards.Add(soulCardData);
-            }
+            // 初期化処理
+            //LoadSoulCards();
         }
+
+        // private void LoadSoulCards()
+        // {
+        //     SaveAndLoadManager.PlayerData playerData = _saveAndLoadManager.GetPlayerData();
+        //
+        //     // PlayerDataからソウルカードをロードしてOwnedCardsに追加
+        //     foreach (SoulCardData soulCardData in playerData.CurrentSoulCardDataList)
+        //     {
+        //         _soulMixModel.OwnedCards.Add(soulCardData);
+        //     }
+        // }
 
 
         // ソウルカードをリストに追加する処理は、OwnedCards.Addを直接使用

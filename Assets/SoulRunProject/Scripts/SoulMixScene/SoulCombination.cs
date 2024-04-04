@@ -5,8 +5,8 @@ using UnityEngine.Serialization;
 namespace SoulRunProject.SoulMixScene
 {
     /// <summary> 2つのソウルカードを組み合わせて新しいソウルカードを生成するためのクラス </summary>
-    [System.Serializable]
-    public class SoulCombination
+    [CreateAssetMenu(fileName = "SoulCombination", menuName = "SoulRunProject/SoulCombination")]
+    public class SoulCombination : ScriptableObject
     {
         [SerializeField] private SoulCardData _ingredient1; // 組み合わせる最初のソウルカード
         [SerializeField] private SoulCardData _ingredient2; // 組み合わせる2番目のソウルカード

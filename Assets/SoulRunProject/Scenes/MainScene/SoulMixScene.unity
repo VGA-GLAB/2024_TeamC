@@ -346,6 +346,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &170292203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 170292205}
+  - component: {fileID: 170292204}
+  m_Layer: 0
+  m_Name: SaveAndLoadManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &170292204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170292203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa8531c16a34e44ac729082b82e4cc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &170292205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170292203}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &439574723
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,6 +537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 520335576}
   - component: {fileID: 520335575}
+  - component: {fileID: 520335577}
   m_Layer: 0
   m_Name: SoulMixUI
   m_TagString: Untagged
@@ -531,6 +576,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &520335577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520335574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abe797538ff456ea4dd516cabb1ed0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownedSelectSouls: {fileID: 11400000, guid: 1f1378421cf42d242b44bb0eed4fbe54, type: 2}
+  combinations:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &821360630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,8 +1253,10 @@ MonoBehaviour:
   parentReference:
     TypeName: 
   autoRun: 1
-  autoInjectGameObjects:
-  - {fileID: 0}
+  autoInjectGameObjects: []
+  _soulCardAllList: {fileID: 11400000, guid: 318fdb43c2bb04d40b91c680f45f7648, type: 2}
+  _soulCombinationList:
+  - {fileID: 11400000, guid: f0cbeac351bbe684fb0a5144defdfb91, type: 2}
 --- !u!1 &36408262449773471
 GameObject:
   m_ObjectHideFlags: 0
@@ -2166,9 +2229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownedSelectSouls: {fileID: 11400000, guid: 318fdb43c2bb04d40b91c680f45f7648, type: 2}
   combinations:
-  - _ingredient1: {fileID: 11400000, guid: 06c785b2ccdec7845acb08d8c17a90de, type: 2}
-    _ingredient2: {fileID: 11400000, guid: 922658b6dbaf6024482870a79e23253d, type: 2}
-    _result: {fileID: 0}
+  - {fileID: 0}
 --- !u!225 &4574289655884336959
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2772,3 +2833,4 @@ SceneRoots:
   - {fileID: 134757264}
   - {fileID: 520335576}
   - {fileID: 1953477529}
+  - {fileID: 170292205}
