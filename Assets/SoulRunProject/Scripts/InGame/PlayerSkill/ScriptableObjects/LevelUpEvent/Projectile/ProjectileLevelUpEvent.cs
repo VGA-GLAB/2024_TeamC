@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace SoulRunProject.Common
 {
-    [Serializable]
+    [Serializable, Name("飛翔物レベルアップイベント抽象クラス")]
     public abstract class ProjectileLevelUpEvent : ILevelUpEvent
     {
-        public void LevelUp(in SkillParameterBase skillParameterBase)
+        public void LevelUp(in ISkillParameter skillParameter)
         {
-            if (skillParameterBase is ProjectileSkillParameter param)
+            if (skillParameter is ProjectileSkillParameter param)
             {
                 LevelUpParam(in param);
             }
@@ -19,10 +19,10 @@ namespace SoulRunProject.Common
         }
         public abstract void LevelUpParam(in ProjectileSkillParameter param);
     }
-    [Serializable]
+    [Serializable, Name("弾のクールタイムを減少")]
     public class LevelUpEventProjectileCoolTime : ProjectileLevelUpEvent
     {
-        [SerializeField , Header("弾のクールタイムを減少 -% (現在のクールタイムから)")] private float _reduceCoolTime;
+        [SerializeField, Header("弾のクールタイムを減少 -% (現在のクールタイムから)")] private float _reduceCoolTime;
 
         public override void LevelUpParam(in ProjectileSkillParameter param)
         {
@@ -31,7 +31,7 @@ namespace SoulRunProject.Common
         }
     }
     
-    [Serializable]
+    [Serializable, Name("弾の発射数を増加")]
     public class LevelUpEventProjectileAmount : ProjectileLevelUpEvent
     {
         [SerializeField , Header(" 弾の発射数を増加 +同時発射数")] private int _addAmountCount;
@@ -42,7 +42,7 @@ namespace SoulRunProject.Common
         }
     }
     
-    [Serializable]
+    [Serializable, Name("弾の速度を増加")]
     public class LevelUpEventProjectileSpeed : ProjectileLevelUpEvent
     {
         [SerializeField , Header("弾の速度を増加 +% (現在の速度から) ")] private float _multipleProjectionSpeed;

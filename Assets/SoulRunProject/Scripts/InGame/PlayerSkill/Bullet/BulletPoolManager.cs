@@ -8,7 +8,7 @@ namespace SoulRunProject.InGame
 {
     public class BulletPoolManager : AbstractSingletonMonoBehaviour<BulletPoolManager>
     {
-        [SerializeField] SkillDataSet _skillDataSet;
+        [SerializeField] SkillData _skillData;
         [SerializeField] int _preloadCount = 5;
         [SerializeField] int _threshold = 5;
         [SerializeField] bool _useDontDestroyOnLoad;
@@ -23,9 +23,8 @@ namespace SoulRunProject.InGame
                 return value;
             }
             //  無ければ新しく生成
-            var bullet = _skillDataSet.Skills
-                .Select(x => x.Skill).
-                OfType<ProjectileSkillBase>()
+            var bullet = _skillData.Skills
+                .OfType<ProjectileSkill>()
                 .First(skill => skill.SkillType.Equals(skillId)).Bullet;
 
             var newParent = new GameObject().transform;

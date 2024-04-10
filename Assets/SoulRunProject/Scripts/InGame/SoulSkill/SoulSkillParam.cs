@@ -8,7 +8,7 @@ namespace SoulRunProject.Common
 {
     [Serializable]
     [CreateAssetMenu(menuName = "SoulRunProject/PlayerSoulSkill")]
-    public class SoulSkillParam : SkillParameterBase
+    public class SoulSkillParam //: SkillParameterBase
     {
         
     }

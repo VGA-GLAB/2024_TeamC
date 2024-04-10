@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using SoulRunProject.Common;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -33,20 +34,20 @@ namespace SoulRunProject.InGame
             _collider.enabled = false;
             _particleSystem.Stop();
         }
-        public void Initialize(float lifeTime, float attackDamage, float range, float speed, int penetration)
+        public void Initialize(ProjectileSkillParameter param, float playerForwardMoveSpeed)
         {
-            _lifeTime = lifeTime;
-            _attackDamage = attackDamage;
-            _range = range;
-            _speed = speed;
-            _penetration = penetration;
+            _lifeTime = param.LifeTime;
+            _attackDamage = param.AttackDamage;
+            _range = param.Range;
+            _speed = param.Speed + playerForwardMoveSpeed;
+            _penetration = param.Penetration;
             _hitCount = 0;
-            transform.localScale = new Vector3(range, range, range);
+            transform.localScale = new Vector3(_range, _range, _range);
             this.FixedUpdateAsObservable()
                 .TakeUntilDisable(this)
                 .TakeUntilDestroy(this)
                 .Subscribe(_ => Move());
-            Observable.Timer(TimeSpan.FromSeconds(lifeTime))
+            Observable.Timer(TimeSpan.FromSeconds(_lifeTime))
                 .TakeUntilDisable(this)
                 .TakeUntilDestroy(this)
                 .Subscribe(_ => Finish());
@@ -79,7 +80,7 @@ namespace SoulRunProject.InGame
 
         public virtual void Move()
         {
-            transform.position += Vector3.forward * (_speed * Time.fixedDeltaTime);
+            transform.position += transform.forward * (_speed * Time.fixedDeltaTime);
         }
 
         void OnTriggerEnter(Collider other)

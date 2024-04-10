@@ -7,8 +7,8 @@ namespace SoulRunProject.InGame
 {
     public class SkillManager : MonoBehaviour, IInGameTime
     {
-        [SerializeField , Header("スキルデータセット")] private SkillDataSet _skillDataSet;
-        private SkillDataSet _skillData;
+        [SerializeField , Header("スキルデータセット")] private SkillData _skillData;
+        private SkillData _skillDataCopy;
         private readonly List<SkillBase> _currentSkills = new(5);
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace SoulRunProject.InGame
         public void Start()
         {
             //Instantiateしないと、ScriptableObject内のクラスが生成されない。
-            _skillData = Instantiate(_skillDataSet);
+            _skillDataCopy = Instantiate(_skillData);
             AddSkill(PlayerSkill.SoulBullet);
         }
         
@@ -41,11 +41,11 @@ namespace SoulRunProject.InGame
         /// <param name="skillType">スキル名</param>
         public void AddSkill(PlayerSkill skillType)
         {
-            var skillData = _skillData.Skills.FirstOrDefault(x => x.Skill.SkillType == skillType);
-            if (skillData != null)
+            var skill = _skillDataCopy.Skills.FirstOrDefault(x => x.SkillType == skillType);
+            if (skill != null)
             {
-                _currentSkills.Add(skillData.Skill);
-                skillData.Skill.StartSkill();
+                _currentSkills.Add(skill);
+                skill.StartSkill();
             }
             else
             {
@@ -73,6 +73,10 @@ namespace SoulRunProject.InGame
         public void SwitchPause(bool toPause)
         {
             _isPause = toPause;
+            foreach (var skill in _currentSkills)
+            {
+                skill.SwitchPause(toPause);
+            }
         }
     }
 }

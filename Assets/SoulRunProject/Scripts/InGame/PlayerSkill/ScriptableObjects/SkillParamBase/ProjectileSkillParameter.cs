@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -9,38 +8,41 @@ namespace SoulRunProject.Common
     /// スキルのパラメーター
     /// </summary>
     [Serializable , Name("発射スキルパラメータ")]
-    public class ProjectileSkillParameter : SkillParameterBase
+    public class ProjectileSkillParameter : ISkillParameter
     {
+        [SerializeField, Header("次にこのスキルを使えるまでの時間")] float _coolTime;
+        [SerializeField, Header("スキルの持続時間")] float _lifeTime;
         [SerializeField, Header("同時発射するオブジェクトの数")] int _amount;
-        //[SerializeField, Header("発射間隔")] float _fireInterval;
         [SerializeField, Header("敵にヒットしたときに与えるダメージ")] float _attackDamage;
         [SerializeField, Header("スキルのオブジェクトの大きさ")] float _range;
         [SerializeField, Header("スキルオブジェクトの移動速度")] float _speed;
         [SerializeField, Header("敵を何体まで貫通するか")] int _penetration;
-        [SerializeReference, SubclassSelector, Header("独自パラメーター")] 
-        List<IUniqueParameter> _uniqueParameters;
+        // [SerializeReference, SubclassSelector, Header("独自パラメーター")] 
+        // List<IUniqueParameter> _uniqueParameters;
 
         /// <summary>
         /// ランタイム時に変更したいためこのような書き方をしている。
         /// </summary>
+        [NonSerialized] public float CoolTime;
+        [NonSerialized] public float LifeTime;
         [NonSerialized] public int Amount;
-        //[NonSerialized] public float FireInterval;
         [NonSerialized] public float AttackDamage;
         [NonSerialized] public float Range;
         [NonSerialized] public float Speed;
         [NonSerialized] public int Penetration;
-        [NonSerialized] public List<IUniqueParameter> UniqueParameters;
+        //[NonSerialized] public List<IUniqueParameter> UniqueParameters;
 
-        public override void InitializeParamOnSceneLoaded()
+        public void InitializeParamOnSceneLoaded()
         {
-            base.InitializeParamOnSceneLoaded();
+            CoolTime = _coolTime;
+            LifeTime = _lifeTime;
             Amount = _amount;
             AttackDamage = _attackDamage;
             Range = _range;
             Speed = _speed;
             Penetration = _penetration;
             //ディープコピー
-            UniqueParameters = new(_uniqueParameters);
+            //UniqueParameters = new(_uniqueParameters);
         }
 
         #region Debug用

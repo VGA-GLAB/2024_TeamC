@@ -24,11 +24,11 @@ namespace SoulRunProject.InGame
             if (_meteorParticle.isPlaying)
             {
                 _currentPlayTime += Time.deltaTime;
-                if (_currentPlayTime >= _skillParameterBase.LifeTime)
-                {
-                    _meteorParticle.Stop();
-                    _currentPlayTime = 0;
-                }
+                // if (_currentPlayTime >= _skillParameterBase.LifeTime)
+                // {
+                //     _meteorParticle.Stop();
+                //     _currentPlayTime = 0;
+                // }
             }
         }
 

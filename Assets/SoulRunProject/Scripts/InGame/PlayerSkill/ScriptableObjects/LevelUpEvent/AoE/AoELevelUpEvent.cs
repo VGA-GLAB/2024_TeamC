@@ -6,9 +6,9 @@ namespace SoulRunProject.Common
     [Serializable, Name("抽象クラス")]
     public abstract class AoELevelUpEvent : ILevelUpEvent
     {
-        public void LevelUp(in SkillParameterBase skillParameterBase)
+        public void LevelUp(in ISkillParameter skillParameter)
         {
-            if (skillParameterBase is AoESkillParameter param)
+            if (skillParameter is AoESkillParameter param)
             {
                 LevelUpParam(in param);
             }

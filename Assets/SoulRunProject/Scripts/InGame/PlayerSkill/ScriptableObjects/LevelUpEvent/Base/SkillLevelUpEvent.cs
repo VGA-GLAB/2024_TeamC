@@ -7,14 +7,21 @@ namespace SoulRunProject.Common
     public class SkillLevelUpEvent
     {
         //TODO リストのリスト化
-        [SerializeReference, SubclassSelector, Header("レベルアップイベントタイプ")]  ILevelUpEventTableType _levelUpType;
-        public void LevelUp(int level , SkillParameterBase currentParam)
+        [SerializeReference, Header("レベルアップイベントタイプ")] ILevelUpEventListList _levelUpType;
+
+        public SkillLevelUpEvent(ILevelUpEventListList levelUpType)
+        {
+            _levelUpType = levelUpType;
+        }
+
+        public SkillLevelUpEvent() { }
+        public void LevelUp(int level , ISkillParameter currentParam)
         {
             //　2レベルになってからレベルテーブルを使うため。
             int levelIndex = level - 2;
-            if (levelIndex　<= _levelUpType.LevelUpTable.Count)
+            if (levelIndex　<= _levelUpType.LevelUpEventListList.Count)
             {
-                foreach (var levelUpEvent in _levelUpType.LevelUpTable[levelIndex].LevelUpType)
+                foreach (var levelUpEvent in _levelUpType.LevelUpEventListList[levelIndex].LevelUpEventList)
                 {
                     levelUpEvent.LevelUp(currentParam);
                 }

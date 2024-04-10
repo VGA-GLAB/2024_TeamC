@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using UniRx;
 using UniRx.Triggers;
 using UnityEditor;
@@ -66,6 +67,7 @@ namespace SoulRunProject.InGame
         {
             if (_inPause) return;
             _playerVelocity.x = moveInput.x * _moveSpeed;
+            //_playerVelocity.z = moveInput.y * _moveSpeed;
             if (_canZAxisMovement) _playerVelocity.z = moveInput.y * _zAxisMoveSpeed;
         }
 
@@ -155,6 +157,23 @@ namespace SoulRunProject.InGame
                 // Velocityの制限
                 _playerVelocity.z = Mathf.Clamp(_playerVelocity.z, -_zAxisMoveSpeed, 0);
             }
+        }
+        
+        public void RotatePlayer(Vector2 input)
+        {
+            
+            // if (input.x > 0)
+            // {
+            //     transform.DORotate(new Vector3(0, -_rotateAngle, 0), _rotateTime);
+            // }
+            // else if ( input.x < 0)
+            // {
+            //     transform.DORotate(new Vector3(0, _rotateAngle, 0), _rotateTime);
+            // }
+            // else
+            // {
+            //     transform.DORotate(new Vector3(transform.rotation.x, 0, transform.rotation.y), _rotateTime);
+            // }
         }
         
         #if UNITY_EDITOR

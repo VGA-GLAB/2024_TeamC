@@ -9,54 +9,48 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfab0d6b02607134d92580570dbb59ed, type: 3}
+  m_Script: {fileID: 11500000, guid: b9970e7066e20c941bf4beed9b6721a7, type: 3}
   m_Name: SoulBullet
   m_EditorClassIdentifier: 
-  _skill:
-    rid: 4571640270207844355
+  _skillType: 0
+  MaxSkillLevel: 5
+  SkillLevelUpEvent:
+    _levelUpType:
+      rid: 4051172700801204271
+  _skillParam:
+    rid: 4051172700801204272
+  _bullet: {fileID: 7496366539032194065, guid: 93ebba11e021a9d4b92b90f0aeb5ef5b, type: 3}
+  _muzzleOffset: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
-    - rid: 4571640270207844355
-      type: {class: SoulBullet, ns: SoulRunProject.Skill, asm: Assembly-CSharp}
-      data:
-        MaxSkillLevel: 5
-        SkillLevelUpEvent:
-          _levelUpType:
-            rid: 4571640270207844356
-        SkillBaseParam:
-          rid: 4571640270207844357
-        _bullet: {fileID: 7496366539032194065, guid: 93ebba11e021a9d4b92b90f0aeb5ef5b,
-          type: 3}
-        _muzzleOffset: {x: 0, y: 0, z: 0}
-    - rid: 4571640270207844356
-      type: {class: ProjectileSkillLevelUpEventTableType, ns: SoulRunProject.Common,
+    - rid: 4051172700801204271
+      type: {class: ProjectileSkillLevelUpEventListList, ns: SoulRunProject.Common,
         asm: Assembly-CSharp}
       data:
-        _levelUpTable:
-        - _levelUpEventType:
-          - rid: 7688072956877471757
-        - _levelUpEventType:
-          - rid: 7688072956877471757
-        - _levelUpEventType:
-          - rid: 7688072956877471757
-        - _levelUpEventType:
-          - rid: 7688072956877471757
-        - _levelUpEventType:
-          - rid: 7688072956877471757
-    - rid: 4571640270207844357
+        _levelUpEventListList:
+        - _levelUpEventList:
+          - rid: 4051172700801204275
+        - _levelUpEventList:
+          - rid: 4051172700801204275
+        - _levelUpEventList:
+          - rid: 4051172700801204275
+        - _levelUpEventList:
+          - rid: 4051172700801204275
+        - _levelUpEventList:
+          - rid: 4051172700801204275
+    - rid: 4051172700801204272
       type: {class: ProjectileSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _skillType: 0
         _coolTime: 3
-        _lifeTime: 2
-        _amount: 1
-        _attackDamage: 50
+        _lifeTime: 5
+        _amount: 0
+        _attackDamage: 10
         _range: 4
-        _speed: 15
+        _speed: 20
         _penetration: 0
         _uniqueParameters: []
-    - rid: 7688072956877471757
+    - rid: 4051172700801204275
       type: {class: LevelUpEventProjectileCoolTime, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _reduceCoolTime: 10
+        _reduceCoolTime: 25

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8356024473883139272}
   - component: {fileID: 8886523578831790948}
   - component: {fileID: -4550613041142796618}
+  - component: {fileID: -8645483376259840638}
+  - component: {fileID: 2017836778090743728}
   m_Layer: 0
   m_Name: Tree2
   m_TagString: Untagged
@@ -43,7 +45,7 @@ SpriteRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2896465790406250595}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -55,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 170bc916c9774b5468aa3b1cd2d11fbf, type: 2}
+  - {fileID: 2100000, guid: 01b26db8bb63b664bbeeee24bdc101e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,8 +127,11 @@ MonoBehaviour:
   _mover:
     rid: -2
   _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _lootTable: {fileID: 0}
   _playerManager: {fileID: 0}
-  _hitDamageEffectManager: {fileID: 0}
+  _hitDamageEffectManager: {fileID: -4550613041142796618}
+  _useKnockBack:
+    rid: -2
   references:
     version: 2
     RefIds:
@@ -146,4 +151,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 0.1
   _loopCount: 1
-  _renderer: {fileID: 4846434995772148466}
+--- !u!114 &-8645483376259840638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896465790406250595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34bcda0e185e7794494ad7f78ba809e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2017836778090743728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896465790406250595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50ade48ebdc62294e9934c95787b8c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lightestColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+  _darkestColor: {r: 0.1882353, g: 0.25490198, b: 0.4509804, a: 1}
+  _minVariableDistance: 15
+  _maxVariableDistance: 40

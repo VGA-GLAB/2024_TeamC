@@ -15,7 +15,7 @@ namespace SoulRunProject.InGame
         private CompositeDisposable _compositeDisposable = new CompositeDisposable();
         
         //TODO：ボスステージ開始前のプレイヤーの位置を設定する場所を検討
-        private float _enterBossStagePosition = 440;
+        private float _enterBossStagePosition = 111440;
         public bool ArrivedBossStagePosition { get; private set; }
         public bool SwitchToPauseState { get; private set; }
         public bool IsPlayerDead { get; private set; }
