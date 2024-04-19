@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using SoulRunProject.Common;
 using UnityEngine;
@@ -9,19 +10,26 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class EntitySpawnController : MonoBehaviour
     {
-        [SerializeField, Tooltip("生成するEntity")]
-        List<FieldEntityController> _fieldEntity;
+        [SerializeField, CustomLabel("生成するEntity")]
+        List<DamageableEntity> _fieldEntity;
 
-        [SerializeField, Tooltip("生成開始距離(緑の範囲)")] float _spawnerEnableRange;
+        [SerializeField, CustomLabel("生成開始距離 (緑の範囲)"), Range(0, 100)]
+        float _spawnerEnableRange;
 
-        [SerializeReference, SubclassSelector, Tooltip("生成パターン")]
+        [SerializeField, CustomLabel("生成インターバル (ミリ秒)"), Range(0, 1000)]
+        float _spawnInterval;
+
+        [SerializeField, CustomLabel("イラスト左右反転化")]
+        bool _useRandomFlip;
+
+        [SerializeReference, SubclassSelector, CustomLabel("敵生成パターン")]
         ISpawnPattern _spawnPattern;
-        
+
         //現状はヒットしたplayerの参照をヒット時に格納する
         PlayerManager _playerManager;
         bool _spawnFlag;
         public ISpawnPattern SpawnPattern => _spawnPattern;
-        
+
         void Start()
         {
             _playerManager = FindObjectOfType<PlayerManager>();
@@ -32,7 +40,7 @@ namespace SoulRunProject.InGame
             if (_spawnFlag) return;
             if (Vector3.Distance(_playerManager.transform.position, transform.position) < _spawnerEnableRange)
             {
-                SpawnEntity();
+                StartCoroutine(SpawnEntity());
                 _spawnFlag = true;
             }
         }
@@ -42,12 +50,12 @@ namespace SoulRunProject.InGame
         /// <summary>
         /// GetSpawnPositionsで渡された場所にEntityを召喚するメソッド
         /// </summary>
-        public void SpawnEntity()
+        public IEnumerator SpawnEntity()
         {
             if (_spawnPattern == null)
             {
                 Debug.LogWarning($"{gameObject.name} の生成パターンが設定されていません");
-                return;
+                yield break;
             }
 
             var spawnIndex = 0;
@@ -57,15 +65,25 @@ namespace SoulRunProject.InGame
                 {
                     spawnIndex = 0;
                 }
-                
+
+                yield return new WaitForSeconds(_spawnInterval / 1000);
+
                 // TODO 複数種出す場合、それらを選択するロジックを考える
                 var entity = Instantiate(_fieldEntity[spawnIndex], transform);
-                entity.transform.position = transform.position + pos;
-                entity.SetPlayer(_playerManager);
+                var transform1 = entity.transform;
+                transform1.position = transform.position + pos.Item1;
+                transform1.eulerAngles = new Vector3(0, pos.Item2, 0);
+                //entity.SetPlayer(_playerManager);
                 spawnIndex++;
+
+                if (entity.TryGetComponent(out SpriteRenderer renderer) && _useRandomFlip)
+                {
+                    // 1/2で左右反転
+                    renderer.flipX = Random.Range(0, 2) == 0;
+                }
             }
         }
-        
+
         /// <summary>
         /// 2D円形のGizmosを描画するメソッド
         /// </summary>
@@ -81,7 +99,7 @@ namespace SoulRunProject.InGame
             Gizmos.matrix = oldMatrix;
             Gizmos.color = oldColor;
         }
-                
+
 #if UNITY_EDITOR
         void OnDrawGizmos()
         {
@@ -103,6 +121,5 @@ namespace SoulRunProject.InGame
         //     _spawnFlag = true;
         // }
 #endif
-        
     }
 }

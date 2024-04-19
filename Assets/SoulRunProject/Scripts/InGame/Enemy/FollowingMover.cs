@@ -6,7 +6,7 @@ namespace SoulRunProject.InGame
     /// <summary>
     ///     対象を追従するように移動させるためのクラス
     /// </summary>
-    public class FollowingMover : IEntityMover
+    public class FollowingMover : EntityMover
     {
         [SerializeField] [Tooltip("垂直移動が可能かどうか")] bool _canVerticalMove;
         float _moveSpeed;
@@ -35,9 +35,19 @@ namespace SoulRunProject.InGame
                 Stop();
             }
         }
+
         public void Stop()
         {
             _isStopped = true;
+        }
+        public void Pause()
+        {
+            
+        }
+
+        public void Resume()
+        {
+            
         }
     }
 }

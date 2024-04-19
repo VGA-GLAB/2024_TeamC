@@ -439,21 +439,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &8361755287418140390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -813,21 +806,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 1813653252183095521}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &1813653252183095521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1686,21 +1672,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &8176777448135282462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3120,21 +3099,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 3190944663601542976}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &3190944663601542976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3282,21 +3254,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 9104282444520780212}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &9104282444520780212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3438,6 +3403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2646110078892378028}
+  - component: {fileID: -1237910820451014031}
   m_Layer: 0
   m_Name: MiddleToRight
   m_TagString: Untagged
@@ -3454,7 +3420,7 @@ Transform:
   m_GameObject: {fileID: 2852024871530092459}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9999937, z: -0, w: 0.003578335}
-  m_LocalPosition: {x: 19.4, y: 0, z: 105.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3593,6 +3559,20 @@ Transform:
   - {fileID: 3420211460044054679}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 179.59, z: 0}
+--- !u!114 &-1237910820451014031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2852024871530092459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c787228e05b4c64b87894f5be52870b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startPos: {x: 20, y: 0, z: 65}
+  _endPos: {x: 20, y: 0, z: -65}
 --- !u!1 &2903122558213124121
 GameObject:
   m_ObjectHideFlags: 0
@@ -7499,21 +7479,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 5222972609433266600}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &5222972609433266600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8509,21 +8482,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &3890400289065930381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8777,21 +8743,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &8102715828573888775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9681,21 +9640,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 4544679964403175857}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &4544679964403175857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10267,21 +10219,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &1094814231437015896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11383,21 +11328,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 6785015777752550495}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &6785015777752550495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12287,21 +12225,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &5950506313877536444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12819,21 +12750,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 2119991265607424481}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &2119991265607424481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13087,21 +13011,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &7154539430856971291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13461,21 +13378,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &5119338858800796871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14153,21 +14063,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &6268774481224304818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14739,21 +14642,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  _useKnockBack:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &2096556567869114671
 MonoBehaviour:
   m_ObjectHideFlags: 0

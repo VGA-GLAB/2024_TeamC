@@ -33,6 +33,7 @@ namespace SoulRunProject
         [Header("fadeするかどうか")]
         [SerializeField] private bool _isFade;
         private Vector3 _originalPos;
+        private bool _shaking = false;
 
         private void Awake()
         {
@@ -49,7 +50,10 @@ namespace SoulRunProject
 
         public void DamageCam()
         {
-            _shakeObj.transform.DOShakePosition(_shakeDur, _shakePower, _shakeVib, _shakeRand, _isSnap, _isFade);
+            if (_shaking) return;
+            _shakeObj.transform.DOShakePosition(_shakeDur, _shakePower, _shakeVib, _shakeRand, _isSnap, _isFade)
+                .OnStart(() => _shaking = true)
+                .OnComplete(() => _shaking = false);
         }
         
         public void StartFollowPlayer()

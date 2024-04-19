@@ -17,12 +17,12 @@ namespace SoulRunProject.InGame
         protected override void OnEnter(State currentState)
         {
             _lastState = currentState;
-            _playerManager.SwitchPause(true);
+            PauseManager.Pause(true);
         }
 
         public void SelectedSkill()
         {
-            _playerManager.SwitchPause(false);
+            PauseManager.Pause(false);
             StateChange();
         }
     }

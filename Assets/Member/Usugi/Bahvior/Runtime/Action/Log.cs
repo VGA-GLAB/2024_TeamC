@@ -9,7 +9,7 @@ namespace BehaviorTree
     /// <summary>
     /// ログを出力するノード
     /// </summary>
-    [Serializable, NodeMenuItem("Action/Log")]
+    [Serializable, NodeMenuItem("Action/Log", typeof(BehaviorTreeGraph))]
     public class Log : Action
     {
         [SerializeField, TextArea(1, 1)] private string _message;

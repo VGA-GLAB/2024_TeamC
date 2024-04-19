@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
-    public class StraightMover : IEntityMover
+    public class StraightMover : EntityMover
     {
-        private float _moveSpeed;
+        
         public void GetMoveStatus(Status status)
         {
             _moveSpeed = status.MoveSpeed;
@@ -23,6 +23,16 @@ namespace SoulRunProject.InGame
         }
 
         public void Stop()
+        {
+            
+        }
+        
+        public void Pause()
+        {
+            
+        }
+
+        public void Resume()
         {
             
         }

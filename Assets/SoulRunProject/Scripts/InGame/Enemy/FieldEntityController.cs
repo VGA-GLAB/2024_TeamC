@@ -9,23 +9,26 @@ namespace SoulRunProject.InGame
     /// <summary>
     /// 敵や障害物を管理するクラス
     /// </summary>
-    public class FieldEntityController : MonoBehaviour, IInGameTime
+    public class FieldEntityController : MonoBehaviour, IPausable
     {
         [SerializeReference, SubclassSelector, Tooltip("敵の攻撃パターンを設定する")]
-        protected IEntityAttacker _attacker;
+        protected EntityAttacker _attacker;
 
         [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")]
-        protected IEntityMover _mover;
+        protected EntityMover _mover;
 
         [SerializeField, Tooltip("敵のパラメータを設定する")]
         protected Status _status;
+        
+        [SerializeField, Header("スコア")]
+        private int _score = 100;
 
         [SerializeField, Tooltip("ドロップデータ")] LootTable _lootTable;
         [SerializeField] protected PlayerManager _playerManager;
         [SerializeField] HitDamageEffectManager _hitDamageEffectManager;
 
         [SerializeReference, SubclassSelector, Tooltip("ノックバック処理")]
-        EntityKnockBackController _useKnockBack;
+        //EntityKnockBackController _useKnockBack;
 
         CancellationToken _ct;
         Rigidbody _rb;
@@ -41,7 +44,7 @@ namespace SoulRunProject.InGame
             SetActive();
             // Rigidbodyの有無によって、敵か障害物を判定する
             // TODO ノックバック処理がRigidbody式から変更時にはこの判定も変えよう
-            _isEnemy = _useKnockBack != null && TryGetComponent(out _rb);
+            //_isEnemy = _useKnockBack != null && TryGetComponent(out _rb);
             _ct = this.GetCancellationTokenOnDestroy();
         }
 
@@ -55,8 +58,8 @@ namespace SoulRunProject.InGame
         /// </summary>
         void InitializeEntityStatus()
         {
-            _attacker?.GetAttackStatus(_status);
-            _mover?.GetMoveStatus(_status);
+            //_attacker?.GetAttackStatus(_status);
+            //_mover?.GetMoveStatus(_status);
             _status = _status.Copy();
         }
 
@@ -91,18 +94,18 @@ namespace SoulRunProject.InGame
             {
                 ItemDropManager.Instance.Drop(_lootTable, transform.position, _playerManager.CurrentStatus);
             }
-
-            _attacker?.Stop();
-            _mover?.Stop();
+            PlayerScoreManager.Instance.AddScore(_score);   // スコア加算
+            //_attacker?.Stop();
+            //_mover?.Stop();
             Destroy(gameObject);
         }
 
-        public void SwitchPause(bool toPause)
+        public void Pause(bool isPause)
         {
-            if (toPause)
+            if (isPause)
             {
-                _attacker?.Stop();
-                _mover?.Stop();
+                //_attacker?.Stop();
+                //_mover?.Stop();
             }
             else
             {
@@ -116,14 +119,14 @@ namespace SoulRunProject.InGame
         /// </summary>
         void OnTriggerEnter(Collider other)
         {
-            if (!_isEnemy || !other.TryGetComponent(out SkillKnockBackController skill))
-            {
-                return;
-            }
+            // if (!_isEnemy || !other.TryGetComponent(out SkillKnockBackController skill))
+            // {
+            //     return;
+            // }
 
-            var power = skill.Power;
+            //var power = skill.Power;
             var direction = other.GetComponent<Transform>().position;
-            _useKnockBack.KnockBackAsync(power, direction, _rb, _ct);
+            //_useKnockBack.KnockBackAsync(power, direction, _rb, _ct);
         }
     }
 }

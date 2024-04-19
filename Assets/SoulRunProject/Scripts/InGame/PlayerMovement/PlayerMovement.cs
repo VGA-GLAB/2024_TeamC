@@ -11,7 +11,7 @@ namespace SoulRunProject.InGame
     /// プレイヤー移動
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : MonoBehaviour, IInGameTime
+    public class PlayerMovement : MonoBehaviour, IPlayerPausable
     {
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpPower;
@@ -97,11 +97,11 @@ namespace SoulRunProject.InGame
             }
         }
 
-        public void SwitchPause(bool toPause)
+        public void Pause(bool isPause)
         {
-            _inPause = toPause;
+            _inPause = isPause;
             
-            if (toPause)
+            if (isPause)
             {
                 _rb.Sleep();
             }

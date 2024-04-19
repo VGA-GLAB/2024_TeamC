@@ -34,12 +34,12 @@ namespace SoulRunProject.InGame
             _collider.enabled = false;
             _particleSystem.Stop();
         }
-        public void Initialize(ProjectileSkillParameter param, float playerForwardMoveSpeed)
+        public void Initialize(ProjectileSkillParameter param)
         {
             _lifeTime = param.LifeTime;
             _attackDamage = param.AttackDamage;
             _range = param.Range;
-            _speed = param.Speed + playerForwardMoveSpeed;
+            _speed = param.Speed;
             _penetration = param.Penetration;
             _hitCount = 0;
             transform.localScale = new Vector3(_range, _range, _range);
@@ -85,7 +85,7 @@ namespace SoulRunProject.InGame
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent(out FieldEntityController entity))
+            if (other.gameObject.TryGetComponent(out DamageableEntity entity))
             {
                 entity.Damage((int)_attackDamage);
                 _hitCount++;

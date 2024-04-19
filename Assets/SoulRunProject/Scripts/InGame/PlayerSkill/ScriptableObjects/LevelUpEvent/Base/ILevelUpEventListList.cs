@@ -5,5 +5,7 @@ namespace SoulRunProject.Common
     public interface ILevelUpEventListList
     {
         public List<ILevelUpEventList> LevelUpEventListList { get; }
+
+        public void RefreshElement();
     }
 }

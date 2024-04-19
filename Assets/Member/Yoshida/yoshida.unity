@@ -290,6 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 53555439}
   _status: {fileID: 11400000, guid: 7910c91888195d74f92a9d9a2ac730ae, type: 2}
+  _playerCamera: {fileID: 0}
 --- !u!114 &53555441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6075843f4893e842bfcc7a2cfcae3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skillDataSet: {fileID: 11400000, guid: bd1df6d49e5d4e947848631660768137, type: 2}
+  _skillData: {fileID: 0}
 --- !u!114 &53555444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,17 +634,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fieldEntity:
   - {fileID: 8904814108443042300}
-  _spawnerEnableRange: 5
+  _spawnerEnableRange: 22.5
+  _spawnInterval: 153
+  _useRandomFlip: 1
   _spawnPattern:
-    rid: 8234824820725907456
+    rid: 290008608977190924
   references:
     version: 2
     RefIds:
-    - rid: 8234824820725907456
+    - rid: 290008608977190924
       type: {class: TrianglePattern, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _spawnRowCount: 5
-        _entitySpacing: 1
+        _spawnRowCount: 15
+        _entitySpacing: 0.44
+        _spawnAngle: 0
 --- !u!1 &517028366
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342fd8d87ed91b84f80c0ffc379a1d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skillDataSet: {fileID: 11400000, guid: bd1df6d49e5d4e947848631660768137, type: 2}
+  _skillData: {fileID: 0}
   _preloadCount: 5
   _threshold: 5
   _useDontDestroyOnLoad: 0

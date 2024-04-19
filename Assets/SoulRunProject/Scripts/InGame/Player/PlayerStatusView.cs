@@ -18,10 +18,10 @@ namespace SoulRunProject.InGame
             PlayerLevelManager pLevelManager = GetComponent<PlayerLevelManager>();
             
             // テキスト更新のSubscribe
-            pLevelManager.OnCurrentLevelDataChanged.Subscribe(levelData =>
+            pLevelManager.OnLevelUp.Subscribe(level =>
             {
-                _levelText.text = levelData.CurrentLevel.ToString();
-                _expSlider.maxValue = levelData.ExpToNextLevel;
+                _levelText.text = level.ToString();
+                _expSlider.maxValue = pLevelManager.CurrentExpToNextLevel;
             });
             pLevelManager.OnCurrentExpChanged.Subscribe(exp => _expSlider.value = exp);
         }

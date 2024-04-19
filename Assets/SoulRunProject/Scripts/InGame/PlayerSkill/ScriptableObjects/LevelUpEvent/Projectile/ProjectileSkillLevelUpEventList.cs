@@ -8,7 +8,7 @@ namespace SoulRunProject.Common
     [Serializable]
     public class ProjectileSkillLevelUpEventList : ILevelUpEventList
     {
-        [SerializeReference, SubclassSelector, Header("投射物レベルアップイベント")] 
+        [SerializeReference, SubclassSelector , EnumDrawer(typeof(SkillLevelEventLabel))] 
         List<ProjectileLevelUpEvent> _levelUpEventList;
         public List<ILevelUpEvent> LevelUpEventList => _levelUpEventList.OfType<ILevelUpEvent>().ToList();
     }

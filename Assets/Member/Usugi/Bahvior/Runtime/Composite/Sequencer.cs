@@ -11,7 +11,7 @@ namespace BehaviorTree
     /// 一つでも失敗したら失敗を返す
     /// 全て成功したら成功を返す
     /// </summary>
-    [Serializable, NodeMenuItem("Composite/Sequencer")]
+    [Serializable, NodeMenuItem("Composite/Sequencer", typeof(BehaviorTreeGraph))]
     public class Sequencer : Branch
     {
         protected override BehavioreNodeState OnUpdate()

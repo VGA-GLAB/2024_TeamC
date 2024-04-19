@@ -11,7 +11,7 @@ namespace SoulRunProject
     /// <summary>
     /// ボスの待機行動
     /// </summary>
-    [Serializable, NodeMenuItem("Action/Boss/Test/Idle")]
+    [Serializable, NodeMenuItem("Action/Boss/Test/Idle", typeof(BehaviorTreeGraph))]
     public class BossIdle : Action
     {
         public override void OnAwake()

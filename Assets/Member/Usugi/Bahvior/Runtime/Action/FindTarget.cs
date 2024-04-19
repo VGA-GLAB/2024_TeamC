@@ -10,7 +10,7 @@ namespace BehaviorTree
     /// <summary>
     /// 目標を探す
     /// </summary>
-    [Serializable, NodeMenuItem("Action/FindTarget")]
+    [Serializable, NodeMenuItem("Action/FindTarget", typeof(BehaviorTreeGraph))]
     public class FindTarget : Action
     {
         [Output("Target")] public GameObject Target;

@@ -15,7 +15,7 @@ namespace  BehaviorTree
 
         public override  IEnumerable<(string,Type)> FilterCreateNodeMenuEntries()
         {
-            foreach (var nodeMenuItem in NodeProvider.GetNodeMenuEntries())
+            foreach (var nodeMenuItem in NodeProvider.GetNodeMenuEntries(graph))
             {
                 yield return nodeMenuItem;
             }

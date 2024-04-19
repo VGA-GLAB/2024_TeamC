@@ -13,7 +13,7 @@ namespace SoulRunProject.Common
     /// </summary>
     public class AoEController : MonoBehaviour
     {
-        HashSet<FieldEntityController> _entities = new();
+        HashSet<DamageableEntity> _entities = new();
         float _attackDamage;
 
         public void Initialize(float attackDamage, float range)
@@ -34,7 +34,7 @@ namespace SoulRunProject.Common
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out FieldEntityController entity))
+            if (other.TryGetComponent(out DamageableEntity entity))
             {
                 _entities.Add(entity);
             }
@@ -42,7 +42,7 @@ namespace SoulRunProject.Common
 
         void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out FieldEntityController entity))
+            if (other.TryGetComponent(out DamageableEntity entity))
             {
                 _entities.Remove(entity);
             }

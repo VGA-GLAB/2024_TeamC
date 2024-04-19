@@ -21,7 +21,7 @@ namespace SoulRunProject.InGame
         protected override void OnEnter(State currentState)
         {
             DebugClass.Instance.ShowLog("ゲームクリアステート開始");
-            _playerManager.SwitchPause(true);
+            PauseManager.Pause(true);
         }
 
         public void ExitToTitle()

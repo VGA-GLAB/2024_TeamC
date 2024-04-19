@@ -11,7 +11,7 @@ namespace BehaviorTree
     /// <summary>
     /// Navmeshを使ってターゲットに移動する
     /// </summary>
-    [Serializable, NodeMenuItem("Action/MoveToTarget")]
+    [Serializable, NodeMenuItem("Action/MoveToTarget", typeof(BehaviorTreeGraph))]
     public class MoveToTarget : Action
     {
         // [Input(name = "Owner")] public GameObject Owner;

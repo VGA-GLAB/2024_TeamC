@@ -10,7 +10,7 @@ namespace SoulRunProject
     [CreateAssetMenu(menuName = "SoulRunProject/PlayerSkill/SkillData")]
     public class SkillData : ScriptableObject
     {
-        [SerializeField, Header("スキルリスト")] private List<SkillBase> _skills;
+        [SerializeField, Header("スキルリスト") , EnumDrawer(typeof(PlayerSkill))] private List<SkillBase> _skills;
         public List<SkillBase> Skills => _skills;
     }
 }

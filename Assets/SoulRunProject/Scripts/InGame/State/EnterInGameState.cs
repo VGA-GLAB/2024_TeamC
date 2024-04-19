@@ -24,7 +24,7 @@ namespace SoulRunProject.InGame
         protected override async UniTask OnEnterAsync(State currentState, CancellationToken cts)
         {
             DebugClass.Instance.ShowLog("インゲーム開始ステート開始");
-            _playerManager.SwitchPause(true);
+            PauseManager.Pause(true);
             await _playerCamera.DoStartIngameMove(_playerCamera.GetCancellationTokenOnDestroy());
             _playerCamera.StartFollowPlayer();
             StateChange();

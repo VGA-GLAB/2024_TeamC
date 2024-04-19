@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: SoulShell
   m_EditorClassIdentifier: 
   _skillType: 3
+  _skillName: "\u9B42\u306E\u304B\u3089"
+  _explanatoryText: "\u9B42\u306E\u304B\u3089\u8AAC\u660E\u6587"
+  _skillIcon: {fileID: 21300000, guid: 49d775a25ad824a4f87b433e62a01744, type: 3}
   MaxSkillLevel: 5
   SkillLevelUpEvent:
     _levelUpType:

@@ -19,7 +19,7 @@ namespace SoulRunProject.InGame
         protected override void OnEnter(State currentState)
         {
             DebugClass.Instance.ShowLog("ゲームオーバーステート開始");
-            _playerManager.SwitchPause(true);
+            PauseManager.Pause(true);
         }
     }
 }

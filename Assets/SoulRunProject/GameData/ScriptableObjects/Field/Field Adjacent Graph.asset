@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d686b59b812742d9b23303753329a410, type: 3}
+  m_Name: Field Adjacent Graph
+  m_EditorClassIdentifier: 
+  serializedNodes: []
+  nodes:
+  - rid: 4051172900875272279
+  - rid: 4051172900875272280
+  - rid: 4051172900875272281
+  - rid: 4051172900875272283
+  edges:
+  - GUID: 713b2a24-2292-4a01-8043-d3231446956a
+    owner: {fileID: 11400000}
+    inputNodeGUID: e8e0ccd8-3256-49b6-bec6-e00b994bae92
+    outputNodeGUID: fcae7de0-e169-4158-8109-3e41376d4379
+    inputFieldName: In
+    outputFieldName: Out
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: dd0f82a0-0a1f-458b-a50b-7abdbccb60ab
+    owner: {fileID: 11400000}
+    inputNodeGUID: a37b4701-c5c2-44f2-96df-bf41a316c5d8
+    outputNodeGUID: e8e0ccd8-3256-49b6-bec6-e00b994bae92
+    inputFieldName: In
+    outputFieldName: Out
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: b1acce83-0b02-4b4c-ba4d-94ffdac40b15
+    owner: {fileID: 11400000}
+    inputNodeGUID: 07e37889-ca20-47eb-8c3f-fc7209fbaf1f
+    outputNodeGUID: a37b4701-c5c2-44f2-96df-bf41a316c5d8
+    inputFieldName: In
+    outputFieldName: Out
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: 85a294f0-7acd-4d67-a368-831acd55d2e3
+    owner: {fileID: 11400000}
+    inputNodeGUID: fcae7de0-e169-4158-8109-3e41376d4379
+    outputNodeGUID: 07e37889-ca20-47eb-8c3f-fc7209fbaf1f
+    inputFieldName: In
+    outputFieldName: Out
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  groups: []
+  stackNodes: []
+  pinnedElements: []
+  exposedParameters: []
+  serializedParameterList: []
+  stickyNotes: []
+  nodeInspectorReference: {fileID: 0}
+  position: {x: -1411, y: -349, z: 0}
+  scale: {x: 1, y: 1, z: 1}
+  references:
+    version: 2
+    RefIds:
+    - rid: 4051172900875272279
+      type: {class: FieldSegmentNode, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: fcae7de0-e169-4158-8109-3e41376d4379
+        computeOrder: -2
+        position:
+          serializedVersion: 2
+          x: 1584.9906
+          y: 646.9471
+          width: 154
+          height: 119
+        expanded: 1
+        debug: 0
+        nodeLock: 0
+        _fieldSegment: {fileID: 2752528944075337817, guid: 54942ca6699e8764a8b2eb58690cf15d,
+          type: 3}
+        _loopSelf: 1
+    - rid: 4051172900875272280
+      type: {class: FieldSegmentNode, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: e8e0ccd8-3256-49b6-bec6-e00b994bae92
+        computeOrder: -2
+        position:
+          serializedVersion: 2
+          x: 1784.6334
+          y: 647.00006
+          width: 214
+          height: 247
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        _fieldSegment: {fileID: -1237910820451014031, guid: d1904c00fa7c5af4d868fc3945204e44,
+          type: 3}
+        _loopSelf: 0
+    - rid: 4051172900875272281
+      type: {class: FieldSegmentNode, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: a37b4701-c5c2-44f2-96df-bf41a316c5d8
+        computeOrder: -2
+        position:
+          serializedVersion: 2
+          x: 2023.8525
+          y: 647
+          width: 154
+          height: 119
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        _fieldSegment: {fileID: 2428599316293845585, guid: a9a1194410f56c9439e2123b1a496349,
+          type: 3}
+        _loopSelf: 0
+    - rid: 4051172900875272283
+      type: {class: FieldSegmentNode, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: 07e37889-ca20-47eb-8c3f-fc7209fbaf1f
+        computeOrder: -2
+        position:
+          serializedVersion: 2
+          x: 1785.0002
+          y: 358.34998
+          width: 226
+          height: 247
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        _fieldSegment: {fileID: 5834121836559348769, guid: fb9dbee48405f324dad0508a606bf4e4,
+          type: 3}
+        _loopSelf: 0

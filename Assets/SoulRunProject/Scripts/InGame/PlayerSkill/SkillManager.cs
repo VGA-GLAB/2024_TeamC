@@ -1,16 +1,22 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SoulRunProject.Common;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SoulRunProject.InGame
 {
-    public class SkillManager : MonoBehaviour, IInGameTime
+    public class SkillManager : MonoBehaviour, IPlayerPausable
     {
         [SerializeField , Header("スキルデータセット")] private SkillData _skillData;
+        [SerializeField, HideInInspector] private Image[] _skillIconImage = new Image[5];
         private SkillData _skillDataCopy;
         private readonly List<SkillBase> _currentSkills = new(5);
 
+        public SkillData SkillData => _skillData;
+        public List<SkillBase> CurrentSkill => _currentSkills;
         /// <summary>
         /// 現在所持しているスキル名リスト
         /// </summary>
@@ -46,6 +52,7 @@ namespace SoulRunProject.InGame
             {
                 _currentSkills.Add(skill);
                 skill.StartSkill();
+                _skillIconImage[_currentSkills.Count - 1].sprite = skill.SkillIcon; // スキルアイコンの表示
             }
             else
             {
@@ -70,12 +77,47 @@ namespace SoulRunProject.InGame
             }
         }
         
-        public void SwitchPause(bool toPause)
+        public void Pause(bool isPause)
         {
-            _isPause = toPause;
+            _isPause = isPause;
             foreach (var skill in _currentSkills)
             {
-                skill.SwitchPause(toPause);
+                skill.Pause(isPause);
+            }
+        }
+
+        [CustomEditor(typeof(SkillManager))]
+        public class SkillManagerEditor : Editor
+        {
+            private SkillManager _skillManager;
+            private bool _groupIsOpen;
+            
+            private void Awake()
+            {
+                _skillManager = target as SkillManager;
+            }
+
+            public override void OnInspectorGUI()
+            {
+                DrawDefaultInspector();
+
+                _groupIsOpen = EditorGUILayout.BeginFoldoutHeaderGroup(_groupIsOpen, "スキルアイコン");
+
+                if (_groupIsOpen)
+                {
+                    _skillManager._skillIconImage[0] = 
+                        EditorGUILayout.ObjectField(_skillManager._skillIconImage[0], typeof(Image), true) as Image;
+                    _skillManager._skillIconImage[1] = 
+                        EditorGUILayout.ObjectField(_skillManager._skillIconImage[1], typeof(Image), true) as Image;
+                    _skillManager._skillIconImage[2] = 
+                        EditorGUILayout.ObjectField(_skillManager._skillIconImage[2], typeof(Image), true) as Image;
+                    _skillManager._skillIconImage[3] = 
+                        EditorGUILayout.ObjectField(_skillManager._skillIconImage[3], typeof(Image), true) as Image;
+                    _skillManager._skillIconImage[4] = 
+                        EditorGUILayout.ObjectField(_skillManager._skillIconImage[4], typeof(Image), true) as Image;
+                }
+                
+                EditorGUILayout.EndFoldoutHeaderGroup();
             }
         }
     }

@@ -12,13 +12,13 @@ namespace SoulRunProject.Common
     /// プレイヤーを管理するクラス
     /// </summary>
     [RequireComponent(typeof(HitDamageEffectManager))]
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : MonoBehaviour , IPausable
     {
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private Status _status;
         [SerializeField] private PlayerCamera _playerCamera;
         
-        private IInGameTime[] _inGameTimes;
+        private IPlayerPausable[] _inGameTimes;
         private PlayerLevelManager _pLevelManager;
         private SkillManager _skillManager;
         private SoulSkillManager _soulSkillManager;
@@ -36,7 +36,7 @@ namespace SoulRunProject.Common
         {
             _status = _status.Copy();
             CurrentHp = new FloatReactiveProperty(_status.Hp);
-            _inGameTimes = GetComponents<IInGameTime>();
+            _inGameTimes = GetComponents<IPlayerPausable>();
             _pLevelManager = GetComponent<PlayerLevelManager>();
             _skillManager = GetComponent<SkillManager>();
             _soulSkillManager = GetComponent<SoulSkillManager>();
@@ -62,11 +62,11 @@ namespace SoulRunProject.Common
         /// Pauseの切替
         /// </summary>
         /// <param name="toPause"></param>
-        public void SwitchPause(bool toPause)
+        public void Pause(bool toPause)
         {
             foreach (var inGameTime in _inGameTimes)
             {
-                inGameTime.SwitchPause(toPause);
+                inGameTime.Pause(toPause);
             }
         }
 
@@ -79,7 +79,7 @@ namespace SoulRunProject.Common
             _pLevelManager.AddExp(exp);
         }
         
-        public void Damage(int damage)
+        public void Damage(float damage)
         {
             foreach (var predicate in IgnoreDamagePredicates.Where(cond=> cond != null))
             {
@@ -96,6 +96,12 @@ namespace SoulRunProject.Common
             }
             // 白色点滅メソッド
             _hitDamageEffectManager.HitFadeBlinkWhite();
+        }
+
+        public void Heal(float value)
+        {
+            CurrentHp.Value += value;
+            CurrentHp.Value = Mathf.Clamp(CurrentHp.Value, 0, MaxHp);
         }
 
         /// <summary>
@@ -115,9 +121,9 @@ namespace SoulRunProject.Common
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent(out FieldEntityController fieldEntityController))
+            if (other.gameObject.TryGetComponent(out DamageableEntity fieldEntityController))
             {
-                Damage(fieldEntityController.Status.Attack);
+                Damage(fieldEntityController.CollisionDamage);
             }
         }
 
@@ -141,5 +147,6 @@ namespace SoulRunProject.Common
         }
 
         #endregion
+        
     }
 }

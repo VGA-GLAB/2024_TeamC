@@ -9,7 +9,7 @@ namespace BehaviorTree
     /// <summary>
     /// targetが見つかっているかどうか
     /// </summary>
-    [Serializable, NodeMenuItem("Condition/IsFindTarget")]
+    [Serializable, NodeMenuItem("Condition/IsFindTarget", typeof(BehaviorTreeGraph))]
     public class IsFindTarget : Condition
     {
         [Input("Target")] public GameObject Target;

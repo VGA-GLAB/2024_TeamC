@@ -35,10 +35,14 @@ namespace SoulRunProject.InGame
         public class ButtonAndView
         {
             [SerializeField] private InputUIButton _inputUIButton;
-            [SerializeField] private Text _buttonText;
+            [SerializeField] private Text _nameAndLevelText;
+            [SerializeField] private Text _explanatoryText;
+            [SerializeField] private Image _buttonIconImage;
             
             public InputUIButton InputUIButton => _inputUIButton;
-            public Text ButtonText => _buttonText;
+            public Text NameAndLevelText => _nameAndLevelText;
+            public Text ExplanatoryText => _explanatoryText;
+            public Image ButtonIconImage => _buttonIconImage;
         }
     }
 }

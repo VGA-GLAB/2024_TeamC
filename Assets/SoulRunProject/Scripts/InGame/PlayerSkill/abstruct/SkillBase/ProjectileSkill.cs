@@ -60,7 +60,7 @@ namespace SoulRunProject
                     var bullet = _bulletPool.Rent();
                     bullet.transform.position = _playerTransform.position + _muzzleOffset;
                     bullet.transform.forward = _playerTransform.forward;
-                    bullet.Initialize(_projectileSkillParameter, _playerForwardMover.Speed);
+                    bullet.Initialize(_projectileSkillParameter);
                     bullet.OnFinishedAsync.Take(1)
                         .Subscribe(_ => { _bulletPool.Return(bullet); });
                 }

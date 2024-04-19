@@ -8,7 +8,7 @@ namespace SoulRunProject.Common
     /// </summary>
     public interface ISpawnPattern
     {
-        public List<Vector3> GetSpawnPositions();
+        public List<(Vector3, float)> GetSpawnPositions();
 
         public void DrawGizmos(Vector3 pos);
     }

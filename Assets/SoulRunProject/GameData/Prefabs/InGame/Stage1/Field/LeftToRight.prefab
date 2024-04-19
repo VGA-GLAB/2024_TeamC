@@ -1393,19 +1393,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &7506450824787002917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2719,19 +2714,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 8055254459013675987}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &8055254459013675987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2879,19 +2869,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &8664532688666633027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3357,19 +3342,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 489413496086951370}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &489413496086951370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3941,19 +3921,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &8396974463704412374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5032,19 +5007,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 5019851958520289940}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &5019851958520289940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7100,19 +7070,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &1524021506842388075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8533,19 +8498,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &8016463948235610652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11655,6 +11615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3638248990484674823}
+  - component: {fileID: 3513544928683378069}
   m_Layer: 0
   m_Name: LeftToRight
   m_TagString: Untagged
@@ -11671,7 +11632,7 @@ Transform:
   m_GameObject: {fileID: 6450742444439805585}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000014901159, y: 8.105254e-15, z: 1, w: -0.00000058114523}
-  m_LocalPosition: {x: -130.92761, y: 0, z: 248.2908}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0408894, y: -1, z: 1.0263156}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11835,6 +11796,20 @@ Transform:
   - {fileID: 8113148674770510783}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 360, z: -180}
+--- !u!114 &3513544928683378069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450742444439805585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c787228e05b4c64b87894f5be52870b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startPos: {x: -4.142028e-15, y: -6.346874e-20, z: -61.045288}
+  _endPos: {x: 6.571983e-14, y: 2.0613439e-19, z: 77.933464}
 --- !u!1 &6460931457061713536
 GameObject:
   m_ObjectHideFlags: 0
@@ -12698,19 +12673,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &7916649070329699768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13176,19 +13146,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &3629571258575051961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14290,19 +14255,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 5621941004130231614}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &5621941004130231614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16146,19 +16106,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 1021959517692804819}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &1021959517692804819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17260,19 +17215,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: -2
-  _status: {fileID: 11400000, guid: 636ca8158c3b7414686bf190d78e73ee, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 100
+    _knockBackTime: 0.5
   _lootTable: {fileID: 0}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &2901984885609060993
 MonoBehaviour:
   m_ObjectHideFlags: 0

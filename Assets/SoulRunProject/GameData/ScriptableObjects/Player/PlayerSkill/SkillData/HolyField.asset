@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: HolyField
   m_EditorClassIdentifier: 
   _skillType: 1
+  _skillName: "\u307B\u308A\u30D5\u30A3\u30FC\u30EB\u3068"
+  _explanatoryText: "\u307B\u308A\u30D5\u30A3\u30FC\u30EB\u30C9\u8AAC\u660E\u6587"
+  _skillIcon: {fileID: 21300000, guid: 49d775a25ad824a4f87b433e62a01744, type: 3}
   MaxSkillLevel: 5
   SkillLevelUpEvent:
     _levelUpType:

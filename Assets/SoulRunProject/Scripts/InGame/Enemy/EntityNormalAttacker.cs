@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using SoulRunProject.SoulMixScene;
 
@@ -6,22 +7,9 @@ namespace SoulRunProject.InGame
     /// <summary>
     /// Enemyの通常攻撃処理の実装クラス
     /// </summary>
-    public class EntityNormalAttacker : IEntityAttacker
+    [Serializable]
+    public class EntityNormalAttacker : EntityAttacker
     {
-        int _attack;
-        float _coolTime;
-        float _range;
-        
-        /// <summary>
-        /// ステータス入手メソッド
-        /// </summary>
-        /// <param name="status">ステータスのScriptableObject</param>
-        public void GetAttackStatus(Status status)
-        {
-            _attack = status.Attack;
-            _coolTime = status.CoolTime;
-            _range = status.Range;
-        }
 
         /// <summary>
         /// 攻撃処理メソッド(仮)
@@ -36,7 +24,12 @@ namespace SoulRunProject.InGame
             
         }
 
-        public void Stop()
+        public void Pause()
+        {
+            
+        }
+
+        public void Resume()
         {
             
         }

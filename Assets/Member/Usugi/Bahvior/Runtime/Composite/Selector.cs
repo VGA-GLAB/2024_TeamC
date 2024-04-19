@@ -10,7 +10,7 @@ namespace BehaviorTree
     /// 一つでも成功したら成功を返す
     /// すべて失敗したら失敗を返す
     /// </summary>
-    [Serializable, NodeMenuItem("Composite/Selector")]
+    [Serializable, NodeMenuItem("Composite/Selector", typeof(BehaviorTreeGraph))]
     public class Selector : Branch
     {
         protected override BehavioreNodeState OnUpdate()

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
-    [Serializable, NodeMenuItem("Action/CustomLog")]
+    [Serializable, NodeMenuItem("Action/CustomLog", typeof(BehaviorTreeGraph))]
     public class CustomLog : Action
     {
         [SerializeField] private String _logMessage;

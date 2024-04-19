@@ -31,7 +31,7 @@ namespace SoulRunProject.InGame
         protected override void OnEnter(State currentState)
         {
             DebugClass.Instance.ShowLog("プレイ中ステート開始");
-            _playerManager.SwitchPause(false);
+            PauseManager.Pause(false);
             SwitchToLevelUpState = false;
             
             // PlayerInputへの購読
@@ -44,7 +44,7 @@ namespace SoulRunProject.InGame
                 })
                 .AddTo(_compositeDisposable);
             
-            _playerLevelManager.OnCurrentLevelDataChanged
+            _playerLevelManager.OnLevelUp
                 .SkipLatestValueOnSubscribe()
                 .Subscribe(_ =>
                 {
@@ -58,7 +58,7 @@ namespace SoulRunProject.InGame
         {
             if (_playerManager.transform.position.z > _enterBossStagePosition)
             {   //プレイヤーがボスステージ開始前の位置に到達したら前進を止めて遷移
-                _playerManager.SwitchPause(false);
+                PauseManager.Pause(false);
                 ArrivedBossStagePosition = true;
                 StateChange();
             }

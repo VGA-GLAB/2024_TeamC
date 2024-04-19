@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
-    [Serializable, NodeMenuItem("Root")]
+    [Serializable, NodeMenuItem("Root", typeof(BehaviorTreeGraph))]
     public class Root : Node
     {
         [Output(name = "Child", allowMultiple = false), Vertical] public Node Child;

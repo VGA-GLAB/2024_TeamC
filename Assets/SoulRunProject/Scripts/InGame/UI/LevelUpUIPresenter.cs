@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using SoulRunProject.Common;
 using UniRx;
 using VContainer.Unity;
@@ -47,11 +48,6 @@ namespace SoulRunProject.InGame
 
             _disposableOnUpdateUI.AddTo(_levelUpView);
 
-            // アイテムに参照を渡す
-            foreach (var skillLevelUpItem in _levelUpItemData.SkillLevelUpItems)
-            {
-                skillLevelUpItem.GetReference(_skillManager);
-            }
             foreach (var statusUpItem in _levelUpItemData.StatusUpItems)
             {
                 statusUpItem.GetReference(_playerManager);
@@ -67,10 +63,26 @@ namespace SoulRunProject.InGame
             
             // ランダムにアイテムを選択し、ボタンに適用する
             // skill
-            SkillLevelUpItem selectedSkillUpItem = _levelUpItemData.SkillLevelUpItems[Random.Range(0, _levelUpItemData.SkillLevelUpItems.Length)];
-            _levelUpView.UpgradeButtons[0].InputUIButton.onClick.AsObservable()
-                .Subscribe(_ => selectedSkillUpItem.ItemEffect()).AddTo(_disposableOnUpdateUI);
-            _levelUpView.UpgradeButtons[0].ButtonText.text = selectedSkillUpItem.ItemName;
+            SkillBase selectedSkill = _skillManager.SkillData.Skills[Random.Range(0, _skillManager.SkillData.Skills.Count)];
+            _levelUpView.UpgradeButtons[0].NameAndLevelText.text = selectedSkill.SkillName;
+
+            if (_skillManager.CurrentSkillTypes.Contains(selectedSkill.SkillType)) // 取得済みスキルかによって分岐
+            {
+                _levelUpView.UpgradeButtons[0].InputUIButton.onClick.AsObservable()
+                    .Subscribe(_ => _skillManager.LevelUpSkill(selectedSkill.SkillType)).AddTo(_disposableOnUpdateUI);
+                _levelUpView.UpgradeButtons[0].NameAndLevelText.text += 
+                    $"\nLv {_skillManager.CurrentSkill.FirstOrDefault(skillBase => skillBase.SkillType == selectedSkill.SkillType).CurrentLevel + 1}";
+            }
+            else
+            {
+                _levelUpView.UpgradeButtons[0].InputUIButton.onClick.AsObservable()
+                    .Subscribe(_ => _skillManager.AddSkill(selectedSkill.SkillType)).AddTo(_disposableOnUpdateUI);
+                _levelUpView.UpgradeButtons[0].NameAndLevelText.text += "\nLv 1";
+            }
+
+            _levelUpView.UpgradeButtons[0].ExplanatoryText.text = selectedSkill.ExplanatoryText;
+            _levelUpView.UpgradeButtons[0].ButtonIconImage.sprite = selectedSkill.SkillIcon;
+            
             // passive
             List<int> indexList = new();
             for (int i = 0; i < _levelUpItemData.StatusUpItems.Length; i++)
@@ -86,10 +98,10 @@ namespace SoulRunProject.InGame
             }
             _levelUpView.UpgradeButtons[1].InputUIButton.onClick.AsObservable()
                 .Subscribe(_ => selectedStatusUpItems[0].ItemEffect()).AddTo(_disposableOnUpdateUI);
-            _levelUpView.UpgradeButtons[1].ButtonText.text = selectedStatusUpItems[0].ItemName;
+            _levelUpView.UpgradeButtons[1].NameAndLevelText.text = selectedStatusUpItems[0].ItemName;
             _levelUpView.UpgradeButtons[2].InputUIButton.onClick.AsObservable()
                 .Subscribe(_ => selectedStatusUpItems[1].ItemEffect()).AddTo(_disposableOnUpdateUI);
-            _levelUpView.UpgradeButtons[2].ButtonText.text = selectedStatusUpItems[1].ItemName;
+            _levelUpView.UpgradeButtons[2].NameAndLevelText.text = selectedStatusUpItems[1].ItemName;
         }
     }
 }

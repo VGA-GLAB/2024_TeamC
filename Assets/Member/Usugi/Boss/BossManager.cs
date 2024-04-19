@@ -8,7 +8,7 @@ namespace SoulRunProject.InGame
     /// <summary>
     /// ボスの動きを管理するクラス
     /// </summary>
-    public class BossManager : FieldEntityController
+    public class BossManager : DamageableEntity
     {
         [SerializeField] BehaviorRunner _behaviorRunner;
         
