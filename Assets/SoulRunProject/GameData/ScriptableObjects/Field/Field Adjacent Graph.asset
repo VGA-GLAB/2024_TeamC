@@ -18,6 +18,7 @@ MonoBehaviour:
   - rid: 4051172900875272280
   - rid: 4051172900875272281
   - rid: 4051172900875272283
+  - rid: 4051172960152059907
   edges:
   - GUID: 713b2a24-2292-4a01-8043-d3231446956a
     owner: {fileID: 11400000}
@@ -51,6 +52,38 @@ MonoBehaviour:
     outputFieldName: Out
     inputPortIdentifier: 
     outputPortIdentifier: 
+  - GUID: 300cf77c-1a0c-42a1-94d8-bc6988dbb19e
+    owner: {fileID: 11400000}
+    inputNodeGUID: fcae7de0-e169-4158-8109-3e41376d4379
+    outputNodeGUID: a6782e0a-bc8d-401d-b3c1-f5e06e627367
+    inputFieldName: In
+    outputFieldName: Out
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: e68249cf-7d85-4ada-a1d9-fbef672dd595
+    owner: {fileID: 11400000}
+    inputNodeGUID: a6782e0a-bc8d-401d-b3c1-f5e06e627367
+    outputNodeGUID: fcae7de0-e169-4158-8109-3e41376d4379
+    inputFieldName: In
+    outputFieldName: Out
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: 3984967f-4a6d-4b70-999d-39a7ec1c8da0
+    owner: {fileID: 11400000}
+    inputNodeGUID: a6782e0a-bc8d-401d-b3c1-f5e06e627367
+    outputNodeGUID: 07e37889-ca20-47eb-8c3f-fc7209fbaf1f
+    inputFieldName: In
+    outputFieldName: Out
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: 83856bd7-6dc1-486a-a432-872b161fc9f1
+    owner: {fileID: 11400000}
+    inputNodeGUID: e8e0ccd8-3256-49b6-bec6-e00b994bae92
+    outputNodeGUID: a6782e0a-bc8d-401d-b3c1-f5e06e627367
+    inputFieldName: In
+    outputFieldName: Out
+    inputPortIdentifier: 
+    outputPortIdentifier: 
   groups: []
   stackNodes: []
   pinnedElements: []
@@ -58,7 +91,7 @@ MonoBehaviour:
   serializedParameterList: []
   stickyNotes: []
   nodeInspectorReference: {fileID: 0}
-  position: {x: -1411, y: -349, z: 0}
+  position: {x: -1222, y: -137, z: 0}
   scale: {x: 1, y: 1, z: 1}
   references:
     version: 2
@@ -71,10 +104,10 @@ MonoBehaviour:
         computeOrder: -2
         position:
           serializedVersion: 2
-          x: 1584.9906
-          y: 646.9471
-          width: 154
-          height: 119
+          x: 1636
+          y: 285.5
+          width: 173
+          height: 241
         expanded: 1
         debug: 0
         nodeLock: 0
@@ -125,13 +158,31 @@ MonoBehaviour:
         computeOrder: -2
         position:
           serializedVersion: 2
-          x: 1785.0002
-          y: 358.34998
+          x: 2248
+          y: 406
           width: 226
-          height: 247
+          height: 241
         expanded: 0
         debug: 0
         nodeLock: 0
         _fieldSegment: {fileID: 5834121836559348769, guid: fb9dbee48405f324dad0508a606bf4e4,
           type: 3}
         _loopSelf: 0
+    - rid: 4051172960152059907
+      type: {class: FieldSegmentNode, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: a6782e0a-bc8d-401d-b3c1-f5e06e627367
+        computeOrder: -2
+        position:
+          serializedVersion: 2
+          x: 1322
+          y: 360
+          width: 222
+          height: 241
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        _fieldSegment: {fileID: 8385212075687332779, guid: 8a783ddf48dccd5499fe9f76581216f0,
+          type: 3}
+        _loopSelf: 1

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9970e7066e20c941bf4beed9b6721a7, type: 3}
+  m_Name: SoulBullet
+  m_EditorClassIdentifier: 
+  _skillType: 0
+  _skillName: "\u30BD\u30A6\u30EB\u30D0\u30EC\u30C3\u30C8"
+  _explanatoryText: "\u30BD\u30A6\u30EB\u30D0\u30EC\u30C3\u30C8\u8AAC\u660E\u6587"
+  _skillIcon: {fileID: 21300000, guid: 49d775a25ad824a4f87b433e62a01744, type: 3}
+  MaxSkillLevel: 5
+  SkillLevelUpEvent:
+    _levelUpType:
+      rid: 4051172700801204271
+  _skillParam:
+    rid: 4051172700801204272
+  _bullet: {fileID: 7496366539032194065, guid: 93ebba11e021a9d4b92b90f0aeb5ef5b, type: 3}
+  _muzzleOffset: {x: 0, y: 0, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 4051172700801204271
+      type: {class: ProjectileSkillLevelUpEventListList, ns: SoulRunProject.Common,
+        asm: Assembly-CSharp}
+      data:
+        _levelUpEventListList:
+        - _levelUpEventList:
+          - rid: 4051172700801204275
+        - _levelUpEventList:
+          - rid: 4051172700801204275
+        - _levelUpEventList:
+          - rid: 4051172700801204275
+        - _levelUpEventList:
+          - rid: 4051172700801204275
+        - _levelUpEventList:
+          - rid: 4051172700801204275
+    - rid: 4051172700801204272
+      type: {class: ProjectileSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _coolTime: 0.3
+        _lifeTime: 5
+        _amount: 0
+        _attackDamage: 100
+        _range: 4
+        _speed: 20
+        _penetration: 0
+    - rid: 4051172700801204275
+      type: {class: LevelUpEventProjectileCoolTime, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _reduceCoolTime: 25

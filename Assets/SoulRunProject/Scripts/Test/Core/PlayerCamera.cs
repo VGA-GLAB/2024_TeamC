@@ -53,7 +53,11 @@ namespace SoulRunProject
             if (_shaking) return;
             _shakeObj.transform.DOShakePosition(_shakeDur, _shakePower, _shakeVib, _shakeRand, _isSnap, _isFade)
                 .OnStart(() => _shaking = true)
-                .OnComplete(() => _shaking = false);
+                .OnComplete(() =>
+                {
+                    _shakeObj.position = new (_player.transform.position.x, transform.position.y, transform.position.z);
+                    _shaking = false;
+                });
         }
         
         public void StartFollowPlayer()

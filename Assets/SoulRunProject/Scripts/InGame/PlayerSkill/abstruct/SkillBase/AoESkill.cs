@@ -8,8 +8,8 @@ namespace SoulRunProject.Common
     [CreateAssetMenu(menuName = "SoulRunProject/PlayerSkill/AoESkill")]
     public class AoESkill : SkillBase
     {
-        [SerializeField, Tooltip("InstantiateするAoEプレハブ")] AoEController _original;
-        [SerializeField, Tooltip("地面の高さ、y座標")] float _groundHeight;
+        [SerializeField, CustomLabel("生成するAoEプレハブ")] AoEController _original;
+        [SerializeField, CustomLabel("展開する地面の高さ、y座標")] float _groundHeight;
         static Transform _playerTransform;
         AoEController _aoeController;
 

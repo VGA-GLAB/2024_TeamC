@@ -53,7 +53,7 @@ namespace SoulRunProject.InGame
         {
             if (other.TryGetComponent(out GiveKnockBack giveKnockBack))
             {
-                _takeKnockBack.KnockBack(transform , giveKnockBack.Power , Vector3.one);
+                _takeKnockBack.KnockBack(transform , giveKnockBack.Power , _direction);
             }
         }
     }

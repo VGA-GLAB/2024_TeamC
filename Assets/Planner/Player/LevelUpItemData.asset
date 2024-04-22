@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c93b94ebb6497345903b2928de30381, type: 3}
+  m_Name: LevelUpItemData
+  m_EditorClassIdentifier: 
+  _statusUpItems:
+  - _itemName: "\u30D1\u30C3\u30B7\u30D61"
+    _itemImage: {fileID: 0}
+    ItemEffects:
+    - _statusToUp: 1
+      _upValue: 1
+    - _statusToUp: 4
+      _upValue: 1
+  - _itemName: "\u30D1\u30C3\u30B7\u30D62"
+    _itemImage: {fileID: 0}
+    ItemEffects:
+    - _statusToUp: 5
+      _upValue: 1
+    - _statusToUp: 7
+      _upValue: 1

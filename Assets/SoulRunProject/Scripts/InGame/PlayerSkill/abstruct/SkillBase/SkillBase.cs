@@ -1,7 +1,6 @@
 using System;
 using SoulRunProject.InGame;
 using UnityEditor;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,16 +24,16 @@ namespace SoulRunProject.Common
     [Name("スキルの基底クラス")]
     public abstract class SkillBase : ScriptableObject, IPausable
     {
-        [SerializeField] PlayerSkill _skillType;
-        [SerializeField] private string _skillName;
-        [SerializeField, Tooltip("スキルの説明文")] private string _explanatoryText;
-        [SerializeField] private Sprite _skillIcon;
-        [SerializeField] [Header("スキルの最大レベル")] public int MaxSkillLevel = 5;
+        [SerializeField, HideInInspector] PlayerSkill _skillType;
+        [SerializeField, HideInInspector] private string _skillName;
+        [SerializeField, HideInInspector] private string _explanatoryText;
+        [SerializeField, HideInInspector] private Sprite _skillIcon;
+        [SerializeField, HideInInspector] public int MaxSkillLevel = 5;
 
-        [SerializeField] [Header("レベルアップイベントデータ")]
+        [SerializeField, HideInInspector]
         protected SkillLevelUpEvent SkillLevelUpEvent;
 
-        [SerializeReference]
+        [SerializeReference, CustomLabel("スキルパラメーター")]
         protected ISkillParameter _skillParam;
 
         protected bool _isPause;
@@ -142,7 +141,6 @@ namespace SoulRunProject.Common
         private SerializedProperty _explanatoryProperty;
         private SerializedProperty _iconProperty;
         private SerializedProperty _levelUpEventListListProperty;
-        private SerializedProperty _skillParamProperty;
 
         private int _levelUpListLastIndex;
         private void OnEnable()
@@ -154,18 +152,12 @@ namespace SoulRunProject.Common
             _levelUpEventListListProperty =
                 serializedObject.FindProperty("SkillLevelUpEvent._levelUpType._levelUpEventListList");
             _levelUpListLastIndex = _levelUpEventListListProperty.arraySize - 1;
-            _skillParamProperty = serializedObject.FindProperty("_skillParam");
         }
 
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-            //スクリプト参照(ScriptableObject) MonoBehaviourは別の方法で取得
-            using(new EditorGUI.DisabledGroupScope(true))
-            {
-                EditorGUILayout.ObjectField("Script", MonoScript.FromScriptableObject((ScriptableObject)target), typeof(ScriptableObject), false);
-            }
-            
+            base.OnInspectorGUI();
             //enumの入力
             _skillTypeProperty.enumValueIndex = 
                 (int)(PlayerSkill)EditorGUILayout.EnumPopup("スキルタイプ", (PlayerSkill)_skillTypeProperty.enumValueIndex);
@@ -181,10 +173,8 @@ namespace SoulRunProject.Common
             // ExampleCustomList list = new ExampleCustomList(_levelUpEventListListProperty);
             // list.DoLayoutList();
             EditorGUILayout.PropertyField(_levelUpEventListListProperty, new GUIContent("レベルアップデータ") , true);
-            EditorGUILayout.PropertyField(_skillParamProperty , new GUIContent("スキルパラメーター") , true);
             serializedObject.ApplyModifiedProperties();
         }
-        
     }
     #endif
 }

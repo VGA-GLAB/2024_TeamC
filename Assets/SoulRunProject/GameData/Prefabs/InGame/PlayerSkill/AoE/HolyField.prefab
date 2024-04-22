@@ -103,9 +103,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1178334385647544427}
     m_Modifications:
+    - target: {fileID: 1053146668356668, guid: b2b32816444d787499f1e6efe5c08f7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117283297589508, guid: b2b32816444d787499f1e6efe5c08f7f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139366513535672, guid: b2b32816444d787499f1e6efe5c08f7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191396019623194, guid: b2b32816444d787499f1e6efe5c08f7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243468458009148, guid: b2b32816444d787499f1e6efe5c08f7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1334179685657794, guid: b2b32816444d787499f1e6efe5c08f7f, type: 3}
       propertyPath: m_Name
       value: Magic circle 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347686518250294, guid: b2b32816444d787499f1e6efe5c08f7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1887170722007182, guid: b2b32816444d787499f1e6efe5c08f7f, type: 3}
       propertyPath: m_IsActive
@@ -166,6 +190,11 @@ PrefabInstance:
     - target: {fileID: 4334175433223186, guid: b2b32816444d787499f1e6efe5c08f7f, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108436191295759094, guid: b2b32816444d787499f1e6efe5c08f7f,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 8.1e-44
       objectReference: {fileID: 0}
     - target: {fileID: 198116453818055178, guid: b2b32816444d787499f1e6efe5c08f7f,
         type: 3}
