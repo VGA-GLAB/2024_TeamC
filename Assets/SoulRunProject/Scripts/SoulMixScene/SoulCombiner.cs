@@ -12,8 +12,7 @@ namespace SoulRunProject.SoulMixScene
 {
     /// <summary> ソウルを合成するクラス </summary>
     [Serializable]
-    public class SoulCombiner : MonoBehaviour
-
+    public class SoulCombiner
     {
         public SoulCardList ownedSelectSouls; // 選んだソウルリスト
         public List<SoulCombination> combinations; // ソウルの組み合わせリスト

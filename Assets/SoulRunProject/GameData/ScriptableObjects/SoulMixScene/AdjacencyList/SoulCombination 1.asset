@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc649929cf444bc290f36666f68a4e39, type: 3}
+  m_Name: SoulCombination 1
+  m_EditorClassIdentifier: 
+  _ingredient1: {fileID: 11400000, guid: 06c785b2ccdec7845acb08d8c17a90de, type: 2}
+  _ingredient2: {fileID: 11400000, guid: 922658b6dbaf6024482870a79e23253d, type: 2}
+  _result: {fileID: 11400000, guid: a44004da3631a0d42beea6221cf352a6, type: 2}

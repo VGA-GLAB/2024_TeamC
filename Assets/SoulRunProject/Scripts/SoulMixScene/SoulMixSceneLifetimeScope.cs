@@ -19,7 +19,7 @@ namespace SoulRunProject.SoulMixScene
             builder.RegisterInstance(_soulCardAllList).AsSelf();
             builder.RegisterInstance(_soulCombinationList).AsSelf();
 
-            builder.RegisterComponentInHierarchy<SaveAndLoadManager>();
+            //builder.RegisterComponentInHierarchy<SaveAndLoadManager>();
             // アプリケーション層
             builder.RegisterComponentInHierarchy<SoulCombiner>();
             //builder.Register<SoulCardManager>(Lifetime.Singleton);
