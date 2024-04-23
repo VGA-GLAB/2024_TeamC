@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SoulRunProject.Common;
 using UnityEngine;
 using VContainer;
@@ -11,6 +12,13 @@ namespace SoulRunProject.SoulMixScene
         [SerializeField] private SoulCardList _soulCardAllList; // ゲームに登場する全てのソウルカード
         [SerializeField] private List<SoulCombination> _soulCombinationList; // ソウルカードの組み合わせリスト
 
+        protected void Start()
+        {
+            var soulCardManager = Container.Resolve<SoulCardManager>();
+            var soulCombiner = Container.Resolve<SoulCombiner>();
+            var soulMixPresenter = Container.Resolve<SoulMixPresenter>();
+            soulCombiner.combinations = _soulCombinationList;
+        }
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -19,17 +27,16 @@ namespace SoulRunProject.SoulMixScene
             builder.RegisterInstance(_soulCardAllList).AsSelf();
             builder.RegisterInstance(_soulCombinationList).AsSelf();
 
-            //builder.RegisterComponentInHierarchy<SaveAndLoadManager>();
             // アプリケーション層
-            builder.RegisterComponentInHierarchy<SoulCombiner>();
-            //builder.Register<SoulCardManager>(Lifetime.Singleton);
+            builder.Register<SoulCombiner>(Lifetime.Singleton);
+            builder.Register<SoulCardManager>(Lifetime.Singleton);
 
             // プレゼンテーション層
             builder.RegisterComponentInHierarchy<SoulMixView>();
-            builder.Register<SoulMixPresenter>(Lifetime.Singleton);
-
+            builder.Register<SoulMixPresenter>(Lifetime.Singleton).AsSelf();
 
             // 開始処理
+            builder.RegisterEntryPoint<SoulMixPresenter>();
             builder.RegisterEntryPoint<SoulCardManager>();
         }
     }
