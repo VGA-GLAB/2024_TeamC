@@ -10,10 +10,18 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class SoulSkillManager : MonoBehaviour
     {
-        [SerializeReference] SoulSkillBase _currentSoulSkill;
+        [SerializeField] SoulSkillBase _soulSkill;
+        
+        
         [SerializeField] private FloatReactiveProperty _currentSoul = new FloatReactiveProperty(0);
+        SoulSkillBase _currentSoulSkill;
         public float RequiredSoul => _currentSoulSkill.RequiredSoul;
         public IObservable<float> CurrentSoul => _currentSoul;
+
+        private void Start()
+        {
+            _currentSoulSkill = Instantiate(_soulSkill);
+        }
         public void SetSoulSkill(SoulSkillBase soulSkill)
         {
             _currentSoulSkill = soulSkill;
@@ -31,12 +39,15 @@ namespace SoulRunProject.InGame
         public void UseSoulSkill()
         { 
             DebugClass.Instance.ShowLog($"現在のソウル値：{_currentSoul.Value}/必要ソウル値：{RequiredSoul}");
+            //TODO 処理の前後をずらしてテストように呼び出せるようにしている
             if (_currentSoul.Value < RequiredSoul)
             {
+                Debug.Log("ソウルが足りません。");
                 return;
             }
             _currentSoul.Value -= RequiredSoul;
             _currentSoulSkill.StartSoulSkill();
         }
+        
     }
 }

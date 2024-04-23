@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SoulRunProject.Common;
 using UnityEngine;
 
 
@@ -43,8 +44,8 @@ using UnityEngine;
 namespace SoulRunProject.SoulMixScene
 {
     [CreateAssetMenu(fileName = "SoulCardList", menuName = "SoulRunProject/SoulCardList")]
-    public class SoulCardList : ScriptableObject
+    public class SoulCardMasterDataList : ScriptableObject
     {
-        [SerializeField] public List<SoulCardData> soulCardList;
+        [SerializeField] public List<SoulCardMasterData> soulCardList;
     }
 }

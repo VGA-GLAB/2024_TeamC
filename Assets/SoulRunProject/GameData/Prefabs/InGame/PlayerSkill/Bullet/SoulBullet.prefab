@@ -14747,7 +14747,6 @@ GameObject:
   - component: {fileID: 7728589861092496342}
   - component: {fileID: 1471483964671027593}
   - component: {fileID: 7496366539032194065}
-  - component: {fileID: 472560091862267652}
   m_Layer: 7
   m_Name: SoulBullet
   m_TagString: Untagged
@@ -14842,16 +14841,3 @@ MonoBehaviour:
   _particleSystem: {fileID: 5346422094025305700}
   _rotationOffset: {x: 0, y: 0, z: 0}
   _hitOffset: 0.5
---- !u!114 &472560091862267652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6547221020233627673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7467efdbf4954686b6554b6f047d1143, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _power: 0.13

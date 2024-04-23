@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5461754b41f557447a03bf580e1bce57, type: 3}
+  m_Name: SoulFrame
+  m_EditorClassIdentifier: 
+  _name: "\u30BD\u30A6\u30EB\u30D5\u30EC\u30A4\u30E0"
+  _description: "\u30E1\u30C6\u30AA"
+  _requiredSoul: 0
+  _particle: {fileID: 1247631016516920979, guid: 9f96e5b5c8ea06a48a28b24a13e95b2b,
+    type: 3}
+  _attackDamage: 15
+  _duration: 5
+  _giveKnockBack:
+    _power: 0.04

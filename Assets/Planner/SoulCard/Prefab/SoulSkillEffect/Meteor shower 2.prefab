@@ -10,11 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1195941134714271057}
   - component: {fileID: 8676225617283573750}
-  - component: {fileID: 4310652023884735383}
   - component: {fileID: 3209940072033768989}
   - component: {fileID: 1987660857740603136}
   - component: {fileID: 2293771856824985650}
-  - component: {fileID: 6355369861113314371}
   m_Layer: 0
   m_Name: Meteor shower 2
   m_TagString: Untagged
@@ -30,10 +28,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247631016516920979}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.000000014901159, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 27.3, z: 309.5}
-  m_LocalScale: {x: 7.0166225, y: 7.0166225, z: 7.0166225}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 27.3, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7711375231088272756}
   - {fileID: 5421257302575970172}
@@ -687,7 +685,7 @@ ParticleSystem:
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 12, z: -4.5}
-    m_Rotation: {x: 70, y: 0, z: 0}
+    m_Rotation: {x: 48.01, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -3897,13 +3895,7 @@ ParticleSystem:
     exit: 0
     colliderQueryMode: 0
     radiusScale: 1
-    primitives:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    primitives: []
   SubModule:
     serializedVersion: 2
     enabled: 1
@@ -4861,27 +4853,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &4310652023884735383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247631016516920979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a959a1b0b8414d4fb8a68bdc12d69ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EffectsOnCollision:
-  - {fileID: 1312756255662086, guid: a7cb112e9339d01408d0002aede091cf, type: 3}
-  DestroyTimeDelay: 2
-  UseWorldSpacePosition: 1
-  Offset: 0.01
-  rotationOffset: {x: 0, y: 90, z: 0}
-  useOnlyRotationOffset: 1
-  UseFirePointRotation: 0
-  DestoyMainEffect: 0
 --- !u!199 &3209940072033768989
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5012,7 +4983,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 7.3333335, z: 5.3333335, w: -8}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -5040,35 +5011,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!114 &6355369861113314371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247631016516920979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5461754b41f557447a03bf580e1bce57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _skillParameter:
-    _attackDamage: 0
-    _coolTime: 0
-    _range: 0
-    _speed: 0
-    _duration: 0
-    _amount: 0
-    _penetration: 0
-    _uniqueParameter:
-      rid: -2
-  _requiredSoul: 0
-  _meteorParticle: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!1 &1610623239302451422
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ namespace SoulRunProject.InGame
         {
             DebugClass.Instance.ShowLog("ステージ開始ステート開始");
             //TODO：ステージ名の表示
+            CriAudioManager.Instance.PlayBGM(CriAudioManager.CueSheet.Bgm, "BGM_stage1");
             StateChange();
         }
         

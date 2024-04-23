@@ -14,6 +14,7 @@ namespace SoulRunProject.Common
         [SerializeField, CustomLabel("スキルの持続時間")] float _lifeTime;
         [SerializeField, CustomLabel("同時発射するオブジェクトの数")] int _amount;
         [SerializeField, CustomLabel("敵にヒットしたときに与えるダメージ")] float _attackDamage;
+        [SerializeField, CustomLabel("与ノックバック")]　GiveKnockBack _knockBack;
         [SerializeField, CustomLabel("スキルのオブジェクトの大きさ")] float _range;
         [SerializeField, CustomLabel("スキルオブジェクトの移動速度")] float _speed;
         [SerializeField, CustomLabel("敵を何体まで貫通するか")] int _penetration;
@@ -27,6 +28,8 @@ namespace SoulRunProject.Common
         [NonSerialized] public float LifeTime;
         [NonSerialized] public int Amount;
         [NonSerialized] public float AttackDamage;
+        [NonSerialized] public GiveKnockBack KnockBack;
+        
         [NonSerialized] public float Range;
         [NonSerialized] public float Speed;
         [NonSerialized] public int Penetration;
@@ -38,6 +41,7 @@ namespace SoulRunProject.Common
             LifeTime = _lifeTime;
             Amount = _amount;
             AttackDamage = _attackDamage;
+            KnockBack = _knockBack;
             Range = _range;
             Speed = _speed;
             Penetration = _penetration;

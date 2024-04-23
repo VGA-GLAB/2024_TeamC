@@ -33,17 +33,17 @@ namespace SoulRunProject.SoulMixScene
         }
 
         // ownedCards のリストを受け取り、UI上に表示する
-        public void AddCard(SoulCardData cardData)
+        public void AddCard(SoulCardMasterData cardMasterData)
         {
             var cardObject = Instantiate(_soulCardPrefab, _cardContainer);
-            cardObject.name = cardData.SoulName;
+            cardObject.name = cardMasterData.SoulName;
             var cardView = cardObject.GetComponentInChildren<Image>(); // カードのImageコンポーネントを取得
-            cardView.sprite = cardData.Image; // カードデータの画像をセット
+            cardView.sprite = cardMasterData.Image; // カードデータの画像をセット
 
             var button = cardObject.GetComponentInChildren<Button>(); // Buttonコンポーネントを取得
             if (button != null)
             {
-                button.onClick.AddListener(() => Debug.Log("クリックされたカードのデータ: " + cardData.SoulName));
+                button.onClick.AddListener(() => Debug.Log("クリックされたカードのデータ: " + cardMasterData.SoulName));
             }
         }
     }

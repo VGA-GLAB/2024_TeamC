@@ -63,6 +63,7 @@ namespace SoulRunProject
                     bullet.Initialize(_projectileSkillParameter);
                     bullet.OnFinishedAsync.Take(1)
                         .Subscribe(_ => { _bulletPool.Return(bullet); });
+                    CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Soulbullet");
                 }
             }
         }

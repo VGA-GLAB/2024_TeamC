@@ -49,9 +49,9 @@ namespace SoulRunProject.Common
         /// </summary>
         /// <param name="csvFile"></param>
         /// <returns></returns>
-        private List<SoulCardData> LoadSoulCardDataFromCSV(TextAsset csvFile)
+        private List<SoulCardMasterData> LoadSoulCardDataFromCSV(TextAsset csvFile)
         {
-            List<SoulCardData> dataList = new List<SoulCardData>();
+            List<SoulCardMasterData> dataList = new List<SoulCardMasterData>();
             string[] lines = csvFile.text.Split('\n');
 
             foreach (string line in lines.Skip(1)) // ヘッダー行をスキップ
@@ -62,9 +62,9 @@ namespace SoulRunProject.Common
                 // int cardID = int.Parse(values[0]);
                 // string soulName = values[1];
                 // ...
-                SoulCardData data = ScriptableObject.CreateInstance<SoulCardData>();
+                SoulCardMasterData masterData = ScriptableObject.CreateInstance<SoulCardMasterData>();
                 // データを設定
-                dataList.Add(data);
+                dataList.Add(masterData);
             }
 
             return dataList;
@@ -84,7 +84,7 @@ namespace SoulRunProject.Common
             else
             {
                 _dataStorage.playerData = new PlayerData();
-                _dataStorage.playerData.CurrentSoulCardDataList = new List<SoulCardData>();
+                _dataStorage.playerData.CurrentSoulCardDataList = new List<SoulCardMasterData>();
                 // その他のプレイヤーデータを初期化
             }
         }
@@ -110,19 +110,19 @@ namespace SoulRunProject.Common
         /// <summary>
         /// プレイヤーデータにSoulCardDataを追加する
         /// </summary>
-        /// <param name="soulCardData"></param>
-        public void AddSoulCardToPlayerData(SoulCardData soulCardData)
+        /// <param name="soulCardMasterData"></param>
+        public void AddSoulCardToPlayerData(SoulCardMasterData soulCardMasterData)
         {
-            _dataStorage.playerData.CurrentSoulCardDataList.Add(soulCardData);
+            _dataStorage.playerData.CurrentSoulCardDataList.Add(soulCardMasterData);
         }
 
         /// <summary>
         /// プレイヤーデータからSoulCardDataを削除する
         /// </summary>
-        /// <param name="soulCardData"></param>
-        public void RemoveSoulCardFromPlayerData(SoulCardData soulCardData)
+        /// <param name="soulCardMasterData"></param>
+        public void RemoveSoulCardFromPlayerData(SoulCardMasterData soulCardMasterData)
         {
-            _dataStorage.playerData.CurrentSoulCardDataList.Remove(soulCardData);
+            _dataStorage.playerData.CurrentSoulCardDataList.Remove(soulCardMasterData);
         }
 
         // その他のプレイヤーデータの操作メソッドを追加
@@ -151,9 +151,9 @@ namespace SoulRunProject.Common
         [System.Serializable]
         public class MasterData
         {
-            public List<SoulCardData> soulCardDataList; // ソウルカードのマスターデータ
+            public List<SoulCardMasterData> soulCardDataList; // ソウルカードのマスターデータ
 
-            public List<SoulCardData> soulCardDataCombinations; // ソウルカードの組み合わせのマスターデータ
+            public List<SoulCardMasterData> soulCardDataCombinations; // ソウルカードの組み合わせのマスターデータ
             // エネミーのマスターデータ
             // アイテムのマスターデータ
         }
@@ -163,7 +163,7 @@ namespace SoulRunProject.Common
         {
             public int MaxScore; //最高スコア
             public int CurrentMoney; //所持金
-            public List<SoulCardData> CurrentSoulCardDataList; //所持しているもの
+            public List<SoulCardMasterData> CurrentSoulCardDataList; //所持しているもの
         }
     }
 }

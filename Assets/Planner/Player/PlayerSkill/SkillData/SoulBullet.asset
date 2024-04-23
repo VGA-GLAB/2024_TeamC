@@ -40,15 +40,16 @@ MonoBehaviour:
           - rid: 4051172700801204275
         - _levelUpEventList:
           - rid: 4051172700801204275
-        - _levelUpEventList:
-          - rid: 4051172700801204275
+        - _levelUpEventList: []
     - rid: 4051172700801204272
       type: {class: ProjectileSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _coolTime: 0.3
+        _coolTime: 30
         _lifeTime: 5
         _amount: 0
-        _attackDamage: 100
+        _attackDamage: 0
+        _knockBack:
+          _power: 0.127
         _range: 4
         _speed: 20
         _penetration: 0

@@ -96,6 +96,7 @@ namespace SoulRunProject.Common
             }
             // 白色点滅メソッド
             _hitDamageEffectManager.HitFadeBlinkWhite();
+            CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Damage");
         }
 
         public void Heal(float value)

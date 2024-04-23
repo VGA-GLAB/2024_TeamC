@@ -23,12 +23,20 @@ namespace SoulRunProject.InGame
 
         private float _knockBackResistance;
         public Action OnDead;
-        public void Damage(float damage)
+        /// <summary>
+        /// ダメージ処理 + ノックバック処理
+        /// </summary>
+        public void Damage(float damage , in GiveKnockBack knockBack = null)
         {
             _hp -= damage;
+            CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Hit");
             if (_hp <= 0)
             {
                 Death();
+            }
+            if (knockBack != null)
+            {
+                _takeKnockBack.KnockBack(transform , knockBack.Power , _direction);
             }
             if (_hitDamageEffectManager)
             {
@@ -46,15 +54,5 @@ namespace SoulRunProject.InGame
             Destroy(gameObject);
         }
         
-        /// <summary>
-        /// 接触時ノックバック処理を行う
-        /// </summary>
-        void OnTriggerEnter(Collider other)
-        {
-            if (other.TryGetComponent(out GiveKnockBack giveKnockBack))
-            {
-                _takeKnockBack.KnockBack(transform , giveKnockBack.Power , _direction);
-            }
-        }
     }
 }

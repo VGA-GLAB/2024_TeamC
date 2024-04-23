@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using SoulRunProject.Common;
 using UniRx;
 using UniRx.Triggers;
 using UnityEditor;
@@ -28,6 +29,9 @@ namespace SoulRunProject.InGame
         private readonly BoolReactiveProperty _isGround = new BoolReactiveProperty(true);
         private Vector3 _playerVelocity;
         private bool _inPause;
+        private float _landingSoundTimer;
+        private float _landingSoundInterval = 0.3f;
+        private int _spinIndex;
 
         public BoolReactiveProperty IsGround => _isGround;
         public event Action OnJumped;
@@ -39,6 +43,8 @@ namespace SoulRunProject.InGame
 
             _isGround.AddTo(this);
             this.OnDestroyAsObservable().Subscribe(_ => OnJumped = null);
+            _spinIndex = CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Spin");
+            CriAudioManager.Instance.PauseSE(_spinIndex);
         }
 
         private void Update()
@@ -56,6 +62,13 @@ namespace SoulRunProject.InGame
             if (_isGround.Value && _playerVelocity.y <= 0)
             {
                 _playerVelocity.y = 0;
+                _landingSoundTimer += Time.fixedDeltaTime;
+
+                if (_landingSoundTimer >= _landingSoundInterval)
+                {
+                    _landingSoundTimer = 0;
+                    CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Run");
+                }
             }
             else
             {
@@ -78,6 +91,7 @@ namespace SoulRunProject.InGame
             if (_isGround.Value)
             {
                 _playerVelocity.y = _jumpPower;
+                CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Jump");
                 OnJumped?.Invoke();
             }
         }
@@ -89,10 +103,22 @@ namespace SoulRunProject.InGame
                 Vector3 pos = transform.position;
                 pos.y = _yAxisGroundLine;
                 transform.position = pos;
+
+                if (!_isGround.Value)
+                {
+                    CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Landing");
+                    CriAudioManager.Instance.PauseSE(_spinIndex);
+                }
+                
                 _isGround.Value = true;
             }
             else
             {
+                if (_isGround.Value)
+                {
+                    CriAudioManager.Instance.ResumeSE(_spinIndex);
+                }
+                
                 _isGround.Value = false;
             }
         }

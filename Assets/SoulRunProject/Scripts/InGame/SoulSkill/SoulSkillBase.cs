@@ -12,37 +12,26 @@ namespace SoulRunProject
     /// ソウル技のインターフェース
     /// </summary>
     [Serializable]
-    public abstract class SoulSkillBase : MonoBehaviour
+    public abstract class SoulSkillBase : ScriptableObject
     {
-        //[SerializeField] protected SkillParameterBase _skillParameterBase;
-        [SerializeField] private float _requiredSoul;
-        private FloatReactiveProperty _currentSoul = new FloatReactiveProperty(0);
-        public IObservable<float> OnCurrentSoulChanged => _currentSoul;
-        public float RequiredSoul => _requiredSoul;
-        
-        public void AddSoul(float soul)
-        {
-            _currentSoul.Value += soul;
-            if (_currentSoul.Value >= _requiredSoul)
-            {
-                _currentSoul.Value = _requiredSoul;
-            }
-        }
+        [SerializeField, CustomLabel("名前")] private string _name;
+        [SerializeField, CustomLabel("技の説明文")] private string _description;
+        [SerializeField, CustomLabel("発動に必要なソウル")] private float _requiredSoul;
+        public string Name => _name;
 
-        public void UseSoulSkill()
-        {
-            if (_currentSoul.Value < _requiredSoul)
-            {
-                return;
-            }
-            _currentSoul.Value -= _requiredSoul;
-            StartSoulSkill();
-        }
+        public string Description => _description;
+
+        public float RequiredSoul => _requiredSoul;
         
         /// <summary>
         /// ソウル技を実行する
         /// </summary>
         public abstract void StartSoulSkill();
+        
+        /// <summary>
+        /// ソウル技を実行する
+        /// </summary>
+        public abstract void UpdateSoulSkill(float deltaTime);
         
         /// <summary>
         /// ソウル技を一時停止する

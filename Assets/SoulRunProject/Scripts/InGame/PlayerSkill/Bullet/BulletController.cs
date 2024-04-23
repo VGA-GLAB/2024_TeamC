@@ -25,6 +25,7 @@ namespace SoulRunProject.InGame
         float _speed;
         int _penetration;
         int _hitCount;
+        private GiveKnockBack _giveKnockBack;
         readonly Subject<Unit> _finishedSubject = new();
         public IObservable<Unit> OnFinishedAsync => _finishedSubject.Take(1);
         public void Awake()
@@ -41,6 +42,7 @@ namespace SoulRunProject.InGame
             _range = param.Range;
             _speed = param.Speed;
             _penetration = param.Penetration;
+            _giveKnockBack = param.KnockBack;
             _hitCount = 0;
             transform.localScale = new Vector3(_range, _range, _range);
             this.FixedUpdateAsObservable()
@@ -87,7 +89,7 @@ namespace SoulRunProject.InGame
         {
             if (other.gameObject.TryGetComponent(out DamageableEntity entity))
             {
-                entity.Damage((int)_attackDamage);
+                entity.Damage((int)_attackDamage , in _giveKnockBack);
                 _hitCount++;
                 if (_hitCount > _penetration)
                 {

@@ -42,6 +42,7 @@ namespace SoulRunProject.InGame
             }
             
             _currentExp.Value += exp;
+            CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_EXGet");
 
             while (_currentExp.Value >= CurrentExpToNextLevel)
             {
@@ -58,6 +59,7 @@ namespace SoulRunProject.InGame
         void LevelUp()
         {
             _currentLevel.Value++;
+            CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_LevelUp");
         }
     }
 }

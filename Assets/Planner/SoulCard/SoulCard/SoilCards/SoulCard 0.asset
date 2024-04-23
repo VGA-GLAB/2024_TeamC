@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a239937e642d467289e057ace42b35b1, type: 3}
-  m_Name: SoulCard 3
+  m_Name: SoulCard 0
   m_EditorClassIdentifier: 
-  cardID: 3
-  image: {fileID: 0}
-  soulName: 
-  soulLevel: 0
-  soulAbility: {fileID: 11400000, guid: 1427ecec5def6244689c63326c8ea810, type: 2}
-  explanatoryText: 
-  status: {fileID: 11400000, guid: 6fd9e14c5c2c69747a522e1e55835973, type: 2}
-  traitList: []
+  _cardID: 0
+  _image: {fileID: 0}
+  _soulName: 
+  _soulSkill: {fileID: 11400000, guid: 95369f5c160473b4287d5a8e74d1fc47, type: 2}
+  _baseStatus: {fileID: 0}
+  _soulMaxLevel: 0

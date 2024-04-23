@@ -9,26 +9,26 @@ namespace SoulRunProject.SoulMixScene
     public class AdjacencyList : MonoBehaviour
     {
         // 隣接リストを保持する辞書
-        private Dictionary<SoulCardData, List<SoulCardData>> _adjacencyList;
+        private Dictionary<SoulCardMasterData, List<SoulCardMasterData>> _adjacencyList;
 
         // 追加するためのSoulCardList
-        [SerializeField] private List<SoulCardData> soulCardList;
+        [SerializeField] private List<SoulCardMasterData> soulCardList;
         
         
         void Start()
         {
-            _adjacencyList = new Dictionary<SoulCardData, List<SoulCardData>>();
+            _adjacencyList = new Dictionary<SoulCardMasterData, List<SoulCardMasterData>>();
 
             // ここで隣接リストを初期化
             AddCombination(soulCardList[0], soulCardList[1]);
         }
 
         // 2つのSoulCard間の組み合わせを追加するメソッド
-        public void AddCombination(SoulCardData card1, SoulCardData card2)
+        public void AddCombination(SoulCardMasterData card1, SoulCardMasterData card2)
         {
             if (!_adjacencyList.ContainsKey(card1))// もし辞書にキーが存在しない場合は、新しいリストを作成
             {
-                _adjacencyList[card1] = new List<SoulCardData>();
+                _adjacencyList[card1] = new List<SoulCardMasterData>();
             }
 
             _adjacencyList[card1].Add(card2);
@@ -36,14 +36,14 @@ namespace SoulRunProject.SoulMixScene
             // もし無向グラフ（双方向の関係）の場合は、逆の組み合わせも追加
             if (!_adjacencyList.ContainsKey(card2))
             {
-                _adjacencyList[card2] = new List<SoulCardData>();
+                _adjacencyList[card2] = new List<SoulCardMasterData>();
             }
 
             _adjacencyList[card2].Add(card1);
         }
 
         // 2つのSoulCardが合成可能か判定するメソッド
-        public bool CanCombine(SoulCardData card1, SoulCardData card2)
+        public bool CanCombine(SoulCardMasterData card1, SoulCardMasterData card2)
         {
             if (!_adjacencyList.ContainsKey(card1))
             {
