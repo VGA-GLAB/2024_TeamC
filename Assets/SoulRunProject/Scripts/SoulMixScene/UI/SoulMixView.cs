@@ -38,7 +38,7 @@ namespace SoulRunProject.SoulMixScene
             var cardObject = Instantiate(_soulCardPrefab, _cardContainer);
             cardObject.name = cardMasterData.SoulName;
             var cardView = cardObject.GetComponentInChildren<Image>(); // カードのImageコンポーネントを取得
-            cardView.sprite = cardMasterData.Image; // カードデータの画像をセット
+            //cardView.sprite = cardMasterData.Image; // カードデータの画像をセット
 
             var button = cardObject.GetComponentInChildren<Button>(); // Buttonコンポーネントを取得
             if (button != null)

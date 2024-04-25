@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SoulRunProject.Common;
+using SoulRunProject.SoulRunProject.Scripts.Common.Core.Singleton;
 using UniRx;
 using UnityEngine;
 
@@ -8,12 +9,17 @@ namespace SoulRunProject.InGame
 {
     public class BulletPoolManager : AbstractSingletonMonoBehaviour<BulletPoolManager>
     {
-        [SerializeField] SkillData _skillData;
+        List<SkillBase> _skillData;
         [SerializeField] int _preloadCount = 5;
         [SerializeField] int _threshold = 5;
         [SerializeField] bool _useDontDestroyOnLoad;
         readonly Dictionary<PlayerSkill, BulletPool> _bulletPoolDictionary = new();
         protected override bool UseDontDestroyOnLoad => _useDontDestroyOnLoad;
+
+        void Start()
+        {
+            MyRepository.Instance.TryGetDataList(out _skillData);
+        }
         
         public BulletPool Get(PlayerSkill skillId)
         {
@@ -23,7 +29,7 @@ namespace SoulRunProject.InGame
                 return value;
             }
             //  無ければ新しく生成
-            var bullet = _skillData.Skills
+            var bullet = _skillData
                 .OfType<ProjectileSkill>()
                 .First(skill => skill.SkillType.Equals(skillId)).Bullet;
 

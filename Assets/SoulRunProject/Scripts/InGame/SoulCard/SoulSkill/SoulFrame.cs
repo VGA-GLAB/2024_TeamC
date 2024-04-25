@@ -24,7 +24,7 @@ namespace SoulRunProject.InGame
 
         public override void StartSoulSkill()
         {
-            _playerTransform ??= FindObjectOfType<PlayerManager>().transform;
+            _playerTransform = FindObjectOfType<PlayerManager>().transform;
             if (!_particleInstance)
             {
                 _particleInstance =  Instantiate(_particle , _playerTransform);
