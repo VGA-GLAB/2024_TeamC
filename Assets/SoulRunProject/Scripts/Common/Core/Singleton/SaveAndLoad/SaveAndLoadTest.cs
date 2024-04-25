@@ -2,6 +2,7 @@
 using SoulRunProject.Common;
 using UnityEngine;
 using UniRx;
+using UnityEngine.UI;
 
 namespace SoulRunProject.SoulRunProject.Scripts.Common.Core.Singleton
 {
@@ -10,6 +11,9 @@ namespace SoulRunProject.SoulRunProject.Scripts.Common.Core.Singleton
         SaveAndLoadManager _saveAndLoadManager;
         [SerializeField] private InputUIButton _saveButton;
         [SerializeField] private InputUIButton _loadButton;
+
+        [SerializeField] private string _saveFileName; // 読み込みたいファイル名
+        [SerializeField] private Text _logText; // ログテキスト
 
         private void Start()
         {

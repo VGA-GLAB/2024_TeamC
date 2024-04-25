@@ -18,6 +18,7 @@ namespace SoulRunProject.Common
 
         public override void OnAwake()
         {
+            _dataStorage = new DataStorage(); // _dataStorageを初期化する
             LoadPlayerDataFromJson();
         }
 
@@ -26,7 +27,6 @@ namespace SoulRunProject.Common
             SavePlayerDataToJson();
         }
 
-        
 
         /// <summary>
         /// プレイヤーデータをJSONファイルから読み込む
@@ -37,12 +37,12 @@ namespace SoulRunProject.Common
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
-                _dataStorage.playerData = JsonUtility.FromJson<PlayerData>(json);
+                _dataStorage.PlayerData = JsonUtility.FromJson<PlayerData>(json);
             }
             else
             {
-                _dataStorage.playerData = new PlayerData();
-                _dataStorage.playerData.CurrentSoulCardDataList = new List<SoulCardMasterData>();
+                _dataStorage.PlayerData = new PlayerData();
+                _dataStorage.PlayerData.CurrentSoulCardDataList = new List<SoulCardMasterData>();
                 // その他のプレイヤーデータを初期化
             }
         }
@@ -53,7 +53,7 @@ namespace SoulRunProject.Common
         private void SavePlayerDataToJson()
         {
             // プレイヤーデータをJSON形式の文字列に変換
-            string json = JsonUtility.ToJson(_dataStorage.playerData, true);
+            string json = JsonUtility.ToJson(_dataStorage.PlayerData, true);
 
             // ファイルの保存先パスを取得
             string filePath = GetSaveFilePath();
@@ -81,7 +81,7 @@ namespace SoulRunProject.Common
         /// <param name="soulCardData"></param>
         public void AddSoulCardToPlayerData(SoulCardMasterData soulCardData)
         {
-            _dataStorage.playerData.CurrentSoulCardDataList.Add(soulCardData);
+            _dataStorage.PlayerData.CurrentSoulCardDataList.Add(soulCardData);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace SoulRunProject.Common
         /// <param name="soulCardData"></param>
         public void RemoveSoulCardFromPlayerData(SoulCardMasterData soulCardData)
         {
-            _dataStorage.playerData.CurrentSoulCardDataList.Remove(soulCardData);
+            _dataStorage.PlayerData.CurrentSoulCardDataList.Remove(soulCardData);
         }
 
         // その他のプレイヤーデータの操作メソッドを追加
@@ -101,41 +101,15 @@ namespace SoulRunProject.Common
         // マスターデータとプレイヤーデータのアクセサを追加
         public MasterData GetMasterData()
         {
-            return _dataStorage.masterData;
+            return _dataStorage.MasterData;
         }
 
         public PlayerData GetPlayerData()
         {
-            return _dataStorage.playerData;
-        }
-
-        [System.Serializable]
-        private class DataStorage
-        {
-            public MasterData masterData;
-            public PlayerData playerData;
-        }
-
-        [System.Serializable]
-        public class MasterData
-        {
-            public List<SoulCardMasterData> soulCardDataList; // ソウルカードのマスターデータ
-
-            public List<SoulCardMasterData> soulCardDataCombinations; // ソウルカードの組み合わせのマスターデータ
-            // エネミーのマスターデータ
-            // アイテムのマスターデータ
-        }
-
-        [System.Serializable]
-        public class PlayerData
-        {
-            public int MaxScore; //最高スコア
-            public int CurrentMoney; //所持金
-            public List<SoulCardMasterData> CurrentSoulCardDataList; //所持しているもの
+            return _dataStorage.PlayerData;
         }
     }
 }
-
 
 
 /*
