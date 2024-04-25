@@ -10,7 +10,7 @@ namespace SoulRunProject.SoulMixScene
     /// <summary> ソウルカードのデータを管理するクラス </summary> 
     public class SoulCardManager : AbstractSingletonMonoBehaviour<SoulCardManager>
     {
-        protected override bool UseDontDestroyOnLoad => false; 
+        protected override bool UseDontDestroyOnLoad => false;
         [SerializeField] private SoulMixModel _soulMixModel; // エディターから設定する
 
         private SaveAndLoadManager _saveAndLoadManager;
@@ -19,13 +19,13 @@ namespace SoulRunProject.SoulMixScene
         {
             _saveAndLoadManager = SaveAndLoadManager.Instance;
             LoadSoulCards();
-            SaveAndLoadManager.MasterData masterData = _saveAndLoadManager.GetMasterData();
+            var masterData = _saveAndLoadManager.GetMasterData();
             //soulCardListSO.soulCardList = masterData.soulCardDataList;
         }
 
         private void LoadSoulCards()
         {
-            SaveAndLoadManager.PlayerData playerData = _saveAndLoadManager.GetPlayerData();
+            var playerData = _saveAndLoadManager.GetPlayerData();
 
             // PlayerDataからソウルカードをロードしてOwnedCardsに追加
             foreach (SoulCardMasterData soulCardData in playerData.CurrentSoulCardDataList)
