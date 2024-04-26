@@ -63,7 +63,7 @@ namespace SoulRunProject.InGame
             
             // ランダムにアイテムを選択し、ボタンに適用する
             // skill
-            SkillBase selectedSkill = _skillManager.SkillData.Skills[Random.Range(0, _skillManager.SkillData.Skills.Count)];
+            SkillBase selectedSkill = _skillManager.SkillData[Random.Range(0, _skillManager.SkillData.Count)];
             _levelUpView.UpgradeButtons[0].NameAndLevelText.text = selectedSkill.SkillName;
 
             if (_skillManager.CurrentSkillTypes.Contains(selectedSkill.SkillType)) // 取得済みスキルかによって分岐

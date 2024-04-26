@@ -121,30 +121,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker:
-    rid: -2
-  _mover:
-    rid: 336611771449606144
-  _status: {fileID: 11400000, guid: bc21bffee40270242a797af70295e78b, type: 2}
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 0
+    _knockBackTime: 0.5
   _lootTable: {fileID: 11400000, guid: 336e4d9ca71d4f8498bc390b9e894732, type: 2}
-  _playerManager: {fileID: 0}
   _hitDamageEffectManager: {fileID: 8329125932870208999}
-  _useKnockBack:
-    rid: 4986139182877900800
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 336611771449606144
-      type: {class: FollowingMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
-      data:
-        _canVerticalMove: 0
-    - rid: 4986139182877900800
-      type: {class: EntityKnockBackController, ns: SoulRunProject.Common, asm: Assembly-CSharp}
-      data:
-        _resistanceValue: 0
-        _time: 0
 --- !u!65 &4104162914166171959
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -160,7 +144,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

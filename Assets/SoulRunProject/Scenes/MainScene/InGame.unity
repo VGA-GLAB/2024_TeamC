@@ -2839,6 +2839,7 @@ GameObject:
   - component: {fileID: 1174502021}
   - component: {fileID: 1174502022}
   - component: {fileID: 1174502023}
+  - component: {fileID: 1174502024}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -2959,6 +2960,19 @@ MonoBehaviour:
   cueSheetBGM: BGM
   cueSheetSe: SE
   cueSheetVoice: Voice
+--- !u!114 &1174502024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174502016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d031b7b4a06e42a188923ca884da7d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _repositoryData: {fileID: 11400000, guid: 318fdb43c2bb04d40b91c680f45f7648, type: 2}
 --- !u!1 &1185619572
 GameObject:
   m_ObjectHideFlags: 0
@@ -3763,7 +3777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77eda4c25f42df42900dfed143ab44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soulSkill: {fileID: 0}
+  _soulSkill: {fileID: 11400000, guid: 95369f5c160473b4287d5a8e74d1fc47, type: 2}
   _currentSoul:
     value: 17.08
 --- !u!114 &1420106451

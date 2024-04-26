@@ -137,9 +137,9 @@ namespace SoulRunProject.Common
             _soulSkillManager.UseSoulSkill();
         }
         
-        public void SetSoul(SoulSkillBase soul)
+        public void SetSoulSkill(SoulSkillType soulSkillType)
         {
-            _soulSkillManager.SetSoulSkill(soul);
+            _soulSkillManager.SetSoulSkill(soulSkillType);
         }
         
         private void AddSoul(float soul)

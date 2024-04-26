@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a239937e642d467289e057ace42b35b1, type: 3}
+  m_Name: SoulCard 3
+  m_EditorClassIdentifier: 
+  _cardID: 3
+  _image: {fileID: 0}
+  _soulName: 
+  _soulSkill: {fileID: 11400000, guid: 95369f5c160473b4287d5a8e74d1fc47, type: 2}
+  _baseStatus: {fileID: 0}
+  _soulMaxLevel: 0

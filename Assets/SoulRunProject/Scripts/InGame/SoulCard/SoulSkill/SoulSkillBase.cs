@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using SoulRunProject.Common;
+using SoulRunProject.SoulMixScene;
 using UniRx;
 using UnityEngine;
 
@@ -14,9 +15,12 @@ namespace SoulRunProject
     [Serializable]
     public abstract class SoulSkillBase : ScriptableObject
     {
+        [SerializeField, CustomLabel("ソウル技のタイプ")] private SoulSkillType _skillType;
         [SerializeField, CustomLabel("名前")] private string _name;
         [SerializeField, CustomLabel("技の説明文")] private string _description;
         [SerializeField, CustomLabel("発動に必要なソウル")] private float _requiredSoul;
+        public SoulSkillType SkillType => _skillType;
+        
         public string Name => _name;
 
         public string Description => _description;

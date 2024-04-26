@@ -44,10 +44,10 @@ MonoBehaviour:
     - rid: 4051172700801204272
       type: {class: ProjectileSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _coolTime: 30
+        _coolTime: 0.3
         _lifeTime: 5
         _amount: 0
-        _attackDamage: 0
+        _attackDamage: 15
         _knockBack:
           _power: 0.127
         _range: 4

@@ -12,39 +12,35 @@ namespace SoulRunProject.InGame
 {
     [Serializable]
     [CreateAssetMenu(fileName = "SoulFrame", menuName = "SoulRunProject/SoulSkill/SoulFrame")]
-    public class SoulFrame : SoulSkillBase
+    public class SoulFrame : SoulSkillBase , ISerializationCallbackReceiver
     {
         [SerializeField , CustomLabel("使用パーティクル")] private GameObject _particle;
         [SerializeField, CustomLabel("１発のダメージ")] private int _attackDamage;
         [SerializeField, CustomLabel("発動時間")] private int _duration;
         [SerializeField, CustomLabel("ノックバック")] private GiveKnockBack _giveKnockBack;
-        private float _currentPlayTime;
+        private GameObject _particleInstance;
         private ParticleSystem _meteorParticle;
         private Transform _playerTransform;
-        
 
         public override void StartSoulSkill()
         {
             _playerTransform = FindObjectOfType<PlayerManager>().transform;
-            var particle =  Instantiate(_particle , _playerTransform);
-            particle.OnParticleCollisionAsObservable().Subscribe(ParticleCollision).AddTo(particle);
-            _meteorParticle = particle.GetComponent<ParticleSystem>();
+            if (!_particleInstance)
+            {
+                _particleInstance =  Instantiate(_particle , _playerTransform);
+                _particleInstance.OnParticleCollisionAsObservable().Subscribe(ParticleCollision).AddTo(_particleInstance);
+                _meteorParticle = _particleInstance.GetComponent<ParticleSystem>();
+            }
             _meteorParticle.Play();
+            Observable.Timer(TimeSpan.FromSeconds(_duration))
+                .Subscribe(_=> _meteorParticle.Stop()).AddTo(_particleInstance);
         }
 
         public override void UpdateSoulSkill(float deltaTime)
         {
-            if (_meteorParticle.isPlaying)
-            {
-                _currentPlayTime += Time.deltaTime;
-                if (_currentPlayTime >= _duration)
-                {
-                    _meteorParticle.Stop();
-                    _currentPlayTime = 0;
-                }
-            }
+            
         }
-        
+
         private void ParticleCollision(GameObject other)
         {
             if (other.TryGetComponent(out DamageableEntity entity))
@@ -55,6 +51,7 @@ namespace SoulRunProject.InGame
 
         public override void PauseSoulSkill(bool isPause)
         {
+            if (!_meteorParticle) return;
             if (isPause)
             {
                 _meteorParticle.Pause();
@@ -63,6 +60,18 @@ namespace SoulRunProject.InGame
             {
                 _meteorParticle.Play();
             }
+        }
+
+        public void OnBeforeSerialize()
+        {
+            _particleInstance = null;
+            _meteorParticle = null;
+            _playerTransform = null;
+        }
+
+        public void OnAfterDeserialize()
+        {
+            
         }
     }
 }

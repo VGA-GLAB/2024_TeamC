@@ -118,19 +118,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attack:
-    rid: -2
-  _move:
-    rid: 336611251338084356
-  _enemyData: {fileID: 11400000, guid: a2f95514ea4782b45aa75b4ed0d8c7c0, type: 2}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 336611251338084356
-      type: {class: FollowingMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
-      data:
-        _aimSpeed: 1
-        _nearDistance: 3
-        _straightMoveTime: 3
+  _hp: 30
+  _collisionDamage: 0
+  _direction: {x: 1, y: 1, z: 1}
+  _takeKnockBack:
+    _resistanceValue: 0
+    _knockBackTime: 0.5
+  _lootTable: {fileID: 0}
+  _hitDamageEffectManager: {fileID: 0}

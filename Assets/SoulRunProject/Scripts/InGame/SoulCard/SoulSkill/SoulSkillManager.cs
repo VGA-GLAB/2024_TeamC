@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using SoulRunProject.Framework;
+using SoulRunProject.SoulMixScene;
+using SoulRunProject.SoulRunProject.Scripts.Common.Core.Singleton;
 using UniRx;
 using UnityEngine;
 
@@ -10,21 +14,30 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class SoulSkillManager : MonoBehaviour
     {
-        [SerializeField] SoulSkillBase _soulSkill;
-        
-        
         [SerializeField] private FloatReactiveProperty _currentSoul = new FloatReactiveProperty(0);
+        private readonly Dictionary<SoulSkillType , SoulSkillBase> _soulSkillReference = new();
         SoulSkillBase _currentSoulSkill;
-        public float RequiredSoul => _currentSoulSkill.RequiredSoul;
+        public float RequiredSoul;
         public IObservable<float> CurrentSoul => _currentSoul;
 
         private void Start()
         {
-            _currentSoulSkill = Instantiate(_soulSkill);
+            //TODO デバック用　ソウルフレイム設定。
+            if (MyRepository.Instance.TryGetDataList<SoulSkillBase>(out var dataList))
+            {
+                foreach (var soulSkill in dataList)
+                {
+                    _soulSkillReference.Add(soulSkill.SkillType , soulSkill);
+                }
+                
+            }
+
+            SetSoulSkill(SoulSkillType.SoulFrame);
         }
-        public void SetSoulSkill(SoulSkillBase soulSkill)
+        public void SetSoulSkill(SoulSkillType soulSkillType)
         {
-            _currentSoulSkill = soulSkill;
+            _currentSoulSkill = _soulSkillReference[soulSkillType];
+            RequiredSoul = _currentSoulSkill.RequiredSoul;
         }
         
         public void AddSoul(float soul)
@@ -48,6 +61,5 @@ namespace SoulRunProject.InGame
             _currentSoul.Value -= RequiredSoul;
             _currentSoulSkill.StartSoulSkill();
         }
-        
     }
 }

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b591e32439db4b61bbbece99aaca72d5, type: 3}
+  m_Name: DataRepository
+  m_EditorClassIdentifier: 
+  _importPaths:
+  - Assets/Planner/Player/PlayerSkill/SkillData
+  - Assets/Planner/SoulCard/SoulSkill
+  - Assets/Planner/SoulCard/SoulCard/SoilCards
+  _dataList:
+  - rid: 1264093692877602827
+  - rid: 1264093692877602828
+  - rid: 1264093692877602829
+  references:
+    version: 2
+    RefIds:
+    - rid: 1264093692877602827
+      type: {class: RepositoryData/ScriptableObjectList, ns: SoulRunProject.Common.Core.ScriptableObject,
+        asm: Assembly-CSharp}
+      data:
+        ScriptableObjects:
+        - {fileID: 11400000, guid: 0d9ceba750591d8468b54d2d2ecc5dc8, type: 2}
+        - {fileID: 11400000, guid: df95c91d87216e64b8646eb5593ed616, type: 2}
+        - {fileID: 11400000, guid: c7e3a43ae5d1ebf4c895b4bec4de59c6, type: 2}
+        - {fileID: 11400000, guid: 380fc6e6c3756b547b68c3ed6f2d08fe, type: 2}
+    - rid: 1264093692877602828
+      type: {class: RepositoryData/ScriptableObjectList, ns: SoulRunProject.Common.Core.ScriptableObject,
+        asm: Assembly-CSharp}
+      data:
+        ScriptableObjects:
+        - {fileID: 11400000, guid: 95369f5c160473b4287d5a8e74d1fc47, type: 2}
+    - rid: 1264093692877602829
+      type: {class: RepositoryData/ScriptableObjectList, ns: SoulRunProject.Common.Core.ScriptableObject,
+        asm: Assembly-CSharp}
+      data:
+        ScriptableObjects:
+        - {fileID: 11400000, guid: 06c785b2ccdec7845acb08d8c17a90de, type: 2}
+        - {fileID: 11400000, guid: d977c12d5fabadb41a945346579a09ee, type: 2}
+        - {fileID: 11400000, guid: fe35cedb6132665458319b335eb3d9ce, type: 2}
+        - {fileID: 11400000, guid: d18972dd96032554a84ab7dcb666e70a, type: 2}
