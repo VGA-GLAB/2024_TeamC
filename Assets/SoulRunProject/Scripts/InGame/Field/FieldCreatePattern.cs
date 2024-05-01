@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SoulRunProject.Common;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
@@ -7,14 +8,23 @@ namespace SoulRunProject.InGame
     [Serializable]
     public class FieldCreatePattern
     {
-        [SerializeField, Header("無限に流すかどうか")] bool _isInfinity;
-        [SerializeField, Header("流す秒数")] float _seconds;
-        [SerializeField, Header("ランダムに流すかどうか")] bool _isRandom;
-        [SerializeField, Header("流すタイルの組み合わせ")] List<FieldSegment> _fieldSegments;
+        /// <summary>生成モード</summary>
+        [SerializeField] FieldMoverMode _mode;
+        /// <summary>流す秒数</summary>
+        [SerializeField] float _seconds;
+        /// <summary>ランダムに流すかどうか</summary>
+        /// <summary>一定に生成するためのタイルの組み合わせ</summary>
+        [SerializeField] List<FieldSegment> _fieldSegments;
+        /// <summary>ランダム生成のためのタイルの隣接関係</summary>
+        [SerializeField] AdjacentGraph _adjacentGraph;
+        /// <summary>ランダム生成で一番最初に流すタイル</summary>
+        [SerializeField] FieldSegment _randomFirstSegment;
+        /// <summary>ランダム生成で一番最後に流すタイル</summary>
+        [SerializeField] FieldSegment _randomLastSegment;
 
-        public bool IsInfinity => _isInfinity;
+        public FieldMoverMode Mode => _mode;
         public float Seconds => _seconds;
-        public bool IsRandom => _isRandom;
         public List<FieldSegment> FieldSegments => _fieldSegments;
+        public AdjacentGraph AdjacentGraph => _adjacentGraph;
     }
 }

@@ -18,6 +18,7 @@ namespace SoulRunProject.InGame
         
         protected override void OnEnter(State currentState)
         {
+            // todo ボス戦スタート演出処理
             DebugClass.Instance.ShowLog("ボスステージ開始前ステート開始");
             StateChange();
         }

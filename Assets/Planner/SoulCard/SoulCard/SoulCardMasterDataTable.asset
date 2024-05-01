@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a239937e642d467289e057ace42b35b1, type: 3}
+  m_Name: SoulCardMasterDataTable
+  m_EditorClassIdentifier: 
+  DataTable:
+  - _cardID: 1
+    _imageName: wolf
+    _soulName: Wol
+    _description: "\u3042\u3042\u3042\u3042"
+    _soulSkillType: 0
+    _defaultCharacteristicType: 1
+    _experienceTableType: 0
+    _statusTableType: 0
+    _hp: 333.333
+    _attack: 333
+    _defence: 333
+    _coolTime: 0.3333
+    _skillSize: 0.3333
+    _bulletSpeed: 0.3333
+    _effectTime: 8
+    _bulletNum: 7
+    _penetration: 6
+    _moveSpeed: 0.3333
+    _growthSpeed: 0.3333
+    _luck: 0.3333
+    _criticalRate: 0.3333
+    _criticalDamageRate: 0.3333
+    _soulAbsorption: 0.3333
+    _soulAcquisition: 0.3333

@@ -13,17 +13,55 @@ MonoBehaviour:
   m_Name: LevelUpItemData
   m_EditorClassIdentifier: 
   _statusUpItems:
-  - _itemName: "\u30D1\u30C3\u30B7\u30D61"
+  - _itemName: "\u53F8\u6559\u6756"
     _itemImage: {fileID: 0}
     ItemEffects:
     - _statusToUp: 1
       _upValue: 1
     - _statusToUp: 4
       _upValue: 1
-  - _itemName: "\u30D1\u30C3\u30B7\u30D62"
+  - _itemName: "\u9B42\u306E\u5F3E\u4E38"
     _itemImage: {fileID: 0}
     ItemEffects:
     - _statusToUp: 5
       _upValue: 1
     - _statusToUp: 7
+      _upValue: 1
+  - _itemName: "\u9B42\u306E\u30ED\u30B6\u30EA\u30AA"
+    _itemImage: {fileID: 0}
+    ItemEffects:
+    - _statusToUp: 3
+      _upValue: 2
+    - _statusToUp: 6
+      _upValue: 3
+  - _itemName: "\u9B42\u6559\u306E\u6559\u672C"
+    _itemImage: {fileID: 0}
+    ItemEffects:
+    - _statusToUp: 4
+      _upValue: 2
+    - _statusToUp: 7
+      _upValue: 3
+  - _itemName: "\u9B42\u306E\u30D6\u30FC\u30C4"
+    _itemImage: {fileID: 0}
+    ItemEffects:
+    - _statusToUp: 9
+      _upValue: 2
+  - _itemName: "\u30BD\u30A6\u30EB\u30B5\u30FC\u30AF\u30EC\u30C3\u30C8"
+    _itemImage: {fileID: 0}
+    ItemEffects:
+    - _statusToUp: 6
+      _upValue: 3
+  - _itemName: "\u9B42\u6559\u306E\u624B\u888B"
+    _itemImage: {fileID: 0}
+    ItemEffects:
+    - _statusToUp: 8
+      _upValue: 5
+    - _statusToUp: 5
+      _upValue: 1
+  - _itemName: "\u9B42\u6559\u306E\u6C34\u6676"
+    _itemImage: {fileID: 0}
+    ItemEffects:
+    - _statusToUp: 15
+      _upValue: 5
+    - _statusToUp: 10
       _upValue: 1

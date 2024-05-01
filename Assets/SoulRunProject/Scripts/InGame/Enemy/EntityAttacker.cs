@@ -1,16 +1,16 @@
-using SoulRunProject.SoulMixScene;
+using SoulRunProject.Common;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
     /// <summary>
-    /// Enemyの攻撃処理のインターフェース
+    /// Enemyの攻撃処理の抽象クラス
     /// </summary>
     public abstract class EntityAttacker
     {
-        [SerializeField] protected int _attack;
-        [SerializeField] protected float _coolTime;
-        [SerializeField] protected float _range;
+        [SerializeField, CustomLabel("攻撃力")] protected int _attack;
+        [SerializeField, CustomLabel("クールタイム")] protected float _coolTime;
+        [SerializeField, CustomLabel("サイズ")] protected float _range;
         /// <summary>
         /// 起動時に一度のみ呼ばれる
         /// </summary>

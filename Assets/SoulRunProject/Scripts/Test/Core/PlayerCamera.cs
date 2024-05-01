@@ -41,6 +41,11 @@ namespace SoulRunProject
             _originalPos = _shakeObj.position;
         }
 
+        private void Update()
+        {
+            _shakeObj.position = new (_player.transform.position.x, transform.position.y, transform.position.z);
+        }
+
         public async UniTask DoStartIngameMove(CancellationToken cts)
         {
             return;

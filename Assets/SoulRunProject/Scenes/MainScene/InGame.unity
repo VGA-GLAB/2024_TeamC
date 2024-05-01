@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.0019524717, g: 0.003835365, b: 0.008846895, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2889,6 +2889,7 @@ MonoBehaviour:
   _commonView: {fileID: 183513117}
   _stageNameView: {fileID: 183513118}
   _levelUpView: {fileID: 183513119}
+  _fieldMover: {fileID: 1962700606}
 --- !u!114 &1174502020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2926,7 +2927,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342fd8d87ed91b84f80c0ffc379a1d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skillData: {fileID: 11400000, guid: bd1df6d49e5d4e947848631660768137, type: 2}
   _preloadCount: 5
   _threshold: 5
   _useDontDestroyOnLoad: 0
@@ -3645,8 +3645,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 1420106445}
-  _status: {fileID: 11400000, guid: d50a16b38666d804883e3040b335a638, type: 2}
+  _baseStatus: {fileID: 11400000, guid: d50a16b38666d804883e3040b335a638, type: 2}
   _playerCamera: {fileID: 165873042}
+  MaxHp: 0
 --- !u!114 &1420106445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3758,7 +3759,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6075843f4893e842bfcc7a2cfcae3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skillData: {fileID: 11400000, guid: bd1df6d49e5d4e947848631660768137, type: 2}
   _skillIconImage:
   - {fileID: 1698915878}
   - {fileID: 1639702815}
@@ -3777,9 +3777,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77eda4c25f42df42900dfed143ab44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soulSkill: {fileID: 11400000, guid: 95369f5c160473b4287d5a8e74d1fc47, type: 2}
   _currentSoul:
     value: 17.08
+  RequiredSoul: 0
 --- !u!114 &1420106451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5847,16 +5847,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _patterns:
-  - _isInfinity: 0
+  - _mode: 0
     _seconds: 60
-    _isRandom: 0
     _fieldSegments:
     - {fileID: 2752528944075337817, guid: 54942ca6699e8764a8b2eb58690cf15d, type: 3}
-  - _isInfinity: 1
-    _seconds: 60
-    _isRandom: 1
-    _fieldSegments: []
-  _adjacentGraph: {fileID: 11400000, guid: 47a803795c6066442861898c5a868b0b, type: 2}
+    _adjacentGraph: {fileID: 0}
+    _randomFirstSegment: {fileID: 0}
+    _randomLastSegment: {fileID: 0}
   _minSegmentCount: 2
   _scrollSpeed: 30
 --- !u!1 &1990613036
@@ -6581,5 +6578,5 @@ SceneRoots:
   - {fileID: 1420106439}
   - {fileID: 127391382}
   - {fileID: 1341415493}
-  - {fileID: 1962700605}
   - {fileID: 1291440194}
+  - {fileID: 1962700605}

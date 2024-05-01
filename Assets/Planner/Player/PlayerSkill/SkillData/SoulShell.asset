@@ -32,20 +32,15 @@ MonoBehaviour:
       data:
         _levelUpEventListList:
         - _levelUpEventList:
+          - rid: 4896308369660051468
+        - _levelUpEventList:
+          - rid: 4896308369660051469
+        - _levelUpEventList:
           - rid: 4051172729737969672
-          - rid: 4051172729737969673
         - _levelUpEventList:
           - rid: 4051172729737969672
           - rid: 4051172729737969673
-        - _levelUpEventList:
-          - rid: 4051172729737969672
-          - rid: 4051172729737969673
-        - _levelUpEventList:
-          - rid: 4051172729737969672
-          - rid: 4051172729737969673
-        - _levelUpEventList:
-          - rid: 4051172729737969672
-          - rid: 4051172729737969673
+        - _levelUpEventList: []
     - rid: 4051172729737969671
       type: {class: ShieldSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
@@ -54,8 +49,16 @@ MonoBehaviour:
     - rid: 4051172729737969672
       type: {class: LevelUpEventShieldCoolTime, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _reduceCoolTime: 25
+        _reduceCoolTime: 10
     - rid: 4051172729737969673
+      type: {class: LevelUpEventShieldCount, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _increaseShieldCount: 1
+    - rid: 4896308369660051468
+      type: {class: LevelUpEventShieldCoolTime, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _reduceCoolTime: 10
+    - rid: 4896308369660051469
       type: {class: LevelUpEventShieldCount, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
         _increaseShieldCount: 1

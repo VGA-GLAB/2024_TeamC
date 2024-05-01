@@ -11,6 +11,7 @@ namespace SoulRunProject.Common
     public class InGameLifeTimeManager : LifetimeScope
     {
         [SerializeField] private PlayerCamera _camera;
+        [SerializeField] private StageManager _stageManager;
         [SerializeField] private PlayerManager _playerManager;
         [SerializeField] private PlayerLevelManager _playerLevelManager;
         [SerializeField] private SoulSkillManager _soulSkillManager;
@@ -21,14 +22,17 @@ namespace SoulRunProject.Common
         [SerializeField] private CommonView _commonView;
         [SerializeField] private StageNameView _stageNameView;
         [SerializeField] private LevelUpView _levelUpView;
+        [SerializeField] private FieldMover _fieldMover;
         protected override void Configure(IContainerBuilder builder)
         {
             //ドメイン層
             builder.RegisterInstance(_camera);
+            builder.RegisterInstance(_stageManager);
             builder.RegisterInstance(_playerManager);
             builder.RegisterInstance(_playerInput);
             builder.RegisterInstance(gameObject);
             builder.RegisterInstance(_stageNameView);
+            builder.RegisterInstance(_fieldMover);
             
             //アプリケーション層
             builder.Register<EnterInGameState>(Lifetime.Singleton);

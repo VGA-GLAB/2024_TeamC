@@ -15,34 +15,32 @@ namespace SoulRunProject.InGame
     public class FieldMover : MonoBehaviour, IPausable
     {
         [SerializeField, Header("生成パターン")] List<FieldCreatePattern> _patterns;
-        [SerializeField, Header("タイル同士の隣接リスト")] AdjacentGraph _adjacentGraph;
-        [SerializeField, Header("最小タイル数")] int _minSegmentCount = 5;
-        [SerializeField, Header("スクロール速度")] float _scrollSpeed = 5f;
+        [SerializeField, CustomLabel("最小タイル数")] int _minSegmentCount = 5;
+        [SerializeField, CustomLabel("スクロール速度")] float _scrollSpeed = 5f;
 
         bool _isPause;
-        CancellationToken _ct;
+        CancellationToken _ctOnDestroy;
+        CancellationTokenSource _cts;
         List<FieldSegment> _moveSegments = new();
-        AdjacentGraphProcessor _processor;
+        /// <summary>ボスステージが始まった時に呼ばれるデリゲート</summary>
+        public Action StartBossStage { get; set; }
+
+        public List<FieldSegment> MoveSegments => _moveSegments;
 
         void Awake()
         {
-            //  タイルの隣接リスト取得
-            _processor = new AdjacentGraphProcessor(_adjacentGraph);
-            _processor.Run();
-            
-            _ct = this.GetCancellationTokenOnDestroy();
-            FieldControl(_ct).Forget(); //  処理開始
+            _ctOnDestroy = this.GetCancellationTokenOnDestroy();
+            FieldControl().Forget(); //  処理開始
         }
 
-        async UniTaskVoid FieldControl(CancellationToken ct)
+        async UniTaskVoid FieldControl()
         {
             foreach (var pattern in _patterns)
             {
-                if (await FieldScroll(pattern, ct))
-                {
-                    Debug.Log($"End Scroll: {pattern.Seconds}");
-                }
-                else
+                _cts = CancellationTokenSource.CreateLinkedTokenSource(_ctOnDestroy);
+                if(pattern.Mode == FieldMoverMode.Boss) StartBossStage?.Invoke();
+                
+                if (!await FieldScroll(pattern, _cts.Token))
                 {
                     //  Exceptionが発生しているなら処理を強制終了させる
                     break;
@@ -57,6 +55,7 @@ namespace SoulRunProject.InGame
         {
             var timer = 0f;
             int segmentIndex = 0;
+            bool firstSegmentCreated;
             //  タイマーループ開始
             while (true)
             {
@@ -70,63 +69,60 @@ namespace SoulRunProject.InGame
                     
                     for (int i = 0; i < loopCount; i++)
                     {
+                        //  生成したタイルが0個の時
                         if (_moveSegments.Count <= 0)
                         {
-                            FieldSegment segment;
-                            if (pattern.IsRandom)
+                            FieldSegment originalSegment;
+                            if (pattern.Mode == FieldMoverMode.Random)
                             {
-                                var randomSegment = _processor.FieldSegmentNodes
-                                    [Random.Range(0, _processor.FieldSegmentNodes.Count)].FieldSegment;
-                                segment = Instantiate(randomSegment, transform);
-                                segment.ApplyOriginalInstanceID(randomSegment);
+                                var processor = pattern.AdjacentGraph.Processor;
+                                originalSegment = processor.FieldSegmentNodes
+                                    [Random.Range(0, processor.FieldSegmentNodes.Count)].FieldSegment;
                             }
                             else
                             {
-                                segment = Instantiate(pattern.FieldSegments[segmentIndex], transform);
-                                segment.ApplyOriginalInstanceID(pattern.FieldSegments[segmentIndex]);
+                                originalSegment = pattern.FieldSegments[segmentIndex];
                             }
+                            var segment = Instantiate(originalSegment, transform);
+                            segment.ApplyOriginalInstanceID(originalSegment);
                             segment.transform.position = segment.transform.TransformPoint(-segment.StartPos);
                             _moveSegments.Add(segment);
                         }
                         else
-                        {
-                            var prevSegment = _moveSegments[^1];
+                        {   //  生成されたタイルがリストに残ってるとき
+                            var prevSegment = _moveSegments[^1];    //  一番後ろの要素を取得
                             var prevEndPos = prevSegment.transform.TransformPoint(prevSegment.EndPos);
-                            FieldSegment segment;
-                            if (pattern.IsRandom)
+                            FieldSegment originalSegment;
+                            if (pattern.Mode == FieldMoverMode.Random)
                             {
-                                var node = _processor.FieldSegmentNodes
+                                var processor = pattern.AdjacentGraph.Processor;
+                                var node = processor.FieldSegmentNodes
                                     .FirstOrDefault(node => node.FieldSegment.GetInstanceID() == prevSegment.OriginalInstanceID);
                                 if (node != null)
                                 {
                                     var outSegments = node.OutSegments.ToList();
-                                    var randomSegment = outSegments[Random.Range(0, outSegments.Count)];
-                                    segment = Instantiate(randomSegment, transform);
-                                    segment.ApplyOriginalInstanceID(randomSegment);
+                                    originalSegment = outSegments[Random.Range(0, outSegments.Count)];
                                 }
                                 else
                                 {
-                                    var randomSegment = _processor.FieldSegmentNodes
-                                        [Random.Range(0, _processor.FieldSegmentNodes.Count)].FieldSegment;
-                                    segment = Instantiate(randomSegment, transform);
-                                    segment.ApplyOriginalInstanceID(randomSegment);
+                                    originalSegment = processor.FieldSegmentNodes
+                                        [Random.Range(0, processor.FieldSegmentNodes.Count)].FieldSegment;
                                 }
                             }
                             else
                             {
-                                segment = Instantiate(pattern.FieldSegments[segmentIndex], transform);
-                                segment.ApplyOriginalInstanceID(pattern.FieldSegments[segmentIndex]);
+                                originalSegment = pattern.FieldSegments[segmentIndex];
                             }
+                            var segment = Instantiate(originalSegment, transform);
+                            segment.ApplyOriginalInstanceID(originalSegment);
                             segment.transform.position = prevEndPos;
                             segment.transform.position = segment.transform.TransformPoint(-segment.StartPos);
                             _moveSegments.Add(segment);
                         }
 
-                        if (!pattern.IsRandom)
-                        {
-                            segmentIndex++;
-                            segmentIndex %= pattern.FieldSegments.Count;
-                        }
+                        if (pattern.Mode == FieldMoverMode.Random) continue;
+                        segmentIndex++;
+                        segmentIndex %= pattern.FieldSegments.Count;
                     }
 
                     List<FieldSegment> list = new();
@@ -138,6 +134,7 @@ namespace SoulRunProject.InGame
                         if (_moveSegments[i].transform.TransformPoint(_moveSegments[i].EndPos).z < transform.position.z)
                         {
                             //  破棄する。
+                            _moveSegments[i].gameObject.SetActive(false);
                             Destroy(_moveSegments[i].gameObject);
                         }
                         else
@@ -150,16 +147,22 @@ namespace SoulRunProject.InGame
                     
                     //  制限時間を超えていて生成されているタイルが設定の一番最後なら終了
                     //  一番最後ならインクリメントされて循環バッファで0になっているので0と比較する
-                    if (timer >= pattern.Seconds && segmentIndex == 0 && !pattern.IsInfinity)
+                    if (timer >= pattern.Seconds && segmentIndex == 0 && pattern.Mode != FieldMoverMode.Boss)
                     {
                         //  スクロール終了、正常終了
                         return true;
                     }
                 }
                 catch (OperationCanceledException e)
-                {  
-                    //  キャンセル時処理、異常終了
-                    return false;
+                {
+                    if (_ctOnDestroy.IsCancellationRequested)
+                    {
+                        Debug.Log($"{nameof(FieldMover)}が正常に破棄された");
+                        return false;
+                    }
+
+                    Debug.Log($"{nameof(FieldMover)}でキャンセルが呼ばれた。次の生成パターンに移動します。");
+                    return true;
                 }
             }
         }
@@ -167,6 +170,13 @@ namespace SoulRunProject.InGame
         public void Pause(bool isPause)
         {
             _isPause = isPause;
+        }
+        /// <summary>
+        /// 今動いている生成パターンを強制終了させて次の生成パターンに移る
+        /// </summary>
+        public void NextField()
+        {
+            _cts?.Cancel();
         }
     }
 }

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 8160015286760555117}
   - component: {fileID: 4104162914166171959}
   - component: {fileID: 8329125932870208999}
+  - component: {fileID: 5893449610729875164}
+  - component: {fileID: 6249595675508555090}
   m_Layer: 0
   m_Name: Enemy_Hawk
   m_TagString: Untagged
@@ -164,3 +166,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 0.1
   _loopCount: 1
+--- !u!114 &5893449610729875164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7073754473475370446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a52d006fdda4ecf991a184f16ff75a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attacker:
+    rid: -2
+  _mover:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &6249595675508555090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7073754473475370446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b9b841b7de4b71be90873c77bb94a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bullet: {fileID: 8486967881875746884, guid: 1f37bb37cb75a7e4fbf8caf523ede8a5, type: 3}

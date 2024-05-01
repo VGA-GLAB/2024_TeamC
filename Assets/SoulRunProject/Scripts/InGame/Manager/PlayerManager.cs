@@ -15,7 +15,7 @@ namespace SoulRunProject.Common
     public class PlayerManager : MonoBehaviour , IPausable
     {
         [SerializeField] private PlayerInput _playerInput;
-        [SerializeField] private Status _status;
+        [SerializeField] private BaseStatus _baseStatus;
         [SerializeField] private PlayerCamera _playerCamera;
         
         private IPlayerPausable[] _inGameTimes;
@@ -27,15 +27,16 @@ namespace SoulRunProject.Common
         private PlayerResourceContainer _resourceContainer;
         public FloatReactiveProperty CurrentHp { get; private set; }
         public PlayerResourceContainer ResourceContainer => _resourceContainer;
-        public float MaxHp => _status.Hp;
-        public Status CurrentStatus => _status;
+        public float MaxHp;
+        public Status CurrentStatus => _currentStatus;
         /// <summary>ダメージを無効化出来るかどうかの条件を格納するリスト</summary>
         public List<Func<bool>> IgnoreDamagePredicates { get; } = new();
 
+        private Status _currentStatus;
         private void Awake()
         {
-            _status = _status.Copy();
-            CurrentHp = new FloatReactiveProperty(_status.Hp);
+            _currentStatus = new Status(_baseStatus.Status);
+            CurrentHp = new FloatReactiveProperty(_currentStatus.Hp);
             _inGameTimes = GetComponents<IPlayerPausable>();
             _pLevelManager = GetComponent<PlayerLevelManager>();
             _skillManager = GetComponent<SkillManager>();
@@ -43,6 +44,7 @@ namespace SoulRunProject.Common
             _playerMovement = GetComponent<PlayerMovement>();
             _hitDamageEffectManager = GetComponent<HitDamageEffectManager>();
             _resourceContainer = new();
+            MaxHp = _currentStatus.Hp;
             
             InitializeInput();
         }
@@ -118,14 +120,6 @@ namespace SoulRunProject.Common
         {
             Debug.Log("GameOver");
             //SwitchPause(true);
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.TryGetComponent(out DamageableEntity fieldEntityController))
-            {
-                Damage(fieldEntityController.CollisionDamage);
-            }
         }
 
         #region SoulSkill関連

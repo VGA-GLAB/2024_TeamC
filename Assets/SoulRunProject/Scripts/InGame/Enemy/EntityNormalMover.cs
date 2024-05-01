@@ -1,14 +1,16 @@
+using System;
+using SoulRunProject.Common;
 using UnityEngine;
-using SoulRunProject.SoulMixScene;
 
 namespace SoulRunProject.InGame
 {
     /// <summary>
     /// Enemyの通常移動処理の実装クラス
     /// </summary>
+    [Serializable, Name("通常移動")]
     public class EntityNormalMover : EntityMover
     {
-        [SerializeField] private float _moveSpeed;
+        [SerializeField] float _moveSpeed;
         bool _isStopped;
         public void OnStart()
         {

@@ -1,14 +1,19 @@
+using System;
+using SoulRunProject.Common;
 using SoulRunProject.SoulMixScene;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
     /// <summary>
-    ///     対象を追従するように移動させるためのクラス
+    /// 対象を追従するように移動させるためのクラス
     /// </summary>
+    [Serializable, Name("対象追従移動")]
     public class FollowingMover : EntityMover
     {
-        [SerializeField] [Tooltip("垂直移動が可能かどうか")] bool _canVerticalMove;
+        [SerializeField, CustomLabel("垂直移動が可能かどうか")]
+        bool _canVerticalMove;
+
         float _moveSpeed;
         bool _isStopped;
 
@@ -19,7 +24,6 @@ namespace SoulRunProject.InGame
 
         public void OnStart()
         {
-            
         }
 
         public void OnUpdateMove(Transform self, Transform target = default)
@@ -27,10 +31,10 @@ namespace SoulRunProject.InGame
             if (_isStopped) return;
             Vector3 selfPos = self.position;
             Vector3 targetPos = target.position;
-            if(!_canVerticalMove) targetPos.y = selfPos.y;  //  ターゲットの座標の高さを敵の位置と合わせる(水平方向)
+            if (!_canVerticalMove) targetPos.y = selfPos.y; //  ターゲットの座標の高さを敵の位置と合わせる(水平方向)
             //  自分とターゲットの座標を基準に移動
             self.position = Vector3.MoveTowards(selfPos, targetPos, _moveSpeed * Time.deltaTime);
-            if (self.position.z < target.position.z)    //  プレイヤーよりz座標が後ろに行ったら
+            if (self.position.z < target.position.z) //  プレイヤーよりz座標が後ろに行ったら
             {
                 Stop();
             }
@@ -40,14 +44,13 @@ namespace SoulRunProject.InGame
         {
             _isStopped = true;
         }
+
         public void Pause()
         {
-            
         }
 
         public void Resume()
         {
-            
         }
     }
 }

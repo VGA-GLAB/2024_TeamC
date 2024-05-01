@@ -9,7 +9,7 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class InGameCoin : DropBase
     {
-        [SerializeField] private int _coin;
+        [SerializeField, CustomLabel("このドロップを拾うことで得られるコイン量")] private int _coin;
         protected override void PickUp(PlayerManager playerManager)
         {
             playerManager.ResourceContainer.Coin += _coin;

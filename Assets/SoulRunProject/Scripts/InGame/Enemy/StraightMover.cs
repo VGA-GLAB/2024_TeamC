@@ -1,12 +1,13 @@
-
+using System;
+using SoulRunProject.Common;
 using SoulRunProject.SoulMixScene;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
+    [Serializable, Name("直進移動")]
     public class StraightMover : EntityMover
     {
-        
         public void GetMoveStatus(Status status)
         {
             _moveSpeed = status.MoveSpeed;
@@ -14,7 +15,6 @@ namespace SoulRunProject.InGame
 
         public void OnStart()
         {
-            
         }
 
         public void OnUpdateMove(Transform self, Transform target)
@@ -24,17 +24,14 @@ namespace SoulRunProject.InGame
 
         public void Stop()
         {
-            
         }
-        
+
         public void Pause()
         {
-            
         }
 
         public void Resume()
         {
-            
         }
     }
 }

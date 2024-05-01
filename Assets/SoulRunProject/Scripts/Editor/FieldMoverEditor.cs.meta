@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 003f8c9b2595b0f42a70715f4d680e6c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _fieldMoverVisual: {fileID: 9197481963319205126, guid: 5472a498dbaf26348b05bcbe58ca27a0,
+      type: 3}
+  - _fieldCreatePatternVisual: {fileID: 9197481963319205126, guid: 5982b5d81de3733408ea4fec0a0eda73,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -7,10 +7,24 @@ using UnityEngine;
 
 namespace SoulRunProject
 {
+    [Serializable]
+    public class SoulCardUserData 
+    {
+        /// <summary> ユニークなカード識別ID </summary>
+        public int CardID;
+        
+        /// <summary> 現在の経験値量 </summary>
+        public int Experience;
+
+        /// <summary> 特性 </summary>
+        public CharacteristicType AdditionalCharacteristicType;
+    }
+
+
     public class SoulCard　: IEquatable<SoulCard>
     {
-        private SoulCardMasterData _masterSoulCardData;
-        private SoulCardUserData _useSoulCardData;
+        private readonly SoulCardMasterData _masterSoulCardData;
+        private readonly SoulCardUserData _useSoulCardData;
 
         public SoulCard(SoulCardMasterData masterSoulCardData, SoulCardUserData useSoulCardData)
         {
@@ -30,17 +44,15 @@ namespace SoulRunProject
         /// <summary> スキル動作クラス </summary>
         public SoulSkillType SoulSkill => _masterSoulCardData.SoulSkillType;
         
-        /// <summary> カードの基礎上昇パラメータ </summary>
-        public Status BaseStatus => _masterSoulCardData.BaseStatus;
-        
-        /// <summary> 最大レベル </summary>
-        public int SoulMaxLevel => _masterSoulCardData.SoulMaxLevel;
+        /// <summary> 基本特性 </summary>
+        public SoulCardExperienceTableType ExperienceTableType => _masterSoulCardData.ExperienceTableType;
+
+        /// <summary> 基本特性 </summary>
+        public SoulCardStatusTableType StatusTableType => _masterSoulCardData.StatusTableType;
         
         /// <summary> 基本特性 </summary>
         public CharacteristicType DefaultCharacteristicType => _masterSoulCardData.DefaultCharacteristicType;
         
-        // <summary> 現在のレベル </summary>
-        public int CurrentLevel => _useSoulCardData.CurrentLevel;
         
         /// <summary> 現在の経験値量 </summary>
         public int CurrentExperience => _useSoulCardData.Experience;
@@ -50,13 +62,13 @@ namespace SoulRunProject
 
         public override int GetHashCode()
         {
-            return CardID.GetHashCode() ^ CurrentLevel.GetHashCode() ^ CurrentExperience.GetHashCode() ^ AdditionalCharacteristicType.GetHashCode();
+            return CardID.GetHashCode()^ CurrentExperience.GetHashCode() ^ AdditionalCharacteristicType.GetHashCode();
         }
         
         public bool Equals(SoulCard other)
         {
-            if (this.CardID == other.CardID
-                && this.CurrentLevel == other.CurrentLevel
+            if (other != null
+                && this.CardID == other.CardID
                 && this.CurrentExperience == other.CurrentExperience
                 && this.AdditionalCharacteristicType == other.AdditionalCharacteristicType)
             {
@@ -68,29 +80,5 @@ namespace SoulRunProject
 
 
     
-    [Serializable]
-    public class SoulCardUserData 
-    {
-        /// <summary> ユニークなカード識別ID </summary>
-        public int CardID;
 
-        /// <summary> 現在のレベル </summary>
-        public int CurrentLevel;
-
-        /// <summary> 現在の経験値量 </summary>
-        public int Experience;
-
-        /// <summary> 特性 </summary>
-        public CharacteristicType AdditionalCharacteristicType;
-    }
-
-    /// <summary>
-    /// ソウルカードの特性タイプ
-    /// </summary>
-    public enum CharacteristicType
-    {
-        None = 0,
-        Attack = 1,
-        CoolTimeReduction = 2,
-    }
 }

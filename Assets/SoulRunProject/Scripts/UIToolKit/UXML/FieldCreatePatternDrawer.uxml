@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement name="VisualElement" focusable="true" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0); transform-origin: center; align-items: stretch; align-self: auto; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; flex-direction: column; flex-wrap: nowrap;">
+        <ui:EnumField label="生成パターン" type="SoulRunProject.InGame.FieldMoverMode, Assembly-CSharp" binding-path="_mode" style="visibility: visible; overflow: hidden; display: flex;" />
+        <ui:GroupBox name="NormalGroup" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+            <ui:FloatField label="流す秒数" value="42.2" binding-path="_seconds" />
+            <ui:Label tabindex="-1" text="生成するタイルの組み合わせ、順番" display-tooltip-when-elided="true" />
+            <ui:ListView focusable="true" binding-path="_fieldSegments" show-border="true" virtualization-method="DynamicHeight" show-bound-collection-size="false" show-add-remove-footer="true" reorderable="true" reorder-mode="Animated" style="-unity-text-align: upper-left; white-space: normal; flex-direction: column; flex-wrap: nowrap; left: auto; width: auto; justify-content: center; align-self: auto; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); background-image: none;" />
+        </ui:GroupBox>
+        <ui:GroupBox name="RandomGroup" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+            <ui:FloatField label="流す秒数" value="42.2" binding-path="_seconds" />
+            <uie:ObjectField label="ランダム生成のためのタイルの隣接関係" type="SoulRunProject.Common.AdjacentGraph, Assembly-CSharp" name="ObjectField" />
+            <ui:Label tabindex="-1" text="※AdjacentGraphで隣接関係が設定されている必要がある↓" display-tooltip-when-elided="true" style="color: rgb(255, 222, 0); -unity-font-style: normal;" />
+            <uie:ObjectField label="ランダム生成で一番最初に流すタイル" type="SoulRunProject.InGame.FieldSegment, Assembly-CSharp" />
+            <uie:ObjectField label="ランダム生成で一番最後に流すタイル" type="SoulRunProject.InGame.FieldSegment, Assembly-CSharp" />
+        </ui:GroupBox>
+        <ui:GroupBox name="BossGroup" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+            <uie:ObjectField label="ボスタイル" type="SoulRunProject.InGame.FieldSegment, Assembly-CSharp" style="width: 387px;" />
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>

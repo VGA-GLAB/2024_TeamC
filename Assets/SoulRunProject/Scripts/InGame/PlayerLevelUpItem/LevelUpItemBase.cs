@@ -93,7 +93,7 @@ namespace SoulRunProject.InGame
                         playerManager.CurrentStatus.CoolTime += _upValue;
                         return;
                     case StatusType.Range:
-                        playerManager.CurrentStatus.Range += _upValue;
+                        playerManager.CurrentStatus.SkillSize += _upValue;
                         return;
                     case StatusType.BulletSpeed:
                         playerManager.CurrentStatus.BulletSpeed += _upValue;

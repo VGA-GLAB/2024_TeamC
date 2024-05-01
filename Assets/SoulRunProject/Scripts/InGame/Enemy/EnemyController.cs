@@ -1,5 +1,4 @@
 ﻿using SoulRunProject.Common;
-using SoulRunProject.SoulMixScene;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
@@ -7,9 +6,9 @@ namespace SoulRunProject.InGame
     [RequireComponent(typeof(DamageableEntity))]
     public class EnemyController: MonoBehaviour, IPausable
     {
-        [SerializeReference, SubclassSelector, Tooltip("敵の攻撃パターンを設定する")]
+        [SerializeReference, SubclassSelector, CustomLabel("攻撃処理")]
         protected EntityAttacker _attacker;
-        [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")]
+        [SerializeReference, SubclassSelector, CustomLabel("移動処理")]
         protected EntityMover _mover;
         protected Transform _playerTransform;
         

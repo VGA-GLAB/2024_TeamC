@@ -89,7 +89,7 @@ namespace SoulRunProject.InGame
         {
             if (other.gameObject.TryGetComponent(out DamageableEntity entity))
             {
-                entity.Damage((int)_attackDamage , in _giveKnockBack);
+                entity.Damage(_attackDamage , in _giveKnockBack);
                 _hitCount++;
                 if (_hitCount > _penetration)
                 {
@@ -98,7 +98,7 @@ namespace SoulRunProject.InGame
             }
         }
 
-        void OnHit(Collider other)
+        protected void OnHit(Collider other)
         {
             var closestPoint = other.ClosestPoint(transform.position);
             var normal = transform.position - closestPoint;
@@ -168,12 +168,12 @@ namespace SoulRunProject.InGame
             }
         }
 
-        void OnDestroy()
+        protected void OnDestroy()
         {
             _finishedSubject.Dispose();
         }
 
-        void TouchCall(GameObject detachedPrefab) //  弾が当たった時に一定時間待ってObjectPoolに入った自身のtransformに戻す
+        protected virtual void TouchCall(GameObject detachedPrefab) //  弾が当たった時に一定時間待ってObjectPoolに入った自身のtransformに戻す
         {
             detachedPrefab.transform.SetParent(transform);
             detachedPrefab.transform.position = transform.position;

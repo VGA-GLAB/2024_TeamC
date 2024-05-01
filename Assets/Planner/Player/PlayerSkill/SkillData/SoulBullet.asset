@@ -15,7 +15,7 @@ MonoBehaviour:
   _skillType: 0
   _skillName: "\u30BD\u30A6\u30EB\u30D0\u30EC\u30C3\u30C8"
   _explanatoryText: "\u30BD\u30A6\u30EB\u30D0\u30EC\u30C3\u30C8\u8AAC\u660E\u6587"
-  _skillIcon: {fileID: 21300000, guid: 49d775a25ad824a4f87b433e62a01744, type: 3}
+  _skillIcon: {fileID: 21300000, guid: 9ced87deec738d147be4ef69b9d0d555, type: 3}
   MaxSkillLevel: 5
   SkillLevelUpEvent:
     _levelUpType:
@@ -33,13 +33,17 @@ MonoBehaviour:
       data:
         _levelUpEventListList:
         - _levelUpEventList:
-          - rid: 4051172700801204275
+          - rid: 4896308369660051472
+          - rid: 4896308418174517251
+        - _levelUpEventList:
+          - rid: 4896308369660051475
+          - rid: 4896308418174517250
         - _levelUpEventList:
           - rid: 4051172700801204275
+          - rid: 4896308418174517252
         - _levelUpEventList:
-          - rid: 4051172700801204275
-        - _levelUpEventList:
-          - rid: 4051172700801204275
+          - rid: 4896308418174517249
+          - rid: 4896308418174517254
         - _levelUpEventList: []
     - rid: 4051172700801204272
       type: {class: ProjectileSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
@@ -56,4 +60,32 @@ MonoBehaviour:
     - rid: 4051172700801204275
       type: {class: LevelUpEventProjectileCoolTime, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
+        _reduceCoolTime: 75
+    - rid: 4896308369660051472
+      type: {class: LevelUpEventProjectileCoolTime, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
         _reduceCoolTime: 25
+    - rid: 4896308369660051475
+      type: {class: LevelUpEventProjectileCoolTime, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _reduceCoolTime: 50
+    - rid: 4896308418174517249
+      type: {class: LevelUpEventProjectileCoolTime, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _reduceCoolTime: 100
+    - rid: 4896308418174517250
+      type: {class: LevelUpEventProjectileAmount, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _addAmountCount: 1
+    - rid: 4896308418174517251
+      type: {class: LevelUpEventProjectileSpeed, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _multipleProjectionSpeed: 20
+    - rid: 4896308418174517252
+      type: {class: LevelUpEventProjectileSpeed, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _multipleProjectionSpeed: 40
+    - rid: 4896308418174517254
+      type: {class: LevelUpEventProjectileAmount, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _addAmountCount: 1

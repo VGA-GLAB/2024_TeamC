@@ -33,14 +33,11 @@ MonoBehaviour:
       data:
         _levelUpEventListList:
         - _levelUpEventList:
-          - rid: 4051172700801204280
-          - rid: 4051172700801204281
+          - rid: 4896308369542873089
         - _levelUpEventList:
           - rid: 4051172700801204280
-          - rid: 4051172700801204281
         - _levelUpEventList:
-          - rid: 4051172700801204280
-          - rid: 4051172700801204281
+          - rid: 4896308369542873090
         - _levelUpEventList:
           - rid: 4051172700801204280
           - rid: 4051172700801204281
@@ -53,8 +50,16 @@ MonoBehaviour:
     - rid: 4051172700801204280
       type: {class: LevelUpEventAoERange, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _increaseRange: 2
+        _increaseRange: 1
     - rid: 4051172700801204281
       type: {class: LevelUpEventAoEAttackDamage, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
         _increaseDamage: 10
+    - rid: 4896308369542873089
+      type: {class: LevelUpEventAoEAttackDamage, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _increaseDamage: 5
+    - rid: 4896308369542873090
+      type: {class: LevelUpEventAoEAttackDamage, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _increaseDamage: 5
