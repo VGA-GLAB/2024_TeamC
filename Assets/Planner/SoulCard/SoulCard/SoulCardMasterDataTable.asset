@@ -37,3 +37,51 @@ MonoBehaviour:
     _criticalDamageRate: 0.3333
     _soulAbsorption: 0.3333
     _soulAcquisition: 0.3333
+  - _cardID: 1
+    _imageName: wolf
+    _soulName: Wol
+    _description: "\u3042\u3042\u3042\u3042"
+    _soulSkillType: 0
+    _defaultCharacteristicType: 1
+    _experienceTableType: 0
+    _statusTableType: 0
+    _hp: 333.333
+    _attack: 333
+    _defence: 333
+    _coolTime: 0.3333
+    _skillSize: 0.3333
+    _bulletSpeed: 0.3333
+    _effectTime: 8
+    _bulletNum: 7
+    _penetration: 6
+    _moveSpeed: 0.3333
+    _growthSpeed: 0.3333
+    _luck: 0.3333
+    _criticalRate: 0.3333
+    _criticalDamageRate: 0.3333
+    _soulAbsorption: 0.3333
+    _soulAcquisition: 0.3333
+  - _cardID: 1
+    _imageName: wolf
+    _soulName: Wol
+    _description: "\u3042\u3042\u3042\u3042"
+    _soulSkillType: 0
+    _defaultCharacteristicType: 1
+    _experienceTableType: 0
+    _statusTableType: 0
+    _hp: 333.333
+    _attack: 333
+    _defence: 333
+    _coolTime: 0.3333
+    _skillSize: 0.3333
+    _bulletSpeed: 0.3333
+    _effectTime: 8
+    _bulletNum: 7
+    _penetration: 6
+    _moveSpeed: 0.3333
+    _growthSpeed: 0.3333
+    _luck: 0.3333
+    _criticalRate: 0.3333
+    _criticalDamageRate: 0.3333
+    _soulAbsorption: 0.3333
+    _soulAcquisition: 0.3333

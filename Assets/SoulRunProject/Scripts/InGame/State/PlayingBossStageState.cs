@@ -10,7 +10,6 @@ namespace SoulRunProject.InGame
         private PlayerManager _playerManager;
         private PlayerInput _playerInput;
         private PlayerLevelManager _playerLevelManager;
-        private FieldMover _fieldMover;
         private CompositeDisposable _compositeDisposable = new CompositeDisposable();
         public PlayingBossStageState(StageManager stageManager, PlayerManager playerManager, 
             PlayerInput playerInput, PlayerLevelManager playerLevelManager)
@@ -19,7 +18,6 @@ namespace SoulRunProject.InGame
             _playerManager = playerManager;
             _playerInput = playerInput;
             _playerLevelManager = playerLevelManager;
-            _fieldMover = fieldMover;
         }
         
         public bool IsBossDefeated { get; private set; }
@@ -61,22 +59,24 @@ namespace SoulRunProject.InGame
                 })
                 .AddTo(_compositeDisposable);
 
-            _stageManager.ToNextStage += () =>
-            {
-                IsBossDefeated = true;
-                StateChange();
-            };
+            _stageManager.ToNextStage += ToNextStage;
         }
         
         protected override void OnUpdate()
         {
-            
+            _stageManager.PlayingBossStageUpdate();
         }
 
         protected override void OnExit(State nextState)
         {
             _compositeDisposable.Clear();
-            _fieldMover.NextField();
+            _stageManager.ToNextStage -= ToNextStage;
+        }
+
+        void ToNextStage()
+        {
+            IsBossDefeated = true;
+            StateChange();
         }
     }
 }

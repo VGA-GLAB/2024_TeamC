@@ -1,5 +1,4 @@
 using System;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using SoulRunProject.Common;
 using UniRx;
@@ -19,8 +18,11 @@ namespace SoulRunProject.InGame
         [SerializeField, CustomLabel("出現する時の高さ。ワールド座標。")] float _dropHeight = 0.7f;
         Sequence _projectileMotionSequence;
         Tween _rotateTween;
+        private bool _isPause;
         protected readonly Subject<Unit> FinishedSubject = new();
         public IObservable<Unit> OnFinishedAsync => FinishedSubject.Take(1);
+        public PlayerManager Player { get; set; }
+        public FieldMover FieldMover { get; set; }
 
         /// <summary>プレイヤーがドロップ品を拾った時に呼ぶ処理</summary>
         protected abstract void PickUp(PlayerManager playerManager);
@@ -44,6 +46,21 @@ namespace SoulRunProject.InGame
             _projectileMotionSequence.Insert(0f , transform.DOBlendableMoveBy(new Vector3(0f , randomDir.y ,0f), _projectileMotionTime / 2));
             _projectileMotionSequence.Insert(_projectileMotionTime / 2 , transform.DOBlendableMoveBy(new Vector3(0f , - randomDir.y ,0f), _projectileMotionTime / 2));
             _projectileMotionSequence.SetLink(gameObject).OnComplete(()=>_projectileMotionSequence = null);
+        }
+
+        private void Update()
+        {
+            if (_isPause) return;
+            //  プレイヤーより後ろに行ったら吸引処理を行わない
+            if (Player.transform.position.z > transform.position.z) return;
+            
+            var absorptionPower = Player.CurrentStatus.SoulAbsorption;
+            var distance = Player.transform.position - transform.position;
+            float moveSpeed = 10f + FieldMover.ScrollSpeed;
+            if (distance.sqrMagnitude < absorptionPower * absorptionPower)
+            {
+                transform.position += distance.normalized * (moveSpeed * Time.deltaTime);
+            }
         }
 
         void OnEnable()
@@ -75,6 +92,7 @@ namespace SoulRunProject.InGame
 
         public void Pause(bool isPause)
         {
+            _isPause = isPause;
             if (isPause)
             {
                 _projectileMotionSequence?.Pause();

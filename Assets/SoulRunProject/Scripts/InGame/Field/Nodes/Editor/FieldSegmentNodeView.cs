@@ -3,11 +3,12 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.UIElements;
 using GraphProcessor;
+using SoulRunProject.Common;
 using SoulRunProject.InGame;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
-namespace SoulRunProject.Common
+namespace SoulRunProject.EditorExtension
 {
     [NodeCustomEditor(typeof(FieldSegmentNode))]
     public class FieldSegmentNodeView : BaseNodeView
@@ -22,9 +23,13 @@ namespace SoulRunProject.Common
                 allowSceneObjects = false,
                 value = fieldSegmentNode.FieldSegment,
             };
-            var toggle = new Toggle("Loop Self")
+            var loopSelfToggle = new Toggle("Loop Self")
             {
                 value = fieldSegmentNode.LoopSelf
+            };
+            var notRandomInstantiateToggle = new Toggle("Not Random Instantiate")
+            {
+                value = fieldSegmentNode.NotRandomInstantiate
             };
 
             var preview = new Image();
@@ -33,9 +38,13 @@ namespace SoulRunProject.Common
                 fieldSegmentNode.FieldSegment = v.newValue as FieldSegment;
                 UpdatePreviewImage(preview, v.newValue);
             });
-            toggle.RegisterValueChangedCallback(v =>
+            loopSelfToggle.RegisterValueChangedCallback(v =>
             {
                 fieldSegmentNode.LoopSelf = v.newValue;
+            });
+            notRandomInstantiateToggle.RegisterValueChangedCallback(v =>
+            {
+                fieldSegmentNode.NotRandomInstantiate = v.newValue;
             });
             //  ウィンドウを開いている間1秒に一回プレビューの描画を実行する
             schedule.Execute(() =>
@@ -46,7 +55,8 @@ namespace SoulRunProject.Common
                 }
             }).Every(1000);
 
-            controlsContainer.Add(toggle);
+            controlsContainer.Add(loopSelfToggle);
+            controlsContainer.Add(notRandomInstantiateToggle);
             controlsContainer.Add(objectField);
             controlsContainer.Add(preview);
             inputPortViews.First(port=>port.portType == typeof(InToOutPort)).portColor = Color.blue;

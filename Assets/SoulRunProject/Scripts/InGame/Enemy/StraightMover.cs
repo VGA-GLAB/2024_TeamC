@@ -13,24 +13,20 @@ namespace SoulRunProject.InGame
             _moveSpeed = status.MoveSpeed;
         }
 
-        public void OnStart()
+        public override void OnStart()
         {
         }
 
-        public void OnUpdateMove(Transform self, Transform target)
+        public override void OnUpdateMove(Transform myTransform, Transform playerTransform)
         {
-            self.position += -Vector3.forward * (_moveSpeed * Time.deltaTime);
+            myTransform.position += Vector3.back * (_moveSpeed * Time.deltaTime);
         }
-
-        public void Stop()
-        {
-        }
-
-        public void Pause()
+        
+        public override void Pause()
         {
         }
 
-        public void Resume()
+        public override void Resume()
         {
         }
     }

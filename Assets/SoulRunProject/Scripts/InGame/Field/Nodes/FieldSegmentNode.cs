@@ -13,6 +13,7 @@ namespace SoulRunProject.Common
     {
         [SerializeField] FieldSegment _fieldSegment;
         [SerializeField] bool _loopSelf;
+        [SerializeField] private bool _notRandomRandomInstantiate;
         
         [Input(name = "In", allowMultiple = true), SerializeField]
         public InToOutPort In;
@@ -21,7 +22,7 @@ namespace SoulRunProject.Common
         public InToOutPort Out;
 
         public override string name => "Field Segment";
-        public HashSet<FieldSegment> OutSegments { get; set; } = new();
+        public HashSet<FieldSegmentNode> OutSegments { get; set; } = new();
 
         public bool LoopSelf
         {
@@ -34,20 +35,25 @@ namespace SoulRunProject.Common
             get => _fieldSegment;
             set => _fieldSegment = value;
         }
-        
+
+        public bool NotRandomInstantiate
+        {
+            get => _notRandomRandomInstantiate;
+            set => _notRandomRandomInstantiate = value;
+        }
+
         protected override void Process()
         {
             OutSegments.Clear();
             if (LoopSelf)
             {
-                OutSegments.Add(_fieldSegment);
+                OutSegments.Add(this);
             }
-            foreach (var fieldSegment in outputPorts.First(port=>port.portData.displayType == typeof(InToOutPort))
+            foreach (var fieldSegmentNode in outputPorts.First(port=>port.portData.displayType == typeof(InToOutPort))
                          .GetEdges().Select(edge=>edge.inputNode)
-                         .OfType<FieldSegmentNode>()
-                         .Select(node=>node.FieldSegment))
+                         .OfType<FieldSegmentNode>())
             {
-                OutSegments.Add(fieldSegment);
+                OutSegments.Add(fieldSegmentNode);
             }
         }
     }

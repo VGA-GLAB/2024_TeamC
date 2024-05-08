@@ -1,10 +1,11 @@
+using SoulRunProject.Common;
 using UnityEngine;
 using UnityEditor;
 
-namespace SoulRunProject.Common
+namespace SoulRunProject.EditorExtension
 {
     [CustomEditor(typeof(AdjacentGraph))]
-    public class AdjacentGraphEditor : UnityEditor.Editor
+    public class AdjacentGraphEditor : Editor
     {
         public override void OnInspectorGUI()
         {

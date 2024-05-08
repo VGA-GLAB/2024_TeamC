@@ -1191,6 +1191,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302484956}
   m_CullTransparentMesh: 1
+--- !u!1 &348390300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 348390302}
+  - component: {fileID: 348390301}
+  m_Layer: 0
+  m_Name: StageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &348390301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348390300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe96d44621be7940878578ce97bf301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stageData:
+  - _fieldPatterns:
+    - _mode: 0
+      _seconds: 10
+      _fieldSegments:
+        List:
+        - {fileID: 2752528944075337817, guid: 54942ca6699e8764a8b2eb58690cf15d, type: 3}
+      _adjacentGraph: {fileID: 0}
+    _bossStageField: {fileID: 3829013865918829885, guid: 9ebc2cb807cc7794d8b095da4e18832a,
+      type: 3}
+    _bossPrefab: {fileID: 493474759675345639, guid: c051b1a247ab52e448b0f10e61dce3bd,
+      type: 3}
+  _fieldMover: {fileID: 1962700606}
+--- !u!4 &348390302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348390300}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &367831986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2879,6 +2936,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _camera: {fileID: 165873042}
+  _stageManager: {fileID: 348390301}
   _playerManager: {fileID: 1420106444}
   _playerLevelManager: {fileID: 1420106446}
   _soulSkillManager: {fileID: 1420106450}
@@ -2889,7 +2947,6 @@ MonoBehaviour:
   _commonView: {fileID: 183513117}
   _stageNameView: {fileID: 183513118}
   _levelUpView: {fileID: 183513119}
-  _fieldMover: {fileID: 1962700606}
 --- !u!114 &1174502020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5813,7 +5870,7 @@ GameObject:
   - component: {fileID: 1962700605}
   - component: {fileID: 1962700606}
   m_Layer: 0
-  m_Name: Field
+  m_Name: FieldMover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5846,15 +5903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aed2c5823e53b4795f0e13321347ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _patterns:
-  - _mode: 0
-    _seconds: 60
-    _fieldSegments:
-    - {fileID: 2752528944075337817, guid: 54942ca6699e8764a8b2eb58690cf15d, type: 3}
-    _adjacentGraph: {fileID: 0}
-    _randomFirstSegment: {fileID: 0}
-    _randomLastSegment: {fileID: 0}
-  _minSegmentCount: 2
+  _maxSegmentCount: 5
   _scrollSpeed: 30
 --- !u!1 &1990613036
 GameObject:
@@ -6580,3 +6629,4 @@ SceneRoots:
   - {fileID: 1341415493}
   - {fileID: 1291440194}
   - {fileID: 1962700605}
+  - {fileID: 348390302}

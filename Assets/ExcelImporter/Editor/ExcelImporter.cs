@@ -10,23 +10,12 @@ using NPOI.HSSF.UserModel;
 using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 
+/// <summary>
+/// AssetPostProcessorは、インポートしたパイプラインをフックし、アセットをインポートする前と後にスクリプトを実行することが可能になる
 public class ExcelImporter : AssetPostprocessor
 {
-	class ExcelAssetInfo
-	{
-		public Type AssetType { get; set; }
-		public ExcelAssetAttribute Attribute { get; set; } 
-		public string ExcelName
-		{
-			get
-			{
-				return string.IsNullOrEmpty(Attribute.ExcelName) ? AssetType.Name : Attribute.ExcelName;
-			}
-		}
-	}
 
-	static List<ExcelAssetInfo> cachedInfos = null; // Clear on compile.
-
+	/// <summary> アセットをインポート完了後に呼ばれる </summary>
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{
 		bool imported = false;
@@ -34,20 +23,15 @@ public class ExcelImporter : AssetPostprocessor
 		{
 			if(Path.GetExtension(path) == ".xls" || Path.GetExtension(path) == ".xlsx") 
 			{
-				if(cachedInfos == null) cachedInfos = FindExcelAssetInfos();
-
+				var types = FindAllExcelAssetTypes();
 				var excelName = Path.GetFileNameWithoutExtension(path);
 				if(excelName.StartsWith("~$")) continue;
-
-				ExcelAssetInfo info = cachedInfos.Find(i => i.ExcelName == excelName);
-
-				if(info == null) continue;
-
-				ImportExcel(path, info);
+				Type type = types.Find(i => i.Name == excelName);
+				if(type == null) continue;
+				ImportExcel(path, type);
 				imported = true;
 			}
 		}
-
 		if(imported) 
 		{
 			AssetDatabase.SaveAssets();
@@ -55,76 +39,53 @@ public class ExcelImporter : AssetPostprocessor
 		}
 	}
 
-	static List<ExcelAssetInfo> FindExcelAssetInfos()
+	/// <summary> ExcelAsset属性のついたファイルを探す </summary>
+	static List<Type> FindAllExcelAssetTypes()
 	{
-		var list = new List<ExcelAssetInfo>();
+		var list = new List<Type>();
 		foreach(var assembly in AppDomain.CurrentDomain.GetAssemblies())
 		{
 			foreach(var type in assembly.GetTypes())
 			{
-				var attributes = type.GetCustomAttributes(typeof(ExcelAssetAttribute), false);
-				if(attributes.Length == 0) continue;
-				var attribute = (ExcelAssetAttribute)attributes[0];
-				var info = new ExcelAssetInfo()
-				{
-					AssetType = type,
-					Attribute = attribute
-				};
-				list.Add(info);
+				if(type.IsDefined(typeof(ExcelAssetAttribute),false))
+					list.Add(type);
 			}
 		}
 		return list;
 	}
-
-	static UnityEngine.Object LoadOrCreateAsset(string assetPath, Type assetType)
+	
+	static void ImportExcel(string excelPath, Type type)
 	{
-		Directory.CreateDirectory(Path.GetDirectoryName(assetPath));
+		UnityEngine.Object asset = AssetDatabase.LoadAssetAtPath(Path.ChangeExtension(excelPath , ".asset")　, type);
+		IWorkbook book = LoadBook(excelPath);
 
-		var asset = AssetDatabase.LoadAssetAtPath(assetPath, assetType);
+		var assetFields = type.GetFields();
+		int sheetCount = 0;
 
-		if (asset == null)
+		foreach (var assetField in assetFields)
 		{
-			asset = ScriptableObject.CreateInstance(assetType.Name);
-			AssetDatabase.CreateAsset((ScriptableObject)asset, assetPath);
-			asset.hideFlags = HideFlags.NotEditable;
+			ISheet sheet =  book.GetSheet(assetField.Name);
+			if(sheet == null) continue;
+
+			Type fieldType = assetField.FieldType;
+			if(! fieldType.IsGenericType || (fieldType.GetGenericTypeDefinition() != typeof(List<>))) continue;
+
+			Type[] types = fieldType.GetGenericArguments();
+			Type entityType = types[0];
+		
+			object entities = GetEntityListFromSheet(sheet, entityType);
+			assetField.SetValue(asset, entities);
+			sheetCount++;
 		}
 
-		return asset;
+		EditorUtility.SetDirty(asset);
 	}
-
 	static IWorkbook LoadBook(string excelPath)
 	{
 		using(FileStream stream = File.Open(excelPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 		{
 			if (Path.GetExtension(excelPath) == ".xls") return new HSSFWorkbook(stream);
 			else return new XSSFWorkbook(stream);
-		}
-	}
-
-
-
-	static object CellToFieldObject(ICell cell, FieldInfo fieldInfo, bool isFormulaEvalute = false)
-	{
-		var type = isFormulaEvalute ? cell.CachedFormulaResultType : cell.CellType;
-
-		switch(type)
-		{
-			case CellType.String:
-				if (fieldInfo.FieldType.IsEnum) return Enum.Parse(fieldInfo.FieldType, cell.StringCellValue);
-				else return cell.StringCellValue;
-			case CellType.Boolean:
-				return cell.BooleanCellValue;
-			case CellType.Numeric:
-				return Convert.ChangeType(cell.NumericCellValue, fieldInfo.FieldType);
-			case CellType.Formula:
-				if(isFormulaEvalute) return null;
-				return CellToFieldObject(cell, fieldInfo, true); 
-			default:
-				if(fieldInfo.FieldType.IsValueType)
-				{
-					return Activator.CreateInstance(fieldInfo.FieldType);
-				}
-				return null;
 		}
 	}
 
@@ -157,6 +118,39 @@ public class ExcelImporter : AssetPostprocessor
 		}
 		return entity;
 	}
+
+	static object CellToFieldObject(ICell cell, FieldInfo fieldInfo, bool isFormulaEvalute = false)
+	{
+		var type = isFormulaEvalute ? cell.CachedFormulaResultType : cell.CellType;
+
+		switch(type)
+		{
+			case CellType.String:
+				if (fieldInfo.FieldType.IsEnum) return Enum.Parse(fieldInfo.FieldType, cell.StringCellValue);
+				else return cell.StringCellValue;
+			case CellType.Boolean:
+				return cell.BooleanCellValue;
+			case CellType.Numeric:
+				return Convert.ChangeType(cell.NumericCellValue, fieldInfo.FieldType);
+			case CellType.Formula:
+				if (isFormulaEvalute)
+				{
+					Debug.Log("式を値に変換できませんでした。");
+					return null;
+				}
+				Debug.Log("式を値に変換しました。");
+				//式の中の式に対応するために再帰処理をしている？
+				return CellToFieldObject(cell, fieldInfo, true); 
+			default:
+				if(fieldInfo.FieldType.IsValueType)
+				{
+					return Activator.CreateInstance(fieldInfo.FieldType);
+				}
+				return null;
+		}
+	}
+
+
 
 	static object GetEntityListFromSheet(ISheet sheet, Type entityType)
 	{
@@ -201,47 +195,5 @@ public class ExcelImporter : AssetPostprocessor
 		return fieldNames;
 	}
 	
-	static void ImportExcel(string excelPath, ExcelAssetInfo info)
-	{
-		string assetPath = "";
-		string assetName = info.AssetType.Name + ".asset";
 
-		if(string.IsNullOrEmpty(info.Attribute.AssetPath))
-		{
-			string basePath = Path.GetDirectoryName(excelPath);
-			assetPath = Path.Combine(basePath, assetName);
-		}else{
-			var path = Path.Combine("Assets", info.Attribute.AssetPath);
-			assetPath = Path.Combine(path, assetName);
-		}
-		UnityEngine.Object asset = LoadOrCreateAsset(assetPath, info.AssetType);
-
-		IWorkbook book = LoadBook(excelPath);
-
-		var assetFields = info.AssetType.GetFields();
-		int sheetCount = 0;
-
-		foreach (var assetField in assetFields)
-		{
-			ISheet sheet =  book.GetSheet(assetField.Name);
-			if(sheet == null) continue;
-
-			Type fieldType = assetField.FieldType;
-			if(! fieldType.IsGenericType || (fieldType.GetGenericTypeDefinition() != typeof(List<>))) continue;
-
-			Type[] types = fieldType.GetGenericArguments();
-			Type entityType = types[0];
-		
-			object entities = GetEntityListFromSheet(sheet, entityType);
-			assetField.SetValue(asset, entities);
-			sheetCount++;
-		}
-
-		if(info.Attribute.LogOnImport)
-		{
-			Debug.Log(string.Format("Imported {0} sheets form {1}.", sheetCount, excelPath));
-		}
-
-		EditorUtility.SetDirty(asset);
-	}
 }

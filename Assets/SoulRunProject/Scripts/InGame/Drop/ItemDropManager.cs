@@ -17,9 +17,11 @@ namespace SoulRunProject.InGame
         [SerializeField] int _threshold = 5;
         readonly Dictionary<DropBase, DropPool> _dropPoolDictionary = new();
         FieldMover _fieldMover;
+        private PlayerManager _playerManager;
         public override void OnAwake()
         {
             _fieldMover = FindObjectOfType<FieldMover>();
+            _playerManager = FindObjectOfType<PlayerManager>();
         }
 
         public void Drop(LootTable lootTable, Vector3 pos, Status playerStatus = null)
@@ -36,6 +38,8 @@ namespace SoulRunProject.InGame
                         {
                             pool.Return(drop);
                         });
+                    drop.Player = _playerManager;
+                    drop.FieldMover = _fieldMover;
                     drop.RandomProjectileMotion();  //  演出
                     if (_fieldMover.MoveSegments.Count > 0)
                     {
