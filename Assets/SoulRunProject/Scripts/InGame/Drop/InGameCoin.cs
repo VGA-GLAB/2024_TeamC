@@ -13,7 +13,7 @@ namespace SoulRunProject.InGame
         protected override void PickUp(PlayerManager playerManager)
         {
             playerManager.ResourceContainer.Coin += _coin;
-            FinishedSubject.OnNext(Unit.Default);
+            Finish();
             CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_CoinGet");
         }
     }

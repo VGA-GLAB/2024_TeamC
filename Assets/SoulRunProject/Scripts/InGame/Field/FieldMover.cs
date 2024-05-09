@@ -16,6 +16,12 @@ namespace SoulRunProject.InGame
         /// <summary>現在空いているタイルの生成数</summary>
         public int FreeMoveSegmentsCount => Mathf.Clamp(_maxSegmentCount - MoveSegments.Count, 0, _maxSegmentCount);
 
+        public float ScrollSpeed
+        {
+            get => _scrollSpeed;
+            set => _scrollSpeed = value;
+        }
+
         private void Update()
         {
             if (_isPause) return;
@@ -27,6 +33,10 @@ namespace SoulRunProject.InGame
                 //  FieldMoverのz座標より後ろに行ったら消す
                 if (MoveSegments[i].transform.TransformPoint(MoveSegments[i].EndPos).z < transform.position.z)
                 {
+                    foreach (var entity in MoveSegments[i].transform.GetComponentsInChildren<DamageableEntity>())
+                    {
+                        entity.Finish();
+                    }
                     //  破棄する。
                     Destroy(MoveSegments[i].gameObject);
                 }

@@ -1,7 +1,5 @@
-using System;
 using DG.Tweening;
 using SoulRunProject.Common;
-using UniRx;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,7 +8,7 @@ namespace SoulRunProject.InGame
     /// <summary>
     /// ドロップした経験値やアイテムの基底クラス
     /// </summary>
-    public abstract class DropBase : MonoBehaviour, IPausable
+    public abstract class DropBase : PooledObject, IPausable
     {
         [SerializeField, CustomLabel("跳ねるアニメーションの乗数(増やすとより大きく跳ねる)")] float _multiplier = 1f;
         [SerializeField, CustomLabel("跳ねるアニメーションの時間")] float _projectileMotionTime = 0.5f;
@@ -19,18 +17,30 @@ namespace SoulRunProject.InGame
         Sequence _projectileMotionSequence;
         Tween _rotateTween;
         private bool _isPause;
-        protected readonly Subject<Unit> FinishedSubject = new();
-        public IObservable<Unit> OnFinishedAsync => FinishedSubject.Take(1);
-        public PlayerManager Player { get; set; }
-        public FieldMover FieldMover { get; set; }
+        private PlayerManager _player;
+        private FieldMover _fieldMover;
 
         /// <summary>プレイヤーがドロップ品を拾った時に呼ぶ処理</summary>
         protected abstract void PickUp(PlayerManager playerManager);
-        
+
+        public override void Initialize()
+        {
+            RandomProjectileMotion();
+        }
+
+        /// <summary>
+        /// 参照を割り当てる
+        /// </summary>
+        public void ApplyReference(PlayerManager player, FieldMover fieldMover)
+        {
+            _player = player;
+            _fieldMover = fieldMover;
+        }
+
         /// <summary>
         /// ランダムな方向に斜方投射するメソッド
         /// </summary>
-        public void RandomProjectileMotion()
+        void RandomProjectileMotion()
         {
             // 現在の斜方投射が終わるまで次の投射を行わない
             if (_projectileMotionSequence != null)　return;
@@ -52,11 +62,11 @@ namespace SoulRunProject.InGame
         {
             if (_isPause) return;
             //  プレイヤーより後ろに行ったら吸引処理を行わない
-            if (Player.transform.position.z > transform.position.z) return;
+            if (_player.transform.position.z > transform.position.z) return;
             
-            var absorptionPower = Player.CurrentStatus.SoulAbsorption;
-            var distance = Player.transform.position - transform.position;
-            float moveSpeed = 10f + FieldMover.ScrollSpeed;
+            var absorptionPower = _player.CurrentStatus.SoulAbsorption;
+            var distance = _player.transform.position - transform.position;
+            float moveSpeed = 10f + _fieldMover.ScrollSpeed;
             if (distance.sqrMagnitude < absorptionPower * absorptionPower)
             {
                 transform.position += distance.normalized * (moveSpeed * Time.deltaTime);
@@ -75,11 +85,6 @@ namespace SoulRunProject.InGame
             _rotateTween = null;
             _projectileMotionSequence?.Kill();
             _projectileMotionSequence = null;
-        }
-
-        public void ForceFinish()
-        {
-            FinishedSubject.OnNext(Unit.Default);
         }
 
         void OnTriggerEnter(Collider other)

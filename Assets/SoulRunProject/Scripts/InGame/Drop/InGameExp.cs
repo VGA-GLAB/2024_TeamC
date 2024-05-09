@@ -13,7 +13,7 @@ namespace SoulRunProject.InGame
         protected override void PickUp(PlayerManager playerManager)
         {
             playerManager.GetExp(_exp);
-            FinishedSubject.OnNext(Unit.Default);
+            Finish();
         }
     }
 }

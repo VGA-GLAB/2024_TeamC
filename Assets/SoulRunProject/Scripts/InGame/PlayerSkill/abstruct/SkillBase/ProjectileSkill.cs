@@ -16,7 +16,7 @@ namespace SoulRunProject
         static PlayerForwardMover _playerForwardMover;
         [SerializeField, Header("発射する弾のプレハブ")] BulletController _bullet;
         [SerializeField] Vector3 _muzzleOffset;
-        BulletPool _bulletPool;
+        CommonObjectPool _bulletPool;
         ProjectileSkillParameter _projectileSkillParameter;
         float _currentCoolTime;
 
@@ -36,7 +36,7 @@ namespace SoulRunProject
 
         public override void StartSkill()
         {
-            _bulletPool = BulletPoolManager.Instance.Get(SkillType);
+            _bulletPool = ObjectPoolManager.Instance.RequestPool(_bullet);
             _playerTransform = FindObjectOfType<PlayerManager>().transform;
             _playerForwardMover = FindObjectOfType<PlayerForwardMover>();
             if (_skillParam is ProjectileSkillParameter param)
@@ -57,12 +57,12 @@ namespace SoulRunProject
                 if (_projectileSkillParameter != null)
                 {
                     // 弾の生成
-                    var bullet = _bulletPool.Rent();
+                    var bullet = (BulletController)_bulletPool.Rent();
                     bullet.transform.position = _playerTransform.position + _muzzleOffset;
                     bullet.transform.forward = _playerTransform.forward;
-                    bullet.Initialize(_projectileSkillParameter);
-                    bullet.OnFinishedAsync.Take(1)
-                        .Subscribe(_ => { _bulletPool.Return(bullet); });
+                    bullet.ApplyParameter(_projectileSkillParameter);
+                    bullet.Initialize();
+                    bullet.OnFinishedAsync.Take(1).Subscribe(_ => _bulletPool.Return(bullet));
                     CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Soulbullet");
                 }
             }

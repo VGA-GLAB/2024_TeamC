@@ -30,6 +30,17 @@ namespace SoulRunProject.InGame
         private void Start()
         {
             transform.position = _initialPosition;
+
+            foreach (var behavior in _bossBehaviors)
+            {
+                behavior.Initialize(this);
+                ((BossBehaviorBase)behavior).OnFinishAction += () =>
+                {
+                    _currentState = BossState.Standby;
+                    _intervalTimer = 0;
+                };
+            }
+            
             DamageableEntity bossDamageable = GetComponent<DamageableEntity>();
             bossDamageable.CurrentHp
                 .Where(_ => _powerUpThreshold.Length > _thresholdIndex)
@@ -41,7 +52,8 @@ namespace SoulRunProject.InGame
                         {
                             foreach (var bossBehavior in _bossBehaviors)
                             {
-                                ((BossBehaviorBase)bossBehavior).PowerUpBejaviors[_thresholdIndex]?.Invoke(this);
+                                ((BossBehaviorBase)bossBehavior).PowerUpBejaviors[Mathf.Min(((BossBehaviorBase)bossBehavior)
+                                    .PowerUpBejaviors.Count - 1, _thresholdIndex)]?.Invoke(this);
                             }
                             
                             _thresholdIndex++;
@@ -53,16 +65,6 @@ namespace SoulRunProject.InGame
                     }
                 })
                 .AddTo(this);
-
-            foreach (var behavior in _bossBehaviors)
-            {
-                behavior.Initialize(this);
-                ((BossBehaviorBase)behavior).OnFinishAction += () =>
-                {
-                    _currentState = BossState.Standby;
-                    _intervalTimer = 0;
-                };
-            }
 
             _currentState = BossState.Standby; // todo 入場アニメーション
         }
@@ -123,10 +125,17 @@ namespace SoulRunProject.InGame
     {
         /// <summary> Action終了時に呼ばれる </summary>
         public Action OnFinishAction;
-        public Action<BossController>[] PowerUpBejaviors; 
+        public List<Action<BossController>> PowerUpBejaviors = new ();
 
         public abstract void Initialize(BossController bossController);
         public abstract void BeginAction();
         public abstract void UpdateAction(float deltaTime);
+
+        protected enum PowerUpName
+        {
+            強化1,
+            強化2,
+            強化3
+        }
     }
 }

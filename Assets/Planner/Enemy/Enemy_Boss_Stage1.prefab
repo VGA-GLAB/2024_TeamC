@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 30
+  _maxHp: 150
   _collisionDamage: 0
   _direction: {x: 0, y: 1, z: 1}
   _takeKnockBack:
@@ -138,7 +138,6 @@ MonoBehaviour:
   _initialPosition: {x: 0, y: 2, z: 13}
   _powerUpThreshold:
   - 50
-  - 30
   _bossBehaviors:
   - rid: 7007908318245552134
   - rid: 7007908318245552135
@@ -146,17 +145,28 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 1007957575041548371
+      type: {class: BossFlameFloor/SpeedPowerUp, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
+      data:
+        _timeReductionRatio: 0.5
+        _speedUpRatio: 2
+    - rid: 1007957575041548385
+      type: {class: BossBeamCleave/SpeedPowerUp, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
+      data:
+        _timeReductionRatio: 0.5
     - rid: 7007908318245552134
       type: {class: BossBeamCleave, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
       data:
         _razer: {fileID: 1818483698145146, guid: 6028b5b4fbbf45e45a362de709aa2e18,
           type: 3}
-        _beamOrigin: {fileID: 8952397705782560484}
+        _beamOrigin: {fileID: 6504038626365006790}
         _startImpactPosition: {x: 12, y: 1.5, z: 0}
         _finishImpactPosition: {x: -12, y: 1.5, z: 0}
         _beamTime: 2.5
         _damage: 1
         _hitCount: 1
+        _powerUpBehaviors:
+        - rid: 1007957575041548385
     - rid: 7007908318245552135
       type: {class: BossFlameFloor, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
       data:
@@ -171,6 +181,8 @@ MonoBehaviour:
         _flameDamage: 1
         _deviationDistance: 30
         _flameBallAccuracy: 0
+        _powerUpBehaviors:
+        - rid: 1007957575041548371
 --- !u!65 &2838193289605637035
 BoxCollider:
   m_ObjectHideFlags: 0

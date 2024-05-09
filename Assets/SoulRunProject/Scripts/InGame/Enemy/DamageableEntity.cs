@@ -8,34 +8,32 @@ namespace SoulRunProject.InGame
     /// <summary>
     /// 敵や障害物を管理するクラス
     /// </summary>
-    public class DamageableEntity : MonoBehaviour
+    public class DamageableEntity : PooledObject
     {
         [SerializeField, CustomLabel("HP")] float _maxHp = 30;
-
         [SerializeField, CustomLabel("衝突ダメージ")]
         float _collisionDamage;
-
         [SerializeField, CustomLabel("ノックバック方向")]
         Vector3 _direction = Vector3.one;
-
         [SerializeField, CustomLabel("ノックバック処理")]
         TakeKnockBack _takeKnockBack;
-
         [SerializeField, CustomLabel("ドロップデータ")]
         LootTable _lootTable;
-
         [SerializeField, CustomLabel("ダメージエフェクト")]
         HitDamageEffectManager _hitDamageEffectManager;
-
-        public Action OnDead;
         FloatReactiveProperty _currentHp = new();
         float _knockBackResistance;
-
+        public Action OnDead;
         public float MaxHp => _maxHp;
         public float CollisionDamage => _collisionDamage;
         public FloatReactiveProperty CurrentHp => _currentHp;
 
-        void Awake()
+        void Start()
+        {
+            Initialize();
+        }
+
+        public override void Initialize()
         {
             _currentHp.Value = _maxHp;
         }
@@ -45,6 +43,8 @@ namespace SoulRunProject.InGame
         /// </summary>
         public void Damage(float damage, in GiveKnockBack knockBack = null)
         {
+            if (!gameObject.activeSelf) return;
+            
             _currentHp.Value -= damage;
             CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Hit");
             if (_currentHp.Value <= 0)
@@ -63,15 +63,20 @@ namespace SoulRunProject.InGame
             }
         }
 
+        public override void OnFinish()
+        {
+            OnDead = null;
+        }
+
         void Death()
         {
             if (_lootTable)
             {
-                ItemDropManager.Instance.Drop(_lootTable, transform.position);
+                ItemDropManager.Instance.RequestDrop(_lootTable, transform.position);
             }
 
             OnDead?.Invoke();
-            Destroy(gameObject);
+            Finish();
         }
 
         void OnTriggerEnter(Collider other)

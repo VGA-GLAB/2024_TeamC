@@ -29,8 +29,6 @@ namespace SoulRunProject.InGame
         private readonly BoolReactiveProperty _isGround = new BoolReactiveProperty(true);
         private Vector3 _playerVelocity;
         private bool _inPause;
-        private float _landingSoundTimer;
-        private float _landingSoundInterval = 0.3f;
         private int _spinIndex;
 
         public BoolReactiveProperty IsGround => _isGround;
@@ -62,13 +60,6 @@ namespace SoulRunProject.InGame
             if (_isGround.Value && _playerVelocity.y <= 0)
             {
                 _playerVelocity.y = 0;
-                _landingSoundTimer += Time.fixedDeltaTime;
-
-                if (_landingSoundTimer >= _landingSoundInterval)
-                {
-                    _landingSoundTimer = 0;
-                    CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Run");
-                }
             }
             else
             {
@@ -200,6 +191,15 @@ namespace SoulRunProject.InGame
             // {
             //     transform.DORotate(new Vector3(transform.rotation.x, 0, transform.rotation.y), _rotateTime);
             // }
+        }
+
+        /// <summary>
+        /// プレイヤーの足音再生
+        /// AnimationEventから呼び出される
+        /// </summary>
+        public void PlayRumSound()
+        {
+            CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Run");
         }
         
         #if UNITY_EDITOR

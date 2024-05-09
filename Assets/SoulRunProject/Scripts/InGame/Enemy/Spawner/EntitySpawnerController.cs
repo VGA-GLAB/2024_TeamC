@@ -77,8 +77,7 @@ namespace SoulRunProject.InGame
 
                 yield return new WaitForSeconds(_spawnInterval / 1000);
 
-                // TODO 複数種出す場合、それらを選択するロジックを考える
-                var entity = Instantiate(_fieldEntity[spawnIndex], transform.position + pos.Item1,
+                var entity = ObjectPoolManager.Instance.RequestInstance(_fieldEntity[spawnIndex], transform.position + pos.Item1,
                     Quaternion.Euler(0, pos.Item2, 0));
                 //entity.SetPlayer(_playerManager);
                 spawnIndex++;

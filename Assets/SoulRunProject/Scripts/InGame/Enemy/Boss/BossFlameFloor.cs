@@ -19,6 +19,8 @@ namespace SoulRunProject.InGame
         [SerializeField, CustomLabel("着弾地点のプレイヤーとの距離"), Tooltip("ブレス発射時のプレイヤーの位置からの着弾地点の距離")]
         private float _deviationDistance;
         [SerializeField, CustomLabel("着弾地点の最大のずれ幅")] private float _flameBallAccuracy;
+        [Header("強化内容"), EnumDrawer(typeof(PowerUpName)), SerializeReference, SubclassSelector]
+        PowerUpBehaviorBase[] _powerUpBehaviors;
 
         // 移動
         private float _actionTimer;
@@ -35,7 +37,11 @@ namespace SoulRunProject.InGame
             _playerTransform = GameObject.FindObjectOfType<PlayerManager>().transform;
             
             // 行動パワーアップの代入
-            PowerUpBejaviors = new Action<BossController>[] { SpeedPowerUp };
+            foreach (var powerUpBehavior in _powerUpBehaviors)
+            {
+                powerUpBehavior.Initialize(this);
+                PowerUpBejaviors.Add(powerUpBehavior.PowerUpBehavior);
+            }
         }
 
         public override void BeginAction()
@@ -81,10 +87,30 @@ namespace SoulRunProject.InGame
             }
         }
 
-        private void SpeedPowerUp(BossController bossController)
+        [Serializable, Name("抽象クラス")]
+        abstract class PowerUpBehaviorBase
         {
-            _actionTime /= 2; // 移動スピード
-            _flameBallSpeed *= 2; // 炎の弾のスピード
+            protected BossFlameFloor _instance;
+            
+            public void Initialize(BossFlameFloor bossFlameFloor)
+            {
+                _instance = bossFlameFloor;
+            }
+
+            public abstract void PowerUpBehavior(BossController controller);
+        }
+
+        [Serializable, Name("スピードアップ")]
+        class SpeedPowerUp : PowerUpBehaviorBase
+        {
+            [SerializeField, CustomLabel("時間短縮割合")] private float _timeReductionRatio;
+            [SerializeField, CustomLabel("火炎弾のスピード上昇割合")] private float _speedUpRatio;
+            
+            public override void PowerUpBehavior(BossController controller)
+            {
+                _instance._actionTime *= _timeReductionRatio;
+                _instance._flameBallSpeed *= _speedUpRatio;
+            }
         }
     }
 }

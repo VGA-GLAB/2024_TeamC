@@ -14,7 +14,6 @@ namespace SoulRunProject.Common
             var trans = transform;
             trans.Translate(0, (trans.position.z + _speed) * Time.fixedDeltaTime, 0);
         }
-
         void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent(out PlayerManager player))
@@ -22,11 +21,6 @@ namespace SoulRunProject.Common
                 OnHit(other);
                 //player.Damage(_attackDamage);
             }
-        }
-        
-        protected override void TouchCall(GameObject detachedPrefab)
-        {
-            EnemyObjectPool.Instance.ReleasePoolObject(gameObject);
         }
     }
 }

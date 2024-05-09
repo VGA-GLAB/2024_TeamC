@@ -24,19 +24,17 @@ namespace SoulRunProject.Common
         private SoulSkillManager _soulSkillManager;
         private PlayerMovement _playerMovement;
         private HitDamageEffectManager _hitDamageEffectManager;
+        private PlayerStatusManager _statusManager;
         private PlayerResourceContainer _resourceContainer;
-        public FloatReactiveProperty CurrentHp { get; private set; }
+        public FloatReactiveProperty CurrentHp => _statusManager.CurrentHp;
         public PlayerResourceContainer ResourceContainer => _resourceContainer;
-        public float MaxHp;
-        public Status CurrentStatus => _currentStatus;
+        public PlayerStatusManager PlayerStatusManager => _statusManager;
+        public Status CurrentStatus => _statusManager.CurrentStatus;
         /// <summary>ダメージを無効化出来るかどうかの条件を格納するリスト</summary>
         public List<Func<bool>> IgnoreDamagePredicates { get; } = new();
 
-        private Status _currentStatus;
         private void Awake()
         {
-            _currentStatus = new Status(_baseStatus.Status);
-            CurrentHp = new FloatReactiveProperty(_currentStatus.Hp);
             _inGameTimes = GetComponents<IPlayerPausable>();
             _pLevelManager = GetComponent<PlayerLevelManager>();
             _skillManager = GetComponent<SkillManager>();
@@ -44,7 +42,7 @@ namespace SoulRunProject.Common
             _playerMovement = GetComponent<PlayerMovement>();
             _hitDamageEffectManager = GetComponent<HitDamageEffectManager>();
             _resourceContainer = new();
-            MaxHp = _currentStatus.Hp;
+            _statusManager = new PlayerStatusManager(_baseStatus.Status);
             
             InitializeInput();
         }
@@ -90,12 +88,14 @@ namespace SoulRunProject.Common
                     return;
                 }
             }
-            CurrentHp.Value -= damage;
+            
             _playerCamera.DamageCam();
-            if (CurrentHp.Value <= 0)
+            
+            if (_statusManager.Damage(damage))
             {
                 Death();
             }
+            
             // 白色点滅メソッド
             _hitDamageEffectManager.HitFadeBlinkWhite();
             CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Damage");
@@ -103,8 +103,7 @@ namespace SoulRunProject.Common
 
         public void Heal(float value)
         {
-            CurrentHp.Value += value;
-            CurrentHp.Value = Mathf.Clamp(CurrentHp.Value, 0, MaxHp);
+            _statusManager.Heal(value);
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
-    public class BulletController : MonoBehaviour
+    public class BulletController : PooledObject
     {
         [SerializeField] bool _useFirePointRotation;
         [SerializeField] bool _useFlash;
@@ -26,8 +26,6 @@ namespace SoulRunProject.InGame
         int _penetration;
         int _hitCount;
         private GiveKnockBack _giveKnockBack;
-        readonly Subject<Unit> _finishedSubject = new();
-        public IObservable<Unit> OnFinishedAsync => _finishedSubject.Take(1);
         public void Awake()
         {
             if (_light != null)
@@ -35,7 +33,8 @@ namespace SoulRunProject.InGame
             _collider.enabled = false;
             _particleSystem.Stop();
         }
-        public void Initialize(ProjectileSkillParameter param)
+
+        public void ApplyParameter(ProjectileSkillParameter param)
         {
             _lifeTime = param.LifeTime;
             _attackDamage = param.AttackDamage;
@@ -43,6 +42,9 @@ namespace SoulRunProject.InGame
             _speed = param.Speed;
             _penetration = param.Penetration;
             _giveKnockBack = param.KnockBack;
+        }
+        public override void Initialize()
+        {
             _hitCount = 0;
             transform.localScale = new Vector3(_range, _range, _range);
             this.FixedUpdateAsObservable()
@@ -134,10 +136,11 @@ namespace SoulRunProject.InGame
                     Destroy(hitInstance, hitPsParts.main.duration);
                 }
             }
-            Finish();
+
+            StartFinish();
         }
 
-        void Finish()
+        void StartFinish()
         {
             _collider.enabled = false;
             if (_light != null)
@@ -159,18 +162,13 @@ namespace SoulRunProject.InGame
                         {
                             TouchCall(detachedPrefab);
                         }
-                        _finishedSubject.OnNext(Unit.Default);
+                        Finish();
                     });
             }
             else
             {
-                _finishedSubject.OnNext(Unit.Default);
+                Finish();
             }
-        }
-
-        protected void OnDestroy()
-        {
-            _finishedSubject.Dispose();
         }
 
         protected virtual void TouchCall(GameObject detachedPrefab) //  弾が当たった時に一定時間待ってObjectPoolに入った自身のtransformに戻す

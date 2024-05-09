@@ -29,9 +29,9 @@ namespace SoulRunProject.InGame
             set => _endPos = value;
         }
     }
-
+#if UNITY_EDITOR
     [CustomEditor(typeof(FieldSegment))]
-    public class FieldSegmentEditor : UnityEditor.Editor
+    public class FieldSegmentEditor : Editor
     {
         FieldSegment _fieldSegment;
 
@@ -59,4 +59,5 @@ namespace SoulRunProject.InGame
             }
         }
     }
+#endif
 }
