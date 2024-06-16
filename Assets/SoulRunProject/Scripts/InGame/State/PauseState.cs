@@ -4,6 +4,7 @@ using SoulRunProject.Common;
 using SoulRunProject.Framework;
 using SoulRunProject.InGame;
 using UniRx;
+using UnityEngine.SceneManagement;
 
 namespace SoulRunProject
 {
@@ -16,10 +17,14 @@ namespace SoulRunProject
 
         public State StateToReturn => _lastState;
         
-        public PauseState(PlayerManager playerManager, PlayerInput playerInput)
+        public PauseState(PlayerManager playerManager, PlayerInput playerInput, PauseView pauseView)
         {
             _playerManager = playerManager;
             _playerInput = playerInput;
+            pauseView.ResumeButton.onClick.AsObservable().Subscribe(_ =>
+            {
+                StateChange();
+            }).AddTo(pauseView);
         }
 
         protected override void OnEnter(State currentState)
@@ -39,6 +44,12 @@ namespace SoulRunProject
                     StateChange();
                 })
                 .AddTo(_cts.Token);
+        }
+
+        public void ExitToTitle()
+        {
+            // タイトルへ遷移
+            SceneManager.LoadScene(0);
         }
 
         protected override void OnExit(State nextState)

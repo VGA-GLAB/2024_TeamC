@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 namespace SoulRunProject.InGame
 {
     /// <summary>
-    /// ゲームクリア時に行われるステート
+    /// ゲーム終了時に行われるステート
     /// </summary>
-    public class GameClearState : State
+    public class ResultState : State
     {
         private PlayerManager _playerManager;
         
-        public GameClearState(PlayerManager playerManager)
+        public ResultState(PlayerManager playerManager)
         {
             _playerManager = playerManager;
         }

@@ -25,7 +25,7 @@ namespace SoulRunProject.InGame
         private Tweener _tweener;
         private Vector3[] _posArr;
 
-        public override void OnStart(Transform myTransform = null)
+        public override void OnStart(Transform myTransform = null, PlayerManager pm = null)
         {
             if (myTransform == null) return;
             _posArr = _posMarkers.Select(target => target.transform.position).ToArray();

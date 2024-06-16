@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using SoulRun.InGame;
@@ -22,17 +23,8 @@ namespace SoulRunProject.Title
 
         private void Start()
         {
-            Debug.Log("TitleView Start");
-            var lights = FindObjectsOfType<Light2D>();
+            Debug.Log(_particleSystem);
             _particleSystem.Play();
-            foreach (var light in lights)
-            {
-                if (light.gameObject.name == "SoulLight")
-                {
-                    _soulLight2D = light;
-                    break;
-                }
-            }
             StartCoroutine(AnimateLightFalloff());
         }
 

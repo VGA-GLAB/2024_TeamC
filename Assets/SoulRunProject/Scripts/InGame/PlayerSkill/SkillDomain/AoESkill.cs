@@ -24,9 +24,9 @@ namespace SoulRunProject.InGame
         public override void UpdateSkill(float deltaTime)
         {
             //  AoEの座標更新
-            var playerPosition = _playerTransform.position;
-            playerPosition.y = SkillData.GroundHeight;
-            _aoeController.transform.position = playerPosition;
+            //var playerPosition = _playerTransform.position;
+            //playerPosition.y = SkillData.GroundHeight;
+            _aoeController.transform.position = _playerTransform.position;
         }
 
         public override void OnLevelUp()

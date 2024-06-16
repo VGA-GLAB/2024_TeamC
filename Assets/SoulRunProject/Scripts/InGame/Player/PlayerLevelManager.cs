@@ -1,5 +1,6 @@
 using System;
 using SoulRunProject.Common;
+using SoulRunProject.SoulMixScene;
 using UniRx;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace SoulRunProject.InGame
         public IObservable<int> OnCurrentExpChanged => _currentExp;
         public IntReactiveProperty OnLevelUp => _currentLevel;
         public int CurrentExpToNextLevel => _expToNextLevel[_currentLevel.Value - 1];
+        public PlayerStatus CurrentPlayerStatus { private get; set; }
 
         private void Awake()
         {
@@ -60,6 +62,8 @@ namespace SoulRunProject.InGame
 
         void LevelUp()
         {
+            CurrentPlayerStatus.MoveSpeed += CurrentPlayerStatus.SpeedUpAtLevelUp;
+            CurrentPlayerStatus.CurrentHp += CurrentPlayerStatus.HealAtLevelUp;
             _currentLevel.Value++;
             CriAudioManager.Instance.PlaySE("SE_LevelUp");
         }

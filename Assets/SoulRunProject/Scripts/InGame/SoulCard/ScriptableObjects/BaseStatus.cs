@@ -22,7 +22,7 @@ namespace SoulRunProject.SoulMixScene
         [SerializeField, CustomLabel("スキル範囲増加率"), Range( 0 , 5)] private float _skillSizeUpRate;
         [SerializeField, CustomLabel("弾速増加率"), Range( 0 , 5)] private float _bulletSpeedUpRate;
         [SerializeField, CustomLabel("効果時間(秒)"), Range( 0 , 5)] private float _effectTimeExtension;
-        [SerializeField, CustomLabel("追加段数"), Range( 0 , 5)] private int _bulletAmountExtension;
+        [SerializeField, CustomLabel("追加弾数"), Range( 0 , 5)] private int _bulletAmountExtension;
         [SerializeField, CustomLabel("追加貫通力"), Range( 0 , 5)] private int _penetrateAmountExtension;
         [SerializeField, CustomLabel("初期移動スピード"), Range(0, 100)] private float _initialMoveSpeed;
         [SerializeField, CustomLabel("レベルアップ時の上昇スピード"), Range(0, 50)] private float _speedUpAtLevelUp;

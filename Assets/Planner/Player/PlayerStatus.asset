@@ -24,6 +24,7 @@ MonoBehaviour:
     _penetrateAmountExtension: 0
     _initialMoveSpeed: 30
     _speedUpAtLevelUp: 2
+    _healAtLevelUp: 10
     _growthSpeedUpRate: 1
     _goldLuckRate: 1
     _criticalRate: 0

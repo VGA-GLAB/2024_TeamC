@@ -16,7 +16,7 @@ namespace SoulRunProject.Common
         private PlayingRunGameState _playingRunGameState;
         private EnterBossStageState _enterBossStageState;
         private PlayingBossStageState _playingBossStageState;
-        private GameClearState _gameClearState;
+        private ResultState _resultState;
         private PauseState _pauseState;
         private LevelUpState _levelUpState;
         
@@ -26,7 +26,7 @@ namespace SoulRunProject.Common
             PlayingRunGameState playingRunGameState,
             EnterBossStageState enterBossStageState,
             PlayingBossStageState playingBossStageState,
-            GameClearState gameClearState,
+            ResultState resultState,
             PauseState pauseState,
             LevelUpState levelUpState)
         {   //ステートの追加、遷移処理の設定を行う。
@@ -37,7 +37,7 @@ namespace SoulRunProject.Common
             AddState(2, playingRunGameState);
             AddState(4, enterBossStageState);
             AddState(5, playingBossStageState);
-            AddState(6, gameClearState);
+            AddState(6, resultState);
             AddState(7, pauseState);
             AddState(8, levelUpState);
             firstState.OnStateExit += _ => ChangeState(1);
@@ -85,7 +85,7 @@ namespace SoulRunProject.Common
                 else if (playingBossStageState.SwitchToLevelUpState) // LevelUpStateへの移行
                     ChangeState(8);
                 else if (playingBossStageState.IsPlayerDead) //プレイヤーが死んだ場合
-                    ChangeState(6); // clear は game over の意なのか
+                    ChangeState(6);
             };
         }
 

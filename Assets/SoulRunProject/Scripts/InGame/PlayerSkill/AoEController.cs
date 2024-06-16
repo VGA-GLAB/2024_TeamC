@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using SoulRunProject.InGame;
 using UniRx;
 using UnityEngine;
@@ -11,9 +12,18 @@ namespace SoulRunProject.Common
     /// </summary>
     public class AoEController : MonoBehaviour
     {
+        [SerializeField] private float _rotateTime = 2f;
         HashSet<DamageableEntity> _entities = new();
         private AoESkillParameter _param;
         private PlayerManager _playerManager;
+
+        private void OnEnable()
+        {
+            transform.DORotate(new Vector3(0, 360, 0), _rotateTime, RotateMode.WorldAxisAdd)
+                .SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart)
+                .SetLink(gameObject)
+                .SetLink(gameObject, LinkBehaviour.KillOnDisable);
+        }
 
         public void ApplyParameter(in AoESkillParameter param, PlayerManager playerManager)
         {
@@ -24,9 +34,10 @@ namespace SoulRunProject.Common
 
         void FixedUpdate()
         {
+            _entities = _entities.Where(entity => entity && entity.gameObject.activeSelf).ToHashSet();
             // OnTriggerExitする前にDestroyすることがあるので、
-            // Whereでnullチェックしてからダメージ処理
-            foreach (var entity in _entities.Where(entity => entity))
+            // Whereでnullチェックとアクティブかどうかをチェックしてからダメージ処理
+            foreach (var entity in _entities)
             {
                 entity.Damage(_param.BaseAttackDamage * Time.fixedDeltaTime, useSE: false);
 

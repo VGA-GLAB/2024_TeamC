@@ -8,7 +8,7 @@ namespace SoulRunProject.InGame
     /// <summary>
     /// ドロップした経験値やアイテムの基底クラス
     /// </summary>
-    public abstract class DropBase : PooledObject, IPausable
+    public abstract class DropBase : PooledObject
     {
         [SerializeField, CustomLabel("跳ねるアニメーションの乗数(増やすとより大きく跳ねる)")] float _multiplier = 1f;
         [SerializeField, CustomLabel("跳ねるアニメーションの時間")] float _projectileMotionTime = 0.5f;
@@ -26,11 +26,6 @@ namespace SoulRunProject.InGame
         protected new void OnDestroy()
         {
             base.OnDestroy();
-            UnRegister();
-        }
-        private void Awake()
-        {
-            PauseManager.RegisterPausableObject(this);
         }
 
         public override void Initialize()
@@ -76,10 +71,10 @@ namespace SoulRunProject.InGame
             
             var absorptionPower = _player.CurrentPlayerStatus.VacuumItemRange;
             var distance = _player.transform.position - transform.position;
-            float moveSpeed = 10f + _fieldMover.MaxScrollSpeed;
+            float suctionSpeed = 10f + _player.CurrentPlayerStatus.MoveSpeed;
             if (distance.sqrMagnitude < absorptionPower * absorptionPower)
             {
-                transform.position += distance.normalized * (moveSpeed * Time.deltaTime);
+                transform.position += distance.normalized * (suctionSpeed * Time.deltaTime);
             }
         }
 
@@ -104,30 +99,6 @@ namespace SoulRunProject.InGame
                 PickUp(playerManager);
             }
         }
-
-        public void Register()
-        {
-            PauseManager.RegisterPausableObject(this);
-        }
-
-        public void UnRegister()
-        {
-            PauseManager.UnRegisterPausableObject(this);
-        }
-
-        public void Pause(bool isPause)
-        {
-            _isPause = isPause;
-            if (isPause)
-            {
-                _projectileMotionSequence?.Pause();
-                _rotateTween?.Pause();
-            }
-            else
-            {
-                _projectileMotionSequence?.Restart();
-                _rotateTween?.Restart();
-            }
-        }
+        
     }
 }

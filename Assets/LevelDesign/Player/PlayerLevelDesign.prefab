@@ -186,19 +186,20 @@ MonoBehaviour:
   _baseStatus: {fileID: 11400000, guid: d50a16b38666d804883e3040b335a638, type: 2}
   _playerCamera: {fileID: 6635071162787831542}
   _hitDamageEffectManager: {fileID: 5236282758698190153}
-  _decreaseSpeed: 10
+  _decreaseSpeed: 20
   CurrentPlayerStatus:
     _hp: 530
     _attackValue: 10
     _defenceValue: 1
     _coolTimeReductionRate: 1.06
-    _skillSizeUpRate: 5
+    _skillSizeUpRate: 1
     _bulletSpeedUpRate: 1
     _effectTimeExtension: 1
     _bulletAmountExtension: 0
     _penetrateAmountExtension: 1
-    _moveSpeed: 0
-    _moveSpeedUpRate: 5
+    _initialMoveSpeed: 0
+    _speedUpAtLevelUp: 0
+    _healAtLevelUp: 0
     _growthSpeedUpRate: 0
     _goldLuckRate: 1
     _criticalRate: 0
@@ -265,7 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultPlayerSkills: 01000020
   _initialNumberOfPossessions: 1
-  _increaseSkillLevels: 0300000006000000090000000c000000
+  _increaseSkillLevels: 0300000006000000
 --- !u!114 &2245462467506778556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77eda4c25f42df42900dfed143ab44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialSoul: 0
+  _initialSoul: 100
   _regenerativePerSec: 0.2
 --- !u!54 &6585847965433512431
 Rigidbody:

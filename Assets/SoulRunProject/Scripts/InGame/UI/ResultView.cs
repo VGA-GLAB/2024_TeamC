@@ -17,7 +17,9 @@ namespace SoulRunProject.InGame
         [SerializeField] private InputUIButton _restartButton;
         [SerializeField] private InputUIButton _exitButton;
         [SerializeField] private GameObject _resultPanel;
-        [SerializeField] private Text _resultText;
+        [SerializeField] private Text _scoreText;
+        [SerializeField] private Text _coinText;
+        
         public InputUIButton RestartButton => _restartButton;
         public InputUIButton ExitButton => _exitButton;
 
@@ -35,17 +37,10 @@ namespace SoulRunProject.InGame
             _resultPanel.SetActive(isShow);
         }
         
-        public void ShowResult(ResultType resultType)
+        public void ShowResult(int score, int coin)
         {
-            switch (resultType)
-            {
-                case ResultType.Clear:
-                    _resultText.text = "Game Clear!";
-                    break;
-                case ResultType.GameOver:
-                    _resultText.text = "Game Over!";
-                    break;
-            }
+            _scoreText.text = score.ToString();
+            _coinText.text = coin.ToString();
         }
         
         public enum ResultType

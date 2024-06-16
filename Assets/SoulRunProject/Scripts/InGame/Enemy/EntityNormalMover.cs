@@ -19,16 +19,18 @@ namespace SoulRunProject.InGame
         
         private bool _isPaused;
         private Vector3 _spawnPos;
+        private PlayerManager _pm;
 
-        public override void OnStart(Transform myTransform = null)
+        public override void OnStart(Transform myTransform = null, PlayerManager pm = null)
         {
             _spawnPos = myTransform.position;
+            _pm = pm;
         }
 
         public override void OnUpdateMove(Transform self, Transform target = default)
         {
             if (_isPaused) return;
-            self.position += DirectionToVector3(_direction) * (_moveSpeed * Time.deltaTime);
+            self.position += DirectionToVector3(_direction) * ((_moveSpeed + _pm.CurrentPlayerStatus.MoveSpeed) * Time.deltaTime);
 
             var dis = _spawnPos - self.position;
             if (Math.Abs(dis.x) <= _despawnRange || Math.Abs(dis.y) <= _despawnRange || Math.Abs(dis.z) <= _despawnRange)

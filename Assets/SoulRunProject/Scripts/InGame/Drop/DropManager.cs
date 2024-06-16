@@ -65,7 +65,7 @@ namespace SoulRunProject.InGame
                     constraint.Targets.Add(drop.transform);
                     //  親オブジェクトが破棄されたら、ドロップアイテムをプールに戻す
                     constraint.gameObject.OnDestroyAsObservable()
-                        .Subscribe(_ => drop.Finish()).AddTo(this);
+                        .Subscribe(_ => drop.Finish()).AddTo(constraint.gameObject);
                 }
             }
         }
