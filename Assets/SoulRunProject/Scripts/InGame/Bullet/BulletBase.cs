@@ -23,7 +23,7 @@ namespace SoulRunProject.InGame
         protected bool _isPause;
         protected PlayerManager PlayerManagerInstance;
 
-        void Awake()
+        public void Awake()
         {
             if (_light != null)
                 _light.enabled = false;

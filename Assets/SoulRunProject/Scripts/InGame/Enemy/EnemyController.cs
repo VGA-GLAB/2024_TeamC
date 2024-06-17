@@ -12,21 +12,22 @@ namespace SoulRunProject.InGame
         [SerializeReference] [SubclassSelector] [CustomLabel("移動処理")]
         protected EntityMover _mover;
 
+        [SerializeField] [CustomLabel("Enemyの寿命")]
+        private float _enemyLifeTime = 10;
+
         protected Transform _playerTransform;
         protected PlayerManager _playerManagerInstance;
         private Animator _animator;
         private DamageableEntity _damageableEntity;
         private bool _spawnFlag;
-        private const float EnemyLifeTime = 20;
         private float _timer;
-
 
         private void Awake()
         {
             Register();
             _animator = GetComponent<Animator>();
             _damageableEntity = GetComponent<DamageableEntity>();
-
+            
             if (_mover is not null) _mover.Despawn += _damageableEntity.Despawn;
         }
 
@@ -43,7 +44,7 @@ namespace SoulRunProject.InGame
 
         private void OnDestroy()
         {
-            _mover.Despawn -= _damageableEntity.Despawn;
+            if (_mover is not null) _mover.Despawn -= _damageableEntity.Despawn;
             UnRegister();
         }
 
@@ -71,7 +72,7 @@ namespace SoulRunProject.InGame
             _mover?.OnUpdateMove(transform, _playerTransform);
             _attacker?.OnUpdateAttack(transform, _playerTransform);
 
-            if (EnemyLifeTime < _timer) _damageableEntity.Despawn();
+            if (_enemyLifeTime < _timer) _damageableEntity.Despawn();
 
             if (_playerTransform.position.z > gameObject.transform.position.z) _damageableEntity.Despawn();
         }

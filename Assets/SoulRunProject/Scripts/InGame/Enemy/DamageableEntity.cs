@@ -48,6 +48,13 @@ namespace SoulRunProject.InGame
             Initialize();
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!gameObject.activeSelf) return;
+            if (other.gameObject.TryGetComponent(out PlayerManager playerManager))
+                playerManager.Damage(_collisionDamage);
+        }
+
         public override void Initialize()
         {
             _currentHp.Value = _maxHp;
