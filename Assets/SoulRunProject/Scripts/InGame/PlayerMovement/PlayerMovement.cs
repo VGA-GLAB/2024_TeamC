@@ -43,8 +43,13 @@ namespace SoulRunProject.InGame
 
             _isGround.AddTo(this);
             this.OnDestroyAsObservable().Subscribe(_ => OnJumped = null);
-            _spinIndex = CriAudioManager.Instance.PlaySE("SE_Spin");
-            CriAudioManager.Instance.PauseSE(_spinIndex);
+            _isGround.SkipLatestValueOnSubscribe().Subscribe(flag =>
+            {
+                if (flag)
+                    CriAudioManager.Instance.StopSE(_spinIndex);
+                else
+                    _spinIndex = CriAudioManager.Instance.PlaySE("SE_Spin");
+            }).AddTo(this);
         }
 
         private void Update()
@@ -114,13 +119,11 @@ namespace SoulRunProject.InGame
                 if (!_isGround.Value)
                 {
                     CriAudioManager.Instance.PlaySE("SE_Landing");
-                    CriAudioManager.Instance.PauseSE(_spinIndex);
                     _isGround.Value = true;
                 }
             }
             else if (_isGround.Value)
             {
-                CriAudioManager.Instance.ResumeSE(_spinIndex);
                 _isGround.Value = false;
             }
         }

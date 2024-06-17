@@ -3,7 +3,6 @@ using CriWare;
 using UnityEngine.SceneManagement;
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SoulRunProject.Common
 {
@@ -149,7 +148,24 @@ namespace SoulRunProject.Common
             _mePlayer = new CriAtomExPlayer();
             _seData = new List<CriPlayerData>();
             _meData = new List<CriPlayerData>();
-
+            
+            var nativeSource = new CriAtomEx3dSource();
+            nativeSource.SetPosition(0, 0, 0);  //  TODO 現状、音源が3dの設定になってはいるが適切な設定がされていないので適当な座標で流しても問題ない。
+            nativeSource.Update();
+            _sePlayer.Set3dSource(nativeSource);
+            _loopSEPlayer.Set3dSource(nativeSource);
+            
+            var listener = FindObjectOfType<CriAtomListener>();
+            if (listener == null)
+            {
+                Debug.LogWarning($"{nameof(CriAtomListener)} が見つかりません。");
+            }
+            else
+            {
+                _sePlayer.Set3dListener(listener.nativeListener);
+                _loopSEPlayer.Set3dListener(listener.nativeListener);
+            }
+            
             MasterVolumeChanged += volume =>
             {
                 _bgmPlayer.SetVolume(volume * _bgmVolume);
@@ -281,7 +297,6 @@ namespace SoulRunProject.Common
         public int PlaySE(string cueName, float volume = 1f)
         {
             CriPlayerData newAtomPlayer = new CriPlayerData();
-
 
             var tempAcb = CriAtom.GetCueSheet(_cueSheetSe).acb;
             if (tempAcb == null)
