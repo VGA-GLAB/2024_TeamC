@@ -19,6 +19,7 @@ namespace SoulRunProject
         [SerializeField, CustomLabel("名前")] private string _name;
         [SerializeField, CustomLabel("技の説明文")] private string _description;
         [SerializeField, CustomLabel("発動に必要なソウル")] private float _requiredSoul;
+        [SerializeField, CustomLabel("発動時間")] protected int _duration;
         public SoulSkillType SkillType => _skillType;
         
         public string Name => _name;
@@ -26,6 +27,8 @@ namespace SoulRunProject
         public string Description => _description;
 
         public float RequiredSoul => _requiredSoul;
+
+        public float Duration => _duration;
         
         /// <summary>
         /// ソウル技を実行する

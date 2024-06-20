@@ -1,5 +1,5 @@
 using System;
-using DG.Tweening;
+using System.Threading;
 using SoulRunProject.Common;
 using UniRx;
 using UniRx.Triggers;
@@ -14,27 +14,27 @@ namespace SoulRunProject.InGame
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour, IPlayerPausable
     {
+        [SerializeField] private Animator _playerAnimator;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _jumpPower;
         [SerializeField] private float _grav;
-        [SerializeField] private float _yAxisGroundLine = 0;
+        [SerializeField, CustomLabel("地面の高さ")] private float _yAxisGroundLine;
+        [SerializeField, CustomLabel("Pivotと接地点との距離")] private float _distanceBetweenPivotAndGroundPoint;
         [SerializeField, HideInInspector] private float _xMoveRangeMin;
         [SerializeField, HideInInspector] private float _xMoveRangeMax;
-        [SerializeField, HideInInspector] private bool _canZAxisMovement;
-        [SerializeField, HideInInspector] private float _zAxisMoveSpeed;
-        [SerializeField, HideInInspector] private float _zMoveRangeMin;
-        [SerializeField, HideInInspector] private float _zMoveRangeMax;
 
         private Rigidbody _rb;
-        private readonly BoolReactiveProperty _isGround = new BoolReactiveProperty(true);
+        private readonly BoolReactiveProperty _isGround = new BoolReactiveProperty(false);
         private Vector3 _playerVelocity;
         private bool _inPause;
-        private float _landingSoundTimer;
-        private float _landingSoundInterval = 0.3f;
         private int _spinIndex;
 
         public BoolReactiveProperty IsGround => _isGround;
         public event Action OnJumped;
+        /// <summary> プレイヤー地点の地面の高さ </summary>
+        public float GroundHeight => _yAxisGroundLine;
+
+        public float DistanceBetweenPivotAndGroundPoint => _distanceBetweenPivotAndGroundPoint;
 
         private void Awake()
         {
@@ -43,8 +43,13 @@ namespace SoulRunProject.InGame
 
             _isGround.AddTo(this);
             this.OnDestroyAsObservable().Subscribe(_ => OnJumped = null);
-            _spinIndex = CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Spin");
-            CriAudioManager.Instance.PauseSE(_spinIndex);
+            _isGround.SkipLatestValueOnSubscribe().Subscribe(flag =>
+            {
+                if (flag)
+                    CriAudioManager.Instance.StopSE(_spinIndex);
+                else
+                    _spinIndex = CriAudioManager.Instance.PlaySE("SE_Spin");
+            }).AddTo(this);
         }
 
         private void Update()
@@ -52,73 +57,73 @@ namespace SoulRunProject.InGame
             if (_inPause) return;
             LimitPosition();
             GroundCheck();
-            _rb.velocity = _playerVelocity;
         }
 
         private void FixedUpdate()
         {
             if (_inPause) return;
             
-            if (_isGround.Value && _playerVelocity.y <= 0)
+            if (_isGround.Value && _playerVelocity.y < 0)
             {
                 _playerVelocity.y = 0;
-                _landingSoundTimer += Time.fixedDeltaTime;
-
-                if (_landingSoundTimer >= _landingSoundInterval)
-                {
-                    _landingSoundTimer = 0;
-                    CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Run");
-                }
             }
             else
             {
                 _playerVelocity.y -= _grav * Time.fixedDeltaTime;
             }
+            
+            _rb.velocity = _playerVelocity;
         }
 
         public void InputMove(Vector2 moveInput)
         {
-            if (_inPause) return;
             _playerVelocity.x = moveInput.x * _moveSpeed;
-            //_playerVelocity.z = moveInput.y * _moveSpeed;
-            if (_canZAxisMovement) _playerVelocity.z = moveInput.y * _zAxisMoveSpeed;
         }
 
         public void Jump()
         {
             if (_inPause) return;
-            
+
             if (_isGround.Value)
             {
                 _playerVelocity.y = _jumpPower;
-                CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Jump");
+                _isGround.Value = false;
+                CriAudioManager.Instance.PlaySE("SE_Jump");
                 OnJumped?.Invoke();
             }
         }
 
+        /// <summary>
+        /// 地面を検出してpositionと音を調整する
+        /// </summary>
         private void GroundCheck()
         {
-            if (transform.position.y <= _yAxisGroundLine)
+            // 地面の高さ判定
+            RaycastHit[] hits = Physics.RaycastAll(transform.position + Vector3.up * 10, Vector3.down, 20);
+
+            foreach (var hit in hits)
+            {
+                if (hit.collider.CompareTag("Field"))
+                {
+                    _yAxisGroundLine = hit.point.y;
+                    break;
+                }
+            }
+            
+            if (transform.position.y <= _yAxisGroundLine + DistanceBetweenPivotAndGroundPoint)
             {
                 Vector3 pos = transform.position;
-                pos.y = _yAxisGroundLine;
+                pos.y = _yAxisGroundLine + DistanceBetweenPivotAndGroundPoint;
                 transform.position = pos;
 
                 if (!_isGround.Value)
                 {
-                    CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Landing");
-                    CriAudioManager.Instance.PauseSE(_spinIndex);
+                    CriAudioManager.Instance.PlaySE("SE_Landing");
+                    _isGround.Value = true;
                 }
-                
-                _isGround.Value = true;
             }
-            else
+            else if (_isGround.Value)
             {
-                if (_isGround.Value)
-                {
-                    CriAudioManager.Instance.ResumeSE(_spinIndex);
-                }
-                
                 _isGround.Value = false;
             }
         }
@@ -126,7 +131,7 @@ namespace SoulRunProject.InGame
         public void Pause(bool isPause)
         {
             _inPause = isPause;
-            
+
             if (isPause)
             {
                 _rb.Sleep();
@@ -161,48 +166,16 @@ namespace SoulRunProject.InGame
                 // Velocityの制限
                 _playerVelocity.x = Mathf.Clamp(_playerVelocity.x, -_moveSpeed, 0);
             }
-            
-            if (!_canZAxisMovement) return;
-
-            // z座標軸の制限
-            if (transform.position.z <= _zMoveRangeMin) // z マイナス側の制限
-            {
-                // 位置の制限
-                Vector3 pos = transform.position;
-                pos.z = _zMoveRangeMin;
-                transform.position = pos;
-                // Velocityの制限
-                _playerVelocity.z = Mathf.Clamp(_playerVelocity.z, 0, _zAxisMoveSpeed);
-            }
-            else if (transform.position.z >= _zMoveRangeMax)
-            {
-                // 位置の制限
-                Vector3 pos = transform.position;
-                pos.z = _zMoveRangeMax;
-                transform.position = pos;
-                // Velocityの制限
-                _playerVelocity.z = Mathf.Clamp(_playerVelocity.z, -_zAxisMoveSpeed, 0);
-            }
         }
-        
+
         public void RotatePlayer(Vector2 input)
         {
-            
-            // if (input.x > 0)
-            // {
-            //     transform.DORotate(new Vector3(0, -_rotateAngle, 0), _rotateTime);
-            // }
-            // else if ( input.x < 0)
-            // {
-            //     transform.DORotate(new Vector3(0, _rotateAngle, 0), _rotateTime);
-            // }
-            // else
-            // {
-            //     transform.DORotate(new Vector3(transform.rotation.x, 0, transform.rotation.y), _rotateTime);
-            // }
+            _playerAnimator.SetFloat("Direction" , input.x);
         }
-        
-        #if UNITY_EDITOR
+
+
+
+#if UNITY_EDITOR
         private void OnValidate()
         {
             SceneView.RepaintAll();
@@ -216,16 +189,8 @@ namespace SoulRunProject.InGame
             Gizmos.DrawLine(leftPos, rightPos);
             Gizmos.DrawLine(leftPos + Vector3.up, leftPos - Vector3.up);
             Gizmos.DrawLine(rightPos + Vector3.up, rightPos - Vector3.up);
-            
-            if (!_canZAxisMovement) return;
-
-            Vector3 backPos = Vector3.forward * _zMoveRangeMin;
-            Vector3 forwardPos = Vector3.forward * _zMoveRangeMax;
-            Gizmos.DrawLine(backPos, forwardPos);
-            Gizmos.DrawLine(backPos + Vector3.up, backPos - Vector3.up);
-            Gizmos.DrawLine(forwardPos + Vector3.up, forwardPos - Vector3.up);
         }
-        
+
         /// <summary>
         /// move rangeの拡張
         /// </summary>
@@ -233,7 +198,7 @@ namespace SoulRunProject.InGame
         public class PlayerMovementEditor : Editor
         {
             private PlayerMovement _playerMovement;
-            
+
             private void Awake()
             {
                 _playerMovement = target as PlayerMovement;
@@ -242,7 +207,7 @@ namespace SoulRunProject.InGame
             public override void OnInspectorGUI()
             {
                 DrawDefaultInspector();
-                
+
                 EditorGUILayout.BeginHorizontal();
                 float width = EditorGUIUtility.labelWidth;
                 EditorGUIUtility.labelWidth = 32;
@@ -252,15 +217,17 @@ namespace SoulRunProject.InGame
                     GUILayout.MaxWidth(98)
                 };
                 EditorGUILayout.LabelField("X軸座標の移動範囲", fieldOptions);
-                
+
                 GUILayout.FlexibleSpace();
-                
+
                 fieldOptions = new GUILayoutOption[]
                 {
                     GUILayout.MinWidth(84),
-                    GUILayout.MaxWidth(84 < EditorGUIUtility.currentViewWidth * 0.27f? EditorGUIUtility.currentViewWidth * 0.27f : 84)
+                    GUILayout.MaxWidth(84 < EditorGUIUtility.currentViewWidth * 0.27f
+                        ? EditorGUIUtility.currentViewWidth * 0.27f
+                        : 84)
                 };
-                
+
                 EditorGUI.BeginChangeCheck();
                 _playerMovement._xMoveRangeMin =
                     EditorGUILayout.FloatField("Min", _playerMovement._xMoveRangeMin, fieldOptions);
@@ -273,40 +240,15 @@ namespace SoulRunProject.InGame
                 {
                     _playerMovement._xMoveRangeMin = _playerMovement._xMoveRangeMax;
                 }
-                
-                EditorGUIUtility.labelWidth = width;
-                _playerMovement._canZAxisMovement =
-                    EditorGUILayout.Toggle("前後に移動可能か", _playerMovement._canZAxisMovement);
-                
-                EditorGUI.BeginDisabledGroup(!_playerMovement._canZAxisMovement);
-                _playerMovement._zAxisMoveSpeed =
-                    EditorGUILayout.FloatField("前後移動速度", _playerMovement._zAxisMoveSpeed);
-                EditorGUIUtility.labelWidth = 32;
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Z軸座標の移動範囲", fieldOptions);
-                GUILayout.FlexibleSpace();
-            
-                _playerMovement._zMoveRangeMin =
-                    EditorGUILayout.FloatField("Min", _playerMovement._zMoveRangeMin, fieldOptions);
-                GUILayout.Space(EditorGUIUtility.currentViewWidth * 0.03f);
-                _playerMovement._zMoveRangeMax =
-                    EditorGUILayout.FloatField("Max", _playerMovement._zMoveRangeMax, fieldOptions);
-                EditorGUILayout.EndHorizontal();
-                EditorGUI.EndDisabledGroup();
 
-                if (_playerMovement._zMoveRangeMin > _playerMovement._zMoveRangeMax)
-                {
-                    _playerMovement._zMoveRangeMin = _playerMovement._zMoveRangeMax;
-                }
-                
                 if (EditorGUI.EndChangeCheck())
                 {
                     SceneView.RepaintAll();
                 }
-                
+
                 Undo.RecordObject(_playerMovement, "set playerMovement");
             }
         }
-        #endif
+#endif
     }
 }

@@ -9,11 +9,11 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class InGameExp : DropBase
     {
-        [SerializeField] private int _exp;
+        [SerializeField, CustomLabel("このドロップを拾うことで得られる経験値量")] private int _exp;
         protected override void PickUp(PlayerManager playerManager)
         {
             playerManager.GetExp(_exp);
-            FinishedSubject.OnNext(Unit.Default);
+            Finish();
         }
     }
 }

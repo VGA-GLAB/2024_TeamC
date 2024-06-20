@@ -6,9 +6,17 @@ namespace SoulRunProject.InGame
     public interface IPausable
     {
         /// <summary>
+        /// PauseManagerに自身を登録する
+        /// </summary>
+        void Register();
+        /// <summary>
+        /// PauseManagerから自身を登録解除する
+        /// </summary>
+        void UnRegister();
+
+        /// <summary>
         /// Trueでとめる、Falseでうごかす
         /// </summary>
-        /// <param name="isPause"></param>
         void Pause(bool isPause);
     }
 }

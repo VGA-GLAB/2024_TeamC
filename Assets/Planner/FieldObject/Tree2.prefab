@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 2896465790406250595}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.38, y: 6.95, z: 7.16}
-  m_LocalScale: {x: 1.4489229, y: 1.4489229, z: 1.4489229}
+  m_LocalPosition: {x: -18.05, y: 26, z: 7.1478}
+  m_LocalScale: {x: 16.1, y: 10.06, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7561062603931388508}
@@ -109,8 +109,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.6892495, y: 10.799999, z: 0.2}
-  m_Center: {x: -0.012016508, y: 0, z: 0}
+  m_Size: {x: 1.19, y: 10.799999, z: 0.2}
+  m_Center: {x: 0.17, y: 0, z: 0}
 --- !u!114 &8886523578831790948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: 30
-  _collisionDamage: 0
+  _maxHp: 3000
+  _collisionDamage: 10
+  _canKnockback: 1
   _direction: {x: 1, y: 1, z: 1}
   _takeKnockBack:
     _resistanceValue: 100
@@ -183,10 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7561062603931388508}
   - component: {fileID: 7808704856723912920}
-  - component: {fileID: 9097996300742682128}
-  - component: {fileID: 3849046115299492545}
   - component: {fileID: 1203929071308170876}
-  - component: {fileID: 8639321756244352362}
   m_Layer: 0
   m_Name: Grass
   m_TagString: Untagged
@@ -203,8 +201,8 @@ Transform:
   m_GameObject: {fileID: 4319526768839678243}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.14, y: -4.41, z: -1.95}
-  m_LocalScale: {x: 0.5391729, y: 0.5391729, z: 0.5391729}
+  m_LocalPosition: {x: 0.3136645, y: -4.4731607, z: -1.62956}
+  m_LocalScale: {x: 0.18, y: 0.23, z: 0.18682}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1643251779359049308}
@@ -261,40 +259,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9097996300742682128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4319526768839678243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hp: 30
-  _collisionDamage: 0
-  _direction: {x: 1, y: 1, z: 1}
-  _takeKnockBack:
-    _resistanceValue: 100
-    _knockBackTime: 0.5
-  _lootTable: {fileID: 0}
-  _hitDamageEffectManager: {fileID: 3849046115299492545}
---- !u!114 &3849046115299492545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4319526768839678243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e91850b292134f24a8ef6e7ce567f766, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _duration: 0.1
-  _loopCount: 1
 --- !u!114 &1203929071308170876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,19 +271,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bcda0e185e7794494ad7f78ba809e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8639321756244352362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4319526768839678243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50ade48ebdc62294e9934c95787b8c4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lightestColor: {r: 1, g: 1, b: 1, a: 1}
-  _darkestColor: {r: 0.41960785, g: 0.43137255, b: 0.48235294, a: 1}
-  _minVariableDistance: 15
-  _maxVariableDistance: 60

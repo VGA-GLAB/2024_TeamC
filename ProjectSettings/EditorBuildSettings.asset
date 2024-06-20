@@ -18,9 +18,18 @@ EditorBuildSettings:
     path: Assets/SoulRunProject/Scenes/MainScene/Title.unity
     guid: 3f2c004bed08b7148bb7ca198c66260b
   - enabled: 1
+    path: Assets/SoulRunProject/Scenes/MainScene/TutorialScene.unity
+    guid: dd85264634da13c47b0b5c993e292ffb
+  - enabled: 1
     path: Assets/SoulRunProject/Scenes/MainScene/InGame.unity
     guid: aafe37b1106181a4ab0e52c4413f8e54
   - enabled: 1
     path: Assets/SoulRunProject/Scenes/MainScene/SoulMixScene.unity
     guid: 7f0244cb33ee4074e8503b9fb325fcb0
+  - enabled: 1
+    path: Assets/SoulRunProject/Scenes/DebugScene/SceneChangeTest1.unity
+    guid: dc30e3c1ca096e2409bbe0c008ac74fe
+  - enabled: 1
+    path: Assets/SoulRunProject/Scenes/DebugScene/SceneChangeTest2.unity
+    guid: b33f50fefe05fc246bead68fffb41bd5
   m_configObjects: {}

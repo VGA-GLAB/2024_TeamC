@@ -1,0 +1,81 @@
+/*リストアイテムのスタイル*/
+.unity-list-view__item {
+    background-color: #7F46A6;
+    border-color: #3C0376;
+    border-width: 1px;
+    border-radius: 5px;
+}
+/*リストアイテムにマウスオーバーした時*/
+.unity-list-view__item:hover {
+    background-color: #906aad;
+    border-color: #3C0376;
+    border-width: 1px;
+    border-radius: 5px;
+}
+/*リストアイテムにフォーカスした時*/
+.unity-list-view__item:focus {
+    background-color: #906aad;
+    border-color: #3C0376;
+    border-width: 1px;
+    border-radius: 5px;
+}
+/*リストの下についてるやつのスタイル*/
+.unity-list-view__scroll-view--with-footer{
+    background-color: #7F46A6;
+    border-color: #3C0376;
+    border-width: 1px;
+    border-radius: 5px;
+}
+/*リストの下についてるやつのスタイル*/
+.unity-list-view__footer{
+    background-color: #7F46A6;
+    border-color: #3C0376;
+    border-width: 1px;
+    border-radius: 5px;
+}
+/*ボタンのスタイル*/
+.unity-button{
+    background-color: #7F46A6;
+    border-color: #3C0376;
+    border-width: 1px;
+    border-radius: 5px;
+}
+/*ボタンにマウスオーバーした時*/
+.unity-button:hover{
+    background-color: #906aad;
+    border-color: #3C0376;
+    border-width: 1px;
+    border-radius: 5px;
+}
+/*ボタンにフォーカスした時*/
+.unity-button:focus{
+    background-color: #906aad;
+    border-color: #3C0376;
+    border-width: 1px;
+    border-radius: 5px;
+}
+/*enumドロップダウンの入力場所のスタイル*/
+.unity-enum-field__input{  
+    background-color: #7F46A6;
+    border-color: #3C0376;
+    border-width: 1px;
+    border-radius: 5px;
+}
+/*enumドロップダウンの入力場所にマウスオーバーした時*/
+/*enumドロップダウンの入力場所はデフォルトでPickingMode.Ignoreになっているので、
+C#からPickingMode.Positionにしないとhoverやfocusが使えない*/
+.unity-enum-field__input:hover{
+    background-color: #906aad;
+    border-color: #3C0376;
+    border-width: 1px;
+    border-radius: 5px;
+}
+/*enumドロップダウンの入力場所にフォーカスした時*/
+/*enumドロップダウンの入力場所はデフォルトでPickingMode.Ignoreになっているので、
+C#からPickingMode.Positionにしないとhoverやfocusが使えない*/
+.unity-enum-field__input:focus{
+    background-color: #906aad;
+    border-color: #3C0376;
+    border-width: 1px;
+    border-radius: 5px;
+}

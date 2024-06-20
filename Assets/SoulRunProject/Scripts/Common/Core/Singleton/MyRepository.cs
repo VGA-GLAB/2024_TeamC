@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
-using SoulRunProject.Common;
-using SoulRunProject.Common.Core.ScriptableObject;
-using SoulRunProject.SoulMixScene;
-
 using UnityEngine;
 
-namespace SoulRunProject.SoulRunProject.Scripts.Common.Core.Singleton
+namespace SoulRunProject.Common
 {
     public class MyRepository : AbstractSingletonMonoBehaviour<MyRepository>
     {

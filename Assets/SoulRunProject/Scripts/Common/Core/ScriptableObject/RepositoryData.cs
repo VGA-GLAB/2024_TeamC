@@ -1,66 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SoulRunProject.SoulMixScene;
 using UnityEditor;
 using UnityEngine;
 
-namespace SoulRunProject.Common.Core.ScriptableObject
+namespace SoulRunProject.Common
 {
     [CreateAssetMenu(fileName = "Repository", menuName = "SoulRunProject/Repository")]
     public class RepositoryData : UnityEngine.ScriptableObject
     {
         [SerializeField] private List<string> _importPaths;
-        [SerializeReference] private List<ScriptableObjectList> _dataList;
+        [SerializeReference] private List<ObjectList> _dataList;
         
-        public bool TryGetDataList<T>(out List<T> dataSet) where T : UnityEngine.ScriptableObject
+        public bool TryGetDataList<T>(out List<T> dataSet) where T : UnityEngine.Object
         {
-            dataSet = null;
-            foreach (var scriptableObjectList in _dataList)
+            dataSet = new List<T>();
+            foreach (var objectList in _dataList)
             {
-                if (scriptableObjectList.ScriptableObjects[0] is T)
+                foreach (var objs in objectList.Objects)
                 {
-                    dataSet = scriptableObjectList.ScriptableObjects.Select(x => x as T).ToList();
+                    if (objs is T casted)
+                    {
+                        dataSet.Add(casted);
+                    }
                 }
             }
-            return dataSet != null;
+            return dataSet.Count > 0;
         }
 
-        public bool TryGetData<T>(out T data) where T : UnityEngine.ScriptableObject
+        public bool TryGetData<T>(out T data) where T : UnityEngine.Object
         {
             data = null;
-            foreach (var scriptableObjectList in _dataList)
+            foreach (var objectList in _dataList)
             {
-                if (scriptableObjectList.ScriptableObjects[0] is T casted)
+                foreach (var objs in objectList.Objects)
                 {
-                    data = casted;
+                    if (objs is T casted)
+                    {
+                        data = casted;
+                        return true;
+                    }
                 }
             }
-            return data != null;
+            return false;
         }
+
+#if UNITY_EDITOR
         
         private void OnValidate()
         {
             _dataList.Clear();
             foreach (var path in _importPaths)
             {
-                if (path == String.Empty) continue;
-                ScriptableObjectList data = new();
-                var guids =  AssetDatabase.FindAssets("t:scriptableObject", new[] { path });
-                if (guids.Length == 0) continue;
+                ObjectList data = new();
+
+                var guids =  AssetDatabase.FindAssets("t:Object", new[] { path });
                 var assetPaths = guids.Select(AssetDatabase.GUIDToAssetPath).ToArray();
-                data.ScriptableObjects = assetPaths.Select(AssetDatabase.LoadAssetAtPath<UnityEngine.ScriptableObject>).ToList();
-                if (data.ScriptableObjects.Count > 0)
-                {
-                    _dataList.Add(data);
-                }
+                data.Objects = assetPaths.Select(AssetDatabase.LoadAssetAtPath<UnityEngine.Object>).ToList();
+                _dataList.Add(data);
             }
         }
+#endif
         
         [Serializable]
-        public class ScriptableObjectList
+        public class ObjectList
         {
-            public List<UnityEngine.ScriptableObject> ScriptableObjects;
+            public List<UnityEngine.Object> Objects;
         }
     }
 
@@ -87,15 +92,6 @@ namespace SoulRunProject.Common.Core.ScriptableObject
             EditorGUI.EndDisabledGroup();
             
             EditorGUILayout.PropertyField(_importPathsProperty, new GUIContent("ロードするフォルダパス"), true);
-            
-            // if (GUILayout.Button("DebugData"))
-            // {
-            //     SoulRunRepository script = target as SoulRunRepository;
-            //     if(script.TryGetDataList<SkillBase>(out var dataSet));
-            //     {
-            //         Debug.Log($"{string.Join("\n" , dataSet)}");
-            //     }
-            // }
             
             EditorGUI.BeginDisabledGroup(true);
             EditorGUILayout.PropertyField(_dataListProperty, new GUIContent("参照データ"), true);

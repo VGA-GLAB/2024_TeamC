@@ -13,9 +13,9 @@ namespace SoulRunProject.Common
     [System.Serializable]
     public class MasterData : DataBase
     {
-        public List<SoulCardMasterData> soulCardDataList; // ソウルカードのマスターデータ
+        public List<SoulCardMasterDataTable> soulCardDataList; // ソウルカードのマスターデータ
 
-        public List<SoulCardMasterData> soulCardDataCombinations; // ソウルカードの組み合わせのマスターデータ
+        public List<SoulCardMasterDataTable> soulCardDataCombinations; // ソウルカードの組み合わせのマスターデータ
         // ここにエネミーのマスターデータとアイテムのマスターデータを追加する場所
     }
 
@@ -25,7 +25,7 @@ namespace SoulRunProject.Common
     {
         public int MaxScore; // 最高スコア
         public int CurrentMoney; // 所持金
-        public List<SoulCardMasterData> CurrentSoulCardDataList; // 所持しているソウルカードのリスト
+        public List<SoulCardMasterDataTable> CurrentSoulCardDataList; // 所持しているソウルカードのリスト
     }
 
     // データの保管とアクセスを管理

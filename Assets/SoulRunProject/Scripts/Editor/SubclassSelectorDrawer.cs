@@ -5,7 +5,7 @@ using SoulRunProject.Common;
 using UnityEngine;
 using UnityEditor;
 
-namespace SoulRunProject.Editor
+namespace SoulRunProject.EditorExtension
 {
     [CustomPropertyDrawer(typeof(SubclassSelectorAttribute))]
     public class SubclassSelectorDrawer : PropertyDrawer

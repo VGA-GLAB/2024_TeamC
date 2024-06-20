@@ -11,6 +11,20 @@ namespace SoulRunProject.Common
     [CreateAssetMenu(menuName = "Adjacent Graph")]
     public class AdjacentGraph : BaseGraph
     {
+        AdjacentGraphProcessor _processor;
+        public AdjacentGraphProcessor Processor 
+        {
+            get
+            {
+                if (_processor == null)
+                {
+                    _processor = new AdjacentGraphProcessor(this);
+                    _processor.Run();
+                }
+
+                return _processor;
+            }
+        }
 #if UNITY_EDITOR
         // ダブルクリックでウィンドウが開かれるように
         [OnOpenAsset(0)]

@@ -19,8 +19,8 @@ namespace Hoge
 {
     public class Hoge
     {
-				private float _hoge = 0;
-				public static float Hogehoge = 0;
+	private float _hoge = 0;
+	public static float Hogehoge = 0;
         /// <summary> このインスタンスを保有するオブジェクトのタイプ </summary>
         public float Hoge => _hoge;
 
@@ -30,7 +30,7 @@ namespace Hoge
         /// <param name="damage"></param>
         public void HogeHoge(float damage)
         {
-						//何かしらの処理
+            //何かしらの処理
         }
     }
 
@@ -59,7 +59,7 @@ namespace Hoge
 {
     public class Hoge
     {
-				private float _hoge = 0;
+	private float _hoge = 0;
     }
 }
 ```
@@ -75,10 +75,10 @@ namespace Hoge
 {
     public class Hoge
     {
-				void Hoge()
-				{
-						private float foo = 0;
-				}
+	void Hoge()
+	{
+	    private float foo = 0;
+	}
     }
 }
 ```

@@ -16,7 +16,6 @@ namespace SoulRunProject.InGame
     {
         [SerializeField , CustomLabel("使用パーティクル")] private GameObject _particle;
         [SerializeField, CustomLabel("１発のダメージ")] private int _attackDamage;
-        [SerializeField, CustomLabel("発動時間")] private int _duration;
         [SerializeField, CustomLabel("ノックバック")] private GiveKnockBack _giveKnockBack;
         private GameObject _particleInstance;
         private ParticleSystem _meteorParticle;

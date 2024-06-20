@@ -13,12 +13,12 @@ namespace SoulRunProject.InGame
     /// プレイヤーの強化処理で欲しいScriptが違う
     public abstract class LevelUpItemBase<T>
     {
-        [SerializeField] protected string _itemName;
-        [SerializeField] protected Image _itemImage;
+        [SerializeField, CustomLabel("アイテム名")] protected string _itemName;
+        [SerializeField, CustomLabel("アイコンSprite")] protected Sprite _itemIcon;
         protected T _reference;
 
         public string ItemName => _itemName;
-        public Image ItemImage => _itemImage;
+        public Sprite ItemIcon => _itemIcon;
 
         /// <summary> プレイヤー強化処理で使用するScript参照を取得する </summary>
         /// <param name="reference"> プレイヤー強化処理で使用する参照 </param>
@@ -58,7 +58,11 @@ namespace SoulRunProject.InGame
     [Serializable]
     public class StatusUpItem : LevelUpItemBase<PlayerManager>
     {
+        [SerializeField, CustomLabel("アイテム説明文")] private string _explanatoryText;
         [SerializeField] private StatusEffect[] ItemEffects;
+
+        /// <summary> アイテム説明文 </summary>
+        public string ExplanatoryText => _explanatoryText;
         
         public override void ItemEffect()
         {
@@ -81,52 +85,52 @@ namespace SoulRunProject.InGame
                 switch (_statusToUp)
                 {
                     case StatusType.Hp:
-                        playerManager.CurrentStatus.Hp += (int)_upValue;
+                        playerManager.CurrentPlayerStatus.MaxHp += (int)_upValue;
                         return;
                     case StatusType.Attack:
-                        playerManager.CurrentStatus.Attack += (int)_upValue;
+                        playerManager.CurrentPlayerStatus.AttackValue += (int)_upValue;
                         return;
                     case StatusType.Defence:
-                        playerManager.CurrentStatus.Defence += (int)_upValue;
+                        playerManager.CurrentPlayerStatus.DefenceValue += (int)_upValue;
                         return;
                     case StatusType.CoolTime:
-                        playerManager.CurrentStatus.CoolTime += _upValue;
+                        playerManager.CurrentPlayerStatus.CoolTimeReductionRate -= _upValue;
                         return;
                     case StatusType.Range:
-                        playerManager.CurrentStatus.Range += _upValue;
+                        playerManager.CurrentPlayerStatus.SkillSizeUpRate += _upValue;
                         return;
                     case StatusType.BulletSpeed:
-                        playerManager.CurrentStatus.BulletSpeed += _upValue;
+                        playerManager.CurrentPlayerStatus.BulletSpeedUpRate += _upValue;
                         return;
                     case StatusType.EffectTime:
-                        playerManager.CurrentStatus.EffectTime += _upValue;
+                        playerManager.CurrentPlayerStatus.EffectTimeExtension += _upValue;
                         return;
                     case StatusType.BulletNum:
-                        playerManager.CurrentStatus.BulletNum += (int)_upValue;
+                        playerManager.CurrentPlayerStatus.BulletAmountExtension += (int)_upValue;
                         return;
                     case StatusType.Penetration:
-                        playerManager.CurrentStatus.Penetration += _upValue;
+                        playerManager.CurrentPlayerStatus.PenetrateAmountExtension += (int)_upValue;
                         return;
                     case StatusType.MoveSpeed:
-                        playerManager.CurrentStatus.MoveSpeed += _upValue;
+                        playerManager.CurrentPlayerStatus.SpeedUpAtLevelUp += _upValue;
                         return;
                     case StatusType.GrowthSpeed:
-                        playerManager.CurrentStatus.GrowthSpeed += _upValue;
+                        playerManager.CurrentPlayerStatus.GrowthSpeedUpRate += _upValue;
                         return;
                     case StatusType.Luck:
-                        playerManager.CurrentStatus.Luck += _upValue;
+                        playerManager.CurrentPlayerStatus.GoldLuckRate += _upValue;
                         return;
                     case StatusType.CriticalRate:
-                        playerManager.CurrentStatus.CriticalRate += _upValue;
+                        playerManager.CurrentPlayerStatus.CriticalRate += _upValue;
                         return;
                     case StatusType.CriticalDamageRate:
-                        playerManager.CurrentStatus.CriticalDamageRate += _upValue;
+                        playerManager.CurrentPlayerStatus.CriticalDamageRate += _upValue;
                         return;
                     case StatusType.SoulAbsorption:
-                        playerManager.CurrentStatus.SoulAbsorption += _upValue;
+                        playerManager.CurrentPlayerStatus.VacuumItemRange += _upValue;
                         return;
                     case StatusType.SoulAcquisition:
-                        playerManager.CurrentStatus.SoulAcquisition += _upValue;
+                        playerManager.CurrentPlayerStatus.DropIncreasedRate += _upValue;
                         return;
                 }
             }

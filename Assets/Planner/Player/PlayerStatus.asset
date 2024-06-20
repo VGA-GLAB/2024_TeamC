@@ -12,19 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b114a7cc77c94d6f82983505cdecf1d3, type: 3}
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
-  _hp: 100
-  _attack: 0
-  _defence: 0
-  _coolTime: 0
-  _range: 0
-  _bulletSpeed: 0
-  _effectTime: 0
-  _bulletNum: 0
-  _penetration: 0
-  _moveSpeed: 0
-  _growthSpeed: 0
-  _luck: 0
-  _criticalRate: 0
-  _criticalDamageRate: 0
-  _soulAbsorption: 0
-  _soulAcquisition: 0
+  _playerStatus:
+    _hp: 100
+    _attackValue: 10
+    _defenceValue: 10
+    _coolTimeReductionRate: 1
+    _skillSizeUpRate: 1
+    _bulletSpeedUpRate: 1
+    _effectTimeExtension: 1
+    _bulletAmountExtension: 0
+    _penetrateAmountExtension: 0
+    _initialMoveSpeed: 30
+    _speedUpAtLevelUp: 2
+    _healAtLevelUp: 20
+    _growthSpeedUpRate: 1
+    _goldLuckRate: 1
+    _criticalRate: 0
+    _criticalDamageRate: 1.3
+    _vacuumItemRangeRange: 30
+    _dropIncreasedRate: 5

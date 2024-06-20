@@ -4,7 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 
-namespace SoulRunProject.Editor
+namespace SoulRunProject.EditorExtension
 {
     public class SceneFileManager : EditorWindow
     {

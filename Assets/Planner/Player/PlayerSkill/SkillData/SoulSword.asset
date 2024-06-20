@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9742656f284cd7b88c94c69f88ac89, type: 3}
+  m_Name: SoulSword
+  m_EditorClassIdentifier: 
+  _skillType: -2147483644
+  _skillName: "\u9B42\u5263"
+  _explanatoryText: "\u30D7\u30EC\u30A4\u30E4\u30FC\u5468\u308A\u306B\u9B54\u6CD5\u9663\u304C\u6D6E\u304B\u3073\u3001\u9B54\u6CD5\u9663\u304B\u3089\u30E9\u30F3\u30C0\u30E0\u306A\u5834\u6240\u306B\u5C04\u51FA\u3055\u308C\u308B\u3002"
+  _skillIcon: {fileID: 0}
+  _maxSkillLevel: 5
+  _skillParameter:
+    rid: 3163472118127263776
+  _levelUpTable:
+    List:
+    - List:
+      - _levelUpType: 1
+        _increaseDamageValue: 5
+        _increaseSummonLineValue: 5
+        _increasePenetrationPower: 0
+        _reduceCoolTime: 0
+      - _levelUpType: 3
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 0
+        _reduceCoolTime: 20
+    - List:
+      - _levelUpType: 0
+        _increaseDamageValue: 7
+        _increaseSummonLineValue: 1
+        _increasePenetrationPower: 0
+        _reduceCoolTime: 0
+      - _levelUpType: 2
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 1
+        _reduceCoolTime: 0
+      - _levelUpType: 3
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 1
+        _reduceCoolTime: 20
+    - List:
+      - _levelUpType: 1
+        _increaseDamageValue: 10
+        _increaseSummonLineValue: 1
+        _increasePenetrationPower: 0
+        _reduceCoolTime: 0
+      - _levelUpType: 3
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 1
+        _reduceCoolTime: 30
+    - List:
+      - _levelUpType: 1
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 1
+        _increasePenetrationPower: 0
+        _reduceCoolTime: 0
+      - _levelUpType: 2
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 1
+        _reduceCoolTime: 0
+      - _levelUpType: 3
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 1
+        _reduceCoolTime: 30
+  _count: 2
+  _sword: {fileID: 230340649894754956, guid: 01cf13cfebb01c0499fcd59c97fffca9, type: 3}
+  _magicCirclePrefab: {fileID: 4254510158241516511, guid: 9e6a82502d65aa247972ff84a8c3996e,
+    type: 3}
+  _muzzleOffset: {x: 0, y: 0, z: 1}
+  _swordShotDelay: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 3163472118127263776
+      type: {class: ProjectileSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _coolTime: 5
+        _amount: 1
+        _attackDamage: 15
+        _size: 3
+        _speed: 100
+        _penetration: 10
+        _lifeTime: 5
+        _knockBack:
+          _power: 0.2
+        _getSoulValueOnHit: 1

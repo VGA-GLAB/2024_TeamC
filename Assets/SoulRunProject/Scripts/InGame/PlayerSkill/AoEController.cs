@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using SoulRunProject.InGame;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 
 namespace SoulRunProject.Common
@@ -13,22 +12,39 @@ namespace SoulRunProject.Common
     /// </summary>
     public class AoEController : MonoBehaviour
     {
+        [SerializeField] private float _rotateTime = 2f;
         HashSet<DamageableEntity> _entities = new();
-        float _attackDamage;
+        private AoESkillParameter _param;
+        private PlayerManager _playerManager;
 
-        public void Initialize(float attackDamage, float range)
+        private void OnEnable()
         {
-            _attackDamage = attackDamage;
-            transform.localScale = new Vector3(range, range, range);
+            transform.DORotate(new Vector3(0, 360, 0), _rotateTime, RotateMode.WorldAxisAdd)
+                .SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart)
+                .SetLink(gameObject)
+                .SetLink(gameObject, LinkBehaviour.KillOnDisable);
+        }
+
+        public void ApplyParameter(in AoESkillParameter param, PlayerManager playerManager)
+        {
+            _param = param;
+            _playerManager = playerManager;
+            param.ObserveEveryValueChanged(x => x.Size).Subscribe(x => transform.localScale = Vector3.one * x).AddTo(this);
         }
 
         void FixedUpdate()
         {
+            _entities = _entities.Where(entity => entity && entity.gameObject.activeSelf).ToHashSet();
             // OnTriggerExitする前にDestroyすることがあるので、
-            // Whereでnullチェックしてからダメージ処理
-            foreach (var entity in _entities.Where(entity => entity))
+            // Whereでnullチェックとアクティブかどうかをチェックしてからダメージ処理
+            foreach (var entity in _entities)
             {
-                entity.Damage(_attackDamage * Time.fixedDeltaTime);
+                entity.Damage(_param.BaseAttackDamage * Time.fixedDeltaTime, useSE: false);
+
+                if (entity.IsEnemy) // 敵に対するヒット数によってもらえるソウルが増える
+                {
+                    _playerManager.AddSoul(_param.GetSoulPerSec * Time.fixedDeltaTime);
+                }
             }
         }
 

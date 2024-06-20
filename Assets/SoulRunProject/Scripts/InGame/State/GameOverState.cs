@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using SoulRunProject.Common;
 using SoulRunProject.Framework;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace SoulRunProject.InGame
 {

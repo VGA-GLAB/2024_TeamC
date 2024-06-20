@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6be272f7306d1f48a02c4b104ff9fed, type: 3}
+  m_Name: SoulHealing
+  m_EditorClassIdentifier: 
+  _skillType: 134217760
+  _skillName: "\u7652\u3057\u306E\u30BD\u30A6\u30EB"
+  _explanatoryText: "\u30AF\u30FC\u30EB\u30BF\u30A4\u30E0\u304A\u304D\u306B\u56DE\u5FA9\u3059\u308B\u3002"
+  _skillIcon: {fileID: 0}
+  _maxSkillLevel: 5
+  _skillParameter:
+    rid: 3163472118127263762
+  _levelUpTable:
+    List: []
+  _healParticle: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3163472118127263762
+      type: {class: HealingSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _coolTime: 0
+        _healAmount: 0

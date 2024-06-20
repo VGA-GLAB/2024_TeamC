@@ -16,7 +16,7 @@ namespace SoulRunProject.Common
         private PlayingRunGameState _playingRunGameState;
         private EnterBossStageState _enterBossStageState;
         private PlayingBossStageState _playingBossStageState;
-        private GameClearState _gameClearState;
+        private ResultState _resultState;
         private PauseState _pauseState;
         private LevelUpState _levelUpState;
         
@@ -26,7 +26,7 @@ namespace SoulRunProject.Common
             PlayingRunGameState playingRunGameState,
             EnterBossStageState enterBossStageState,
             PlayingBossStageState playingBossStageState,
-            GameClearState gameClearState,
+            ResultState resultState,
             PauseState pauseState,
             LevelUpState levelUpState)
         {   //ステートの追加、遷移処理の設定を行う。
@@ -37,7 +37,7 @@ namespace SoulRunProject.Common
             AddState(2, playingRunGameState);
             AddState(4, enterBossStageState);
             AddState(5, playingBossStageState);
-            AddState(6, gameClearState);
+            AddState(6, resultState);
             AddState(7, pauseState);
             AddState(8, levelUpState);
             firstState.OnStateExit += _ => ChangeState(1);
@@ -55,23 +55,37 @@ namespace SoulRunProject.Common
             };
             pauseState.OnStateExit += _ =>
             {
-                if (pauseState.StateToReturn == playingRunGameState) ChangeState(2);
+                if (pauseState.StateToReturn == playingRunGameState)
+                {
+                    ChangeState(2);
+                }
+                else if (pauseState.StateToReturn == playingBossStageState)
+                {
+                    ChangeState(5);
+                }
             };
             levelUpState.OnStateExit += _ =>
             {
-                if (levelUpState.StateToReturn == playingRunGameState) ChangeState(2);
+                if (levelUpState.StateToReturn == playingRunGameState)
+                {
+                    ChangeState(2);
+                }
+                else if (levelUpState.StateToReturn == playingBossStageState)
+                {
+                    ChangeState(5);
+                }
             };
             enterBossStageState.OnStateExit += _ => ChangeState(5);
             playingBossStageState.OnStateExit += state =>
             {
-                if (playingBossStageState.IsBossDefeated) //ボスを倒した場合
+                if (playingBossStageState.IsBossDefeated) //ボスを倒した場合は通常のRunGameに戻る
                     ChangeState(6);
-                else if (playingRunGameState.SwitchToPauseState) // PauseStateへの移行
+                else if (playingBossStageState.SwitchToPauseState) // PauseStateへの移行
                     ChangeState(7);
-                else if (playingRunGameState.SwitchToLevelUpState) // LevelUpStateへの移行
+                else if (playingBossStageState.SwitchToLevelUpState) // LevelUpStateへの移行
                     ChangeState(8);
-                // else if (playingBossStageState.IsPlayerDead) //プレイヤーが死んだ場合
-                //     ChangeState(3);
+                else if (playingBossStageState.IsPlayerDead) //プレイヤーが死んだ場合
+                    ChangeState(6);
             };
         }
 

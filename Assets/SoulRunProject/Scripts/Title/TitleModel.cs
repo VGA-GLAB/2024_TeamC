@@ -16,21 +16,30 @@ namespace SoulRunProject.Title
 
         private void Start()
         {
-            CriAudioManager.Instance.PlayBGM(CriAudioManager.CueSheet.Bgm, "BGM_title");
+            CriAudioManager.Instance.PlayBGM("BGM_title");
         }
+
         public async void StartGame()
         {
             DebugClass.Instance.ShowLog($"ゲーム開始:{_transitionTime}秒後にインゲーム画面に遷移します");
             //ここで実行
-            SceneManager.LoadScene("InGame");
+            SceneManager.LoadScene("TutorialScene");
+            //LoadingScene.Instance.LoadNextScene("InGame").Forget();
         }
+
         public void Option()
         {
             DebugClass.Instance.ShowLog("オプション画面表示");
         }
+
         public void Exit()
         {
             DebugClass.Instance.ShowLog("ゲーム終了");
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+#else
+    Application.Quit();//ゲームプレイ終了
+#endif
         }
     }
 }

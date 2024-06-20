@@ -9,23 +9,22 @@ namespace SoulRunProject.InGame
     public class EnterStageState : State
     {
         private PlayingRunGameState _playingRunGameState;
-        
+
         public EnterStageState(PlayingRunGameState playingRunGameState)
         {
             _playingRunGameState = playingRunGameState;
         }
-        
+
         protected override void OnEnter(State currentState)
         {
             DebugClass.Instance.ShowLog("ステージ開始ステート開始");
             //TODO：ステージ名の表示
-            CriAudioManager.Instance.PlayBGM(CriAudioManager.CueSheet.Bgm, "BGM_stage1");
+            CriAudioManager.Instance.PlayBGM("BGM_Stage1");
             StateChange();
         }
-        
+
         protected override void OnExit(State nextState)
         {
-    
         }
     }
 }

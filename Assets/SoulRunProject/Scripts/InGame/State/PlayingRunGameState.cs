@@ -9,20 +9,20 @@ namespace SoulRunProject.InGame
     /// </summary>
     public class PlayingRunGameState : State
     {
+        private StageManager _stageManager;
         private PlayerManager _playerManager;
         private PlayerInput _playerInput;
         private PlayerLevelManager _playerLevelManager;
         private CompositeDisposable _compositeDisposable = new CompositeDisposable();
         
-        //TODO：ボスステージ開始前のプレイヤーの位置を設定する場所を検討
-        private float _enterBossStagePosition = 111440;
         public bool ArrivedBossStagePosition { get; private set; }
         public bool SwitchToPauseState { get; private set; }
         public bool IsPlayerDead { get; private set; }
         public bool SwitchToLevelUpState { get; private set; }
-        
-        public PlayingRunGameState(PlayerManager playerManager, PlayerInput playerInput, PlayerLevelManager playerLevelManager)
+        public PlayingRunGameState(StageManager stageManager, PlayerManager playerManager, 
+            PlayerInput playerInput, PlayerLevelManager playerLevelManager)
         {
+            _stageManager = stageManager;
             _playerManager = playerManager;
             _playerInput = playerInput;
             _playerLevelManager = playerLevelManager;
@@ -33,6 +33,7 @@ namespace SoulRunProject.InGame
             DebugClass.Instance.ShowLog("プレイ中ステート開始");
             PauseManager.Pause(false);
             SwitchToLevelUpState = false;
+            ArrivedBossStagePosition = false;
             
             // PlayerInputへの購読
             _playerInput.PauseInput
@@ -44,6 +45,7 @@ namespace SoulRunProject.InGame
                 })
                 .AddTo(_compositeDisposable);
             
+            // レベルアップの購読
             _playerLevelManager.OnLevelUp
                 .SkipLatestValueOnSubscribe()
                 .Subscribe(_ =>
@@ -52,26 +54,38 @@ namespace SoulRunProject.InGame
                     StateChange();
                 })
                 .AddTo(_compositeDisposable);
+            //プレイヤーのHPの監視
+             _playerManager.OnDead += () =>
+             {
+                 IsPlayerDead = true;
+                 StateChange();
+             };
+            
+            // ボスステージへの遷移への購読
+            _stageManager.ToBossStage += ToBossStage;
         }
         
         protected override void OnUpdate()
-        {
-            if (_playerManager.transform.position.z > _enterBossStagePosition)
-            {   //プレイヤーがボスステージ開始前の位置に到達したら前進を止めて遷移
-                PauseManager.Pause(false);
-                ArrivedBossStagePosition = true;
-                StateChange();
-            }
-            else if (_playerManager.CurrentHp.Value <= 0)
+        { 
+            if (_playerManager.CurrentHp.Value <= 0)
             {   //プレイヤーのHPが0になったら遷移
                 IsPlayerDead = true;
                 StateChange();
             }
+            _stageManager.PlayingRunGameUpdate();
         }
 
         protected override void OnExit(State nextState)
         {
             _compositeDisposable.Clear();
+            ArrivedBossStagePosition = false;
+            _stageManager.ToBossStage -= ToBossStage;
+        }
+
+        void ToBossStage()
+        {
+            ArrivedBossStagePosition = true;
+            StateChange();
         }
     }
 }

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9970e7066e20c941bf4beed9b6721a7, type: 3}
+  m_Name: SoulBullet
+  m_EditorClassIdentifier: 
+  _skillType: 536870913
+  _skillName: "\u30BD\u30A6\u30EB\u30D0\u30EC\u30C3\u30C8"
+  _explanatoryText: "\u6700\u521D\u304B\u3089\u6301\u3063\u3066\u3044\u308B\u30B9\u30AD\u30EB\u3002\u30D7\u30EC\u30A4\u30E4\u30FC\u304B\u3089\u5E38\u6642\u653E\u305F\u308C\u308B\u3002"
+  _skillIcon: {fileID: 0}
+  _maxSkillLevel: 5
+  _skillParameter:
+    rid: 3163472118127263756
+  _levelUpTable:
+    List: []
+  _bullet: {fileID: 0}
+  _baseRotateY: 5
+  _muzzleOffset: {x: 0, y: 0, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3163472118127263756
+      type: {class: ProjectileSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _coolTime: 0
+        _amount: 0
+        _attackDamage: 0
+        _size: 0
+        _speed: 0
+        _penetration: 0
+        _lifeTime: 0
+        _knockBack:
+          _power: 0
+        _getSoulValueOnHit: 0

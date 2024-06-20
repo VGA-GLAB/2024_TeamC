@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SoulRunProject.Common;
 using SoulRunProject.Title;
 using UniRx;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace SoulRunProject
 
         private void Start()
         {
+            CriAudioManager.Instance.PlayBGM("BGM_Title");
             _titleView.StartButton.onClick.AsObservable().Subscribe(_ => _titleModel.StartGame());
             _titleView.OptionButton.onClick.AsObservable().Subscribe(_ => _titleModel.Option());
             _titleView.ExitButton.onClick.AsObservable().Subscribe(_ => _titleModel.Exit());

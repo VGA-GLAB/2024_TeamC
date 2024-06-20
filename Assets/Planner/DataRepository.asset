@@ -15,35 +15,30 @@ MonoBehaviour:
   _importPaths:
   - Assets/Planner/Player/PlayerSkill/SkillData
   - Assets/Planner/SoulCard/SoulSkill
-  - Assets/Planner/SoulCard/SoulCard/SoilCards
+  - Assets/Planner/SoulCard/SoulCard
   _dataList:
-  - rid: 1264093692877602827
-  - rid: 1264093692877602828
-  - rid: 1264093692877602829
+  - rid: 5361251960621629528
+  - rid: 5361251960621629529
+  - rid: 5361251960621629530
   references:
     version: 2
     RefIds:
-    - rid: 1264093692877602827
-      type: {class: RepositoryData/ScriptableObjectList, ns: SoulRunProject.Common.Core.ScriptableObject,
-        asm: Assembly-CSharp}
+    - rid: 5361251960621629528
+      type: {class: RepositoryData/ObjectList, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        ScriptableObjects:
+        Objects:
         - {fileID: 11400000, guid: 0d9ceba750591d8468b54d2d2ecc5dc8, type: 2}
         - {fileID: 11400000, guid: df95c91d87216e64b8646eb5593ed616, type: 2}
-        - {fileID: 11400000, guid: c7e3a43ae5d1ebf4c895b4bec4de59c6, type: 2}
-        - {fileID: 11400000, guid: 380fc6e6c3756b547b68c3ed6f2d08fe, type: 2}
-    - rid: 1264093692877602828
-      type: {class: RepositoryData/ScriptableObjectList, ns: SoulRunProject.Common.Core.ScriptableObject,
-        asm: Assembly-CSharp}
+        - {fileID: 11400000, guid: f683d4b162203134f979e311a9733360, type: 2}
+        - {fileID: 11400000, guid: 1014b41278f3fbc46ae575637488a40f, type: 2}
+    - rid: 5361251960621629529
+      type: {class: RepositoryData/ObjectList, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        ScriptableObjects:
+        Objects:
         - {fileID: 11400000, guid: 95369f5c160473b4287d5a8e74d1fc47, type: 2}
-    - rid: 1264093692877602829
-      type: {class: RepositoryData/ScriptableObjectList, ns: SoulRunProject.Common.Core.ScriptableObject,
-        asm: Assembly-CSharp}
+    - rid: 5361251960621629530
+      type: {class: RepositoryData/ObjectList, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        ScriptableObjects:
-        - {fileID: 11400000, guid: 06c785b2ccdec7845acb08d8c17a90de, type: 2}
-        - {fileID: 11400000, guid: d977c12d5fabadb41a945346579a09ee, type: 2}
-        - {fileID: 11400000, guid: fe35cedb6132665458319b335eb3d9ce, type: 2}
-        - {fileID: 11400000, guid: d18972dd96032554a84ab7dcb666e70a, type: 2}
+        Objects:
+        - {fileID: 11400000, guid: cc047e147ba033c4ba1f76b16089371e, type: 2}
+        - {fileID: 102900000, guid: efbb9dee6ccbed5478c6017a23dad16f, type: 3}

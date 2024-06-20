@@ -118,4 +118,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e716579e4356f64c970ae22eb9836ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useFirePointRotation: 0
+  _useFlash: 1
+  _hit: {fileID: 0}
+  _flash: {fileID: 0}
+  _detached: []
   _collider: {fileID: 1068922670914013146}
+  _light: {fileID: 0}
+  _particleSystem: {fileID: 0}
+  _rotationOffset: {x: 0, y: 0, z: 0}
+  _hitOffset: 0

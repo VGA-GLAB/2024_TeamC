@@ -1,14 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using Cinemachine;
 using Cysharp.Threading.Tasks;
-using SoulRunProject.InGame;
-using UniRx.Triggers;
-using UnityEngine;
-using UniRx;
 using DG.Tweening;
+using UnityEngine;
 
 namespace SoulRunProject
 {
@@ -17,6 +11,7 @@ namespace SoulRunProject
     /// </summary>
     public class PlayerCamera : MonoBehaviour
     {
+        [SerializeField] private CinemachineImpulseSource _impulseSource;
         [SerializeField] private Transform _player;
         [SerializeField] private Vector3 _offset;
         [SerializeField] private Vector3 _firstPos;
@@ -41,32 +36,23 @@ namespace SoulRunProject
             _originalPos = _shakeObj.position;
         }
 
+        private void Update()
+        {
+            _shakeObj.position = new (_player.transform.position.x, transform.position.y, transform.position.z);
+        }
+
         public async UniTask DoStartIngameMove(CancellationToken cts)
         {
             return;
-            transform.position = _firstPos;
-            await this.transform.DOMove(_player.position + _offset, 2f).WithCancellation(cts);
         }
 
         public void DamageCam()
         {
-            if (_shaking) return;
-            _shakeObj.transform.DOShakePosition(_shakeDur, _shakePower, _shakeVib, _shakeRand, _isSnap, _isFade)
-                .OnStart(() => _shaking = true)
-                .OnComplete(() =>
-                {
-                    _shakeObj.position = new (_player.transform.position.x, transform.position.y, transform.position.z);
-                    _shaking = false;
-                });
+            _impulseSource.GenerateImpulse(Vector3.one);
         }
         
         public void StartFollowPlayer()
         {
-            // this.LateUpdateAsObservable().Subscribe(_ =>
-            // {
-            //     var pos = _player.position + _offset;
-            //     transform.position = new Vector3(pos.x, transform.position.y, pos.z);
-            // }).AddTo(_player.gameObject);
         }
     }
 }

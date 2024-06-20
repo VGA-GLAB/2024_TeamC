@@ -2,40 +2,53 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SoulRunProject.Common;
-using SoulRunProject.SoulRunProject.Scripts.Common.Core.Singleton;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SoulRunProject.InGame
 {
-    public class SkillManager : MonoBehaviour, IPlayerPausable
+    public class SkillManager : MonoBehaviour
     {
-        [SerializeField, HideInInspector] private Image[] _skillIconImage = new Image[5];
-        private readonly List<SkillBase> _currentSkills = new(5);
-        private List<SkillBase> _skillData;
-        public List<SkillBase> SkillData => _skillData;
-        public List<SkillBase> CurrentSkill => _currentSkills;
+        [SerializeField, Header("初期スキルリスト")] private List<PlayerSkill> _defaultPlayerSkills;
+        [SerializeField, CustomLabel("初期のスキル保有可能数")] private int _initialNumberOfPossessions;
+        [SerializeField, Header("スキルの保有可能数が増えるレベル")] private int[] _increaseSkillLevels;
+        private readonly List<AbstractSkill> _createdSkillList = new();
+        private List<AbstractSkillData> _skillData;
+        public List<AbstractSkillData> SkillData => _skillData;
+        public List<AbstractSkill> CreatedSkillList => _createdSkillList;
         /// <summary>
         /// 現在所持しているスキル名リスト
         /// </summary>
-        public List<PlayerSkill> CurrentSkillTypes => _currentSkills.Select(x => x.SkillType).ToList();
+        public List<PlayerSkill> CurrentSkillTypes => _createdSkillList.Select(x => x.SkillType).ToList();
+        public event Action<AbstractSkillData> OnAddSkill;
+        public bool CanGetNewSkill => _increaseSkillLevels.Count(level => level <= _playerLevelManager.OnLevelUp.Value) 
+            + _initialNumberOfPossessions > _createdSkillList.Count;
         
         private bool _isPause;
+        
+        private PlayerManager _playerManager;
+        private PlayerLevelManager _playerLevelManager;
+        
         public void Start()
         {
-            if (MyRepository.Instance.TryGetDataList<SkillBase>(out var dataSet))
+            _playerManager = FindObjectOfType<PlayerManager>();
+            _playerLevelManager = GetComponent<PlayerLevelManager>();
+            
+            if (MyRepository.Instance.TryGetDataList<AbstractSkillData>(out var dataSet))
             {
                 _skillData = dataSet ;
             }
-            AddSkill(PlayerSkill.SoulBullet);
+
+            foreach (var skill in _defaultPlayerSkills)
+            {
+                AddSkill(skill);
+            }
         }
         
         public void Update()
         {
             if (!_isPause)
             {
-                foreach (var skill in _currentSkills)
+                foreach (var skill in _createdSkillList)
                 {
                     skill.UpdateSkill(Time.deltaTime);
                 }
@@ -51,13 +64,17 @@ namespace SoulRunProject.InGame
             var skill = _skillData.FirstOrDefault(x => x.SkillType == skillType);
             if (skill != null)
             {
-                _currentSkills.Add(skill);
-                skill.StartSkill();
-                _skillIconImage[_currentSkills.Count - 1].sprite = skill.SkillIcon; // スキルアイコンの表示
+                var createdSkill = SkillFactory.CreateSkill(skillType, skill, _playerManager);
+                if (createdSkill != null)
+                {
+                    _createdSkillList.Add(createdSkill);
+                    createdSkill.StartSkill();
+                    OnAddSkill?.Invoke(skill);
+                }
             }
             else
             {
-                Debug.LogError("スキルリストに入っていないスキルがレベルアップ選択されました。");
+                Debug.LogError("スキルリストに入っていないスキルが追加選択されました。");
             }
         }
 
@@ -67,7 +84,7 @@ namespace SoulRunProject.InGame
         /// <param name="skillType">スキル名</param>
         public void LevelUpSkill(PlayerSkill skillType)
         {
-            var skill = _currentSkills.FirstOrDefault(x => x.SkillType == skillType);
+            var skill = _createdSkillList.FirstOrDefault(x => x.SkillType == skillType);
             if (skill != null)
             {
                 skill.LevelUp();
@@ -75,50 +92,6 @@ namespace SoulRunProject.InGame
             else
             {
                 Debug.LogError("スキルリストに入っていないスキルがレベルアップ選択されました。");
-            }
-        }
-        
-        public void Pause(bool isPause)
-        {
-            _isPause = isPause;
-            foreach (var skill in _currentSkills)
-            {
-                skill.Pause(isPause);
-            }
-        }
-
-        [CustomEditor(typeof(SkillManager))]
-        public class SkillManagerEditor : Editor
-        {
-            private SkillManager _skillManager;
-            private bool _groupIsOpen;
-            
-            private void Awake()
-            {
-                _skillManager = target as SkillManager;
-            }
-
-            public override void OnInspectorGUI()
-            {
-                DrawDefaultInspector();
-
-                _groupIsOpen = EditorGUILayout.BeginFoldoutHeaderGroup(_groupIsOpen, "スキルアイコン");
-
-                if (_groupIsOpen)
-                {
-                    _skillManager._skillIconImage[0] = 
-                        EditorGUILayout.ObjectField(_skillManager._skillIconImage[0], typeof(Image), true) as Image;
-                    _skillManager._skillIconImage[1] = 
-                        EditorGUILayout.ObjectField(_skillManager._skillIconImage[1], typeof(Image), true) as Image;
-                    _skillManager._skillIconImage[2] = 
-                        EditorGUILayout.ObjectField(_skillManager._skillIconImage[2], typeof(Image), true) as Image;
-                    _skillManager._skillIconImage[3] = 
-                        EditorGUILayout.ObjectField(_skillManager._skillIconImage[3], typeof(Image), true) as Image;
-                    _skillManager._skillIconImage[4] = 
-                        EditorGUILayout.ObjectField(_skillManager._skillIconImage[4], typeof(Image), true) as Image;
-                }
-                
-                EditorGUILayout.EndFoldoutHeaderGroup();
             }
         }
     }

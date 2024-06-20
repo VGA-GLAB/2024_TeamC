@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97480dcb5d94b9d429b5a2c69d214570, type: 3}
+  m_Name: SoulShell
+  m_EditorClassIdentifier: 
+  _skillType: 1073741832
+  _skillName: "\u9B42\u306E\u6BBB"
+  _explanatoryText: "\u88AB\u5F3E\u3092\u7121\u52B9\u5316\u3059\u308B\u3002"
+  _skillIcon: {fileID: 21300000, guid: 49d775a25ad824a4f87b433e62a01744, type: 3}
+  _maxSkillLevel: 5
+  _skillParameter:
+    rid: 3163472035625041928
+  _levelUpTable:
+    List:
+    - List:
+      - _levelUpType: 0
+        _reduceCoolTime: 10
+        _increaseShieldCount: 0
+    - List:
+      - _levelUpType: 1
+        _reduceCoolTime: 0
+        _increaseShieldCount: 1
+    - List:
+      - _levelUpType: 0
+        _reduceCoolTime: 10
+        _increaseShieldCount: 0
+    - List:
+      - _levelUpType: 0
+        _reduceCoolTime: 10
+        _increaseShieldCount: 0
+      - _levelUpType: 1
+        _reduceCoolTime: 10
+        _increaseShieldCount: 1
+  _original: {fileID: 2146014259444293131, guid: e75b206e61095ad4e967eb23e2aabf38,
+    type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3163472035625041928
+      type: {class: ShieldSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
+      data:
+        _coolTime: 20
+        _shieldCount: 3

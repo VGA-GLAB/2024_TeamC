@@ -1,58 +1,109 @@
 using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
 using SoulRunProject.Common;
-using SoulRunProject.SoulMixScene;
+using SoulRunProject.Runtime;
+using UniRx;
+using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
     /// <summary>
     /// 敵や障害物を管理するクラス
     /// </summary>
-    public class DamageableEntity : MonoBehaviour
+    public class DamageableEntity : PooledObject
     {
-        [SerializeField , Header("HP")] private float _hp = 30;
-        [SerializeField, Header("衝突ダメージ")] private float _collisionDamage;
-        [SerializeField, Header("ノックバック方向")] private Vector3 _direction = Vector3.one;
-        [SerializeField ,Header("ノックバック処理")] TakeKnockBack _takeKnockBack;
-        [SerializeField, Header("ドロップデータ")] LootTable _lootTable;
-        [SerializeField, Header("ダメージエフェクト")] HitDamageEffectManager _hitDamageEffectManager;
+        [SerializeField, CustomLabel("HP")] private float _maxHp = 30;
 
-        public float CollisionDamage => _collisionDamage;
+        [SerializeField, CustomLabel("衝突ダメージ")] 
+        private float _collisionDamage;
+
+        [SerializeField, CustomLabel("ノックバックするかどうか")] 
+        private bool _canKnockback = true;
+
+        [SerializeField, CustomLabel("ノックバック方向"), ShowWhenBoolean(nameof(_canKnockback))]  
+        private Vector3 _direction = Vector3.one;
+
+        [SerializeField, CustomLabel("ノックバック処理"), ShowWhenBoolean(nameof(_canKnockback))]  
+        private TakeKnockBack _takeKnockBack;
+
+        [SerializeField, CustomLabel("ドロップデータ")] 
+        private LootTable _lootTable;
+
+        [SerializeField, CustomLabel("ダメージエフェクト")] 
+        private HitDamageEffectManager _hitDamageEffectManager;
+
+        private FloatReactiveProperty _currentHp = new();
+        private EnemyController _enemyController;
 
         private float _knockBackResistance;
+
+        private PlayerManager _player;
+        /// <typeparam name="ダメージ"></typeparam>
+        /// <typeparam name="クリティカルかどうか"></typeparam>
+        public Action<float, bool> OnDamaged;
         public Action OnDead;
+        public float MaxHp => _maxHp;
+        public float CollisionDamage => _collisionDamage;
+        public FloatReactiveProperty CurrentHp => _currentHp;
+        public bool IsEnemy => _enemyController;
+
+        private void Start()
+        {
+            _player = FindObjectOfType<PlayerManager>();
+            _enemyController = GetComponent<EnemyController>();
+            Initialize();
+        }
+
+        public override void Initialize()
+        {
+            CurrentHp.Value = _maxHp;
+            if (_enemyController) _enemyController.Initialize();
+        }
+
         /// <summary>
         /// ダメージ処理 + ノックバック処理
         /// </summary>
-        public void Damage(float damage , in GiveKnockBack knockBack = null)
+        public void Damage(float damage, in GiveKnockBack knockBack = null, bool useSE = true)
         {
-            _hp -= damage;
-            CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheet.Se, "SE_Hit");
-            if (_hp <= 0)
-            {
-                Death();
-            }
-            if (knockBack != null)
-            {
-                _takeKnockBack.KnockBack(transform , knockBack.Power , _direction);
-            }
-            if (_hitDamageEffectManager)
-            {
-                _hitDamageEffectManager.HitFadeBlinkWhite();
-            }
+            if (!gameObject.activeSelf) return;
+            if (!_player) return;
+            bool isCritical = false;
+            var calculatedDamage = Calculator.CalcDamage(damage, 0, _player.CurrentPlayerStatus.CriticalRate,
+                _player.CurrentPlayerStatus.CriticalDamageRate, ref isCritical);
+            CurrentHp.Value -= calculatedDamage;
+            OnDamaged?.Invoke(calculatedDamage, isCritical);
+
+            if (useSE) CriAudioManager.Instance.PlaySE("SE_Hit");
+
+            if (CurrentHp.Value <= 0) Death();
+
+            if (knockBack != null && _canKnockback) _takeKnockBack.KnockBack(transform, knockBack.Power, _direction);
+
+            if (_hitDamageEffectManager) _hitDamageEffectManager.HitFadeBlinkWhite();
         }
 
-        void Death()
+        public override void OnFinish()
         {
-            if (_lootTable)
-            {
-                ItemDropManager.Instance.Drop(_lootTable, transform.position);
-            }
+            OnDead = null;
+        }
+
+        public void Death()
+        {
+            if (_lootTable) DropManager.Instance.RequestDrop(_lootTable, transform.position);
+
             OnDead?.Invoke();
-            Destroy(gameObject);
+            Finish();
+        }
+
+        public void Despawn()
+        {
+            Finish();
         }
         
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!gameObject.activeSelf) return;
+            if (other.gameObject.TryGetComponent(out PlayerManager playerManager))
+                playerManager.Damage(_collisionDamage);
+        }
     }
 }

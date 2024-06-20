@@ -1,44 +1,103 @@
 ﻿using SoulRunProject.Common;
-using SoulRunProject.SoulMixScene;
 using UnityEngine;
 
 namespace SoulRunProject.InGame
 {
     [RequireComponent(typeof(DamageableEntity))]
-    public class EnemyController: MonoBehaviour, IPausable
+    public class EnemyController : MonoBehaviour, IPausable
     {
-        [SerializeReference, SubclassSelector, Tooltip("敵の攻撃パターンを設定する")]
+        [SerializeReference] [SubclassSelector] [CustomLabel("攻撃処理")]
         protected EntityAttacker _attacker;
-        [SerializeReference, SubclassSelector, Tooltip("敵の移動パターンを設定する")]
+
+        [SerializeReference] [SubclassSelector] [CustomLabel("移動処理")]
         protected EntityMover _mover;
+
+        [SerializeField] [CustomLabel("Enemyの寿命")]
+        private float _enemyLifeTime = 10;
+
         protected Transform _playerTransform;
-        
+        protected PlayerManager _playerManagerInstance;
+        private Animator _animator;
+        private DamageableEntity _damageableEntity;
+        private bool _spawnFlag;
+        private float _timer;
+
+        private void Awake()
+        {
+            Register();
+            _animator = GetComponent<Animator>();
+            _damageableEntity = GetComponent<DamageableEntity>();
+            
+            if (_mover is not null) _mover.Despawn += _damageableEntity.Despawn;
+        }
+
+        private void OnEnable()
+        {
+            _timer = 0;
+            _spawnFlag = true;
+        }
+
+        private void OnDisable()
+        {
+            _spawnFlag = false;
+        }
+
+        private void OnDestroy()
+        {
+            if (_mover is not null) _mover.Despawn -= _damageableEntity.Despawn;
+            UnRegister();
+        }
 
         /// <summary>
-        /// 各行動の初期化処理を行うメソッド
+        ///     各行動の初期化処理を行うメソッド
         /// </summary>
-        void Start()
+        private void Start()
         {
-            _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            _playerManagerInstance = FindObjectOfType<PlayerManager>();
+            if (_playerManagerInstance) _playerTransform = _playerManagerInstance.transform;
+            Initialize();
+        }
+
+        public void Initialize()
+        {
             _attacker?.OnStart();
-            _mover?.OnStart();
+            _mover?.OnStart(transform, _playerManagerInstance);
         }
-        void Update()
+
+        private void Update()
         {
-            _mover?.OnUpdateMove(this.transform, _playerTransform);
-            _attacker?.OnUpdateAttack(this.transform, _playerTransform);
+            if (!_spawnFlag) return;
+
+            _timer += Time.deltaTime;
+            _mover?.OnUpdateMove(transform, _playerTransform);
+            _attacker?.OnUpdateAttack(transform, _playerTransform);
+
+            if (_enemyLifeTime < _timer) _damageableEntity.Despawn();
+
+            if (_playerTransform.position.z > gameObject.transform.position.z) _damageableEntity.Despawn();
         }
+
+        public void Register()
+        {
+            PauseManager.RegisterPausableObject(this);
+        }
+
+        public void UnRegister()
+        {
+            PauseManager.UnRegisterPausableObject(this);
+        }
+
         public void Pause(bool isPause)
         {
             if (isPause)
             {
+                if (_animator) _animator.speed = 0;
                 _attacker?.Pause();
-                _mover?.Pause();
             }
             else
             {
+                if (_animator) _animator.speed = 1;
                 _attacker?.Resume();
-                _mover?.Resume();
             }
         }
     }

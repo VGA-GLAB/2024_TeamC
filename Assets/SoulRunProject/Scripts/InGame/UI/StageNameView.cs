@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
-using SoulRunProject.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,7 +30,7 @@ namespace SoulRunProject
                 .OnComplete(() =>
                 {
                     _stageNameObject.SetActive(false);
-                });
+                }).SetLink(gameObject);
         }
     }
 }

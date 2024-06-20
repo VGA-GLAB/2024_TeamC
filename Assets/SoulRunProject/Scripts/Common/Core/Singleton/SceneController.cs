@@ -65,9 +65,11 @@ namespace SoulRunProject.Common
         /// シーンを非同期でロードします。
         /// </summary>
         /// <param name="sceneName"> シーン名</param>
-        public async UniTask LoadSceneAsync(string sceneName)
+        public async UniTask<AsyncOperation> LoadSceneAsync(string sceneName)
         {
-            await SceneManager.LoadSceneAsync(sceneName).ToUniTask();
+            var asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+            await asyncOperation.ToUniTask();
+            return asyncOperation;
         }
 
         /// <summary>

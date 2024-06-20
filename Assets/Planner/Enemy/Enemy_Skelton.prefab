@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 8160015286760555117}
   - component: {fileID: 4104162914166171959}
   - component: {fileID: 8329125932870208999}
+  - component: {fileID: 1321131542843227285}
+  - component: {fileID: 7205482879741107916}
   m_Layer: 0
   m_Name: Enemy_Skelton
   m_TagString: Untagged
@@ -30,8 +32,8 @@ Transform:
   m_GameObject: {fileID: 7073754473475370446}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.3, y: 2.2, z: 50.9}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.39916, y: 1.39916, z: 1.39916}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -121,9 +123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: 30
+  _maxHp: 30
   _collisionDamage: 10
-  _direction: {x: 0, y: 1, z: 1}
+  _canKnockback: 1
+  _direction: {x: 0, y: 0.5, z: 1}
   _takeKnockBack:
     _resistanceValue: 0
     _knockBackTime: 0.5
@@ -164,3 +167,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 0.1
   _loopCount: 1
+--- !u!114 &1321131542843227285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7073754473475370446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a52d006fdda4ecf991a184f16ff75a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attacker:
+    rid: -2
+  _mover:
+    rid: 8478225587102023693
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 8478225587102023693
+      type: {class: EntityNormalMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
+      data:
+        _moveSpeed: 30
+        _direction: 3
+        _despawnRange: 130
+--- !u!114 &7205482879741107916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7073754473475370446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5929496373a803b4fbfb5b45f78cd968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageUIPrefab: {fileID: -8645444479275004511, guid: abba775fb86727447918faadc8d0e920,
+    type: 3}
+  _uiPosition: {x: 1.1306738, y: 2.2022192, z: 0}
