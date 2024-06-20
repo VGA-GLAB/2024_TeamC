@@ -23,22 +23,28 @@ MonoBehaviour:
     List:
     - List:
       - _levelUpType: 0
-        _increaseDamage: 5
+        _increaseDamage: 100
+        _increaseRange: 1
+      - _levelUpType: 1
+        _increaseDamage: 100
         _increaseRange: 1
     - List:
       - _levelUpType: 1
         _increaseDamage: 10
         _increaseRange: 1
     - List:
-      - _levelUpType: 0
+      - _levelUpType: 1
         _increaseDamage: 5
-        _increaseRange: 0
+        _increaseRange: 1
+      - _levelUpType: 0
+        _increaseDamage: 100
+        _increaseRange: 1
     - List:
       - _levelUpType: 1
         _increaseDamage: 5
         _increaseRange: 1
       - _levelUpType: 0
-        _increaseDamage: 10
+        _increaseDamage: 100
         _increaseRange: 1
   _original: {fileID: 158674725360675817, guid: 75a84e6cba64bf448a7f1dd12ad33ca1,
     type: 3}
@@ -49,6 +55,6 @@ MonoBehaviour:
     - rid: 3163472035625041923
       type: {class: AoESkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _attackDamage: 1000
+        _attackDamage: 250
         _size: 3
         _getSoulPerSec: 1

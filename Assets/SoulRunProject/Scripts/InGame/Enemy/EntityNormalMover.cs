@@ -33,7 +33,7 @@ namespace SoulRunProject.InGame
             self.position += DirectionToVector3(_direction) * ((_moveSpeed + _pm.CurrentPlayerStatus.MoveSpeed) * Time.deltaTime);
 
             var dis = _spawnPos - self.position;
-            if (Math.Abs(dis.x) <= _despawnRange || Math.Abs(dis.y) <= _despawnRange || Math.Abs(dis.z) <= _despawnRange)
+            if (Math.Abs(dis.x) >= _despawnRange || Math.Abs(dis.y) >= _despawnRange || Math.Abs(dis.z) >= _despawnRange)
             {
                 Despawn();
             }

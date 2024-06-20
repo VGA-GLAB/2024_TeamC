@@ -29,10 +29,12 @@ namespace SoulRunProject.Common
 
             if (isPause)
             {
+                CriAudioManager.Instance.PauseAll();
                 Time.timeScale = 0;
             }
             else
             {
+                CriAudioManager.Instance.ResumeAll();
                 Time.timeScale = 1;
             }
 

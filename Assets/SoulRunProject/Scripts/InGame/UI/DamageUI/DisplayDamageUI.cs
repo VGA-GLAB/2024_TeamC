@@ -21,7 +21,7 @@ namespace SoulRunProject.InGame
         {
             _damageUIPool = ObjectPoolManager.Instance.RequestPool(_damageUIPrefab);
             
-            GetComponent<DamageableEntity>().OnDamaged += damage =>
+            GetComponent<DamageableEntity>().OnDamaged += (damage, isCritical) =>
             {
                 // 前回のUIが存在かつダメージ待機中であれば、ダメージの追加表示をする
                 if (_lastDisplayUI && _lastDisplayUI.WaitingForNextDamage)
@@ -32,7 +32,7 @@ namespace SoulRunProject.InGame
                 
                 _lastDisplayUI = (DamageDisplay)_damageUIPool.Rent();
                 DamageDisplay damageDisplay = _lastDisplayUI;
-                damageDisplay.ResetDisplay(transform, _uiPosition, damage, Color.white);
+                damageDisplay.ResetDisplay(transform, _uiPosition, damage);
                 damageDisplay.OnFinishedAsync.Take(1).Subscribe(_ => _damageUIPool.Return(damageDisplay));
             };
         }

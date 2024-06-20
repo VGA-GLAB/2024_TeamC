@@ -24,10 +24,10 @@ MonoBehaviour:
     _penetrateAmountExtension: 0
     _initialMoveSpeed: 30
     _speedUpAtLevelUp: 2
-    _healAtLevelUp: 10
+    _healAtLevelUp: 20
     _growthSpeedUpRate: 1
     _goldLuckRate: 1
     _criticalRate: 0
-    _criticalDamageRate: 1
+    _criticalDamageRate: 1.3
     _vacuumItemRangeRange: 30
     _dropIncreasedRate: 5

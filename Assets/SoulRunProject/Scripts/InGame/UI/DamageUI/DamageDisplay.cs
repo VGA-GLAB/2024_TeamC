@@ -34,12 +34,15 @@ namespace SoulRunProject.InGame
             }
         }
 
-        public void ResetDisplay(Transform tf, Vector3 position, float damage, Color color)
+        public void ResetDisplay(Transform tf, Vector3 position, float damage)
         {
             // 表示のリセット
             _displayTotalDamage = damage;
             _damageText.text = ((int)_displayTotalDamage).ToString();
+            Color color = _damageText.color;
+            color.a = 1;
             _damageText.color = color;
+            _damageText.fontSize = Mathf.Clamp((int)(35 * damage / 100), 15, 35);
             _parent = tf;
             _position = position + new Vector3(Random.Range(-_randomPosRange.x, _randomPosRange.x), 
                 Random.Range(-_randomPosRange.y, _randomPosRange.y), 0);

@@ -20,7 +20,13 @@ MonoBehaviour:
   _skillParameter:
     rid: 3163472118127263753
   _levelUpTable:
-    List: []
+    List:
+    - List:
+      - _levelUpType: 0
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 0
+        _reduceCoolTime: 0
   _count: 0
   _sword: {fileID: 0}
   _magicCirclePrefab: {fileID: 0}

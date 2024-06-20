@@ -161,16 +161,18 @@ MonoBehaviour:
   _attacker:
     rid: -2
   _mover:
-    rid: 290008967495024640
+    rid: 5361252048602136648
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 290008967495024640
-      type: {class: StraightMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
+    - rid: 5361252048602136648
+      type: {class: EntityNormalMover, ns: SoulRunProject.InGame, asm: Assembly-CSharp}
       data:
         _moveSpeed: 40
+        _direction: 3
+        _despawnRange: 130
 --- !u!114 &3766654820064300477
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ namespace SoulRunProject.SoulMixScene
         [SerializeField, CustomLabel("レベルアップ時の回復量"), Range(0, 100)] private float _healAtLevelUp;
         [SerializeField, CustomLabel("成長速度上昇率"), Range( 0 , 5)] private float _growthSpeedUpRate;
         [SerializeField, CustomLabel("ゴールド獲得量増加"), Range( 0 , 5)] private float _goldLuckRate;
-        [SerializeField, CustomLabel("クリティカル率"), Range( 0 , 5)] private float _criticalRate;
+        [SerializeField, CustomLabel("クリティカル率"), Range( 0 , 100)] private float _criticalRate;
         [SerializeField, CustomLabel("クリティカルダメージ倍率"), Range( 0 , 5)] private float _criticalDamageRate;
         [SerializeField, CustomLabel("アイテム吸収力範囲"), Range( 0 , 50)] private float _vacuumItemRangeRange;
         [SerializeField, CustomLabel("ドロップ率増加"), Range( 0 , 5)] private float _dropIncreasedRate;

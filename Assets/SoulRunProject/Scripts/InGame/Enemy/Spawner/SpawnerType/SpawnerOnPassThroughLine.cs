@@ -7,7 +7,7 @@ namespace SoulRunProject.Common
     [Serializable, Name("ラインを越えたら起動")]
     public class SpawnerOnPassThroughLine : ISpawnerEnableType
     {
-        [SerializeReference, CustomLabel("起動ライン (赤のライン)"), Range(0, 10)]
+        [SerializeReference, CustomLabel("起動ライン (赤のライン)"), Range(-50, 0)]
         float _throughLinePos;
 
         public bool IsEnable(Vector3 playerPosition, Vector3 spawnerPosition) => spawnerPosition.z + _throughLinePos < playerPosition.z;

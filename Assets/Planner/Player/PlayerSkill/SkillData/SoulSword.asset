@@ -20,8 +20,62 @@ MonoBehaviour:
   _skillParameter:
     rid: 3163472118127263776
   _levelUpTable:
-    List: []
-  _count: 5
+    List:
+    - List:
+      - _levelUpType: 1
+        _increaseDamageValue: 5
+        _increaseSummonLineValue: 5
+        _increasePenetrationPower: 0
+        _reduceCoolTime: 0
+      - _levelUpType: 3
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 0
+        _reduceCoolTime: 20
+    - List:
+      - _levelUpType: 0
+        _increaseDamageValue: 7
+        _increaseSummonLineValue: 1
+        _increasePenetrationPower: 0
+        _reduceCoolTime: 0
+      - _levelUpType: 2
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 1
+        _reduceCoolTime: 0
+      - _levelUpType: 3
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 1
+        _reduceCoolTime: 20
+    - List:
+      - _levelUpType: 1
+        _increaseDamageValue: 10
+        _increaseSummonLineValue: 1
+        _increasePenetrationPower: 0
+        _reduceCoolTime: 0
+      - _levelUpType: 3
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 1
+        _reduceCoolTime: 30
+    - List:
+      - _levelUpType: 1
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 1
+        _increasePenetrationPower: 0
+        _reduceCoolTime: 0
+      - _levelUpType: 2
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 1
+        _reduceCoolTime: 0
+      - _levelUpType: 3
+        _increaseDamageValue: 0
+        _increaseSummonLineValue: 0
+        _increasePenetrationPower: 1
+        _reduceCoolTime: 30
+  _count: 2
   _sword: {fileID: 230340649894754956, guid: 01cf13cfebb01c0499fcd59c97fffca9, type: 3}
   _magicCirclePrefab: {fileID: 4254510158241516511, guid: 9e6a82502d65aa247972ff84a8c3996e,
     type: 3}
@@ -36,10 +90,10 @@ MonoBehaviour:
         _coolTime: 5
         _amount: 1
         _attackDamage: 15
-        _size: 0.5
+        _size: 3
         _speed: 100
         _penetration: 10
         _lifeTime: 5
         _knockBack:
-          _power: 0.5
-        _getSoulValueOnHit: 0
+          _power: 0.2
+        _getSoulValueOnHit: 1

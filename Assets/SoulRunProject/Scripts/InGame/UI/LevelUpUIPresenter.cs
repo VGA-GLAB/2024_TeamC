@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using SoulRunProject.Common;
 using UniRx;
 using VContainer.Unity;
@@ -34,12 +35,12 @@ namespace SoulRunProject.InGame
             // level up state の切替によってUIを切り替える
             _levelUpState.OnStateEnter += _ =>
             {
-                _levelUpView.SetLevelUpPanelVisibility(true);
+                _levelUpView.OpenLevelUpPanel();
                 UpdateUpgradeUI();
             };
             _levelUpState.OnStateExit += _ =>
             {
-                _levelUpView.SetLevelUpPanelVisibility(false);
+                _levelUpView.CloseLevelUpPanel().Forget();
             };
             
             // upgradeされたら元のステートに戻る
@@ -74,7 +75,7 @@ namespace SoulRunProject.InGame
                 selectedSkillData = notCreatedSkills[Random.Range(0, notCreatedSkills.Length)];
                 
                 _levelUpView.UpgradeButtons[0].InputUIButton.onClick.AsObservable()
-                    .Subscribe(_ =>
+                    .Subscribe( _ =>
                     {
                         _skillManager.AddSkill(selectedSkillData.SkillType);
                         _levelUpState.EndSelectSkill();

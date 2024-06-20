@@ -27,8 +27,8 @@ MonoBehaviour:
         _increaseLaserAmount: 1
         _increaseDamageOverTime: 0
     - List:
-      - _levelUpType: 2
-        _reduceCoolTime: 0
+      - _levelUpType: 0
+        _reduceCoolTime: 20
         _increaseLaserAmount: 1
         _increaseDamageOverTime: 5
     - List:
@@ -64,7 +64,7 @@ MonoBehaviour:
     - rid: 3163472158622744583
       type: {class: LaserSkillParameter, ns: SoulRunProject.Common, asm: Assembly-CSharp}
       data:
-        _damageOverTime: 100
+        _damageOverTime: 500
         _amount: 1
         _width: 70
         _height: 4

@@ -23,30 +23,30 @@ MonoBehaviour:
     List:
     - List:
       - _levelUpType: 0
-        _reduceCoolTime: 20
+        _reduceCoolTime: 10
         _addAmountCount: 0
         _multipleProjectionSpeed: 0
       - _levelUpType: 2
         _reduceCoolTime: 25
         _addAmountCount: 0
-        _multipleProjectionSpeed: 20
+        _multipleProjectionSpeed: 10
     - List:
       - _levelUpType: 0
-        _reduceCoolTime: 20
+        _reduceCoolTime: 15
         _addAmountCount: 0
         _multipleProjectionSpeed: 0
       - _levelUpType: 2
         _reduceCoolTime: 20
         _addAmountCount: 0
-        _multipleProjectionSpeed: 20
+        _multipleProjectionSpeed: 10
     - List:
       - _levelUpType: 0
-        _reduceCoolTime: 20
+        _reduceCoolTime: 15
         _addAmountCount: 0
         _multipleProjectionSpeed: 0
       - _levelUpType: 1
         _reduceCoolTime: 75
-        _addAmountCount: 3
+        _addAmountCount: 2
         _multipleProjectionSpeed: 40
     - List:
       - _levelUpType: 0
@@ -70,5 +70,5 @@ MonoBehaviour:
         _penetration: 1
         _lifeTime: 3
         _knockBack:
-          _power: 0
+          _power: 0.1
         _getSoulValueOnHit: 1

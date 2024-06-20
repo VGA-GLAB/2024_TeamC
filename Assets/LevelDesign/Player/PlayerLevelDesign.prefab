@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f658ff644a4c5387a60090509359a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useGodMode: 0
   _playerInput: {fileID: 8752523051839283500}
   _baseStatus: {fileID: 11400000, guid: d50a16b38666d804883e3040b335a638, type: 2}
   _playerCamera: {fileID: 6635071162787831542}
@@ -223,7 +224,7 @@ MonoBehaviour:
   _jumpPower: 30
   _grav: 80
   _yAxisGroundLine: 0
-  _distanceBetweenPivotAndGroundPoint: 1.5
+  _distanceBetweenPivotAndGroundPoint: 0.1
   _xMoveRangeMin: -100
   _xMoveRangeMax: 100
 --- !u!114 &8752523051839283500
@@ -279,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77eda4c25f42df42900dfed143ab44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialSoul: 100
+  _initialSoul: 0
   _regenerativePerSec: 0.2
 --- !u!54 &6585847965433512431
 Rigidbody:

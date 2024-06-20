@@ -41,7 +41,7 @@ namespace SoulRunProject.Common
             {
                 entity.Damage(_param.BaseAttackDamage * Time.fixedDeltaTime, useSE: false);
 
-                if (entity.TryGetComponent(out EnemyController _)) // 敵に対するヒット数によってもらえるソウルが増える
+                if (entity.IsEnemy) // 敵に対するヒット数によってもらえるソウルが増える
                 {
                     _playerManager.AddSoul(_param.GetSoulPerSec * Time.fixedDeltaTime);
                 }

@@ -98,7 +98,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 9a6df0b19924b0a4c952ee36ea1dda6e,
+    type: 2}
   m_LightingSettings: {fileID: 2129626495}
 --- !u!196 &4
 NavMeshSettings:
@@ -1070,6 +1071,7 @@ MonoBehaviour:
   _commonView: {fileID: 1245848006}
   _stageNameView: {fileID: 1245848005}
   _levelUpView: {fileID: 1245848004}
+  _pauseView: {fileID: 1891771903}
 --- !u!114 &1174502022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1781,6 +1783,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1891771903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 887071590444837957, guid: 5158a5381bdfb5444b1247f8ca126484,
+    type: 3}
+  m_PrefabInstance: {fileID: 270672208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b12a3597d3ce4f8eac87620694189f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1962700604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1826,7 +1840,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSegmentCount: 3
-  _maxScrollSpeed: 5
   _lerpPower: 5
 --- !u!850595691 &2129626495
 LightingSettings:

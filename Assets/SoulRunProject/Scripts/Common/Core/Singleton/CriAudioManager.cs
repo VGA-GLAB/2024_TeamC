@@ -47,7 +47,6 @@ namespace SoulRunProject.Common
         private string _currentBGMCueName = "";
         private CriAtomExAcb _currentBGMAcb = null;
 
-
         /// <summary>マスターボリューム</summary>
         /// <value>変更したい値</value>
         public float MasterVolume
@@ -231,7 +230,43 @@ namespace SoulRunProject.Common
         {
             SceneManager.sceneUnloaded -= Unload;
         }
-        // ここに音を鳴らす関数を書いてください
+
+        public void PauseAll()
+        {
+            if (_bgmPlayer.GetStatus() == CriAtomExPlayer.Status.Playing)
+            {
+                _bgmPlayer.Pause();
+            }
+
+            foreach (var playerData in _seData)
+            {
+                if (playerData.Playback.GetStatus() == CriAtomExPlayback.Status.Playing)
+                {
+                    playerData.Playback.Pause();
+                }
+            }
+
+            if (_loopSEPlayer.GetStatus() == CriAtomExPlayer.Status.Playing)
+            {
+                _loopSEPlayer.Pause();
+            }
+
+            foreach (var playerData in _meData)
+            {
+                if (playerData.Playback.GetStatus() == CriAtomExPlayback.Status.Playing)
+                {
+                    playerData.Playback.Pause();
+                }
+            }
+        }
+
+        public void ResumeAll()
+        {
+            _bgmPlayer.Resume(CriAtomEx.ResumeMode.PausedPlayback);
+            _sePlayer.Resume(CriAtomEx.ResumeMode.PausedPlayback);
+            _loopSEPlayer.Resume(CriAtomEx.ResumeMode.PausedPlayback);
+            _mePlayer.Resume(CriAtomEx.ResumeMode.PausedPlayback);
+        }
 
         /// <summary>BGMを開始する</summary>
         /// <param name="cueName">流したいキューの名前</param>
@@ -394,7 +429,6 @@ namespace SoulRunProject.Common
         public void ResumeME(int index)
         {
             if (index < 0) return;
-
             _meData[index].Playback.Resume(CriAtomEx.ResumeMode.AllPlayback);
         }
 

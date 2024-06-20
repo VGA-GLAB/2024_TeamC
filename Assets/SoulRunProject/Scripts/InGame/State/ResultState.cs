@@ -24,6 +24,7 @@ namespace SoulRunProject.InGame
 
         public void ExitToTitle()
         {
+            PauseManager.Pause(false);
             // タイトルへ遷移
             SceneManager.LoadScene(0);
         }

@@ -193,6 +193,7 @@ MonoBehaviour:
       data:
         _moveSpeed: 30
         _direction: 3
+        _despawnRange: 130
 --- !u!114 &7205482879741107916
 MonoBehaviour:
   m_ObjectHideFlags: 0
