@@ -1,43 +1,47 @@
 using UnityEngine;
-using UnityEngine.Serialization;
+using DG.Tweening;
 
-namespace SoulRunProject.InGame
+public class ConcentrationLineController : MonoBehaviour
 {
-    public class ConcentrationLineController : MonoBehaviour
+    [SerializeField] private Material _concentrationLineMaterial;
+    [SerializeField] private float _maxSpeed = 20f;
+    [SerializeField] private float _minSpeed = 10f;
+    [SerializeField] private float _fadeDuration = 0.5f;
+
+    private float _currentSpeed;
+    private static readonly int scrollSpeed = Shader.PropertyToID("_ScrollSpeed");
+    private static readonly int noiseBlend = Shader.PropertyToID("_NoiseBlend");
+
+    private void Start()
     {
-        [SerializeField] private Material _concentrationLineMaterial; // ShaderGraphで使用するマテリアル
-        [SerializeField] private PlayerMovement _playerMovement; // プレイヤーの移動スクリプト
+        _currentSpeed = 0;
+        SetConcentrationLine(0); // 初期は非表示
+    }
 
-        private float _noiseBlend;
-        private float _speed;
-        private const float MinNoiseBlend = 0.0f;
-        private const float MaxNoiseBlend = 0.5f;
-        private const float MinSpeed = 10f;
-        private const float MaxSpeed = 20f;
-
-        private const float MinMoveSpeed = 0f;
-        private const float MaxMoveSpeed = 20f;
-
-        void Update()
+    public void UpdateConcentrationLine(float playerSpeed)
+    {
+        // プレイヤーの速度に応じて段階的に集中線の強さを変える
+        if (playerSpeed < _minSpeed)
         {
-            float currentSpeed = _playerMovement.MoveSpeed; // プレイヤーの移動速度を取得
-
-            // 移動速度に応じて集中線の強さを調整
-            float t = Mathf.InverseLerp(MinMoveSpeed, MaxMoveSpeed, currentSpeed);
-
-            // NoiseBlendとSpeedを制御
-            _noiseBlend = Mathf.Lerp(MinNoiseBlend, MaxNoiseBlend, t);
-            _speed = Mathf.Lerp(MinSpeed, MaxSpeed, t);
-
-            // マテリアルのプロパティに値をセット
-            _concentrationLineMaterial.SetFloat("_NoiseBlend", _noiseBlend);
-            _concentrationLineMaterial.SetFloat("_Speed", _speed);
-
-            // 他のパラメータも同様に設定
-            _concentrationLineMaterial.SetFloat("_SmoothEdge1", 0.5f);
-            _concentrationLineMaterial.SetFloat("_SmoothEdge2", 0.5f);
-            _concentrationLineMaterial.SetFloat("_AngleScale", 3.62f);
-            _concentrationLineMaterial.SetFloat("_Randomness", 17f);
+            SetConcentrationLine(0); // 出さない
         }
+        else if (playerSpeed < (_maxSpeed + _minSpeed) / 2)
+        {
+            SetConcentrationLine(0.5f); // 少し出る
+        }
+        else
+        {
+            SetConcentrationLine(1f); // 最大
+        }
+    }
+
+    private void SetConcentrationLine(float targetValue)
+    {
+        DOTween.To(() => _currentSpeed, x => _currentSpeed = x, targetValue, _fadeDuration).OnUpdate(() =>
+        {
+            // シェーダーの速度を制御する
+            _concentrationLineMaterial.SetFloat(scrollSpeed, Mathf.Lerp(_minSpeed, _maxSpeed, _currentSpeed));
+            _concentrationLineMaterial.SetFloat(noiseBlend, Mathf.Lerp(0, 0.5f, _currentSpeed));
+        });
     }
 }
