@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef424d786b4ebd4ea7ddc1567786d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 50000
+  _maxHp: 80000
   _collisionDamage: 0
   _canKnockback: 1
   _direction: {x: 0, y: 1, z: 1}
@@ -454,6 +454,7 @@ MonoBehaviour:
     _knockBackTime: 0.5
   _lootTable: {fileID: 0}
   _hitDamageEffectManager: {fileID: 4175144361476707941}
+  _useHitSe: 1
 --- !u!114 &4175144361476707941
 MonoBehaviour:
   m_ObjectHideFlags: 0

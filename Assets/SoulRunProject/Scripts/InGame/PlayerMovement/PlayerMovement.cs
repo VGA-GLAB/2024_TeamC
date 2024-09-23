@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using SoulRunProject.Audio;
 using SoulRunProject.Common;
 using UniRx;
@@ -42,13 +43,15 @@ namespace SoulRunProject.InGame
 
         public float DistanceBetweenPivotAndGroundPoint => _distanceBetweenPivotAndGroundPoint;
 
-        private void Awake()
+        private async void Awake()
         {
             _rb = GetComponent<Rigidbody>();
             _rb.useGravity = false;
 
             _isGround.AddTo(this);
             this.OnDestroyAsObservable().Subscribe(_ => OnJumped = null);
+            
+            await UniTask.DelayFrame(3);// ステージが生成されるまで待機
             _isGround.SkipLatestValueOnSubscribe().Subscribe(flag =>
             {
                 if (flag)

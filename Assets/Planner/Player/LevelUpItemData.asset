@@ -55,7 +55,7 @@ MonoBehaviour:
       _upValue: 0.3
   - _itemName: "\u5929\u4F7F\u306E\u9769\u9774"
     _itemIcon: {fileID: 21300000, guid: 37d682cfc1084d64f98bd49b9baed0f8, type: 3}
-    _explanatoryText: "\u64CD\u4F5C\u30AD\u30E3\u30E9\u306E\u901F\u5EA6\u4E0A\u6607\u30B9\u30AD\u30EB\u767A\u5C04\u9593\u9694\u3092\u4E0A\u6607"
+    _explanatoryText: "\u64CD\u4F5C\u30AD\u30E3\u30E9\u306E\u901F\u5EA6\u4E0A\u6607\u30B9\u30AD\u30EB\u767A\u5C04\u9593\u9694\u3092\u77ED\u7E2E"
     ItemEffects:
     - _statusToUp: 9
       _upValue: 1

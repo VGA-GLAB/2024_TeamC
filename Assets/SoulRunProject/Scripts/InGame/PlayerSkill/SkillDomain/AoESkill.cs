@@ -7,6 +7,7 @@ namespace SoulRunProject.InGame
     public class AoESkill : AbstractSkill
     {
         private AoEController _aoeController;
+
         public AoESkill(AbstractSkillData skillData, in PlayerManager playerManager, in Transform playerTransform)
             : base(skillData, in playerManager, in playerTransform)
         {
@@ -33,6 +34,7 @@ namespace SoulRunProject.InGame
         public override void OnLevelUp()
         {
             _aoeController.ApplyParameter(RuntimeParameter, _playerManagerInstance);
+            CriAudioManager.Instance.Play(CriAudioType.CueSheet_SE, "SE_Holyfield");
         }
     }
 }
